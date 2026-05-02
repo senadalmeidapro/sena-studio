@@ -24,6 +24,8 @@ use Illuminate\Notifications\Notifiable;
  * @property string|null $two_factor_secret
  * @property string|null $two_factor_recovery_codes
  * @property Carbon|null $two_factor_confirmed_at
+ *
+ * @method bool|null delete()
  */
 class User extends Authenticatable
 {

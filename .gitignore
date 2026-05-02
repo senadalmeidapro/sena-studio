@@ -25,9 +25,13 @@ yarn-error.log
 
 .github/agents
 .github/hooks
-.github/instructions
+.github/instructionsœ
 .github/prompts
 .github/skills
 
 /scripts
 /.cursor
+/note/*
+.codex
+FILAMENT_ARCHITECTURE.md
+.filament-resources-manifest
