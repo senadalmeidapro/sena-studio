@@ -6,8 +6,10 @@
 
 namespace App\Models;
 
+use App\Enums\StackItemCategory;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class StackItem
@@ -29,7 +31,8 @@ class StackItem extends Model
 	protected $table = 'stack_items';
 
 	protected $casts = [
-		'stack_id' => 'int'
+		'stack_id' => 'int',
+		'category' => StackItemCategory::class,
 	];
 
 	protected $fillable = [
@@ -39,7 +42,7 @@ class StackItem extends Model
 		'version'
 	];
 
-	public function stack()
+	public function stack(): BelongsTo
 	{
 		return $this->belongsTo(Stack::class);
 	}

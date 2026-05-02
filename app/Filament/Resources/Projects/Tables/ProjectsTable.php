@@ -2,6 +2,10 @@
 
 namespace App\Filament\Resources\Projects\Tables;
 
+use App\Enums\ProjectComplexity;
+use App\Enums\ProjectStatus;
+use App\Enums\ProjectType;
+use App\Enums\ProjectVisibility;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -29,6 +33,7 @@ class ProjectsTable
 
                 TextColumn::make('status')
                     ->badge()
+                    ->formatStateUsing(fn ($state): string => $state?->label() ?? (string) $state)
                     ->colors([
                         'gray' => 'development',
                         'warning' => 'testing',
@@ -39,10 +44,12 @@ class ProjectsTable
 
                 TextColumn::make('type')
                     ->badge()
+                    ->formatStateUsing(fn ($state): string => $state?->label() ?? (string) $state)
                     ->sortable(),
 
                 TextColumn::make('complexity')
                     ->badge()
+                    ->formatStateUsing(fn ($state): string => $state?->label() ?? (string) $state)
                     ->colors([
                         'gray' => 'simple',
                         'warning' => 'medium',
@@ -76,34 +83,17 @@ class ProjectsTable
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->options([
-                        'development' => 'Development',
-                        'testing' => 'Testing',
-                        'production' => 'Production',
-                        'cancelled' => 'Cancelled',
-                    ]),
+                    ->options(ProjectStatus::options()),
 
                 SelectFilter::make('type')
-                    ->options([
-                        'web' => 'Web',
-                        'app' => 'App',
-                        'software' => 'Software',
-                    ]),
+                    ->options(ProjectType::options()),
 
                 SelectFilter::make('complexity')
-                    ->options([
-                        'simple' => 'Simple',
-                        'medium' => 'Medium',
-                        'complex' => 'Complex',
-                    ]),
+                    ->options(ProjectComplexity::options()),
 
                 SelectFilter::make('visibility')
                     ->label('Visibility')
-                    ->options([
-                        'public' => 'Public',
-                        'private' => 'Private',
-                        'protected' => 'Protected',
-                    ]),
+                    ->options(ProjectVisibility::options()),
 
                 SelectFilter::make('stack')
                     ->relationship('stack', 'name'),

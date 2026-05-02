@@ -9,6 +9,8 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
  * Class Category
@@ -40,8 +42,14 @@ class Category extends Model
 		'sort_order'
 	];
 
-	public function categorizables()
+	public function categorizables(): HasMany
 	{
 		return $this->hasMany(Categorizable::class);
+	}
+
+	public function skills(): MorphToMany
+	{
+		return $this->morphedByMany(Skill::class, 'categorizable')
+			->withTimestamps();
 	}
 }

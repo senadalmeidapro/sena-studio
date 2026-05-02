@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Infras\Tables;
 
+use App\Enums\InfraEnvironment;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -25,6 +26,7 @@ class InfrasTable
 
                 TextColumn::make('environment')
                     ->badge()
+                    ->formatStateUsing(fn ($state): string => $state?->label() ?? (string) $state)
                     ->colors([
                         'gray' => 'development',
                         'warning' => 'staging',
@@ -55,11 +57,7 @@ class InfrasTable
             ])
             ->filters([
                 SelectFilter::make('environment')
-                    ->options([
-                        'development' => 'Development',
-                        'staging' => 'Staging',
-                        'production' => 'Production',
-                    ]),
+                    ->options(InfraEnvironment::options()),
 
                 SelectFilter::make('is_active')
                     ->options([

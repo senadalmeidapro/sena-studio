@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Stacks\Schemas;
 
+use App\Enums\StackItemCategory;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -29,16 +30,7 @@ class StackForm
                     ->relationship()
                     ->schema([
                         Select::make('category')
-                            ->options([
-                                'frontend' => 'Frontend',
-                                'backend' => 'Backend',
-                                'database' => 'Database',
-                                'cache' => 'Cache',
-                                'queue' => 'Queue',
-                                'orm' => 'ORM',
-                                'storage' => 'Storage',
-                                'cloud' => 'Cloud',
-                            ])
+                            ->options(StackItemCategory::options())
                             ->required(),
 
                         TextInput::make('value')

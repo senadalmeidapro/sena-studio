@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Infras\Schemas;
 
+use App\Enums\InfraEnvironment;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -43,11 +44,7 @@ class InfraForm
                     ->default(10),
 
                 Select::make('environment')
-                    ->options([
-                        'development' => 'Development',
-                        'staging' => 'Staging',
-                        'production' => 'Production',
-                    ])
+                    ->options(InfraEnvironment::options())
                     ->required(),
 
                 Toggle::make('is_active')

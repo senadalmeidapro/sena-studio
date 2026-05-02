@@ -6,9 +6,15 @@
 
 namespace App\Models;
 
+use App\Enums\ProjectComplexity;
+use App\Enums\ProjectStatus;
+use App\Enums\ProjectType;
+use App\Enums\ProjectVisibility;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -51,7 +57,11 @@ class Project extends Model
 		'started_at' => 'datetime',
 		'ended_at' => 'datetime',
 		'stack_id' => 'int',
-		'infra_id' => 'int'
+		'infra_id' => 'int',
+		'status' => ProjectStatus::class,
+		'type' => ProjectType::class,
+		'complexity' => ProjectComplexity::class,
+		'visibility' => ProjectVisibility::class,
 	];
 
 	protected $fillable = [
@@ -73,17 +83,17 @@ class Project extends Model
 		'infra_id'
 	];
 
-	public function stack()
+	public function stack(): BelongsTo
 	{
 		return $this->belongsTo(Stack::class);
 	}
 
-	public function infra()
+	public function infra(): BelongsTo
 	{
 		return $this->belongsTo(Infra::class);
 	}
 
-	public function skills()
+	public function skills(): BelongsToMany
 	{
 		return $this->belongsToMany(Skill::class)
 					->withPivot('id', 'proficiency')

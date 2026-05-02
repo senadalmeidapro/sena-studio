@@ -2,6 +2,10 @@
 
 namespace App\Filament\Resources\Projects\Schemas;
 
+use App\Enums\ProjectComplexity;
+use App\Enums\ProjectStatus;
+use App\Enums\ProjectType;
+use App\Enums\ProjectVisibility;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -50,40 +54,23 @@ class ProjectForm
                     ->preserveFilenames(),
 
                 Select::make('status')
-                    ->options([
-                        'development' => 'Development',
-                        'testing' => 'Testing',
-                        'production' => 'Production',
-                        'cancelled' => 'Cancelled',
-                    ])
-                    ->default('development')
+                    ->options(ProjectStatus::options())
+                    ->default(ProjectStatus::Development->value)
                     ->required(),
 
                 Select::make('type')
-                    ->options([
-                        'web' => 'Web',
-                        'app' => 'App',
-                        'software' => 'Software',
-                    ])
-                    ->default('web')
+                    ->options(ProjectType::options())
+                    ->default(ProjectType::Web->value)
                     ->required(),
 
                 Select::make('complexity')
-                    ->options([
-                        'simple' => 'Simple',
-                        'medium' => 'Medium',
-                        'complex' => 'Complex',
-                    ])
-                    ->default('simple')
+                    ->options(ProjectComplexity::options())
+                    ->default(ProjectComplexity::Simple->value)
                     ->required(),
 
                 Select::make('visibility')
-                    ->options([
-                        'public' => 'Public',
-                        'private' => 'Private',
-                        'protected' => 'Protected',
-                    ])
-                    ->default('public')
+                    ->options(ProjectVisibility::options())
+                    ->default(ProjectVisibility::Public->value)
                     ->required(),
 
                 DatePicker::make('started_at'),

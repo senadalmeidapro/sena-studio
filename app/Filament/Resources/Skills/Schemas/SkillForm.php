@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Skills\Schemas;
 
+use App\Enums\SkillLevel;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -22,13 +23,14 @@ class SkillForm
                 Textarea::make('description'),
 
                 Select::make('level')
-                    ->options([
-                        'beginner' => 'Beginner',
-                        'intermediate' => 'Intermediate',
-                        'advanced' => 'Advanced',
-                        'expert' => 'Expert',
-                    ])
+                    ->options(SkillLevel::options())
                     ->required(),
+
+                Select::make('categories')
+                    ->relationship('categories', 'name')
+                    ->multiple()
+                    ->searchable()
+                    ->preload(),
 
                 Toggle::make('is_active')
                     ->default(true),

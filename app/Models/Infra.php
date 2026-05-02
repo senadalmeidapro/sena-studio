@@ -6,9 +6,11 @@
 
 namespace App\Models;
 
+use App\Enums\InfraEnvironment;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Infra
@@ -39,7 +41,8 @@ class Infra extends Model
 		'cpu_cores' => 'int',
 		'memory_mb' => 'int',
 		'storage_gb' => 'int',
-		'is_active' => 'bool'
+		'is_active' => 'bool',
+		'environment' => InfraEnvironment::class,
 	];
 
 	protected $fillable = [
@@ -55,7 +58,7 @@ class Infra extends Model
 		'is_active'
 	];
 
-	public function projects()
+	public function projects(): HasMany
 	{
 		return $this->hasMany(Project::class);
 	}
