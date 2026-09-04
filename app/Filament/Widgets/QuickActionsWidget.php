@@ -12,7 +12,7 @@ class QuickActionsWidget extends Widget
 {
     protected string $view = 'filament.widgets.quick-actions-widget';
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     public function getViewData(): array
     {

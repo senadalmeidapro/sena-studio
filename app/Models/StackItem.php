@@ -21,29 +21,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $version
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- *
  * @property Stack $stack
- *
- * @package App\Models
  */
 class StackItem extends Model
 {
-	protected $table = 'stack_items';
+    protected $table = 'stack_items';
 
-	protected $casts = [
-		'stack_id' => 'int',
-		'category' => StackItemCategory::class,
-	];
+    protected $casts = [
+        'stack_id' => 'int',
+        'category' => StackItemCategory::class,
+    ];
 
-	protected $fillable = [
-		'stack_id',
-		'category',
-		'value',
-		'version'
-	];
+    protected $fillable = [
+        'stack_id',
+        'category',
+        'value',
+        'version',
+    ];
 
-	public function stack(): BelongsTo
-	{
-		return $this->belongsTo(Stack::class);
-	}
+    public function stack(): BelongsTo
+    {
+        return $this->belongsTo(Stack::class);
+    }
 }

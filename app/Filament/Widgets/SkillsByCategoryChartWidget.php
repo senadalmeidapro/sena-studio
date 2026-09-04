@@ -11,7 +11,7 @@ class SkillsByCategoryChartWidget extends BarChartWidget
 
     protected ?string $description = 'Distribution of skills across assigned categories.';
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected function getData(): array
     {

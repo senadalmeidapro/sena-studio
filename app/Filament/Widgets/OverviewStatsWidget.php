@@ -17,7 +17,7 @@ class OverviewStatsWidget extends StatsOverviewWidget
 
     protected ?string $description = 'Core SaaS KPIs across users, projects, skills, stacks, and infrastructure.';
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected function getStats(): array
     {

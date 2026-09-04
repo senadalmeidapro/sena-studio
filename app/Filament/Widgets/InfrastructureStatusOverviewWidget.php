@@ -13,7 +13,7 @@ class InfrastructureStatusOverviewWidget extends StatsOverviewWidget
 
     protected ?string $description = 'Infrastructure health and environment coverage.';
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected function getStats(): array
     {

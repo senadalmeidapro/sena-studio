@@ -15,11 +15,12 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Project
- * 
+ *
  * @property int $id
  * @property string $name
  * @property string $slug
@@ -40,63 +41,67 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
  * @property Stack|null $stack
  * @property Infra|null $infra
  * @property Collection|Skill[] $skills
- *
- * @package App\Models
  */
 class Project extends Model
 {
-	use SoftDeletes;
-	protected $table = 'projects';
+    use SoftDeletes;
 
-	protected $casts = [
-		'price' => 'float',
-		'started_at' => 'datetime',
-		'ended_at' => 'datetime',
-		'stack_id' => 'int',
-		'infra_id' => 'int',
-		'status' => ProjectStatus::class,
-		'type' => ProjectType::class,
-		'complexity' => ProjectComplexity::class,
-		'visibility' => ProjectVisibility::class,
-	];
+    protected $table = 'projects';
 
-	protected $fillable = [
-		'name',
-		'slug',
-		'description',
-		'version',
-		'price',
-		'url',
-		'repository_url',
-		'image',
-		'status',
-		'type',
-		'complexity',
-		'visibility',
-		'started_at',
-		'ended_at',
-		'stack_id',
-		'infra_id'
-	];
+    protected $casts = [
+        'price' => 'float',
+        'started_at' => 'datetime',
+        'ended_at' => 'datetime',
+        'stack_id' => 'int',
+        'infra_id' => 'int',
+        'status' => ProjectStatus::class,
+        'type' => ProjectType::class,
+        'complexity' => ProjectComplexity::class,
+        'visibility' => ProjectVisibility::class,
+    ];
 
-	public function stack(): BelongsTo
-	{
-		return $this->belongsTo(Stack::class);
-	}
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'version',
+        'price',
+        'url',
+        'repository_url',
+        'image',
+        'status',
+        'type',
+        'complexity',
+        'visibility',
+        'started_at',
+        'ended_at',
+        'stack_id',
+        'infra_id',
+    ];
 
-	public function infra(): BelongsTo
-	{
-		return $this->belongsTo(Infra::class);
-	}
+    public function stack(): BelongsTo
+    {
+        return $this->belongsTo(Stack::class);
+    }
 
-	public function skills(): BelongsToMany
-	{
-		return $this->belongsToMany(Skill::class)
-					->withPivot('id', 'proficiency')
-					->withTimestamps();
-	}
+    public function infra(): BelongsTo
+    {
+        return $this->belongsTo(Infra::class);
+    }
+
+    public function skills(): BelongsToMany
+    {
+        return $this->belongsToMany(Skill::class)
+            ->withPivot('id', 'proficiency')
+            ->withTimestamps();
+    }
+
+    public function categories(): MorphToMany
+    {
+        return $this->morphToMany(Category::class, 'categorizable')
+            ->withTimestamps();
+    }
 }

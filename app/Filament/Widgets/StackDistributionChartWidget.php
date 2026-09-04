@@ -11,7 +11,7 @@ class StackDistributionChartWidget extends BarChartWidget
 
     protected ?string $description = 'Projects grouped by their assigned stack.';
 
-    protected int | string | array $columnSpan = [
+    protected int|string|array $columnSpan = [
         'md' => 1,
         'xl' => 6,
     ];

@@ -9,8 +9,8 @@ use App\Enums\ProjectVisibility;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class ProjectForm
@@ -89,6 +89,14 @@ class ProjectForm
 
                 Select::make('skills')
                     ->relationship('skills', 'name')
+                    ->multiple()
+                    ->searchable()
+                    ->preload()
+                    ->columnSpanFull()
+                    ->helperText('Proficiency per skill is set in the Skills tab below after saving.'),
+
+                Select::make('categories')
+                    ->relationship('categories', 'name')
                     ->multiple()
                     ->searchable()
                     ->preload()

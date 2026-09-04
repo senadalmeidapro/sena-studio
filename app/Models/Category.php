@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
  * Class Category
- * 
+ *
  * @property int $id
  * @property string $name
  * @property string $slug
@@ -22,34 +22,37 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property int $sort_order
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
  * @property Collection|Categorizable[] $categorizables
- *
- * @package App\Models
  */
 class Category extends Model
 {
-	protected $table = 'categories';
+    protected $table = 'categories';
 
-	protected $casts = [
-		'sort_order' => 'int'
-	];
+    protected $casts = [
+        'sort_order' => 'int',
+    ];
 
-	protected $fillable = [
-		'name',
-		'slug',
-		'description',
-		'sort_order'
-	];
+    protected $fillable = [
+        'name',
+        'slug',
+        'description',
+        'sort_order',
+    ];
 
-	public function categorizables(): HasMany
-	{
-		return $this->hasMany(Categorizable::class);
-	}
+    public function categorizables(): HasMany
+    {
+        return $this->hasMany(Categorizable::class);
+    }
 
-	public function skills(): MorphToMany
-	{
-		return $this->morphedByMany(Skill::class, 'categorizable')
-			->withTimestamps();
-	}
+    public function skills(): MorphToMany
+    {
+        return $this->morphedByMany(Skill::class, 'categorizable')
+            ->withTimestamps();
+    }
+
+    public function projects(): MorphToMany
+    {
+        return $this->morphedByMany(Project::class, 'categorizable')
+            ->withTimestamps();
+    }
 }

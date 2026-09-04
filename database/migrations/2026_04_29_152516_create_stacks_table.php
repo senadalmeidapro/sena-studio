@@ -49,8 +49,10 @@ return new class extends Migration
 
             $table->timestamps();
 
-            // Contrainte: Un seul élément par stack et catégorie
-            $table->unique(['stack_id', 'category']);
+            // Contrainte: pas de doublon exact (même valeur pour la même catégorie du même stack)
+            // (retrait de l'ancienne contrainte unique(['stack_id','category']) qui empêchait
+            // d'avoir plusieurs technologies dans une même catégorie, ex: deux outils "backend")
+            $table->unique(['stack_id', 'category', 'value']);
         });
     }
 

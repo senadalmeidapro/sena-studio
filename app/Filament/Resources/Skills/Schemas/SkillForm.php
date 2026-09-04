@@ -4,9 +4,9 @@ namespace App\Filament\Resources\Skills\Schemas;
 
 use App\Enums\SkillLevel;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
 
 class SkillForm

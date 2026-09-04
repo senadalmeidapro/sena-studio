@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Infra
- * 
+ *
  * @property int $id
  * @property string $name
  * @property string|null $description
@@ -28,38 +28,35 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property bool $is_active
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
  * @property Collection|Project[] $projects
- *
- * @package App\Models
  */
 class Infra extends Model
 {
-	protected $table = 'infras';
+    protected $table = 'infras';
 
-	protected $casts = [
-		'cpu_cores' => 'int',
-		'memory_mb' => 'int',
-		'storage_gb' => 'int',
-		'is_active' => 'bool',
-		'environment' => InfraEnvironment::class,
-	];
+    protected $casts = [
+        'cpu_cores' => 'int',
+        'memory_mb' => 'int',
+        'storage_gb' => 'int',
+        'is_active' => 'bool',
+        'environment' => InfraEnvironment::class,
+    ];
 
-	protected $fillable = [
-		'name',
-		'description',
-		'docker_image',
-		'kubernetes_config',
-		'helm_chart',
-		'cpu_cores',
-		'memory_mb',
-		'storage_gb',
-		'environment',
-		'is_active'
-	];
+    protected $fillable = [
+        'name',
+        'description',
+        'docker_image',
+        'kubernetes_config',
+        'helm_chart',
+        'cpu_cores',
+        'memory_mb',
+        'storage_gb',
+        'environment',
+        'is_active',
+    ];
 
-	public function projects(): HasMany
-	{
-		return $this->hasMany(Project::class);
-	}
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class);
+    }
 }
