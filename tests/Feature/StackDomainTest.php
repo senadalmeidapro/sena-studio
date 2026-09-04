@@ -21,7 +21,7 @@ it('allows two different technologies in the same category for one stack', funct
         'version' => '5.0',
     ]);
 
-    expect($stack->stack_items()->where('category', 'backend')->count())->toBe(2);
+    expect($stack->stackItems()->where('category', 'backend')->count())->toBe(2);
 });
 
 it('rejects an exact duplicate stack item', function () {

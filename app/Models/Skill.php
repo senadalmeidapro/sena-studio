@@ -1,32 +1,17 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
 use App\Enums\SkillLevel;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
-/**
- * Class Skill
- *
- * @property int $id
- * @property string $name
- * @property string|null $description
- * @property string $level
- * @property bool $is_active
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property Collection|Project[] $projects
- */
 class Skill extends Model
 {
+    use HasFactory;
+
     protected $table = 'skills';
 
     protected $casts = [

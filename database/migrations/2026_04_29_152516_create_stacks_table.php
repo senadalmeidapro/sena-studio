@@ -6,16 +6,8 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * OPTION A (RECOMMANDÉE): Many-to-Many Flexible
-     * Cette approche permet d'ajouter des technologies sans migration.
-     * Idéale pour une application évolutive.
-     */
     public function up(): void
     {
-        // Table maître des stacks
         Schema::create('stacks', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique()->index();
@@ -24,41 +16,42 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // NOUVEAU: Composants du stack (flexible et maintenable)
         Schema::create('stack_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('stack_id')
                 ->constrained('stacks')
                 ->onDelete('cascade');
 
-            // Catégorie du composant
             $table->enum('category', [
-                'frontend',      // React, Vue, Angular, Svelte, etc.
-                'backend',       // Laravel, NestJS, Django, etc.
-                'database',      // MySQL, PostgreSQL, MongoDB, SQLite, etc.
-                'cache',         // Redis, Memcached
-                'queue',         // Redis, SQS, RabbitMQ
-                'orm',           // Eloquent, Prisma, Sequelize, TypeORM
-                'storage',       // CORRIGÉ: "storage" au lieu de "stockage"
-                'cloud',         // AWS, Railway, Vercel, Netlify
+                'frontend',
+                'backend',
+                'database',
+                'cache',
+                'queue',
+                'orm',
+                'storage',
+                'cloud',
+                'monitoring',
+                'analytics',
+                'devops',
+                'design',
+                'testing',
+                'documentation',
+                'others',
             ]);
 
-            // Valeur du composant
             $table->string('value')->index();
-            $table->string('version')->nullable(); // ex: "5.0.0"
+            $table->string('version')->nullable();
 
             $table->timestamps();
 
-            // Contrainte: pas de doublon exact (même valeur pour la même catégorie du même stack)
-            // (retrait de l'ancienne contrainte unique(['stack_id','category']) qui empêchait
-            // d'avoir plusieurs technologies dans une même catégorie, ex: deux outils "backend")
+            // Un même (stack, catégorie, valeur) ne peut exister qu'une fois,
+            // mais plusieurs technologies peuvent partager une même catégorie
+            // au sein d'un même stack (ex: Laravel + Laravel Horizon en "backend").
             $table->unique(['stack_id', 'category', 'value']);
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('stack_items');

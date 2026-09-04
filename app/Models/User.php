@@ -30,7 +30,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use Notifiable, HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'users';
 
@@ -67,5 +67,10 @@ class User extends Authenticatable
     {
         return ! is_null($this->two_factor_secret)
             && ! is_null($this->two_factor_confirmed_at);
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
     }
 }

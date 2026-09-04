@@ -1,30 +1,15 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-/**
- * Class Stack
- *
- * @property int $id
- * @property string $name
- * @property string|null $description
- * @property bool $is_active
- * @property Carbon|null $created_at
- * @property Carbon|null $updated_at
- * @property Collection|StackItem[] $stack_items
- * @property Collection|Project[] $projects
- */
 class Stack extends Model
 {
+    use HasFactory;
+
     protected $table = 'stacks';
 
     protected $casts = [
@@ -37,7 +22,7 @@ class Stack extends Model
         'is_active',
     ];
 
-    public function stack_items(): HasMany
+    public function stackItems(): HasMany
     {
         return $this->hasMany(StackItem::class);
     }
