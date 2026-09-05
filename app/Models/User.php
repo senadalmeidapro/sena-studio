@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 
 /**
  * Class User
@@ -30,7 +31,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, TwoFactorAuthenticatable;
 
     protected $table = 'users';
 
@@ -52,6 +53,7 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
+        'password' => 'hashed',
         'email_verified_at' => 'datetime',
         'two_factor_confirmed_at' => 'datetime',
     ];
@@ -67,10 +69,5 @@ class User extends Authenticatable
     {
         return ! is_null($this->two_factor_secret)
             && ! is_null($this->two_factor_confirmed_at);
-    }
-
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = bcrypt($password);
     }
 }
