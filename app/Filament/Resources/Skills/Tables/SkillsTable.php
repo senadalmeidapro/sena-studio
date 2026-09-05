@@ -20,6 +20,11 @@ class SkillsTable
     {
         return $table
             ->columns([
+                TextColumn::make('icon')
+                    ->label('Icône')
+                    ->view('filament.tables.columns.site-icon')
+                    ->sortable(),
+
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),

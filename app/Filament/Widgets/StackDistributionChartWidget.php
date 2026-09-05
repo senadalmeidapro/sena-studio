@@ -7,13 +7,13 @@ use Filament\Widgets\BarChartWidget;
 
 class StackDistributionChartWidget extends BarChartWidget
 {
-    protected ?string $heading = 'Business: Stack Distribution per Project';
+    protected ?string $heading = 'Projets par stack';
 
-    protected ?string $description = 'Projects grouped by their assigned stack.';
+    protected ?string $description = 'Nombre de projets assignés à chaque stack technique.';
 
     protected int|string|array $columnSpan = [
         'md' => 1,
-        'xl' => 6,
+        'xl' => 4,
     ];
 
     protected function getData(): array
@@ -27,7 +27,7 @@ class StackDistributionChartWidget extends BarChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Projects',
+                    'label' => 'Projets',
                     'data' => $stacks->pluck('projects_count')->all(),
                 ],
             ],

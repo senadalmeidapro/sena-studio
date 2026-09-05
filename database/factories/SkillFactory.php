@@ -17,7 +17,7 @@ class SkillFactory extends Factory
             'description' => $this->faker->optional()->sentence(),
             'level' => $this->faker->randomElement(SkillLevel::cases())->value,
             'is_active' => true,
-            'icon' => null,
+            'icon' => $this->faker->randomElement(['🐘', '⚡', '🎨', '🗄️', '☁️', '🧪', '🛠️', '🌿', '🔷', '🚀']),
         ];
     }
 }

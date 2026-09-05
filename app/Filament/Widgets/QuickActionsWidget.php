@@ -2,10 +2,10 @@
 
 namespace App\Filament\Widgets;
 
+use App\Filament\Resources\Messages\ContactMessageResource;
 use App\Filament\Resources\Projects\ProjectResource;
 use App\Filament\Resources\Skills\SkillResource;
 use App\Filament\Resources\Stacks\StackResource;
-use App\Filament\Resources\Users\UserResource;
 use Filament\Widgets\Widget;
 
 class QuickActionsWidget extends Widget
@@ -18,10 +18,10 @@ class QuickActionsWidget extends Widget
     {
         return [
             'actions' => [
-                ['label' => 'Create User', 'url' => UserResource::getUrl('create')],
-                ['label' => 'Create Project', 'url' => ProjectResource::getUrl('create')],
-                ['label' => 'Create Stack', 'url' => StackResource::getUrl('create')],
-                ['label' => 'Create Skill', 'url' => SkillResource::getUrl('create')],
+                ['label' => 'Nouveau projet', 'url' => ProjectResource::getUrl('create'), 'color' => 'primary'],
+                ['label' => 'Nouvelle stack', 'url' => StackResource::getUrl('create'), 'color' => 'info'],
+                ['label' => 'Nouvelle compétence', 'url' => SkillResource::getUrl('create'), 'color' => 'success'],
+                ['label' => 'Voir les messages', 'url' => ContactMessageResource::getUrl('index'), 'color' => 'warning'],
             ],
         ];
     }

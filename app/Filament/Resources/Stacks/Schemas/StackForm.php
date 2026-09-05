@@ -33,6 +33,12 @@ class StackForm
                             ->options(StackItemCategory::options())
                             ->required(),
 
+                        TextInput::make('icon')
+                            ->label('Icône')
+                            ->maxLength(255)
+                            ->placeholder('Emoji ou URL officielle')
+                            ->helperText('Emoji (ex : 🧩) ou icône officielle (ex : https://cdn.simpleicons.org/laravel).'),
+
                         TextInput::make('value')
                             ->required()
                             ->maxLength(255),

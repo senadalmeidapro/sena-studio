@@ -7,11 +7,14 @@ use Filament\Widgets\BarChartWidget;
 
 class SkillsByCategoryChartWidget extends BarChartWidget
 {
-    protected ?string $heading = 'Analytics: Skills by Category';
+    protected ?string $heading = 'Compétences par catégorie';
 
-    protected ?string $description = 'Distribution of skills across assigned categories.';
+    protected ?string $description = 'Répartition des compétences par catégorie assignée.';
 
-    protected int|string|array $columnSpan = 'full';
+    protected int|string|array $columnSpan = [
+        'md' => 1,
+        'xl' => 4,
+    ];
 
     protected function getData(): array
     {
@@ -24,7 +27,7 @@ class SkillsByCategoryChartWidget extends BarChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Skills',
+                    'label' => 'Compétences',
                     'data' => $categories->pluck('skills_count')->all(),
                 ],
             ],

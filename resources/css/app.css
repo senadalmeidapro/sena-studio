@@ -23,16 +23,72 @@
     --color-zinc-900: #171717;
     --color-zinc-950: #0a0a0a;
 
-    --color-accent: var(--color-neutral-800);
-    --color-accent-content: var(--color-neutral-800);
+    --color-ink-50: #f8f7f5;
+    --color-ink-100: #ecebe8;
+    --color-ink-200: #dcdad4;
+    --color-ink-300: #c0bcb2;
+    --color-ink-400: #9d988c;
+    --color-ink-500: #7e7970;
+    --color-ink-600: #63605a;
+    --color-ink-700: #4c4a46;
+    --color-ink-800: #373533;
+    --color-ink-900: #242322;
+    --color-ink-950: #161514;
+
+    --color-sage-50: #f3faf5;
+    --color-sage-100: #e2f4e9;
+    --color-sage-200: #c5e8d2;
+    --color-sage-300: #9bd5b1;
+    --color-sage-400: #68ba87;
+    --color-sage-500: #439d69;
+    --color-sage-600: #317e53;
+    --color-sage-700: #2a6545;
+    --color-sage-800: #24513a;
+    --color-sage-900: #1e4331;
+    --color-sage-950: #0d241a;
+
+    --animate-fade-up: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+    --animate-fade-in: fade-in 0.9s ease-out both;
+    --animate-drift: drift 22s ease-in-out infinite;
+
+    @keyframes fade-up {
+        from {
+            opacity: 0;
+            transform: translateY(1.25rem);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes drift {
+        0%,
+        100% {
+            transform: translate3d(0, 0, 0) scale(1);
+        }
+        50% {
+            transform: translate3d(4%, -7%, 0) scale(1.1);
+        }
+    }
+
+    --color-accent: var(--color-sage-600);
     --color-accent-foreground: var(--color-white);
 }
 
 @layer theme {
     .dark {
-        --color-accent: var(--color-white);
-        --color-accent-content: var(--color-white);
-        --color-accent-foreground: var(--color-neutral-800);
+        --color-accent: var(--color-sage-300);
+        --color-accent-foreground: var(--color-sage-950);
     }
 }
 
@@ -61,6 +117,17 @@ select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
 }
 
-/* \[:where(&)\]:size-4 {
-    @apply size-4;
-} */
+@layer utilities {
+    .bg-grid {
+        background-image:
+            linear-gradient(to right, rgba(76, 74, 70, 0.07) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(76, 74, 70, 0.07) 1px, transparent 1px);
+        background-size: 44px 44px;
+    }
+
+    .dark .bg-grid {
+        background-image:
+            linear-gradient(to right, rgba(214, 213, 209, 0.06) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(214, 213, 209, 0.06) 1px, transparent 1px);
+    }
+}

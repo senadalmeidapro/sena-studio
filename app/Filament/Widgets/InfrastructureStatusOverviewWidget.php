@@ -9,32 +9,35 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class InfrastructureStatusOverviewWidget extends StatsOverviewWidget
 {
-    protected ?string $heading = 'System';
+    protected ?string $heading = 'Infrastructure';
 
-    protected ?string $description = 'Infrastructure health and environment coverage.';
+    protected ?string $description = 'Santé et capacité provisionnée des environnements.';
 
-    protected int|string|array $columnSpan = 'full';
+    protected int|string|array $columnSpan = [
+        'md' => 2,
+        'xl' => 8,
+    ];
 
     protected function getStats(): array
     {
         return [
-            Stat::make('Active Infra', number_format(Infra::query()->where('is_active', true)->count()))
-                ->description('Available infrastructure profiles')
+            Stat::make('Infras actives', number_format(Infra::query()->where('is_active', true)->count()))
+                ->description('Profils disponibles')
                 ->color('success'),
-            Stat::make('Inactive Infra', number_format(Infra::query()->where('is_active', false)->count()))
-                ->description('Profiles currently disabled')
+            Stat::make('Infras inactives', number_format(Infra::query()->where('is_active', false)->count()))
+                ->description('Profils désactivés')
                 ->color('danger'),
-            Stat::make('Production Infra', number_format(Infra::query()->where('environment', InfraEnvironment::Production->value)->count()))
-                ->description('Production-ready environments')
+            Stat::make('Production', number_format(Infra::query()->where('environment', InfraEnvironment::Production->value)->count()))
+                ->description('Environnements prêts pour la prod')
                 ->color('warning'),
-            Stat::make('Total CPU Cores', number_format((int) Infra::query()->sum('cpu_cores')))
-                ->description('Provisioned compute across infra records')
+            Stat::make('Cœurs CPU', number_format((int) Infra::query()->sum('cpu_cores')))
+                ->description('Calcul provisionné')
                 ->color('info'),
-            Stat::make('Total Memory (MB)', number_format((int) Infra::query()->sum('memory_mb')))
-                ->description('Provisioned memory across infra records')
+            Stat::make('Mémoire', number_format((int) Infra::query()->sum('memory_mb')).' Mo')
+                ->description('RAM provisionnée')
                 ->color('gray'),
-            Stat::make('Total Storage (GB)', number_format((int) Infra::query()->sum('storage_gb')))
-                ->description('Provisioned storage across infra records')
+            Stat::make('Stockage', number_format((int) Infra::query()->sum('storage_gb')).' Go')
+                ->description('Espace provisionné')
                 ->color('primary'),
         ];
     }

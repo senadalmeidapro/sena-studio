@@ -22,6 +22,12 @@ class SkillForm
 
                 Textarea::make('description'),
 
+                TextInput::make('icon')
+                    ->label('Icône')
+                    ->maxLength(255)
+                    ->placeholder('Emoji ou URL officielle')
+                    ->helperText('Emoji (ex : 🐘) ou icône officielle (ex : https://cdn.simpleicons.org/laravel) affichée sur le site public.'),
+
                 Select::make('level')
                     ->options(SkillLevel::options())
                     ->required(),

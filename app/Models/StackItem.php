@@ -23,6 +23,7 @@ class StackItem extends Model
         'category',
         'value',
         'version',
+        'icon',
     ];
 
     public function stack(): BelongsTo

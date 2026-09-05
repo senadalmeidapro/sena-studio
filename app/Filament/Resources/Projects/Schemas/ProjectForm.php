@@ -8,6 +8,7 @@ use App\Enums\ProjectType;
 use App\Enums\ProjectVisibility;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -51,7 +52,27 @@ class ProjectForm
                 FileUpload::make('image')
                     ->image()
                     ->directory('projects')
-                    ->preserveFilenames(),
+                    ->preserveFilenames()
+                    ->helperText('Aperçu principal / couverture du projet.'),
+
+                Repeater::make('projectImages')
+                    ->relationship()
+                    ->label('Aperçus supplémentaires')
+                    ->schema([
+                        FileUpload::make('path')
+                            ->image()
+                            ->directory('projects')
+                            ->preserveFilenames()
+                            ->required(),
+                        TextInput::make('caption')
+                            ->maxLength(160),
+                        TextInput::make('sort_order')
+                            ->numeric()
+                            ->default(0),
+                    ])
+                    ->orderable('sort_order')
+                    ->collapsible()
+                    ->columnSpanFull(),
 
                 Select::make('status')
                     ->options(ProjectStatus::options())
