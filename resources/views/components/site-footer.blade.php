@@ -1,10 +1,12 @@
 <footer class="relative z-10 border-t border-ink-200/80 bg-white dark:border-ink-800/60 dark:bg-ink-950">
+    @php
+        $cvPrimarySlug = \App\Models\Cv::primary()->value('slug');
+        $cvUrl = $cvPrimarySlug ? route('cv.show', $cvPrimarySlug) : null;
+    @endphp
     <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-3 lg:px-8">
         <div class="space-y-3">
             <div class="flex items-center gap-2.5">
-                <span class="flex size-7 items-center justify-center rounded-md bg-emerald-500 text-sm font-bold text-white dark:bg-emerald-300 dark:text-emerald-950">
-                    S
-                </span>
+                <x-logo class="size-7" />
                 <span class="font-semibold tracking-tight text-ink-900 dark:text-ink-100">Sena Studio</span>
             </div>
             <p class="max-w-xs text-sm leading-relaxed text-ink-500 dark:text-ink-400">
@@ -18,6 +20,9 @@
                 <li><a href="{{ route('projects.index') }}" wire:navigate class="transition-colors hover:text-emerald-600 dark:hover:text-emerald-300">Projets</a></li>
                 <li><a href="{{ route('skills.index') }}" wire:navigate class="transition-colors hover:text-emerald-600 dark:hover:text-emerald-300">Compétences</a></li>
                 <li><a href="{{ route('stack.index') }}" wire:navigate class="transition-colors hover:text-emerald-600 dark:hover:text-emerald-300">Stack technique</a></li>
+                <li>
+                    <a href="{{ $cvUrl ?: '#' }}" wire:navigate @class(['pointer-events-none opacity-40 transition-colors' => ! $cvUrl])>CV</a>
+                </li>
                 <li><a href="{{ route('contact') }}" wire:navigate class="transition-colors hover:text-emerald-600 dark:hover:text-emerald-300">Contact</a></li>
             </ul>
         </div>

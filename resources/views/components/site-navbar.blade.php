@@ -1,11 +1,14 @@
 @props(['current' => ''])
 
+@php
+    $cvPrimary = \App\Models\Cv::primary()->value('slug');
+    $cvUrl = $cvPrimary ? route('cv.show', $cvPrimary) : null;
+@endphp
+
 <header class="sticky top-0 z-40 border-b border-ink-200/80 bg-white backdrop-blur-md dark:border-ink-800/60 dark:bg-ink-950">
     <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="{{ route('home') }}" class="group flex items-center gap-2.5" wire:navigate>
-            <span class="flex size-8 items-center justify-center rounded-md bg-emerald-500 font-bold text-white shadow-md shadow-emerald-500/30 transition-transform duration-300 group-hover:scale-105 dark:bg-emerald-300 dark:text-emerald-950">
-                S
-            </span>
+            <x-logo class="size-8 shadow-md shadow-emerald-500/30 transition-transform duration-300 group-hover:scale-105" />
             <span class="text-sm font-semibold tracking-tight text-ink-900 dark:text-ink-100">Sena Studio</span>
         </a>
 
@@ -15,6 +18,7 @@
                 'projects' => ['Projets', route('projects.index')],
                 'skills' => ['Compétences', route('skills.index')],
                 'stack' => ['Stack', route('stack.index')],
+                'cv' => ['CV', $cvUrl ?: '#'],
                 'contact' => ['Contact', route('contact')],
             ] as $key => [$label, $url])
                 <a
@@ -24,6 +28,7 @@
                         'rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
                         'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300' => $current === $key,
                         'text-ink-600 hover:bg-ink-100 hover:text-ink-900 dark:text-ink-300 dark:hover:bg-ink-800/50 dark:hover:text-ink-100' => $current !== $key,
+                        'pointer-events-none opacity-40' => ! $cvUrl,
                     ])
                 >
                     {{ $label }}
@@ -86,6 +91,7 @@
                 'projects' => ['Projets', route('projects.index')],
                 'skills' => ['Compétences', route('skills.index')],
                 'stack' => ['Stack', route('stack.index')],
+                'cv' => ['CV', $cvUrl ?: '#'],
                 'contact' => ['Contact', route('contact')],
             ] as $key => [$label, $url])
                 <a
@@ -95,6 +101,7 @@
                         'rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                         'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300' => $current === $key,
                         'text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-800/50' => $current !== $key,
+                        'pointer-events-none opacity-40' => ($key === 'cv' && ! $cvUrl),
                     ])
                 >
                     {{ $label }}

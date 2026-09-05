@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Site\Contact;
+use App\Livewire\Site\CvShow;
 use App\Livewire\Site\Home;
 use App\Livewire\Site\ProjectDetail;
 use App\Livewire\Site\Projects;
@@ -14,6 +15,7 @@ Route::get('projets/{project:slug}', ProjectDetail::class)->name('projects.show'
 Route::get('competences', Skills::class)->name('skills.index');
 Route::get('stack', Stack::class)->name('stack.index');
 Route::get('contact', Contact::class)->name('contact');
+Route::get('cv/{cv:slug}', CvShow::class)->name('cv.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');

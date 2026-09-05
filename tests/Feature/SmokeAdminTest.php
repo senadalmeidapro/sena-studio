@@ -1,7 +1,9 @@
 <?php
 
+use App\Filament\Resources\Cvs\CvResource;
 use App\Filament\Resources\Messages\ContactMessageResource;
 use App\Models\ContactMessage;
+use App\Models\Cv;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -16,6 +18,15 @@ it('renders admin dashboard and resources', function () {
         'message' => 'Un message de test suffisamment long pour être valide.',
     ]);
 
+    $cv = Cv::create([
+        'title' => 'Curriculum vitae',
+        'version_label' => 'V1',
+        'slug' => 'test-cv',
+        'template' => 'moderne',
+        'status' => 'published',
+        'headline' => 'Développeur',
+    ]);
+
     $paths = [
         '/admin',
         '/admin/projects',
@@ -23,8 +34,12 @@ it('renders admin dashboard and resources', function () {
         '/admin/skills',
         '/admin/stacks',
         '/admin/stacks/create',
+        CvResource::getUrl('index'),
+        CvResource::getUrl('create'),
+        CvResource::getUrl('edit', ['record' => $cv]),
         ContactMessageResource::getUrl('index'),
         ContactMessageResource::getUrl('view', ['record' => $message]),
+        '/cv/test-cv',
     ];
 
     foreach ($paths as $path) {

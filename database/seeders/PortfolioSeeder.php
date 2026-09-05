@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enums\CvStatus;
+use App\Enums\CvTemplate;
 use App\Enums\InfraEnvironment;
 use App\Enums\ProjectComplexity;
 use App\Enums\ProjectStatus;
@@ -11,6 +13,7 @@ use App\Enums\SkillLevel;
 use App\Enums\StackItemCategory;
 use App\Models\Category;
 use App\Models\ContactMessage;
+use App\Models\Cv;
 use App\Models\Infra;
 use App\Models\Project;
 use App\Models\ProjectImage;
@@ -287,5 +290,92 @@ class PortfolioSeeder extends Seeder
                 $message,
             );
         }
+
+        $this->seedCvs();
+    }
+
+    private function seedCvs(): void
+    {
+        $base = [
+            'title' => 'Curriculum vitae — Développeur Fullstack',
+            'headline' => 'Développeur Fullstack Laravel & Vue.js',
+            'email' => 'hello@senastudio.dev',
+            'phone' => '+33 6 12 34 56 78',
+            'location' => 'Lyon, France',
+            'website' => env('SITE_URL', 'http://localhost'),
+            'summary' => 'Développeur passionné, 8 ans d’expérience du prototypage à la mise en production : applications Laravel massives, interfaces Vue.js soignées et infrastructures cloud résilientes.',
+            'links' => [
+                ['label' => 'GitHub', 'url' => 'https://github.com/senastudio'],
+                ['label' => 'LinkedIn', 'url' => 'https://linkedin.com/in/senastudio'],
+            ],
+            'experience' => [
+                [
+                    'title' => 'Développeur Fullstack Senior',
+                    'subtitle' => 'Sena Studio',
+                    'period_start' => '2019-01',
+                    'period_end' => null,
+                    'description' => 'Conception et maintenance d’applications Laravel en production, optimisation des performances et mentoring d’une équipe de 3 développeurs.',
+                ],
+                [
+                    'title' => 'Développeur Backend',
+                    'subtitle' => 'Agence Web Ouest',
+                    'period_start' => '2015-06',
+                    'period_end' => '2018-12',
+                    'description' => 'Développement d’API REST, intégration de paiements en ligne et architecture de bases de données pour des clients e-commerce.',
+                ],
+            ],
+            'education' => [
+                [
+                    'title' => 'Master Informatique — Génie Logiciel',
+                    'subtitle' => 'Université de Lyon',
+                    'period_start' => '2013-09',
+                    'period_end' => '2015-06',
+                    'description' => 'Spécialisation architecture logicielle et systèmes distribués.',
+                ],
+            ],
+            'skills' => [
+                ['name' => 'PHP / Laravel', 'level' => 'expert', 'experience' => '8 ans'],
+                ['name' => 'Vue.js', 'level' => 'avance', 'experience' => '5 ans'],
+                ['name' => 'Tailwind CSS', 'level' => 'avance', 'experience' => '5 ans'],
+                ['name' => 'MySQL / PostgreSQL', 'level' => 'avance', 'experience' => '6 ans'],
+                ['name' => 'Docker', 'level' => 'intermediaire', 'experience' => '4 ans'],
+                ['name' => 'AWS', 'level' => 'intermediaire', 'experience' => '3 ans'],
+            ],
+            'languages' => [
+                ['name' => 'Français', 'level' => 'natif'],
+                ['name' => 'Anglais', 'level' => 'courant'],
+                ['name' => 'Espagnol', 'level' => 'intermediaire'],
+            ],
+            'certifications' => [
+                ['title' => 'AWS Certified Developer', 'subtitle' => 'Amazon Web Services', 'year' => '2023'],
+                ['title' => 'Laravel Certification', 'subtitle' => 'Laravel', 'year' => '2021'],
+            ],
+            'hobbies' => [
+                ['name' => 'Self-hosting'],
+                ['name' => 'Cyclisme'],
+                ['name' => 'Café de spécialité'],
+            ],
+        ];
+
+        $published = [
+            'version_label' => 'V1 · Fullstack',
+            'slug' => 'senastudio-cv',
+            'template' => CvTemplate::Moderne,
+            'status' => CvStatus::Published,
+            'accent_color' => '#059669',
+            'is_primary' => true,
+        ];
+
+        $draft = [
+            'version_label' => 'V2 · Minimal',
+            'slug' => 'senastudio-cv-minimal',
+            'template' => CvTemplate::Minimal,
+            'status' => CvStatus::Draft,
+            'accent_color' => '#2563eb',
+            'is_primary' => false,
+        ];
+
+        Cv::updateOrCreate(['slug' => 'senastudio-cv'], array_merge($base, $published));
+        Cv::updateOrCreate(['slug' => 'senastudio-cv-minimal'], array_merge($base, $draft));
     }
 }
