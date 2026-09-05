@@ -4,11 +4,9 @@ namespace App\Filament\Resources\Cvs\Pages;
 
 use App\Enums\CvStatus;
 use App\Filament\Resources\Cvs\CvResource;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
-use Illuminate\Support\Facades\View;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\RedirectResponse;
 
 class EditCv extends EditRecord
 {
@@ -38,7 +36,7 @@ class EditCv extends EditRecord
                 ->requiresConfirmation()
                 ->modalHeading('Télécharger le PDF')
                 ->modalDescription('Génère une version PDF (modèle « Classique ») de cette version du CV.')
-                ->action(fn (): mixed => $this->downloadPdf()),
+                ->action(fn (): RedirectResponse => redirect()->route('admin.cvs.pdf', $this->record)),
 
             Action::make('duplicate')
                 ->label('Dupliquer')
@@ -54,22 +52,5 @@ class EditCv extends EditRecord
                     $this->redirect(static::getResource()::getUrl('edit', ['record' => $copy]));
                 }),
         ];
-    }
-
-    private function downloadPdf(): Response
-    {
-        $html = View::make('pdf.cv', ['cv' => $this->record])->render();
-
-        $file = Pdf::loadHTML($html);
-
-        $file->setPaper('a4');
-        $file->setOptions([
-            'isRemoteEnabled' => false,
-            'isHtml5ParserEnabled' => true,
-        ]);
-
-        $name = 'CV-'.str_replace(' ', '-', trim((string) ($this->record->version_label ?? $this->record->headline ?? 'sena-studio'))).'.pdf';
-
-        return $file->download($name);
     }
 }

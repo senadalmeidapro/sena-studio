@@ -10,6 +10,8 @@
 
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
     --color-zinc-50: #fafafa;
     --color-zinc-100: #f5f5f5;
@@ -91,6 +93,17 @@
     --color-accent: var(--color-emerald-600);
     --color-accent-foreground: var(--color-white);
     --color-accent-content: var(--color-emerald-950);
+
+    --animate-marquee: marquee 42s linear infinite;
+
+    @keyframes marquee {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+    }
 }
 
 @layer theme {
@@ -110,6 +123,20 @@
     ::file-selector-button {
         border-color: var(--color-gray-200, currentColor);
     }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-feature-settings: 'kern' 1;
+        text-rendering: optimizeLegibility;
+    }
+
+    .font-display {
+        font-optical-sizing: auto;
+        letter-spacing: -0.015em;
+    }
 }
 
 [data-flux-field]:not(ui-radio, ui-checkbox) {
@@ -126,17 +153,119 @@ select:focus[data-flux-control] {
     @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-content;
 }
 
-@layer utilities {
-    .bg-grid {
-        background-image:
-            linear-gradient(to right, rgba(5, 150, 105, 0.08) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(5, 150, 105, 0.08) 1px, transparent 1px);
-        background-size: 44px 44px;
+.bg-grid {
+    background-image:
+        linear-gradient(to right, rgba(5, 150, 105, 0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(5, 150, 105, 0.08) 1px, transparent 1px);
+    background-size: 44px 44px;
+}
+
+.dark .bg-grid {
+    background-image:
+        linear-gradient(to right, rgba(110, 231, 183, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(110, 231, 183, 0.07) 1px, transparent 1px);
+}
+
+@utility eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-emerald-600, #059669);
+}
+
+.dark .eyebrow {
+    color: var(--color-emerald-400, #34d399);
+}
+
+@utility nav-link {
+    position: relative;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ink-600, #525252);
+    transition: color 0.2s ease;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 100%;
+        bottom: -6px;
+        height: 1px;
+        background: var(--color-emerald-600, #059669);
+        transition: right 0.28s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .dark .bg-grid {
-        background-image:
-            linear-gradient(to right, rgba(110, 231, 183, 0.07) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(110, 231, 183, 0.07) 1px, transparent 1px);
+    &:hover {
+        color: var(--color-ink-900, #171717);
+    }
+
+    &:hover::after {
+        right: 0;
+    }
+}
+
+.dark .nav-link {
+    color: var(--color-ink-300, #d4d4d4);
+
+    &:hover {
+        color: var(--color-ink-50, #fafafa);
+    }
+}
+
+@utility nav-link-active {
+    color: var(--color-ink-900, #171717);
+    font-weight: 600;
+
+    &::after {
+        right: 0;
+        background: var(--color-emerald-600, #059669);
+    }
+}
+
+.dark .nav-link-active {
+    color: var(--color-emerald-300, #6ee7b7);
+}
+
+@utility ink-link {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: background-size 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &:hover {
+        background-size: 100% 1px;
+    }
+}
+
+@utility crop-frame {
+    position: relative;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        pointer-events: none;
+    }
+
+    &::before {
+        top: -8px;
+        left: -8px;
+        border-top: 1px solid var(--color-emerald-500, #10b981);
+        border-left: 1px solid var(--color-emerald-500, #10b981);
+    }
+
+    &::after {
+        bottom: -8px;
+        right: -8px;
+        border-bottom: 1px solid var(--color-emerald-500, #10b981);
+        border-right: 1px solid var(--color-emerald-500, #10b981);
     }
 }

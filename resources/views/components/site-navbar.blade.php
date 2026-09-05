@@ -5,14 +5,14 @@
     $cvUrl = $cvPrimary ? route('cv.show', $cvPrimary) : null;
 @endphp
 
-<header class="sticky top-0 z-40 border-b border-ink-200/80 bg-white backdrop-blur-md dark:border-ink-800/60 dark:bg-ink-950">
-    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
+<header class="sticky top-0 z-40 border-b border-ink-300 bg-white/90 backdrop-blur-md dark:border-ink-700 dark:bg-ink-950/90">
+    <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="{{ route('home') }}" class="group flex items-center gap-2.5" wire:navigate>
-            <x-logo class="size-8 shadow-md shadow-emerald-500/30 transition-transform duration-300 group-hover:scale-105" />
-            <span class="text-sm font-semibold tracking-tight text-ink-900 dark:text-ink-100">Sena Studio</span>
+            <x-logo class="size-7 transition-transform duration-300 group-hover:scale-105" />
+            <span class="font-display text-lg font-medium tracking-tight text-ink-900 dark:text-ink-100">Sena&nbsp;Studio</span>
         </a>
 
-        <nav class="hidden items-center gap-1 md:flex">
+        <nav class="hidden items-center gap-8 md:flex">
             @foreach ([
                 'home' => ['Accueil', route('home')],
                 'projects' => ['Projets', route('projects.index')],
@@ -25,10 +25,9 @@
                     href="{{ $url }}"
                     wire:navigate
                     @class([
-                        'rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
-                        'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300' => $current === $key,
-                        'text-ink-600 hover:bg-ink-100 hover:text-ink-900 dark:text-ink-300 dark:hover:bg-ink-800/50 dark:hover:text-ink-100' => $current !== $key,
-                        'pointer-events-none opacity-40' => ! $cvUrl,
+                        'nav-link pb-0.5',
+                        'nav-link-active' => $current === $key,
+                        'pointer-events-none opacity-40' => ! $cvUrl && $key === 'cv',
                     ])
                 >
                     {{ $label }}
@@ -37,15 +36,18 @@
         </nav>
 
         <div class="flex items-center gap-3">
-            <flux:button variant="primary" size="sm" :href="route('contact')" wire:navigate class="hidden sm:inline-flex">
+            <a href="{{ route('contact') }}" wire:navigate class="group hidden items-center gap-1.5 rounded-full bg-emerald-600 px-5 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-white transition-colors hover:bg-emerald-700 sm:inline-flex dark:bg-emerald-500 dark:text-emerald-950 dark:hover:bg-emerald-400">
                 Discutons
-            </flux:button>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
 
             {{-- Theme switcher : clair / système / sombre --}}
             <div
                 x-data="{ active: window.Flux.appearance }"
                 x-init="$watch(() => window.Flux.appearance, value => active = value)"
-                class="flex items-center gap-0.5 rounded-lg border border-ink-300/80 bg-ink-100/60 p-0.5 dark:border-ink-700/80 dark:bg-ink-800/60"
+                class="flex items-center gap-0.5 rounded-full border border-ink-300/80 bg-ink-100/60 p-0.5 dark:border-ink-700/80 dark:bg-ink-800/60"
                 role="group"
                 aria-label="Bascule de thème"
             >
@@ -59,7 +61,7 @@
                         @click="window.Flux.appearance = @js($theme)"
                         :aria-pressed="active === @js($theme)"
                         :class="active === @js($theme) ? 'bg-white text-ink-900 shadow-sm dark:bg-ink-700 dark:text-ink-50' : 'text-ink-500 hover:bg-white hover:text-ink-800 dark:text-ink-400 dark:hover:bg-ink-700/60 dark:hover:text-ink-100'"
-                        class="flex size-7 items-center justify-center rounded-md transition-all duration-200"
+                        class="flex size-7 items-center justify-center rounded-full transition-all duration-200"
                         aria-label="Thème {{ $label }}"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" class="size-4">
@@ -84,8 +86,8 @@
     </div>
 
     {{-- Mobile menu --}}
-    <div class="hidden border-t border-ink-200/80 bg-white md:hidden dark:border-ink-800/60 dark:bg-ink-950" data-site-mobile-menu>
-        <nav class="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4">
+    <div class="hidden border-t border-ink-300 bg-white md:hidden dark:border-ink-700 dark:bg-ink-950" data-site-mobile-menu>
+        <nav class="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4">
             @foreach ([
                 'home' => ['Accueil', route('home')],
                 'projects' => ['Projets', route('projects.index')],
@@ -107,9 +109,9 @@
                     {{ $label }}
                 </a>
             @endforeach
-            <div class="mt-2 border-t border-ink-200/80 pt-3 dark:border-ink-800/60">
+            <div class="mt-2 border-t border-ink-300 pt-3 dark:border-ink-700">
                 <a href="{{ route('contact') }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-emerald-600 hover:bg-emerald-100 dark:text-emerald-300 dark:hover:bg-emerald-500/15">
-                    Discutons
+                    Discutons →
                 </a>
                 <a href="{{ route('login') }}" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-ink-500 hover:bg-ink-100 dark:text-ink-400 dark:hover:bg-ink-800/50">
                     Admin

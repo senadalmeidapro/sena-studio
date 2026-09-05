@@ -34,6 +34,7 @@ it('renders admin dashboard and resources', function () {
         '/admin/skills',
         '/admin/stacks',
         '/admin/stacks/create',
+        '/admin/security',
         CvResource::getUrl('index'),
         CvResource::getUrl('create'),
         CvResource::getUrl('edit', ['record' => $cv]),

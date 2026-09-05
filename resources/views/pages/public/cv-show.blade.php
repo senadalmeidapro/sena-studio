@@ -30,7 +30,7 @@
 
     <article
         style="--accent: {{ $accent }};"
-        class="mt-8 overflow-hidden rounded-3xl border border-ink-200 bg-white shadow-xl shadow-ink-900/5 dark:border-ink-800 dark:bg-ink-950"
+        class="mt-8 overflow-hidden rounded-3xl border border-ink-300 bg-white shadow-xl shadow-ink-900/5 dark:border-ink-700 dark:bg-ink-950"
     >
         @if ($cv->template->value === 'moderne')
             {{-- Modern : bandeau accent + double colonne --}}
@@ -125,7 +125,7 @@
         @elseif ($cv->template->value === 'minimal')
             {{-- Minimal : typographie, filets fins, contrastes --}}
             <div class="px-8 py-8 sm:px-10">
-                <div class="flex flex-wrap items-start justify-between gap-4 border-b border-ink-200 pb-6 dark:border-ink-800">
+                <div class="flex flex-wrap items-start justify-between gap-4 border-b border-ink-300 pb-6 dark:border-ink-700">
                     <div>
                         <h1 class="text-3xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ $cv->headline }}</h1>
                         @if ($cv->version_label)
@@ -145,7 +145,7 @@
                 </div>
 
                 @if ($cv->links)
-                    <div class="flex flex-wrap gap-4 border-b border-ink-200 py-4 text-sm dark:border-ink-800">
+                    <div class="flex flex-wrap gap-4 border-b border-ink-300 py-4 text-sm dark:border-ink-700">
                         @foreach ($cv->links as $link)
                             <a href="{{ $link['url'] }}" target="_blank" rel="noopener noreferrer"
                                class="font-medium text-[var(--accent)] underline-offset-4 hover:underline">
@@ -183,7 +183,7 @@
                 @endif
             </div>
 
-            <div class="border-t border-ink-200 px-8 py-8 sm:px-10 dark:border-ink-800">
+            <div class="border-t border-ink-300 px-8 py-8 sm:px-10 dark:border-ink-700">
                 <div class="space-y-8">
                     @include('pages.public.cv-show._sections', ['compact' => false])
                 </div>

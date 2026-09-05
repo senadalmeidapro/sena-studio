@@ -112,7 +112,7 @@
         <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Centres d’intérêt</h2>
         <div class="mt-4 flex flex-wrap gap-1.5">
             @foreach ($hobbies as $hobby)
-                <span class="rounded-full border border-ink-200 px-3 py-1 text-sm text-ink-600 dark:border-ink-800 dark:text-ink-300">
+                <span class="rounded-full border border-ink-300 px-3 py-1 text-sm text-ink-600 dark:border-ink-700 dark:text-ink-300">
                     {{ $hobby['name'] }}
                 </span>
             @endforeach
