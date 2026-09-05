@@ -4,26 +4,31 @@
         description="À compléter : ajoutez une image de couverture ou des aperçus."
     >
         @if ($projects->isNotEmpty())
-            <ul class="divide-y divide-gray-200 dark:divide-white/10">
+            <ul style="display:flex;flex-direction:column;">
                 @foreach ($projects as $project)
-                    <li class="flex items-center justify-between gap-3 py-2.5">
-                        <span class="truncate text-sm text-gray-700 dark:text-gray-200">{{ $project->name }}</span>
-                        <a
+                    <li style="display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.5rem 0;border-top:1px solid var(--gray-200);">
+                        <span style="font-size:.85rem;color:var(--gray-700);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                            {{ $project->name }}
+                        </span>
+                        <x-filament::link
                             href="{{ \App\Filament\Resources\Projects\ProjectResource::getUrl('edit', ['record' => $project]) }}"
-                            class="shrink-0 text-xs font-medium text-sage-600 hover:underline dark:text-sage-300"
+                            color="primary"
+                            size="sm"
                         >
                             Ajouter →
-                        </a>
+                        </x-filament::link>
                     </li>
                 @endforeach
             </ul>
-            <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+            <p style="margin-top:.5rem;font-size:.75rem;color:var(--gray-400);">
                 {{ $projects->count() }} projet{{ $projects->count() > 1 ? 's' : '' }} à illustrer.
             </p>
         @else
-            <p class="py-4 text-sm text-gray-500 dark:text-gray-400">
-                Tous les projets ont un aperçu. 
-            </p>
+            <x-filament::empty-state
+                icon="heroicon-m-photo"
+                heading="Portefeuille illustré"
+                description="Tous les projets ont un aperçu."
+            />
         @endif
     </x-filament::section>
 </x-filament-widgets::widget>

@@ -28,11 +28,11 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->brandName('Sena Studio')
             ->colors([
-                'primary' => Color::hex('#439d69'),
+                'primary' => Color::hex('#059669'),
                 'danger' => Color::Rose,
                 'info' => Color::Sky,
-                'success' => Color::Emerald,
-                'warning' => Color::Amber,
+                'success' => Color::hex('#10b981'),
+                'warning' => Color::hex('#f59e0b'),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')

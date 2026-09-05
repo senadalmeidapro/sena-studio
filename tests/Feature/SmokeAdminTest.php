@@ -21,6 +21,8 @@ it('renders admin dashboard and resources', function () {
         '/admin/projects',
         '/admin/projects/create',
         '/admin/skills',
+        '/admin/stacks',
+        '/admin/stacks/create',
         ContactMessageResource::getUrl('index'),
         ContactMessageResource::getUrl('view', ['record' => $message]),
     ];

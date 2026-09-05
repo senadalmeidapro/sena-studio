@@ -1,9 +1,9 @@
 <div class="mx-auto max-w-3xl px-4 pb-24 pt-16 sm:px-6 lg:px-8">
 
     @if ($sent)
-        <div class="rounded-2xl border border-sage-200 bg-sage-50 p-8 text-center dark:border-sage-700/40 dark:bg-sage-950/40">
-            <div class="mx-auto flex size-12 items-center justify-center rounded-full bg-sage-500/15">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6 text-sage-600 dark:text-sage-300">
+        <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-8 text-center dark:border-emerald-700/40 dark:bg-emerald-950/40">
+            <div class="mx-auto flex size-12 items-center justify-center rounded-full bg-emerald-500/15">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6 text-emerald-600 dark:text-emerald-300">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                 </svg>
             </div>
@@ -11,7 +11,7 @@
             <p class="mt-2 text-ink-600 dark:text-ink-300">
                 Merci pour votre message. Je reviens vers vous dans les plus brefs délais.
             </p>
-            <button wire:click="$set('sent', false)" class="mt-6 text-sm font-medium text-sage-600 transition-colors hover:text-sage-700 hover:underline dark:text-sage-300 dark:hover:text-sage-200">
+            <button wire:click="$set('sent', false)" class="mt-6 text-sm font-medium text-emerald-600 transition-colors hover:text-emerald-700 hover:underline dark:text-emerald-300 dark:hover:text-emerald-200">
                 Envoyer un autre message
             </button>
         </div>
@@ -24,7 +24,7 @@
         </header>
 
         @php
-            $input = 'rounded-lg border border-ink-300 bg-white px-4 py-2.5 text-ink-900 placeholder-ink-400 outline-none transition-colors focus:border-sage-500 focus:ring-2 focus:ring-sage-500/20 dark:border-ink-700 dark:bg-ink-900/60 dark:text-ink-100 dark:placeholder-ink-500 dark:focus:border-sage-400';
+            $input = 'rounded-lg border border-ink-300 bg-white px-4 py-2.5 text-ink-900 placeholder-ink-400 outline-none transition-colors focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 dark:border-ink-700 dark:bg-ink-900 dark:text-ink-100 dark:placeholder-ink-500 dark:focus:border-emerald-400';
             $label = 'text-sm font-medium text-ink-700 dark:text-ink-200';
         @endphp
 
@@ -35,7 +35,7 @@
 
             <div class="grid gap-6 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <label for="contact-name" class="{{ $label }}">Nom <span class="text-sage-600 dark:text-sage-300">*</span></label>
+                    <label for="contact-name" class="{{ $label }}">Nom <span class="text-emerald-600 dark:text-emerald-300">*</span></label>
                     <input
                         id="contact-name"
                         type="text"
@@ -47,7 +47,7 @@
                 </div>
 
                 <div class="grid gap-2">
-                    <label for="contact-email" class="{{ $label }}">Email <span class="text-sage-600 dark:text-sage-300">*</span></label>
+                    <label for="contact-email" class="{{ $label }}">Email <span class="text-emerald-600 dark:text-emerald-300">*</span></label>
                     <input
                         id="contact-email"
                         type="email"
@@ -85,7 +85,7 @@
 
             <div class="grid gap-6 sm:grid-cols-2">
                 <div class="grid gap-2">
-                    <label for="contact-subject" class="{{ $label }}">Sujet <span class="text-sage-600 dark:text-sage-300">*</span></label>
+                    <label for="contact-subject" class="{{ $label }}">Sujet <span class="text-emerald-600 dark:text-emerald-300">*</span></label>
                     <input
                         id="contact-subject"
                         type="text"
@@ -101,7 +101,7 @@
                     <select
                         id="contact-budget"
                         wire:model="budget"
-                        class="{{ $input }} bg-white dark:bg-ink-900/60"
+                        class="{{ $input }} bg-white dark:bg-ink-900"
                     >
                         <option value="">Sélectionner un budget…</option>
                         @foreach ($this->budgetOptions() as $key => $budgetLabel)
@@ -113,7 +113,7 @@
             </div>
 
             <div class="grid gap-2">
-                <label for="contact-message" class="{{ $label }}">Message <span class="text-sage-600 dark:text-sage-300">*</span></label>
+                <label for="contact-message" class="{{ $label }}">Message <span class="text-emerald-600 dark:text-emerald-300">*</span></label>
                 <textarea
                     id="contact-message"
                     wire:model="message"

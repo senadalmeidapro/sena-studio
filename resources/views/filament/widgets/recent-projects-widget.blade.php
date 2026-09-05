@@ -4,38 +4,46 @@
         description="Derniers projets entrés dans le portefeuille."
     >
         <x-slot name="footer">
-            <a href="{{ $resourceUrl }}" class="text-sm font-medium text-sage-600 hover:underline dark:text-sage-300">
-                Tous les projets →
-            </a>
+            <x-filament::button
+                tag="a"
+                href="{{ $resourceUrl }}"
+                icon="heroicon-m-arrow-long-right"
+                icon-position="after"
+                size="sm"
+                color="primary"
+            >
+                Tous les projets
+            </x-filament::button>
         </x-slot>
 
         @if ($projects->isNotEmpty())
-            <ul class="divide-y divide-gray-200 dark:divide-white/10">
+            <ul style="display:flex;flex-direction:column;">
                 @foreach ($projects as $project)
-                    <li class="flex items-center gap-3 py-3">
+                    <li style="display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-top:1px solid var(--gray-200);">
                         @if ($project->image)
-                            <img
+                            <x-filament::avatar
                                 src="{{ asset($project->image) }}"
-                                alt=""
-                                loading="lazy"
-                                class="size-12 shrink-0 rounded-lg border border-gray-200 bg-gray-100 object-cover dark:border-white/10 dark:bg-white/5"
+                                alt="{{ $project->name }}"
+                                size="lg"
                             />
                         @else
-                            <span class="flex size-12 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-sm text-gray-400 dark:bg-white/5 dark:text-gray-500">
+                            <span
+                                style="display:inline-flex;align-items:center;justify-content:center;width:2.5rem;height:2.5rem;border-radius:.75rem;font-size:.9rem;font-weight:700;color:var(--primary-600);background:var(--primary-100);"
+                            >
                                 {{ mb_substr($project->name, 0, 1) }}
                             </span>
                         @endif
 
-                        <div class="min-w-0 flex-1">
+                        <div style="flex:1;min-width:0;">
                             <a
                                 href="{{ \App\Filament\Resources\Projects\ProjectResource::getUrl('edit', ['record' => $project]) }}"
-                                class="truncate text-sm font-medium text-gray-950 hover:underline dark:text-white"
+                                style="display:block;font-size:.85rem;font-weight:600;color:var(--gray-950);text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"
                             >
                                 {{ $project->name }}
                             </a>
-                            <p class="truncate text-xs text-gray-500 dark:text-gray-400">
+                            <span style="font-size:.75rem;color:var(--gray-400);">
                                 {{ $project->started_at?->translatedFormat('d M Y') ?? '—' }}
-                            </p>
+                            </span>
                         </div>
 
                         <x-filament::badge :color="match ($project->status->value) {
@@ -50,7 +58,11 @@
                 @endforeach
             </ul>
         @else
-            <p class="py-4 text-sm text-gray-500 dark:text-gray-400">Aucun projet pour le moment.</p>
+            <x-filament::empty-state
+                icon="heroicon-m-cube"
+                heading="Aucun projet"
+                description="Les projets créés apparaîtront ici."
+            />
         @endif
     </x-filament::section>
 </x-filament-widgets::widget>

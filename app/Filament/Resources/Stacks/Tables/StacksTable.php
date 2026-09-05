@@ -23,8 +23,8 @@ class StacksTable
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('stack_items_count')
-                    ->counts('stack_items')
+                TextColumn::make('stackItems_count')
+                    ->counts('stackItems')
                     ->label('Items'),
 
                 IconColumn::make('is_active')

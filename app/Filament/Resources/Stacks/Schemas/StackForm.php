@@ -26,7 +26,7 @@ class StackForm
                 Toggle::make('is_active')
                     ->default(true),
 
-                Repeater::make('stack_items')
+                Repeater::make('stackItems')
                     ->relationship()
                     ->schema([
                         Select::make('category')

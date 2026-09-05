@@ -3,7 +3,7 @@
         heading="Actions rapides"
         description="Points d’entrée directs pour les opérations courantes."
     >
-        <div class="flex flex-wrap gap-3">
+        <div style="display:flex;flex-wrap:wrap;gap:.75rem;">
             @foreach ($actions as $action)
                 <x-filament::button
                     :href="$action['url']"

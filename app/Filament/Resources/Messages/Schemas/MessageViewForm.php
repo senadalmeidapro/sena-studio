@@ -42,7 +42,9 @@ class MessageViewForm
                             ->disabled(),
                         TextInput::make('read_at')
                             ->label('Lu le')
-                            ->formatStateUsing(fn (?Carbon $state): string => $state?->translatedFormat('d/m/Y à H:i') ?? 'Non lu')
+                            ->formatStateUsing(fn (mixed $state): string => $state
+                                ? Carbon::parse($state)->translatedFormat('d/m/Y à H:i')
+                                : 'Non lu')
                             ->disabled(),
                     ]),
 

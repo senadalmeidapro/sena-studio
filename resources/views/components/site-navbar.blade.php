@@ -1,9 +1,9 @@
 @props(['current' => ''])
 
-<header class="sticky top-0 z-40 border-b border-ink-200/80 bg-white/70 backdrop-blur-md dark:border-ink-800/60 dark:bg-ink-950/70">
+<header class="sticky top-0 z-40 border-b border-ink-200/80 bg-white backdrop-blur-md dark:border-ink-800/60 dark:bg-ink-950">
     <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="{{ route('home') }}" class="group flex items-center gap-2.5" wire:navigate>
-            <span class="flex size-8 items-center justify-center rounded-md bg-gradient-to-br from-sage-400 to-sage-700 font-bold text-white shadow-sm shadow-sage-500/20 transition-transform duration-300 group-hover:scale-105 dark:from-sage-300 dark:to-sage-500 dark:text-sage-950">
+            <span class="flex size-8 items-center justify-center rounded-md bg-emerald-500 font-bold text-white shadow-md shadow-emerald-500/30 transition-transform duration-300 group-hover:scale-105 dark:bg-emerald-300 dark:text-emerald-950">
                 S
             </span>
             <span class="text-sm font-semibold tracking-tight text-ink-900 dark:text-ink-100">Sena Studio</span>
@@ -22,7 +22,7 @@
                     wire:navigate
                     @class([
                         'rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200',
-                        'bg-sage-100 text-sage-700 dark:bg-sage-500/15 dark:text-sage-300' => $current === $key,
+                        'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300' => $current === $key,
                         'text-ink-600 hover:bg-ink-100 hover:text-ink-900 dark:text-ink-300 dark:hover:bg-ink-800/50 dark:hover:text-ink-100' => $current !== $key,
                     ])
                 >
@@ -53,7 +53,7 @@
                         type="button"
                         @click="window.Flux.appearance = @js($theme)"
                         :aria-pressed="active === @js($theme)"
-                        :class="active === @js($theme) ? 'bg-white text-ink-900 shadow-sm dark:bg-ink-700 dark:text-ink-50' : 'text-ink-500 hover:bg-white/60 hover:text-ink-800 dark:text-ink-400 dark:hover:bg-ink-700/60 dark:hover:text-ink-100'"
+                        :class="active === @js($theme) ? 'bg-white text-ink-900 shadow-sm dark:bg-ink-700 dark:text-ink-50' : 'text-ink-500 hover:bg-white hover:text-ink-800 dark:text-ink-400 dark:hover:bg-ink-700/60 dark:hover:text-ink-100'"
                         class="flex size-7 items-center justify-center rounded-md transition-all duration-200"
                         aria-label="Thème {{ $label }}"
                     >
@@ -79,7 +79,7 @@
     </div>
 
     {{-- Mobile menu --}}
-    <div class="hidden border-t border-ink-200/80 bg-white/95 md:hidden dark:border-ink-800/60 dark:bg-ink-950/95" data-site-mobile-menu>
+    <div class="hidden border-t border-ink-200/80 bg-white md:hidden dark:border-ink-800/60 dark:bg-ink-950" data-site-mobile-menu>
         <nav class="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-4">
             @foreach ([
                 'home' => ['Accueil', route('home')],
@@ -93,7 +93,7 @@
                     wire:navigate
                     @class([
                         'rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
-                        'bg-sage-100 text-sage-700 dark:bg-sage-500/15 dark:text-sage-300' => $current === $key,
+                        'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300' => $current === $key,
                         'text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-800/50' => $current !== $key,
                     ])
                 >
@@ -101,7 +101,7 @@
                 </a>
             @endforeach
             <div class="mt-2 border-t border-ink-200/80 pt-3 dark:border-ink-800/60">
-                <a href="{{ route('contact') }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-sage-600 hover:bg-sage-100 dark:text-sage-300 dark:hover:bg-sage-500/15">
+                <a href="{{ route('contact') }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-emerald-600 hover:bg-emerald-100 dark:text-emerald-300 dark:hover:bg-emerald-500/15">
                     Discutons
                 </a>
                 <a href="{{ route('login') }}" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-ink-500 hover:bg-ink-100 dark:text-ink-400 dark:hover:bg-ink-800/50">

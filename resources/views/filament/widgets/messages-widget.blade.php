@@ -4,46 +4,58 @@
         description="Dernières demandes reçues via le formulaire de contact."
     >
         <x-slot name="footer">
-            <a href="{{ $resourceUrl }}" class="text-sm font-medium text-sage-600 hover:underline dark:text-sage-300">
-                Tous les messages →
-            </a>
+            <x-filament::button
+                tag="a"
+                href="{{ $resourceUrl }}"
+                icon="heroicon-m-arrow-long-right"
+                icon-position="after"
+                size="sm"
+                color="primary"
+            >
+                Tous les messages
+            </x-filament::button>
         </x-slot>
 
         @if ($messages->isNotEmpty())
-            <ul class="divide-y divide-gray-200 dark:divide-white/10">
+            <ul style="display:flex;flex-direction:column;">
                 @foreach ($messages as $message)
-                    <li class="flex items-center gap-3 py-3">
-                        <span class="{{ $message->isRead() ? 'bg-gray-100 text-gray-400 dark:bg-white/5 dark:text-gray-500' : 'bg-sage-100 text-sage-700 dark:bg-sage-500/15 dark:text-sage-300' }} flex size-9 shrink-0 items-center justify-center rounded-full text-sm font-medium">
+                    <li style="display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-top:1px solid var(--gray-200);">
+                        <span
+                            style="display:inline-flex;align-items:center;justify-content:center;width:2.25rem;height:2.25rem;border-radius:9999px;font-size:.8rem;font-weight:600;color:{{ $message->isRead() ? 'var(--gray-400)' : 'var(--primary-700)' }};background:{{ $message->isRead() ? 'var(--gray-100)' : 'var(--primary-100)' }};"
+                        >
                             {{ strtoupper(mb_substr($message->name, 0, 1)) }}
                         </span>
 
-                        <div class="min-w-0 flex-1">
+                        <div style="flex:1;min-width:0;">
                             <a
                                 href="{{ \App\Filament\Resources\Messages\ContactMessageResource::getUrl('view', ['record' => $message]) }}"
-                                class="truncate text-sm font-medium text-gray-950 hover:underline dark:text-white"
+                                style="display:block;font-size:.85rem;font-weight:600;color:var(--gray-950);text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"
                             >
                                 {{ $message->name }} — {{ $message->subject }}
                             </a>
-                            <p class="truncate text-xs text-gray-500 dark:text-gray-400">
+                            <span style="font-size:.75rem;color:var(--gray-400);">
                                 {{ $message->created_at->diffForHumans() }}
-                            </p>
+                            </span>
                         </div>
 
                         @if (! $message->isRead())
-                            <button
-                                type="button"
+                            <x-filament::icon-button
                                 wire:click="markAsRead({{ $message->id }})"
-                                class="rounded-md bg-white p-1.5 text-gray-400 ring-1 ring-inset ring-gray-200 transition-colors hover:text-sage-700 hover:ring-sage-300 dark:bg-white/5 dark:text-gray-500 dark:ring-white/10 dark:hover:text-sage-300 dark:hover:ring-sage-500/50"
-                                title="Marquer comme lu"
-                            >
-                                <x-filament::icon icon="heroicon-m-check" class="size-4" />
-                            </button>
+                                icon="heroicon-o-check"
+                                color="primary"
+                                size="sm"
+                                tooltip="Marquer comme lu"
+                            />
                         @endif
                     </li>
                 @endforeach
             </ul>
         @else
-            <p class="py-4 text-sm text-gray-500 dark:text-gray-400">Aucun message reçu.</p>
+            <x-filament::empty-state
+                icon="heroicon-m-envelope"
+                heading="Aucun message"
+                description="Les demandes envoyées via le formulaire de contact apparaîtront ici."
+            />
         @endif
     </x-filament::section>
 </x-filament-widgets::widget>

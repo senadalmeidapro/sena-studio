@@ -8,7 +8,7 @@
     </header>
 
     @foreach ($this->stacks as $stack)
-        <section class="mb-12 rounded-2xl border border-ink-200/80 bg-white/70 p-6 shadow-sm shadow-sage-500/5 sm:p-8 dark:border-ink-800 dark:bg-ink-900/50">
+        <section class="mb-12 rounded-2xl border border-ink-200/80 bg-white p-6 shadow-sm shadow-emerald-500/5 sm:p-8 dark:border-ink-800 dark:bg-ink-900">
             <div class="mb-1 flex flex-wrap items-center gap-3">
                 <h2 class="text-xl font-semibold text-ink-900 dark:text-ink-50">{{ $stack->name }}</h2>
                 @if ($stack->projects->isNotEmpty())
@@ -25,10 +25,10 @@
                 <div class="mt-6 grid gap-6 sm:grid-cols-2">
                     @foreach ($stack->stackItems->groupBy('category') as $category => $items)
                         <div>
-                            <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-sage-600 dark:text-sage-300">{{ \App\Enums\StackItemCategory::from($category)->label() }}</h3>
+                            <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-300">{{ \App\Enums\StackItemCategory::from($category)->label() }}</h3>
                             <div class="space-y-2">
                                 @foreach ($items as $item)
-                                    <div class="flex items-center justify-between rounded-lg border border-ink-200/80 bg-white/80 px-4 py-2.5 transition-colors hover:border-sage-400/50 dark:border-ink-800 dark:bg-ink-900/60 dark:hover:border-sage-500/40">
+                                    <div class="flex items-center justify-between rounded-lg border border-ink-200/80 bg-white px-4 py-2.5 transition-colors hover:border-emerald-400/50 dark:border-ink-800 dark:bg-ink-900 dark:hover:border-emerald-500/40">
                                         <span class="flex items-center gap-2 text-sm text-ink-800 dark:text-ink-100">
                                             <span class="flex min-w-5 items-center justify-center">
                                                 @if ($item->icon)
