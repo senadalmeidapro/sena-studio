@@ -1,4 +1,4 @@
-<footer class="relative z-10 border-t border-ink-300 bg-white dark:border-ink-700 dark:bg-ink-950">
+<footer class="relative z-10 border-t border-ink-300 bg-canvas dark:border-ink-700 dark:bg-canvas">
     @php
         $cvPrimarySlug = \App\Models\Cv::primary()->value('slug');
         $cvUrl = $cvPrimarySlug ? route('cv.show', $cvPrimarySlug) : null;
@@ -21,13 +21,13 @@
         <div class="sm:pt-2">
             <h3 class="eyebrow mb-4">Navigation</h3>
             <ul class="space-y-2.5 text-sm text-ink-500 dark:text-ink-400">
-                <li><a href="{{ route('projects.index') }}" wire:navigate class="ink-link transition-colors hover:text-emerald-600 dark:hover:text-emerald-300">Projets</a></li>
-                <li><a href="{{ route('skills.index') }}" wire:navigate class="ink-link transition-colors hover:text-emerald-600 dark:hover:text-emerald-300">Compétences</a></li>
-                <li><a href="{{ route('stack.index') }}" wire:navigate class="ink-link transition-colors hover:text-emerald-600 dark:hover:text-emerald-300">Stack technique</a></li>
+                <li><a href="{{ route('projects.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">Projets</a></li>
+                <li><a href="{{ route('skills.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">Compétences</a></li>
+                <li><a href="{{ route('stack.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">Stack technique</a></li>
                 <li>
-                    <a href="{{ $cvUrl ?: '#' }}" wire:navigate @class(['ink-link transition-colors hover:text-emerald-600 dark:hover:text-emerald-300' => $cvUrl, 'pointer-events-none opacity-40' => ! $cvUrl])>CV</a>
+                    <a href="{{ $cvUrl ?: '#' }}" wire:navigate @class(['ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300' => $cvUrl, 'pointer-events-none opacity-40' => ! $cvUrl])>CV</a>
                 </li>
-                <li><a href="{{ route('contact') }}" wire:navigate class="ink-link transition-colors hover:text-emerald-600 dark:hover:text-emerald-300">Contact</a></li>
+                <li><a href="{{ route('contact') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">Contact</a></li>
             </ul>
         </div>
 
@@ -46,8 +46,8 @@
         <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-[0.7rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500 sm:flex-row sm:px-6 lg:px-8">
             <p>© {{ date('Y') }} Sena Studio. Tous droits réservés.</p>
             <p class="flex items-center gap-5">
-                <a href="{{ route('login') }}" class="ink-link transition-colors hover:text-emerald-600 dark:hover:text-emerald-300">Espace admin</a>
-                <span>Conçu avec <span class="text-emerald-600 dark:text-emerald-400">Laravel</span> &amp; <span class="text-emerald-600 dark:text-emerald-400">Livewire</span></span>
+                <a href="{{ route('login') }}" class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">Espace admin</a>
+                <span>Conçu avec <span class="text-blue-600 dark:text-blue-400">Laravel</span> &amp; <span class="text-blue-600 dark:text-blue-400">Livewire</span></span>
             </p>
         </div>
     </div>

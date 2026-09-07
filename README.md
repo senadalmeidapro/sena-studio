@@ -2,241 +2,174 @@
 
 # 🎨 Sena Studio
 
-### Personal Freelance Tracker & Public Portfolio Backend
+### Freelance Command Center & Public Portfolio Platform
 
->A comprehensive project management and portfolio platform built on **Laravel 13**, **Filament v5**, and **Livewire/Flux** — empowering freelancers to track projects, manage technology stacks, catalog skills, and provision infrastructure with enterprise-grade elegance.
+> Backoffice de gestion freelance sur mesure + site public élégant, construits sur **Laravel 13**, **Filament v5**, **Livewire 4** et **Flux 2** — pour piloter projets, stacks techniques, compétences, infrastructure, CV et demandes de contact depuis une seule interface.
 
 [![Laravel](https://img.shields.io/badge/Laravel-13.x-FF2D20?logo=laravel&logoColor=white)](https://laravel.com)
 [![PHP](https://img.shields.io/badge/PHP-8.3-777BB4?logo=php&logoColor=white)](https://www.php.net)
 [![Filament](https://img.shields.io/badge/Filament-v5-FCB66D?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iMTAiIGZpbGw9IiMwNDExMjciLz48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI2IiBmaWxsPSIjZmM2NmJkIi8+PGNpcmNsZSBjeD0iMjEiIGN5PSIyMSIgcj0iNiIgZmlsbD0iI2ZjNjZiZCIvPjwvc3ZnPg==)](https://filamentphp.com)
 [![Livewire](https://img.shields.io/badge/Livewire-v4-EB4B4B?logo=livewire&logoColor=white)](https://livewire.laravel.com)
 [![Flux](https://img.shields.io/badge/Flux-v2-0A3EAE)](https://fluxui.dev)
+[![Tailwind](https://img.shields.io/badge/Tailwind-v4-38BDF8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![License](https://img.shields.io/badge/License-MIT-4cc61e.svg)](LICENSE)
 
-**Author:** Sena Gedeon D'ALMEIDA — [email](mailto:senadalmeidapro@gmail.com)
+**Auteur :** Sena Gedeon D'ALMEIDA — [email](mailto:senadalmeidapro@gmail.com)
 
 </div>
 
 ---
 
-## 📖 Overview
+## 📖 Vue d'ensemble
 
-**Sena Studio** is a personal freelance business command center. It unifies project tracking, technology cataloging, skill management, and infrastructure provisioning into a single, beautifully crafted admin interface — backed by a robust and extendable architecture.
+**Sena Studio** réunit deux expériences complémentaires sur une seule base de code :
 
-Whether you are managing a single client project, documenting your tech arsenal, or preparing your public portfolio, Sena Studio gives you the structure to work with clarity and professionalism.
+- **Un backoffice Filament complet** (« command center ») pour gérer — en quelques clics — les projets, les stacks techniques, les compétences, l'infrastructure, les CV et les demandes de contact.
+- **Un site public moderne et accessible** (Livewire + Flux), qui diffuse automatiquement le contenu géré dans l'admin : accueil, portfolio filtrable, compétences, stack technique, formulaire de contact et CV téléchargeable en PDF.
 
----
-
-## ✨ Features
-
-### 🗂️ Project Management
-- Rich project metadata: **status**, **type**, **complexity**, **visibility**, and pricing
-- Associate projects with technology **stacks** and **infrastructure**
-- Attach **skills** with context-specific proficiency levels (`primary` / `secondary` / `research`)
-- Classify projects under polymorphic **categories**
-- Soft deletes & advanced filtering
-
-### 🧩 Technology Stacks
-- Define named stacks as reusable collections of tools (e.g., *"Laravel + PostgreSQL + Redis"*)
-- Every item categorized: **frontend, backend, database, cache, queue, ORM, storage, cloud, monitoring, analytics, devops, design, testing, documentation, others**
-- Inline repeater editing inside the Filament admin
-
-### 🛠️ Skills Catalog
-- Skills with expertise levels: `beginner` → `intermediate` → `advanced` → `expert`
-- Visual **icons** and **activation** toggles
-- Categorize skills with the shared polymorphic category system
-
-### ☁️ Infrastructure as Data
-- Define infrastructure records with **Docker**, **Kubernetes**, and **Helm** configurations
-- Specify resource allocations: **CPU cores**, **memory (MB)**, **storage (GB)**
-- Classify environments: `development`, `staging`, `production`
-
-### 🔐 Authentication & Security
-- **Fortify**-powered auth: registration, password reset, **email verification**, and **two-factor authentication** (2FA)
-- Custom **Livewire/Flux** auth & settings views
-- **Spatie RBAC**: fine-grained roles & permissions
-- Production-hardened password policy enforcement
-
-### 📊 Insights Dashboard
-- KPI stats: users, projects, skills, stacks, active projects, infrastructure
-- **Bar charts**: skills by category & project stack distribution
-- Infrastructure health: environment breakdown, provisioned CPU/memory/storage
-- Quick-action shortcuts for rapid data entry
-
-### 🧑‍💻 Developer-First Architecture
-- **Enum-driven** type safety across all state fields
-- Clean **Resource → Form/Table/Page** decomposition in Filament
-- 9 Eloquent domain models with thoughtfully designed relationships
-- 6 factories + Seeder for rapid local development
-- **Pest** testing suite ready to expand
+Le tout est habillé d'un **design system bleu premium** (Tailwind CSS v4) avec mode sombre hiérarchisé et micro-interactions soignées.
 
 ---
 
-## 🛠️ Technology Stack
+## ✨ Fonctionnalités
 
-| Layer | Technology |
+### 🗂️ Gestion de projets
+- Métadonnées riches : **statut** (`development` / `testing` / `production` / `cancelled`), **type** (`web` / `app` / `software`), **complexité** et **visibilité** (`public` / `protected` / `private`)
+- Liens vers une **stack**, une **infrastructure** et des **compétences** (avec niveau de maîtrise `primary` / `secondary` / `research` en pivot)
+- Classification dans des **catégories polymorphiques**, prix, version, dates, URL et dépôt
+- **Galerie d'images** (`ProjectImage`) avec ordre de tri, triée depuis un repeater Filament
+- Suppression douce (`SoftDeletes`) et filtrage avancé
+
+### 🧩 Stacks techniques
+- Stacks nommées et réutilisables, décomposées en **StackItems** catégorisés : `frontend`, `backend`, `database`, `cache`, `queue`, `orm`, `storage`, `cloud`, `monitoring`, `analytics`, `devops`, `design`, `testing`, `documentation`, `others`
+- Chaque item : valeur, version et **icône** (SimpleIcons / icône de site)
+- Édition inline + activation/désactivation d'une stack
+
+### 🛠️ Compétences
+- Niveaux de maîtrise : `beginner` → `intermediate` → `advanced` → `expert`
+- Icônes visuelles, toggles d'activation et catégorisation polymorphique partagée
+- Page publique groupée par niveau
+
+### ☁️ Infrastructure comme donnée
+- Docker, Kubernetes et Helm enregistrés par profil infra
+- Allocations : **CPU (cœurs)**, **mémoire (Mo)**, **stockage (Go)**
+- Environnement : `development` / `staging` / `production`
+
+### 📄 CV versionné
+- Modèles de rendu : **Classique**, **Moderne**, **Minimal** — chaque version a sa couleur d'accent
+- Statuts **Brouillon** / **Publié**, version **principale** mise en avant
+- Contenu structuré (expériences, formations, compétences, langues, certifications, centres d'intérêt) via repeaters
+- **Export PDF** (dompdf) depuis l'admin, page publique dédiée et aperçu du brouillon
+- Slug auto-généré lors de l'enregistrement
+
+### ✉️ Messages de contact
+- Formulaire public (Livewire) avec validation, budgets prédéfinis et envoi d'email
+- Inbox admin : message brut lu/non lu, `markAsRead` automatique à la consultation
+- Widget « Messages non lus » sur le tableau de bord
+
+### 📊 Tableau de bord Filament
+- **6 stats** de vue d'ensemble (utilisateurs, projets, production, messages non lus, compétences, stacks/infra)
+- **Graphiques** : projets par statut (donut), projets par stack (barres), compétences par catégorie (barres)
+- Widgets opérationnels : projets récents, **messages non lus**, **projets sans média**, actions rapides
+- Vue santé **Infrastructure** (infras actives/inactives, production, CPU/RAM/Stockage provisionnés)
+
+### 🔐 Authentification & sécurité
+- **Fortify** : inscription, réinitialisation de mot de passe, **vérification d'email** et **2FA** (avec confirmation)
+- Vues d'authentification personnalisées en **Livewire/Flux**
+- Pages `appearance` et `profile` Flux, page « Sécurité du compte » dans Filament
+- **RBAC Spatie** : tables `permissions` / `roles` et ressources Filament `Roles` & `Permissions` fournies
+- `User` implémente `FilamentUser` (accès admin)
+
+### 🎨 Design system (bleu premium)
+- Palette accent **bleu `#2563eb`**, neutres slate, vert sémantique (succès/disponibilité)
+- **Tokens de surface** (`canvas`, `surface`, `card`, `elevated`, `soft`, `line`) en CSS variables — Light & Dark (4 niveaux de surfaces en sombre)
+- Ombres (`soft` / `card` / `lifted` / `panel`), rayons cohérents, typographie **Instrument Sans + Space Grotesk + JetBrains Mono**
+- `filament.css` dédié pour harmoniser l'admin Filament avec le site public
+
+---
+
+## 🛠️ Stack technique
+
+| Couche | Technologie |
 |---|---|
-| **Runtime** | PHP 8.3 |
-| **Framework** | Laravel 13 |
-| **Admin Panel** | Filament v5 |
-| **Frontend** | Livewire 4 · Flux 2 · Tailwind CSS 4 · Vite 8 |
-| **Database** | SQLite (dev) · MySQL/PostgreSQL ready |
+| **Runtime** | PHP ^8.3 |
+| **Framework** | Laravel ^13.0 |
+| **Admin Panel** | Filament ^5.6 |
+| **Frontend** | Livewire ^4.1 · Flux ^2.13 · Alpine.js · Tailwind CSS ^4 · Vite ^8 |
+| **Base de données** | PostgreSQL (défaut & Railway) · SQLite en dev rapide |
 | **Auth** | Fortify · Sanctum |
 | **Billing** | Cashier (Stripe) |
 | **RBAC** | Spatie Permission |
-| **Media** | Spatie MediaLibrary |
-| **Testing** | Pest |
+| **Médias** | Spatie MediaLibrary |
+| **PDF** | barryvdh/laravel-dompdf |
+| **Testing** | Pest ^4 |
 
 ---
 
-## 🚀 Getting Started
-
-### Prerequisites
-
-- **PHP** >= 8.3
-- **Composer** 2.x
-- **Node.js** 18+ & **npm**
-- SQLite (default) or a MySQL/PostgreSQL database
-
-### Installation
-
-Clone the repository and install dependencies:
-
-```bash
-git clone https://github.com/sena/sena-studio.git
-cd sena-studio
-
-composer install
-```
-
-Copy the environment file and generate your application key:
-
-```bash
-cp .env.example .env
-php artisan key:generate
-```
-
-> **Windows:** use `copy .env.example .env` instead of `cp`.
-
-Configure your database in `.env`. SQLite works out of the box:
-
-```
-DB_CONNECTION=sqlite
-```
-
-Create the SQLite database (see note below) and run migrations with seeders:
-
-```bash
-php artisan migrate --seed
-```
-
-Install the frontend assets:
-
-```bash
-npm install
-npm run build
-```
-
-### Bootstrap Command
-
-Prefer a one-liner? Run the composer setup script which handles everything:
-
-```bash
-composer setup
-```
-
----
-
-## ▶️ Running the Development Environment
-
-The project ships with a concurrent dev server that runs **all** four processes simultaneously (server, queue, logs, vite) with color-coded output:
-
-```bash
-composer dev
-```
-
-| Process | Command |
-|---|---|
-| **HTTP Server** | `php artisan serve` |
-| **Queue Worker** | `php artisan queue:listen` |
-| **Logs (Pail)** | `php artisan pail` |
-| **Asset Bundler** | `npm run dev` |
-
-Alternatively, run services individually:
-
-```bash
-php artisan serve        # Web server (http://localhost:8000)
-npm run dev              # Vite dev server (hot reload)
-php artisan queue:listen # Queue worker (background jobs)
-php artisan pail         # Real-time log streaming
-```
-
----
-
-## 🔑 Access & Credentials
-
-The seed command creates an **admin user** for immediate access:
-
-| Role | Email |
-|---|---|
-| **Administrator** | `senadalmeidapro@gmail.com` |
-
-> ⚠️ The default seeded password is set by the `DatabaseSeeder`. Change it after your first login.
-
-### Key URL Entry Points
-
-| Route | Description |
-|---|---|
-| `/admin` | Filament admin panel (login protected) |
-| `/dashboard` | Authenticated & verified user dashboard |
-| `/settings` | Profile, appearance & security settings |
-| `/` | Public welcome page |
-
----
-
-## 📁 Project Structure
+## 🏗️ Structure du projet
 
 ```
 sena-studio/
 │
 ├── app/
-│   ├── Actions/          # Fortify actions (CreateNewUser, ResetUserPassword)
-│   ├── Concerns/         # Shared traits (Password & Profile validation rules)
-│   ├── Enums/            # 7 typed backed enums (Project, Skill, Stack, Infra)
+│   ├── Actions/               # Fortify (CreateNewUser, ResetUserPassword)
+│   ├── Concerns/              # Règles de validation (Password & Profile)
+│   ├── Enums/                 # 11 enums typés (Projet, Skill, Stack, Infra, CV…)
 │   ├── Filament/
-│   │   ├── Pages/        # Custom dashboard page
-│   │   ├── Resources/    # 8 CRUD resources
-│   │   └── Widgets/      # 5 dashboard widgets (stats + charts)
-│   ├── Http/             # Controllers
-│   ├── Livewire/         # Livewire components (Logout action)
-│   ├── Models/           # 9 Eloquent domain models
-│   └── Providers/        # App, AdminPanel, Fortify service providers
+│   │   ├── Pages/             # Dashboard (9 widgets) + Sécurité du compte
+│   │   ├── Resources/         # 10 ressources (Schemas/ + Tables/ + Pages/)
+│   │   │   └── Projects/RelationManagers/
+│   │   └── Widgets/           # 9 widgets (stats, chartes, opérationnels)
+│   ├── Livewire/
+│   │   ├── Site/              # 7 pages publiques (Home, Projects, Stack…)
+│   │   ├── Filament/          # AccountSecurity (2FA)
+│   │   └── Actions/           # Logout
+│   ├── Models/                # 22 modèles (domaine + tables système)
+│   ├── Providers/             # App, Fortify + Filament\AdminPanel
+│   └── Http/                  # Controllers
 │
-├── config/               # Application configuration
+├── config/                    # fortify, permission, auth, services…
 ├── database/
-│   ├── factories/        # 6 model factories
-│   ├── migrations/       # Schema migrations
-│   └── seeders/          # DatabaseSeeder
+│   ├── factories/             # 7 factories
+│   ├── migrations/            # 16 migrations
+│   └── seeders/               # DatabaseSeeder + PortfolioSeeder
 │
 ├── resources/
-│   ├── css/              # Global styles (Tailwind)
-│   ├── js/               # Bootstrap JS
-│   └── views/            # Blade + Flux views (auth, settings, layouts)
+│   ├── css/                   # app.css (design system) + filament.css (admin)
+│   ├── views/                 # Layouts public/admin/auth + pages Livewire
+│   │   ├── pages/public/      # home, projects, skills, stack, contact, cv-show
+│   │   └── filament/          # widgets + page security
+│   └── js/
 │
 ├── routes/
-│   ├── console.php       # Artisan commands
-│   ├── settings.php      # Settings routes
-│   └── web.php           # Web routes
+│   ├── web.php                # Routes publiques + export PDF
+│   ├── settings.php           # Profile & Appearance
+│   └── console.php
 │
-├── tests/                # Pest test suites
-└── vite.config.js        # Vite + Tailwind configuration
+├── tests/                     # Pest : tests publics, admin, auth, domaine
+│
+├── Dockerfile                 # Image multi-stage (build Vite + runtime PHP 8.3)
+├── docker/entrypoint.sh       # Migrations, storage:link, caches, serve sur $PORT
+├── .dockerignore
+└── vite.config.js             # Vite + Tailwind (inputs app.css/filament.css)
 ```
 
 ---
 
-## 🗃️ Data Model
+## 🗃️ Modèle de données
 
-### Relationships
+| Entité | Rôle |
+|---|---|
+| `Project` | Unité centrale — stack, infra, compétences, catégories, images |
+| `Stack` → `StackItem` | Collection technique nommée, décomposée en items catégorisés |
+| `Skill` | Catalogue d'expertises avec niveaux & icônes |
+| `Infra` | Profils d'infrastructure (Docker, K8s, Helm, ressources) |
+| `Category` | Classification polymorphique (Projets & Compétences) |
+| `Cv` | Versions de CV (brouillon / publié, 3 templates, contenus JSON) |
+| `ContactMessage` | Demandes de contact (lu / non lu, budget) |
+| `User` | Compte avec 2FA, implémente `FilamentUser` |
+
+### Relations clés
 
 ```mermaid
 erDiagram
@@ -245,98 +178,239 @@ erDiagram
     STACK ||--o{ PROJECT : deployed_via
     INFRA ||--o{ PROJECT : runs_on
     PROJECT ||--o{ PROJECT_SKILL : has
-    SKILL ||--o{ PROJECT_SKILL : has
-    CATEGORY ||--o{ CATEGORIZABLE : belongs
+    PROJECT ||--o{ SKILL : has_many_through(project_skill)
+    PROJECT ||--o{ PROJECT_IMAGE : has
+    CATEGORY ||--o{ CATEGORIZABLE : polymorphic
     PROJECT ||--o{ CATEGORIZABLE : categorized_as
     SKILL ||--o{ CATEGORIZABLE : categorized_as
-    ROLE ||--o{ ROLE_HAS_PERMISSION : grants
-    PERMISSION ||--o{ ROLE_HAS_PERMISSION : granted_to
 ```
 
-### Core Entities
+---
 
-| Entity | Purpose |
+## 🚀 Installation
+
+### Prérequis
+- **PHP** ^8.3
+- **Composer** 2.x
+- **Node.js** 18+ & npm
+- **PostgreSQL** 14+ (ou SQLite pour un dev sans serveur)
+
+### Démarrage rapide
+
+```bash
+git clone https://github.com/sena/sena-studio.git
+cd sena-studio
+composer setup
+```
+
+`composer setup` enchaîne : `composer install`, création de `.env`, `key:generate`, migrations, `npm install` et `npm run build`.
+
+### Manuellement
+
+```bash
+composer install
+```
+
+> **Windows :** `copy .env.example .env` (au lieu de `cp`).
+
+```bash
+php artisan key:generate
+php artisan migrate --seed
+npm install
+npm run build
+```
+
+### Base de données
+
+Le projet est configuré pour **PostgreSQL** par défaut (`.env.example` prêt pour Railway).
+Créez une base `sena_studio` et ajustez votre `.env` :
+
+```
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=sena_studio
+DB_USERNAME=sena
+DB_PASSWORD=secret
+```
+
+> **Alternative locale SQLite** : `DB_CONNECTION=sqlite` fonctionne tel quel
+> (aucun serveur requis).
+
+---
+
+## ▶️ Développement
+
+Le projet embarque un serveur dev concurrent (code couleur par process) :
+
+```bash
+composer dev
+```
+
+| Process | Commande |
 |---|---|
-| `Project` | Core unit — links stacks, skills, infrastructure, categories |
-| `Stack` | Named technology collection decomposed into categorized `StackItems` |
-| `Skill` | Expertise catalog with levels & icons |
-| `Infra` | Infrastructure definitions (Docker, K8s, resource specs) |
-| `Category` | Polymorphic classification for Projects & Skills |
-| `User` | Account holder with 2FA & role assignments |
+| **Serveur HTTP** | `php artisan serve` |
+| **Queue** | `php artisan queue:listen --tries=1` |
+| **Logs (Pail)** | `php artisan pail` |
+| **Assets** | `npm run dev` |
 
----
-
-## ✔️ Code Quality
-
-Run the linter (Pint) and the test suite with a single command:
+Ou individuellement :
 
 ```bash
-composer test
-```
-
-Or individually:
-
-```bash
-composer lint        # Fix code style automatically
-composer lint:check  # Verify code style only
-php artisan test     # Run the Pest test suite
-```
-
-The CI check runs the complete pipeline (`config:clear` → `lint:check` → `test`):
-
-```bash
-composer ci:check
+php artisan serve        # http://localhost:8000
+npm run dev              # Hot reload Vite
+php artisan queue:listen # Jobs en arrière-plan
+php artisan pail         # Logs en temps réel
 ```
 
 ---
 
-## 🧪 Testing
+## 🔑 Accès & identifiants
 
-The project is pre-configured with **Pest** and an isolated `:memory:` SQLite database, so tests run fast and clean without touching your development data.
+Le seeder crée un **administrateur** :
+
+| Rôle | Email | Mot de passe |
+|---|---|---|
+| **Admin** | `senadalmeidapro@gmail.com` | `Sena-Studio@2026` (⚠️ à changer) |
+
+### Points d'entrée
+
+| Route | Description |
+|---|---|
+| `/` | Page d'accueil publique (Livewire) |
+| `/projets` · `/projets/{slug}` | Portfolio public + détail filtré par type |
+| `/competences` | Compétences actives groupées par niveau |
+| `/stack` | Stacks actives par catégorie |
+| `/contact` | Formulaire de contact public |
+| `/cv/{cv:slug}` | CV public (rendu selon le template) |
+| `/admin` | **Filament admin** (login protégé) |
+| `/admin/cvs/{cv}/pdf` | Export PDF du CV (auth + vérifié) |
+| `/settings/profile` · `/settings/appearance` | Réglages Flux (post-connexion) |
+
+---
+
+## ☁️ Déploiement — Railway
+
+Le repo embarque un **Dockerfile multi-stage** : l'image construit les assets Vite au build,
+puis démarre `php artisan serve` sur le port `$PORT` avec migrations automatiques,
+liens de stockage et caches applicatifs.
+
+### 1. Créer le projet sur Railway
 
 ```bash
-# Run all tests
+railway init
+railway link
+```
+
+### 2. Provisionner PostgreSQL
+
+Dans le dashboard Railway : **Create → Database → PostgreSQL**. Puis référencer sa
+`DATABASE_URL` (générée automatiquement) dans les variables du service.
+
+### 3. Variables d'environnement
+
+| Variable | Valeur conseillée | Rôle |
+|---|---|---|
+| `APP_KEY` | *(auto-générée au démarrage si absente)* | Clé de chiffrement Laravel |
+| `APP_ENV` | `production` | Environnement |
+| `APP_DEBUG` | `false` | Jamais en production |
+| `APP_URL` | `https://<votre-app>.up.railway.app` | URL canonique (HTTPS via proxies approuvés) |
+| `DB_URL` | `${DATABASE_URL}` | Chaîne de connexion PostgreSQL injectée par Railway |
+| `DB_CONNECTION` | `pgsql` | Driver PostgreSQL |
+| `DB_SSLMODE` | `require` | Railway exige SSL |
+| `LOG_CHANNEL` | `stderr` | Logs visibles dans Railway |
+| `SESSION_SECURE_COOKIE` | `true` | Cookies sécurisés sur HTTPs |
+| `DB_SEED` | `true` *(1er déploiement)* | Seede utilisateur admin + portfolio |
+| `APP_MIGRATE` | `true` *(défaut)* | Migrations automatiques au démarrage |
+
+> Le serveur attend la base (jusqu'à `DB_RETRIES=30` tentatives) avant d'appliquer les migrations.
+> La route de santé `/up` est exposée pour les health-checks.
+
+### 4. Pousser et déployer
+
+```bash
+git add . && git commit -m "deploy: railway + postgres"
+git push
+```
+
+Railway détecte le `Dockerfile` et reconstruit à chaque push.
+
+### Stockage de fichiers
+
+Les images projet shipées dans `public/` sont incluses dans le conteneur. Les **uploads**
+du backoffice partent dans `storage/app/public` (volume éphémère par défaut) — pensez à
+brancher un **volume persistant** sur `/app/storage` pour conserver les images téléversées.
+
+---
+
+## 🧬 Architecture Filament
+
+- **10 ressources** : `Projects`, `Stacks`, `Skills`, `Categories`, `Infras`, `Cvs`, `Messages › ContactMessages`, `Users`, `Roles`, `Permissions`
+- Décomposition **Resource → Form/Schema → Table → Pages (Create/Edit/List)** pour une maintenabilité maximale
+- Relation manager `SkillsRelationManager` sur les projets (proficiency en pivot)
+- Page `Security` (2FA) dans le groupe « Compte », widget `Dashboard` sur mesure à 12 colonnes
+
+---
+
+## 🎨 Design system
+
+- **Couleurs** — accent bleu (`#2563eb`), neutres `ink` (slate), `emerald` réservé aux états de succès (disponibilité, statut `production`, confirmation d'envoi)
+- **Surfaces** — tokens `canvas / surface / card / elevated / soft / line` définis en CSS vars, exposés à Tailwind via `@theme inline`, avec mode sombre en 4 niveaux
+- **Typographie** — `Instrument Sans` (texte), `Space Grotesk` (titres), `JetBrains Mono` (labels techniques)
+- **Badges sémantiques** — statuts de projet colorés par état (production → vert, test → ambre, développement → bleu, annulé → gris)
+- **`filament.css`** — injecté dans le panneau admin via `FilamentView::registerRenderHook` (HEAD_START)
+
+---
+
+## ✔️ Qualité & tests
+
+Suite **Pest** (SQLite `:memory:`, `RefreshDatabase`) — couvre les pages publiques, l'admin (smoke), l'auth (connexion, 2FA, email, mots de passe, inscription), les réglages, le domaine (projets, stacks) et l'export PDF.
+
+```bash
+composer lint        # Corrige le style (Pint)
+composer lint:check  # Vérifie le style uniquement
+composer test        # config:clear + lint:check + tests
+composer ci:check    # Pipeline CI complet
+```
+
+Pipelines ciblés :
+```bash
 php artisan test
-
-# Run a specific file
-php artisan test --filter=ProjectTest
+php artisan test --filter=PublicSiteTest
 ```
 
 ---
 
-## 🌍 Production Hardening
+## 🌍 Durcissement production
 
-Built-in safety guards for production deployments:
-
-- **Strict password policy** enforced (`min 12 chars`, mixed case, symbols, uncompromised)
-- **Critical destructive commands blocked** in the `production` environment
-- **CarbonImmutable** set globally for consistent, immutable date handling
-- **Fortify rate-limiting** on authentication endpoints (5/min)
-- **2FA** available for accounts
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please ensure a clean codebase:
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Run `composer lint` and `composer test` before opening a PR
-6. Open a Pull Request
+- **Politique de mot de passe stricte** en production : `min 12`, casse mixte, lettres, chiffres, symboles, `uncompromised`
+- **Commandes destructrices bloquées** (`DB::prohibitDestructiveCommands`) en production
+- **CarbonImmutable** global
+- **Rate limiting Fortify** : 5 requêtes/minute sur login et 2FA
+- **2FA** disponible pour les comptes
+- Les services chaînés : Pail + queue worker sous `composer dev`
 
 ---
 
-## 📄 License
+## 🤝 Contribuer
 
-Released under the [MIT license](LICENSE).
+1. *Fork* le dépôt
+2. Créez votre branche (`git checkout -b feature/amazing-feature`)
+3. Committez (`git commit -m 'feat: add amazing feature'`)
+4. Poussez (`git push origin feature/amazing-feature`)
+5. Passez `composer lint` et `composer test` avant d'ouvrir une PR
+6. Ouvrez une Pull Request
+
+---
+
+## 📄 Licence
+
+Publié sous la [licence MIT](LICENSE).
 
 ---
 
 <div align="center">
 
-**Built with ❤️ by [Sena Gedeon D'ALMEIDA](mailto:senadalmeidapro@gmail.com)**
+**Conçu avec ❤️ par [Sena Gedeon D'ALMEIDA](mailto:senadalmeidapro@gmail.com)**
 
 </div>

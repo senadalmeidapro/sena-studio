@@ -1,0 +1,31 @@
+# Dépendances / caches locaux
+vendor/
+node_modules/
+
+# Assets déjà compilés (reconstruits dans l'image)
+public/build/
+public/hot
+
+# Artefacts du navigateur
+.git/
+.idea/
+.vscode/
+
+# Environnements & logs
+.env
+.env.*
+!.env.example
+storage/*.key
+*.log
+
+# BDD et tests locaux
+database/*.sqlite
+.phpunit.result.cache
+storage/logs/*
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Outils embarqués par le thème (.gitbackup)
+.gitbackup

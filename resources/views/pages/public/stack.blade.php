@@ -3,7 +3,7 @@
     {{-- En-tête éditorial --}}
     <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">
         <div class="flex items-center gap-3">
-            <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-emerald-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-emerald-500 dark:text-emerald-950">STK</span>
+            <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-blue-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-blue-500 dark:text-blue-950">STK</span>
             <span class="eyebrow">Technologies</span>
         </div>
         <h1 class="mt-5 font-display text-4xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-5xl">
@@ -35,11 +35,11 @@
                 @if ($stack->stackItems->isNotEmpty())
                     <div class="grid gap-6 sm:grid-cols-2">
                         @foreach ($stack->stackItems->groupBy('category') as $category => $items)
-                            <div class="rounded-2xl border border-ink-300 bg-white p-6 dark:border-ink-700 dark:bg-ink-950">
-                                <h3 class="mb-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-300">{{ \App\Enums\StackItemCategory::from($category)->label() }}</h3>
+                            <div class="rounded-2xl border border-ink-300 bg-card p-6 shadow-soft dark:border-ink-700">
+                                <h3 class="mb-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-blue-600 dark:text-blue-300">{{ \App\Enums\StackItemCategory::from($category)->label() }}</h3>
                                 <div class="space-y-2">
                                     @foreach ($items as $item)
-                                        <div class="flex items-center justify-between rounded-lg border border-ink-300 px-4 py-2.5 transition-colors hover:border-emerald-400/50 dark:border-ink-700 dark:hover:border-emerald-500/40">
+                                        <div class="flex items-center justify-between rounded-lg border border-ink-300 px-4 py-2.5 transition-colors hover:border-blue-400/50 dark:border-ink-700 dark:hover:border-blue-500/40">
                                             <span class="flex items-center gap-2 text-sm text-ink-800 dark:text-ink-100">
                                                 <span class="flex min-w-5 items-center justify-center">
                                                     @if ($item->icon)

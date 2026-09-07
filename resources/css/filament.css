@@ -1,0 +1,102 @@
+body {
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+.fi-main-ctn {
+    background-color: var(--gray-50);
+}
+
+.dark .fi-main-ctn {
+    background-color: var(--gray-950);
+}
+
+.fi-sidebar {
+    transition: background-color 0.2s ease;
+}
+
+.fi-sidebar-item {
+    border-radius: 0.7rem;
+    transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.fi-section {
+    border-radius: 1rem;
+    box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.03), 0 4px 10px -2px rgb(15 23 42 / 0.05), 0 12px 32px -12px rgb(15 23 42 / 0.1);
+    transition: box-shadow 0.2s ease;
+}
+
+.fi-section .fi-section-header {
+    padding-block: 1.15rem;
+}
+
+.fi-btn {
+    border-radius: 0.65rem;
+    transition: transform 0.12s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.fi-btn:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.fi-badge {
+    border-radius: 9999px;
+    letter-spacing: 0.01em;
+    font-weight: 600;
+}
+
+.fi-input,
+.fi-textarea,
+.fi-select-input {
+    border-radius: 0.625rem;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.fi-input:focus,
+.fi-textarea:focus,
+.fi-select-input:focus {
+    box-shadow: 0 0 0 2px rgb(37 99 235 / 0.22);
+}
+
+.fi-ta-ctn,
+.fi-ta-content-ctn {
+    box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.03), 0 4px 10px -2px rgb(15 23 42 / 0.05);
+    border-radius: 0.75rem;
+}
+
+.fi-ta-content table thead th,
+.fi-ta-content-ctn table thead th {
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+}
+
+.fi-ta .fi-ta-row,
+.fi-ta-content-ctn .fi-ta-row {
+    transition: background-color 0.12s ease;
+}
+
+.fi-pagination {
+    scrollbar-width: thin;
+}
+
+.fi-modal-window {
+    border-radius: 1rem;
+    box-shadow: 0 24px 48px -12px rgb(15 23 42 / 0.18);
+}
+
+.fi-dropdown-panel {
+    border-radius: 0.9rem;
+    box-shadow: 0 12px 24px -8px rgb(15 23 42 / 0.16);
+}
+
+:focus-visible {
+    outline: 2px solid rgb(37 99 235 / 0.7);
+    outline-offset: 2px;
+}
+
+::selection {
+    background-color: var(--primary-500);
+    color: var(--primary-50);
+}

@@ -1,5 +1,5 @@
 <div class="mx-auto max-w-4xl px-4 pb-24 pt-10 sm:px-6 lg:px-8">
-    <a href="{{ route('home') }}" wire:navigate class="inline-flex items-center gap-1.5 text-sm text-ink-500 transition-colors hover:text-emerald-600 dark:text-ink-400 dark:hover:text-emerald-300">
+    <a href="{{ route('home') }}" wire:navigate class="inline-flex items-center gap-1.5 text-sm text-ink-500 transition-colors hover:text-blue-600 dark:text-ink-400 dark:hover:text-blue-300">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12l7.5-7.5m5.25 15L8.25 12l7.5-7.5" />
         </svg>
@@ -30,7 +30,7 @@
 
     <article
         style="--accent: {{ $accent }};"
-        class="mt-8 overflow-hidden rounded-3xl border border-ink-300 bg-white shadow-xl shadow-ink-900/5 dark:border-ink-700 dark:bg-ink-950"
+        class="mt-8 overflow-hidden rounded-3xl border border-ink-300 bg-card shadow-xl shadow-ink-900/5 dark:border-ink-700"
     >
         @if ($cv->template->value === 'moderne')
             {{-- Modern : bandeau accent + double colonne --}}

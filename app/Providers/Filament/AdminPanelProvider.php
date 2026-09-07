@@ -10,15 +10,28 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Facades\FilamentView;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
 {
+    public function register(): void
+    {
+        parent::register();
+
+        FilamentView::registerRenderHook(
+            PanelsRenderHook::HEAD_START,
+            fn (): string => '<link rel="stylesheet" href="'.Vite::asset('resources/css/filament.css').'">',
+        );
+    }
+
     public function panel(Panel $panel): Panel
     {
         return $panel
@@ -28,11 +41,12 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->brandName('Sena Studio')
             ->colors([
-                'primary' => Color::hex('#059669'),
+                'primary' => Color::hex('#2563eb'),
                 'danger' => Color::Rose,
                 'info' => Color::Sky,
-                'success' => Color::hex('#10b981'),
-                'warning' => Color::hex('#f59e0b'),
+                'success' => Color::Emerald,
+                'warning' => Color::Amber,
+                'gray' => Color::Slate,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')

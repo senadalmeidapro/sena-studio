@@ -12,7 +12,7 @@
 <div @class(['mb-10 flex flex-col gap-4 md:mb-14', $align === 'center' ? 'mx-auto items-center text-center' : '', $class])>
     <div @class(['flex w-full items-center gap-3', $align === 'center' ? 'justify-center' : ''])>
         @if ($index)
-            <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-emerald-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-emerald-500 dark:text-emerald-950">
+            <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-blue-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-blue-500 dark:text-blue-950">
                 {{ $index }}
             </span>
         @endif

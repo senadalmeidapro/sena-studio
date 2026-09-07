@@ -5,7 +5,7 @@
     $cvUrl = $cvPrimary ? route('cv.show', $cvPrimary) : null;
 @endphp
 
-<header class="sticky top-0 z-40 border-b border-ink-300 bg-white/90 backdrop-blur-md dark:border-ink-700 dark:bg-ink-950/90">
+<header class="sticky top-0 z-40 border-b border-ink-300/80 bg-canvas/85 backdrop-blur-md dark:border-ink-700/80 dark:bg-canvas/85">
     <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="{{ route('home') }}" class="group flex items-center gap-2.5" wire:navigate>
             <x-logo class="size-7 transition-transform duration-300 group-hover:scale-105" />
@@ -36,7 +36,7 @@
         </nav>
 
         <div class="flex items-center gap-3">
-            <a href="{{ route('contact') }}" wire:navigate class="group hidden items-center gap-1.5 rounded-full bg-emerald-600 px-5 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-white transition-colors hover:bg-emerald-700 sm:inline-flex dark:bg-emerald-500 dark:text-emerald-950 dark:hover:bg-emerald-400">
+            <a href="{{ route('contact') }}" wire:navigate class="group hidden items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-white shadow-soft transition-all duration-200 hover:-translate-y-px hover:bg-blue-700 sm:inline-flex dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
                 Discutons
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -86,7 +86,7 @@
     </div>
 
     {{-- Mobile menu --}}
-    <div class="hidden border-t border-ink-300 bg-white md:hidden dark:border-ink-700 dark:bg-ink-950" data-site-mobile-menu>
+    <div class="hidden border-t border-ink-300 bg-canvas md:hidden dark:border-ink-700" data-site-mobile-menu>
         <nav class="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4">
             @foreach ([
                 'home' => ['Accueil', route('home')],
@@ -101,7 +101,7 @@
                     wire:navigate
                     @class([
                         'rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
-                        'bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300' => $current === $key,
+                        'bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' => $current === $key,
                         'text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-800/50' => $current !== $key,
                         'pointer-events-none opacity-40' => ($key === 'cv' && ! $cvUrl),
                     ])
@@ -110,7 +110,7 @@
                 </a>
             @endforeach
             <div class="mt-2 border-t border-ink-300 pt-3 dark:border-ink-700">
-                <a href="{{ route('contact') }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-emerald-600 hover:bg-emerald-100 dark:text-emerald-300 dark:hover:bg-emerald-500/15">
+                <a href="{{ route('contact') }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-blue-600 hover:bg-blue-100 dark:text-blue-300 dark:hover:bg-blue-500/15">
                     Discutons →
                 </a>
                 <a href="{{ route('login') }}" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-ink-500 hover:bg-ink-100 dark:text-ink-400 dark:hover:bg-ink-800/50">
