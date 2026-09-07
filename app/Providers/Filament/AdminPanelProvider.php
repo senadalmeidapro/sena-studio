@@ -40,6 +40,8 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->brandName('Sena Studio')
+            ->brandLogo(fn (): string => asset('images/brand/sena-mark.svg'))
+            ->brandLogoHeight('2rem')
             ->colors([
                 'primary' => Color::hex('#2563eb'),
                 'danger' => Color::Rose,
