@@ -7,7 +7,7 @@
 > Backoffice de gestion freelance sur mesure + site public élégant, construits sur **Laravel 13**, **Filament v5**, **Livewire 4** et **Flux 2** — pour piloter projets, stacks techniques, compétences, infrastructure, CV et demandes de contact depuis une seule interface.
 
 [![Laravel](https://img.shields.io/badge/Laravel-13.x-FF2D20?logo=laravel&logoColor=white)](https://laravel.com)
-[![PHP](https://img.shields.io/badge/PHP-8.3-777BB4?logo=php&logoColor=white)](https://www.php.net)
+[![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?logo=php&logoColor=white)](https://www.php.net)
 [![Filament](https://img.shields.io/badge/Filament-v5-FCB66D?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iMTAiIGZpbGw9IiMwNDExMjciLz48Y2lyY2xlIGN4PSIxMSIgY3k9IjExIiByPSI2IiBmaWxsPSIjZmM2NmJkIi8+PGNpcmNsZSBjeD0iMjEiIGN5PSIyMSIgcj0iNiIgZmlsbD0iI2ZjNjZiZCIvPjwvc3ZnPg==)](https://filamentphp.com)
 [![Livewire](https://img.shields.io/badge/Livewire-v4-EB4B4B?logo=livewire&logoColor=white)](https://livewire.laravel.com)
 [![Flux](https://img.shields.io/badge/Flux-v2-0A3EAE)](https://fluxui.dev)
@@ -92,7 +92,7 @@ Le tout est habillé d'un **design system bleu premium** (Tailwind CSS v4) avec 
 
 | Couche | Technologie |
 |---|---|
-| **Runtime** | PHP ^8.3 |
+| **Runtime** | PHP ^8.4 |
 | **Framework** | Laravel ^13.0 |
 | **Admin Panel** | Filament ^5.6 |
 | **Frontend** | Livewire ^4.1 · Flux ^2.13 · Alpine.js · Tailwind CSS ^4 · Vite ^8 |
@@ -148,7 +148,7 @@ sena-studio/
 │
 ├── tests/                     # Pest : tests publics, admin, auth, domaine
 │
-├── Dockerfile                 # Image multi-stage (build Vite + runtime PHP 8.3)
+├── Dockerfile                 # Image multi-stage (build Vite + runtime PHP 8.4)
 ├── docker/entrypoint.sh       # Migrations, storage:link, caches, serve sur $PORT
 ├── .dockerignore
 └── vite.config.js             # Vite + Tailwind (inputs app.css/filament.css)
@@ -190,7 +190,7 @@ erDiagram
 ## 🚀 Installation
 
 ### Prérequis
-- **PHP** ^8.3
+- **PHP** ^8.4
 - **Composer** 2.x
 - **Node.js** 18+ & npm
 - **PostgreSQL** 14+ (ou SQLite pour un dev sans serveur)

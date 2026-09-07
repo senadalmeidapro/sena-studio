@@ -1,15 +1,15 @@
 # =============================================================================
 # Sena Studio — Docker image (déploiement Railway / conteneurs)
 #
-#   Stage build  : PHP 8.3 (Debian/glibc), composer, dépendances vendor PHP.
+#   Stage build  : PHP 8.4 (Debian/glibc), composer, dépendances vendor PHP.
 #   Stage assets : Node 22, npm ci + build Vite — consomme le vendor PHP (CSS
 #                  Flux/Filament importé dans app.css) ramené depuis `build`.
-#   Stage runtime: PHP 8.3 CLI minimal → `php artisan serve` sur $PORT
+#   Stage runtime: PHP 8.4 CLI minimal → `php artisan serve` sur $PORT
 #                  (migrations, lien de stockage et caches via entrypoint).
 # =============================================================================
 
 # ---------------------- Dépendances PHP / Composer -------------------------
-FROM php:8.3-cli-bookworm AS build
+FROM php:8.4-cli-bookworm AS build
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -28,6 +28,7 @@ RUN apt-get update \
     && docker-php-ext-install -j"$(nproc)" \
         pdo_pgsql \
         pgsql \
+        bcmath \
         mbstring \
         intl \
         zip \
@@ -67,7 +68,7 @@ COPY --from=build /app/vendor /app/vendor
 RUN npm run build
 
 # --------------------------------- Runtime --------------------------------
-FROM php:8.3-cli-bookworm AS runtime
+FROM php:8.4-cli-bookworm AS runtime
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -85,6 +86,7 @@ RUN apt-get update \
     && docker-php-ext-install -j"$(nproc)" \
         pdo_pgsql \
         pgsql \
+        bcmath \
         mbstring \
         intl \
         zip \
