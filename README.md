@@ -4,7 +4,7 @@
 
 ### Freelance Command Center & Public Portfolio Platform
 
-> Backoffice de gestion freelance sur mesure + site public élégant, construits sur **Laravel 13**, **Filament v5**, **Livewire 4** et **Flux 2** — pour piloter projets, stacks techniques, compétences, infrastructure, CV et demandes de contact depuis une seule interface.
+> Custom-built freelance management backoffice + elegant public site, built on **Laravel 13**, **Filament v5**, **Livewire 4** and **Flux 2** — to manage projects, tech stacks, skills, infrastructure, resumes and contact requests from a single interface.
 
 [![Laravel](https://img.shields.io/badge/Laravel-13.x-FF2D20?logo=laravel&logoColor=white)](https://laravel.com)
 [![PHP](https://img.shields.io/badge/PHP-8.4-777BB4?logo=php&logoColor=white)](https://www.php.net)
@@ -14,117 +14,117 @@
 [![Tailwind](https://img.shields.io/badge/Tailwind-v4-38BDF8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![License](https://img.shields.io/badge/License-MIT-4cc61e.svg)](LICENSE)
 
-**Auteur :** Sena Gedeon D'ALMEIDA — [email](mailto:senadalmeidapro@gmail.com)
+**Author:** Sena Gedeon D'ALMEIDA — [email](mailto:senadalmeidapro@gmail.com)
 
 </div>
 
 ---
 
-## 📖 Vue d'ensemble
+## 📖 Overview
 
-**Sena Studio** réunit deux expériences complémentaires sur une seule base de code :
+**Sena Studio** brings together two complementary experiences on a single codebase:
 
-- **Un backoffice Filament complet** (« command center ») pour gérer — en quelques clics — les projets, les stacks techniques, les compétences, l'infrastructure, les CV et les demandes de contact.
-- **Un site public moderne et accessible** (Livewire + Flux), qui diffuse automatiquement le contenu géré dans l'admin : accueil, portfolio filtrable, compétences, stack technique, formulaire de contact et CV téléchargeable en PDF.
+- **A complete Filament backoffice** (a "command center") to manage — in just a few clicks — projects, tech stacks, skills, infrastructure, resumes and contact requests.
+- **A modern, accessible public site** (Livewire + Flux) that automatically publishes the content managed in the admin: homepage, filterable portfolio, skills, tech stack, contact form and a downloadable PDF resume.
 
-Le tout est habillé d'un **design system bleu premium** (Tailwind CSS v4) avec mode sombre hiérarchisé et micro-interactions soignées.
-
----
-
-## ✨ Fonctionnalités
-
-### 🗂️ Gestion de projets
-- Métadonnées riches : **statut** (`development` / `testing` / `production` / `cancelled`), **type** (`web` / `app` / `software`), **complexité** et **visibilité** (`public` / `protected` / `private`)
-- Liens vers une **stack**, une **infrastructure** et des **compétences** (avec niveau de maîtrise `primary` / `secondary` / `research` en pivot)
-- Classification dans des **catégories polymorphiques**, prix, version, dates, URL et dépôt
-- **Galerie d'images** (`ProjectImage`) avec ordre de tri, triée depuis un repeater Filament
-- Suppression douce (`SoftDeletes`) et filtrage avancé
-
-### 🧩 Stacks techniques
-- Stacks nommées et réutilisables, décomposées en **StackItems** catégorisés : `frontend`, `backend`, `database`, `cache`, `queue`, `orm`, `storage`, `cloud`, `monitoring`, `analytics`, `devops`, `design`, `testing`, `documentation`, `others`
-- Chaque item : valeur, version et **icône** (SimpleIcons / icône de site)
-- Édition inline + activation/désactivation d'une stack
-
-### 🛠️ Compétences
-- Niveaux de maîtrise : `beginner` → `intermediate` → `advanced` → `expert`
-- Icônes visuelles, toggles d'activation et catégorisation polymorphique partagée
-- Page publique groupée par niveau
-
-### ☁️ Infrastructure comme donnée
-- Docker, Kubernetes et Helm enregistrés par profil infra
-- Allocations : **CPU (cœurs)**, **mémoire (Mo)**, **stockage (Go)**
-- Environnement : `development` / `staging` / `production`
-
-### 📄 CV versionné
-- Modèles de rendu : **Classique**, **Moderne**, **Minimal** — chaque version a sa couleur d'accent
-- Statuts **Brouillon** / **Publié**, version **principale** mise en avant
-- Contenu structuré (expériences, formations, compétences, langues, certifications, centres d'intérêt) via repeaters
-- **Export PDF** (dompdf) depuis l'admin, page publique dédiée et aperçu du brouillon
-- Slug auto-généré lors de l'enregistrement
-
-### ✉️ Messages de contact
-- Formulaire public (Livewire) avec validation, budgets prédéfinis et envoi d'email
-- Inbox admin : message brut lu/non lu, `markAsRead` automatique à la consultation
-- Widget « Messages non lus » sur le tableau de bord
-
-### 📊 Tableau de bord Filament
-- **6 stats** de vue d'ensemble (utilisateurs, projets, production, messages non lus, compétences, stacks/infra)
-- **Graphiques** : projets par statut (donut), projets par stack (barres), compétences par catégorie (barres)
-- Widgets opérationnels : projets récents, **messages non lus**, **projets sans média**, actions rapides
-- Vue santé **Infrastructure** (infras actives/inactives, production, CPU/RAM/Stockage provisionnés)
-
-### 🔐 Authentification & sécurité
-- **Fortify** : inscription, réinitialisation de mot de passe, **vérification d'email** et **2FA** (avec confirmation)
-- Vues d'authentification personnalisées en **Livewire/Flux**
-- Pages `appearance` et `profile` Flux, page « Sécurité du compte » dans Filament
-- **RBAC Spatie** : tables `permissions` / `roles` et ressources Filament `Roles` & `Permissions` fournies
-- `User` implémente `FilamentUser` (accès admin)
-
-### 🎨 Design system (bleu premium)
-- Palette accent **bleu `#2563eb`**, neutres slate, vert sémantique (succès/disponibilité)
-- **Tokens de surface** (`canvas`, `surface`, `card`, `elevated`, `soft`, `line`) en CSS variables — Light & Dark (4 niveaux de surfaces en sombre)
-- Ombres (`soft` / `card` / `lifted` / `panel`), rayons cohérents, typographie **Instrument Sans + Space Grotesk + JetBrains Mono**
-- `filament.css` dédié pour harmoniser l'admin Filament avec le site public
+The whole thing is wrapped in a **premium blue design system** (Tailwind CSS v4) with a layered dark mode and polished micro-interactions.
 
 ---
 
-## 🛠️ Stack technique
+## ✨ Features
 
-| Couche | Technologie |
+### 🗂️ Project management
+- Rich metadata: **status** (`development` / `testing` / `production` / `cancelled`), **type** (`web` / `app` / `software`), **complexity** and **visibility** (`public` / `protected` / `private`)
+- Links to a **stack**, an **infrastructure** and **skills** (with proficiency level `primary` / `secondary` / `research` in the pivot)
+- Classification into polymorphic **categories**, pricing, version, dates, URL and repository
+- **Image gallery** (`ProjectImage`) with sort order, managed from a Filament repeater
+- Soft deletes (`SoftDeletes`) and advanced filtering
+
+### 🧩 Tech stacks
+- Named, reusable stacks broken down into categorized **StackItems**: `frontend`, `backend`, `database`, `cache`, `queue`, `orm`, `storage`, `cloud`, `monitoring`, `analytics`, `devops`, `design`, `testing`, `documentation`, `others`
+- Each item: value, version and **icon** (SimpleIcons / site icon)
+- Inline editing + enable/disable per stack
+
+### 🛠️ Skills
+- Proficiency levels: `beginner` → `intermediate` → `advanced` → `expert`
+- Visual icons, activation toggles and shared polymorphic categorization
+- Public page grouped by level
+
+### ☁️ Infrastructure as data
+- Docker, Kubernetes and Helm recorded per infra profile
+- Allocations: **CPU (cores)**, **memory (MB)**, **storage (GB)**
+- Environment: `development` / `staging` / `production`
+
+### 📄 Versioned resume
+- Rendering templates: **Classic**, **Modern**, **Minimal** — each version has its own accent color
+- **Draft** / **Published** statuses, featured **primary** version
+- Structured content (experience, education, skills, languages, certifications, interests) via repeaters
+- **PDF export** (dompdf) from the admin, dedicated public page and draft preview
+- Auto-generated slug on save
+
+### ✉️ Contact messages
+- Public form (Livewire) with validation, preset budgets and email sending
+- Admin inbox: raw read/unread message, automatic `markAsRead` on view
+- "Unread messages" widget on the dashboard
+
+### 📊 Filament dashboard
+- **6 overview stats** (users, projects, production, unread messages, skills, stacks/infra)
+- **Charts**: projects by status (donut), projects by stack (bars), skills by category (bars)
+- Operational widgets: recent projects, **unread messages**, **projects with no media**, quick actions
+- **Infrastructure** health view (active/inactive infras, production, provisioned CPU/RAM/storage)
+
+### 🔐 Authentication & security
+- **Fortify**: registration, password reset, **email verification** and **2FA** (with confirmation)
+- Custom auth views in **Livewire/Flux**
+- Flux `appearance` and `profile` pages, "Account security" page in Filament
+- **Spatie RBAC**: `permissions` / `roles` tables and provided `Roles` & `Permissions` Filament resources
+- `User` implements `FilamentUser` (admin access)
+
+### 🎨 Design system (premium blue)
+- **Blue `#2563eb`** accent palette, slate neutrals, semantic green (success/availability)
+- **Surface tokens** (`canvas`, `surface`, `card`, `elevated`, `soft`, `line`) as CSS variables — Light & Dark (4 surface levels in dark mode)
+- Shadows (`soft` / `card` / `lifted` / `panel`), consistent radii, **Instrument Sans + Space Grotesk + JetBrains Mono** typography
+- Dedicated `filament.css` to align the Filament admin with the public site
+
+---
+
+## 🛠️ Tech stack
+
+| Layer | Technology |
 |---|---|
 | **Runtime** | PHP ^8.4 |
 | **Framework** | Laravel ^13.0 |
 | **Admin Panel** | Filament ^5.6 |
 | **Frontend** | Livewire ^4.1 · Flux ^2.13 · Alpine.js · Tailwind CSS ^4 · Vite ^8 |
-| **Base de données** | PostgreSQL (défaut & Railway) · SQLite en dev rapide |
+| **Database** | PostgreSQL (default & Railway) · SQLite for quick dev |
 | **Auth** | Fortify · Sanctum |
 | **Billing** | Cashier (Stripe) |
 | **RBAC** | Spatie Permission |
-| **Médias** | Spatie MediaLibrary |
+| **Media** | Spatie MediaLibrary |
 | **PDF** | barryvdh/laravel-dompdf |
 | **Testing** | Pest ^4 |
 
 ---
 
-## 🏗️ Structure du projet
+## 🏗️ Project structure
 
 ```
 sena-studio/
 │
 ├── app/
 │   ├── Actions/               # Fortify (CreateNewUser, ResetUserPassword)
-│   ├── Concerns/              # Règles de validation (Password & Profile)
-│   ├── Enums/                 # 11 enums typés (Projet, Skill, Stack, Infra, CV…)
+│   ├── Concerns/              # Validation rules (Password & Profile)
+│   ├── Enums/                 # 11 typed enums (Project, Skill, Stack, Infra, CV…)
 │   ├── Filament/
-│   │   ├── Pages/             # Dashboard (9 widgets) + Sécurité du compte
-│   │   ├── Resources/         # 10 ressources (Schemas/ + Tables/ + Pages/)
+│   │   ├── Pages/             # Dashboard (9 widgets) + Account security
+│   │   ├── Resources/         # 10 resources (Schemas/ + Tables/ + Pages/)
 │   │   │   └── Projects/RelationManagers/
-│   │   └── Widgets/           # 9 widgets (stats, chartes, opérationnels)
+│   │   └── Widgets/           # 9 widgets (stats, charts, operational)
 │   ├── Livewire/
-│   │   ├── Site/              # 7 pages publiques (Home, Projects, Stack…)
+│   │   ├── Site/              # 7 public pages (Home, Projects, Stack…)
 │   │   ├── Filament/          # AccountSecurity (2FA)
 │   │   └── Actions/           # Logout
-│   ├── Models/                # 22 modèles (domaine + tables système)
+│   ├── Models/                # 22 models (domain + system tables)
 │   ├── Providers/             # App, Fortify + Filament\AdminPanel
 │   └── Http/                  # Controllers
 │
@@ -136,40 +136,40 @@ sena-studio/
 │
 ├── resources/
 │   ├── css/                   # app.css (design system) + filament.css (admin)
-│   ├── views/                 # Layouts public/admin/auth + pages Livewire
+│   ├── views/                 # Public/admin/auth layouts + Livewire pages
 │   │   ├── pages/public/      # home, projects, skills, stack, contact, cv-show
-│   │   └── filament/          # widgets + page security
+│   │   └── filament/          # widgets + security page
 │   └── js/
 │
 ├── routes/
-│   ├── web.php                # Routes publiques + export PDF
+│   ├── web.php                # Public routes + PDF export
 │   ├── settings.php           # Profile & Appearance
 │   └── console.php
 │
-├── tests/                     # Pest : tests publics, admin, auth, domaine
+├── tests/                     # Pest: public, admin, auth, domain tests
 │
-├── Dockerfile                 # Image multi-stage (build Vite + runtime PHP 8.4)
-├── docker/entrypoint.sh       # Migrations, storage:link, caches, serve sur $PORT
+├── Dockerfile                 # Multi-stage image (Vite build + PHP 8.4 runtime)
+├── docker/entrypoint.sh       # Migrations, storage:link, caches, serve on $PORT
 ├── .dockerignore
-└── vite.config.js             # Vite + Tailwind (inputs app.css/filament.css)
+└── vite.config.js             # Vite + Tailwind (app.css/filament.css inputs)
 ```
 
 ---
 
-## 🗃️ Modèle de données
+## 🗃️ Data model
 
-| Entité | Rôle |
+| Entity | Role |
 |---|---|
-| `Project` | Unité centrale — stack, infra, compétences, catégories, images |
-| `Stack` → `StackItem` | Collection technique nommée, décomposée en items catégorisés |
-| `Skill` | Catalogue d'expertises avec niveaux & icônes |
-| `Infra` | Profils d'infrastructure (Docker, K8s, Helm, ressources) |
-| `Category` | Classification polymorphique (Projets & Compétences) |
-| `Cv` | Versions de CV (brouillon / publié, 3 templates, contenus JSON) |
-| `ContactMessage` | Demandes de contact (lu / non lu, budget) |
-| `User` | Compte avec 2FA, implémente `FilamentUser` |
+| `Project` | Central unit — stack, infra, skills, categories, images |
+| `Stack` → `StackItem` | Named technical collection, broken down into categorized items |
+| `Skill` | Catalog of expertise with levels & icons |
+| `Infra` | Infrastructure profiles (Docker, K8s, Helm, resources) |
+| `Category` | Polymorphic classification (Projects & Skills) |
+| `Cv` | Resume versions (draft / published, 3 templates, JSON content) |
+| `ContactMessage` | Contact requests (read / unread, budget) |
+| `User` | Account with 2FA, implements `FilamentUser` |
 
-### Relations clés
+### Key relationships
 
 ```mermaid
 erDiagram
@@ -189,13 +189,13 @@ erDiagram
 
 ## 🚀 Installation
 
-### Prérequis
+### Prerequisites
 - **PHP** ^8.4
 - **Composer** 2.x
 - **Node.js** 18+ & npm
-- **PostgreSQL** 14+ (ou SQLite pour un dev sans serveur)
+- **PostgreSQL** 14+ (or SQLite for a server-free dev setup)
 
-### Démarrage rapide
+### Quick start
 
 ```bash
 git clone https://github.com/sena/sena-studio.git
@@ -203,15 +203,15 @@ cd sena-studio
 composer setup
 ```
 
-`composer setup` enchaîne : `composer install`, création de `.env`, `key:generate`, migrations, `npm install` et `npm run build`.
+`composer setup` chains together: `composer install`, `.env` creation, `key:generate`, migrations, `npm install` and `npm run build`.
 
-### Manuellement
+### Manually
 
 ```bash
 composer install
 ```
 
-> **Windows :** `copy .env.example .env` (au lieu de `cp`).
+> **Windows:** `copy .env.example .env` (instead of `cp`).
 
 ```bash
 php artisan key:generate
@@ -220,10 +220,10 @@ npm install
 npm run build
 ```
 
-### Base de données
+### Database
 
-Le projet est configuré pour **PostgreSQL** par défaut (`.env.example` prêt pour Railway).
-Créez une base `sena_studio` et ajustez votre `.env` :
+The project is configured for **PostgreSQL** by default (`.env.example` ready for Railway).
+Create a `sena_studio` database and adjust your `.env`:
 
 ```
 DB_CONNECTION=pgsql
@@ -234,146 +234,146 @@ DB_USERNAME=sena
 DB_PASSWORD=secret
 ```
 
-> **Alternative locale SQLite** : `DB_CONNECTION=sqlite` fonctionne tel quel
-> (aucun serveur requis).
+> **Local SQLite alternative**: `DB_CONNECTION=sqlite` works out of the box
+> (no server required).
 
 ---
 
-## ▶️ Développement
+## ▶️ Development
 
-Le projet embarque un serveur dev concurrent (code couleur par process) :
+The project ships with a concurrent dev server (color-coded per process):
 
 ```bash
 composer dev
 ```
 
-| Process | Commande |
+| Process | Command |
 |---|---|
-| **Serveur HTTP** | `php artisan serve` |
+| **HTTP server** | `php artisan serve` |
 | **Queue** | `php artisan queue:listen --tries=1` |
 | **Logs (Pail)** | `php artisan pail` |
 | **Assets** | `npm run dev` |
 
-Ou individuellement :
+Or individually:
 
 ```bash
 php artisan serve        # http://localhost:8000
-npm run dev              # Hot reload Vite
-php artisan queue:listen # Jobs en arrière-plan
-php artisan pail         # Logs en temps réel
+npm run dev              # Vite hot reload
+php artisan queue:listen # Background jobs
+php artisan pail         # Real-time logs
 ```
 
 ---
 
-## 🔑 Accès & identifiants
+## 🔑 Access & credentials
 
-Le seeder crée un **administrateur** :
+The seeder creates an **admin** account:
 
-| Rôle | Email | Mot de passe |
+| Role | Email | Password |
 |---|---|---|
-| **Admin** | `senadalmeidapro@gmail.com` | `Sena-Studio@2026` (⚠️ à changer) |
+| **Admin** | `senadalmeidapro@gmail.com` | `Sena-Studio@2026` (⚠️ to be changed) |
 
-### Points d'entrée
+### Entry points
 
 | Route | Description |
 |---|---|
-| `/` | Page d'accueil publique (Livewire) |
-| `/projets` · `/projets/{slug}` | Portfolio public + détail filtré par type |
-| `/competences` | Compétences actives groupées par niveau |
-| `/stack` | Stacks actives par catégorie |
-| `/contact` | Formulaire de contact public |
-| `/cv/{cv:slug}` | CV public (rendu selon le template) |
-| `/admin` | **Filament admin** (login protégé) |
-| `/admin/cvs/{cv}/pdf` | Export PDF du CV (auth + vérifié) |
-| `/settings/profile` · `/settings/appearance` | Réglages Flux (post-connexion) |
+| `/` | Public homepage (Livewire) |
+| `/projets` · `/projets/{slug}` | Public portfolio + detail filtered by type |
+| `/competences` | Active skills grouped by level |
+| `/stack` | Active stacks by category |
+| `/contact` | Public contact form |
+| `/cv/{cv:slug}` | Public resume (rendered per template) |
+| `/admin` | **Filament admin** (login protected) |
+| `/admin/cvs/{cv}/pdf` | Resume PDF export (auth + verified) |
+| `/settings/profile` · `/settings/appearance` | Flux settings (post-login) |
 
 ---
 
-## ☁️ Déploiement — Railway
+## ☁️ Deployment — Railway
 
-Le repo embarque un **Dockerfile multi-stage** : l'image construit les assets Vite au build,
-puis démarre `php artisan serve` sur le port `$PORT` avec migrations automatiques,
-liens de stockage et caches applicatifs.
+The repo ships with a **multi-stage Dockerfile**: the image builds Vite assets at build time,
+then starts `php artisan serve` on port `$PORT` with automatic migrations,
+storage links and application caches.
 
-### 1. Créer le projet sur Railway
+### 1. Create the project on Railway
 
 ```bash
 railway init
 railway link
 ```
 
-### 2. Provisionner PostgreSQL
+### 2. Provision PostgreSQL
 
-Dans le dashboard Railway : **Create → Database → PostgreSQL**. Puis référencer sa
-`DATABASE_URL` (générée automatiquement) dans les variables du service.
+In the Railway dashboard: **Create → Database → PostgreSQL**. Then reference its
+`DATABASE_URL` (auto-generated) in the service variables.
 
-### 3. Variables d'environnement
+### 3. Environment variables
 
-| Variable | Valeur conseillée | Rôle |
+| Variable | Recommended value | Role |
 |---|---|---|
-| `APP_KEY` | `base64:…` *(recommandé : `php artisan key:generate --show`)* | Clé de chiffrement ; sinon générée éphémèrement au démarrage (sessions invalidées à chaque restart) |
-| `APP_ENV` | `production` | Environnement |
-| `APP_DEBUG` | `false` | Jamais en production |
-| `APP_URL` | `https://<votre-app>.up.railway.app` | URL canonique (HTTPS via proxies approuvés) |
-| `DB_URL` | `${DATABASE_URL}` | Chaîne de connexion PostgreSQL injectée par Railway |
-| `DB_CONNECTION` | `pgsql` | Driver PostgreSQL |
-| `DB_SSLMODE` | `require` | Railway exige SSL |
-| `LOG_CHANNEL` | `stderr` | Logs visibles dans Railway |
-| `SESSION_SECURE_COOKIE` | `true` | Cookies sécurisés sur HTTPs |
-| `DB_SEED` | `true` *(1er déploiement)* | Seede utilisateur admin + portfolio |
-| `APP_MIGRATE` | `true` *(défaut)* | Migrations automatiques au démarrage |
+| `APP_KEY` | `base64:…` *(recommended: `php artisan key:generate --show`)* | Encryption key; otherwise generated ephemerally at startup (sessions invalidated on every restart) |
+| `APP_ENV` | `production` | Environment |
+| `APP_DEBUG` | `false` | Never in production |
+| `APP_URL` | `https://<your-app>.up.railway.app` | Canonical URL (HTTPS via trusted proxies) |
+| `DB_URL` | `${DATABASE_URL}` | PostgreSQL connection string injected by Railway |
+| `DB_CONNECTION` | `pgsql` | PostgreSQL driver |
+| `DB_SSLMODE` | `require` | Railway requires SSL |
+| `LOG_CHANNEL` | `stderr` | Logs visible in Railway |
+| `SESSION_SECURE_COOKIE` | `true` | Secure cookies over HTTPS |
+| `DB_SEED` | `true` *(1st deployment)* | Seeds admin user + portfolio |
+| `APP_MIGRATE` | `true` *(default)* | Automatic migrations on startup |
 
-> Le serveur attend la base (jusqu'à `DB_RETRIES=30` tentatives) avant d'appliquer les migrations.
-> La route de santé `/up` est exposée pour les health-checks.
+> The server waits for the database (up to `DB_RETRIES=30` attempts) before applying migrations.
+> The `/up` health route is exposed for health checks.
 
-### 4. Pousser et déployer
+### 4. Push and deploy
 
 ```bash
 git add . && git commit -m "deploy: railway + postgres"
 git push
 ```
 
-Railway détecte le `Dockerfile` et reconstruit à chaque push.
+Railway detects the `Dockerfile` and rebuilds on every push.
 
-### Stockage de fichiers
+### File storage
 
-Les images projet shipées dans `public/` sont incluses dans le conteneur. Les **uploads**
-du backoffice partent dans `storage/app/public` (volume éphémère par défaut) — pensez à
-brancher un **volume persistant** sur `/app/storage` pour conserver les images téléversées.
+Project images shipped in `public/` are included in the container. Backoffice **uploads**
+go into `storage/app/public` (ephemeral volume by default) — remember to attach a
+**persistent volume** at `/app/storage` to keep uploaded images.
 
 ---
 
-## 🧬 Architecture Filament
+## 🧬 Filament architecture
 
-- **10 ressources** : `Projects`, `Stacks`, `Skills`, `Categories`, `Infras`, `Cvs`, `Messages › ContactMessages`, `Users`, `Roles`, `Permissions`
-- Décomposition **Resource → Form/Schema → Table → Pages (Create/Edit/List)** pour une maintenabilité maximale
-- Relation manager `SkillsRelationManager` sur les projets (proficiency en pivot)
-- Page `Security` (2FA) dans le groupe « Compte », widget `Dashboard` sur mesure à 12 colonnes
+- **10 resources**: `Projects`, `Stacks`, `Skills`, `Categories`, `Infras`, `Cvs`, `Messages › ContactMessages`, `Users`, `Roles`, `Permissions`
+- **Resource → Form/Schema → Table → Pages (Create/Edit/List)** breakdown for maximum maintainability
+- `SkillsRelationManager` relation manager on projects (proficiency in pivot)
+- `Security` page (2FA) in the "Account" group, custom 12-column `Dashboard` widget
 
 ---
 
 ## 🎨 Design system
 
-- **Couleurs** — accent bleu (`#2563eb`), neutres `ink` (slate), `emerald` réservé aux états de succès (disponibilité, statut `production`, confirmation d'envoi)
-- **Surfaces** — tokens `canvas / surface / card / elevated / soft / line` définis en CSS vars, exposés à Tailwind via `@theme inline`, avec mode sombre en 4 niveaux
-- **Typographie** — `Instrument Sans` (texte), `Space Grotesk` (titres), `JetBrains Mono` (labels techniques)
-- **Badges sémantiques** — statuts de projet colorés par état (production → vert, test → ambre, développement → bleu, annulé → gris)
-- **`filament.css`** — injecté dans le panneau admin via `FilamentView::registerRenderHook` (HEAD_START)
+- **Colors** — blue accent (`#2563eb`), `ink` (slate) neutrals, `emerald` reserved for success states (availability, `production` status, submission confirmation)
+- **Surfaces** — `canvas / surface / card / elevated / soft / line` tokens defined as CSS vars, exposed to Tailwind via `@theme inline`, with a 4-level dark mode
+- **Typography** — `Instrument Sans` (text), `Space Grotesk` (headings), `JetBrains Mono` (technical labels)
+- **Semantic badges** — project statuses colored by state (production → green, testing → amber, development → blue, cancelled → gray)
+- **`filament.css`** — injected into the admin panel via `FilamentView::registerRenderHook` (HEAD_START)
 
 ---
 
-## ✔️ Qualité & tests
+## ✔️ Quality & tests
 
-Suite **Pest** (SQLite `:memory:`, `RefreshDatabase`) — couvre les pages publiques, l'admin (smoke), l'auth (connexion, 2FA, email, mots de passe, inscription), les réglages, le domaine (projets, stacks) et l'export PDF.
+**Pest** test suite (SQLite `:memory:`, `RefreshDatabase`) — covers public pages, admin (smoke), auth (login, 2FA, email, passwords, registration), settings, domain (projects, stacks) and PDF export.
 
 ```bash
-composer lint        # Corrige le style (Pint)
-composer lint:check  # Vérifie le style uniquement
+composer lint        # Fix style (Pint)
+composer lint:check  # Check style only
 composer test        # config:clear + lint:check + tests
-composer ci:check    # Pipeline CI complet
+composer ci:check     # Full CI pipeline
 ```
 
-Pipelines ciblés :
+Targeted pipelines:
 ```bash
 php artisan test
 php artisan test --filter=PublicSiteTest
@@ -381,36 +381,36 @@ php artisan test --filter=PublicSiteTest
 
 ---
 
-## 🌍 Durcissement production
+## 🌍 Production hardening
 
-- **Politique de mot de passe stricte** en production : `min 12`, casse mixte, lettres, chiffres, symboles, `uncompromised`
-- **Commandes destructrices bloquées** (`DB::prohibitDestructiveCommands`) en production
-- **CarbonImmutable** global
-- **Rate limiting Fortify** : 5 requêtes/minute sur login et 2FA
-- **2FA** disponible pour les comptes
-- Les services chaînés : Pail + queue worker sous `composer dev`
-
----
-
-## 🤝 Contribuer
-
-1. *Fork* le dépôt
-2. Créez votre branche (`git checkout -b feature/amazing-feature`)
-3. Committez (`git commit -m 'feat: add amazing feature'`)
-4. Poussez (`git push origin feature/amazing-feature`)
-5. Passez `composer lint` et `composer test` avant d'ouvrir une PR
-6. Ouvrez une Pull Request
+- **Strict password policy** in production: `min 12`, mixed case, letters, digits, symbols, `uncompromised`
+- **Destructive commands blocked** (`DB::prohibitDestructiveCommands`) in production
+- Global **CarbonImmutable**
+- **Fortify rate limiting**: 5 requests/minute on login and 2FA
+- **2FA** available for accounts
+- Chained services: Pail + queue worker under `composer dev`
 
 ---
 
-## 📄 Licence
+## 🤝 Contributing
 
-Publié sous la [licence MIT](LICENSE).
+1. *Fork* the repository
+2. Create your branch (`git checkout -b feature/amazing-feature`)
+3. Commit (`git commit -m 'feat: add amazing feature'`)
+4. Push (`git push origin feature/amazing-feature`)
+5. Run `composer lint` and `composer test` before opening a PR
+6. Open a Pull Request
+
+---
+
+## 📄 License
+
+Released under the [MIT license](LICENSE).
 
 ---
 
 <div align="center">
 
-**Conçu avec ❤️ par [Sena Gedeon D'ALMEIDA](mailto:senadalmeidapro@gmail.com)**
+**Designed with ❤️ by [Sena Gedeon D'ALMEIDA](mailto:senadalmeidapro@gmail.com)**
 
 </div>
