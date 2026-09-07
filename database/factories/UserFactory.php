@@ -18,15 +18,25 @@ class UserFactory extends Factory
     protected static ?string $password;
 
     /**
+     * Compteur de séquence pour des utilisateurs déterministes et uniques
+     * (le seeding production ne doit dépendre d'aucun paquet de développement).
+     */
+    protected static int $sequence = 0;
+
+    /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
     public function definition(): array
     {
+        $names = ['Sèna Gédéon', 'Awa Diallo', 'Camille Bernard', 'Lucas Martin', 'Inès Traoré'];
+
+        static::$sequence++;
+
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'name' => $names[static::$sequence % count($names)],
+            'email' => 'user'.static::$sequence.'@senastudio.test',
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
