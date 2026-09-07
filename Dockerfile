@@ -1,22 +1,12 @@
 # =============================================================================
 # Sena Studio — Docker image (déploiement Railway / conteneurs)
 #
-#   Stage assets : Node 22, npm ci + build Vite (assets compilés).
-#   Stage build   : PHP 8.3 (Debian/glibc), composer, dépendances vendor.
-#   Stage runtime : PHP 8.3 CLI minimal → démarre `php artisan serve` sur $PORT
-#                   (migrations, lien de stockage et caches via entrypoint).
+#   Stage build  : PHP 8.3 (Debian/glibc), composer, dépendances vendor PHP.
+#   Stage assets : Node 22, npm ci + build Vite — consomme le vendor PHP (CSS
+#                  Flux/Filament importé dans app.css) ramené depuis `build`.
+#   Stage runtime: PHP 8.3 CLI minimal → `php artisan serve` sur $PORT
+#                  (migrations, lien de stockage et caches via entrypoint).
 # =============================================================================
-
-# ------------------------------- Assets Vite -------------------------------
-FROM node:22-bookworm-slim AS assets
-
-WORKDIR /app
-
-COPY package.json package-lock.json ./
-RUN npm ci
-
-COPY . .
-RUN npm run build
 
 # ---------------------- Dépendances PHP / Composer -------------------------
 FROM php:8.3-cli-bookworm AS build
@@ -58,11 +48,23 @@ RUN composer install \
         --prefer-dist \
         --no-progress
 
-# Source complète + autoload + discovery des packages + assets compilés
+# Source complète + autoload + discovery des packages
 COPY . .
-COPY --from=assets /app/public/build /app/public/build
 RUN composer dump-autoload --no-dev --optimize --classmap-authoritative \
     && php artisan package:discover --ansi || true
+
+# ------------------------------- Assets Vite -------------------------------
+FROM node:22-bookworm-slim AS assets
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+# Vendor PHP nécessaire au build des assets (import Flux + @source Filament)
+COPY --from=build /app/vendor /app/vendor
+RUN npm run build
 
 # --------------------------------- Runtime --------------------------------
 FROM php:8.3-cli-bookworm AS runtime
@@ -97,6 +99,7 @@ ENV PORT=8080
 WORKDIR /app
 
 COPY --from=build /app /app
+COPY --from=assets /app/public/build /app/public/build
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 RUN chmod +x /usr/local/bin/entrypoint.sh \
