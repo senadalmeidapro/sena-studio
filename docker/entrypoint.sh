@@ -13,9 +13,18 @@ set -e
 echo "==> Sena Studio $(php artisan --version --ansi 2>/dev/null | head -n 1)"
 
 # --- Clé d'application ------------------------------------------------
+# Recommandé : définir APP_KEY dans les variables Railway (stable).
+# Fallback   : génération éphémère dans l'environnement du processus
+#              (sessions invalidées à chaque redémarrage).
 if [ -z "${APP_KEY:-}" ]; then
-    echo "==> APP_KEY absente : génération automatique"
-    php artisan key:generate --force --ansi
+    echo "==> APP_KEY manquante (conseil : la définir dans les variables Railway)"
+    APP_KEY="$(php artisan key:generate --show --no-ansi 2>/dev/null | grep -m1 -o 'base64:[A-Za-z0-9+/=]\{44\}' || true)"
+    if [ -z "${APP_KEY:-}" ]; then
+        echo "==> ÉCHEC : impossible de générer APP_KEY (artisan key:generate --show est requis)"
+        exit 1
+    fi
+    echo "   ... clé éphémère générée (${#APP_KEY} caractères)"
+    export APP_KEY
 fi
 
 # --- Stockage public (uploads) ---------------------------------------

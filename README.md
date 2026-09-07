@@ -311,7 +311,7 @@ Dans le dashboard Railway : **Create → Database → PostgreSQL**. Puis référ
 
 | Variable | Valeur conseillée | Rôle |
 |---|---|---|
-| `APP_KEY` | *(auto-générée au démarrage si absente)* | Clé de chiffrement Laravel |
+| `APP_KEY` | `base64:…` *(recommandé : `php artisan key:generate --show`)* | Clé de chiffrement ; sinon générée éphémèrement au démarrage (sessions invalidées à chaque restart) |
 | `APP_ENV` | `production` | Environnement |
 | `APP_DEBUG` | `false` | Jamais en production |
 | `APP_URL` | `https://<votre-app>.up.railway.app` | URL canonique (HTTPS via proxies approuvés) |
