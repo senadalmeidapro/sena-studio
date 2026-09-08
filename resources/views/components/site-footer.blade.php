@@ -46,7 +46,7 @@
         <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-[0.7rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500 sm:flex-row sm:px-6 lg:px-8">
             <p>© {{ date('Y') }} Sena Studio. Tous droits réservés.</p>
             <p class="flex items-center gap-5">
-                <a href="{{ route('login') }}" class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">Espace admin</a>
+                <a href="{{ route('filament.admin.pages.dashboard') }}" class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">Espace admin</a>
                 <span>Conçu avec <span class="text-blue-600 dark:text-blue-400">Laravel</span> &amp; <span class="text-blue-600 dark:text-blue-400">Livewire</span></span>
             </p>
         </div>
