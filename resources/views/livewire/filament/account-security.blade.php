@@ -126,4 +126,6 @@
             @endif
         </x-filament::section>
     </div>
+
+    <x-filament-actions::modals />
 </div>
