@@ -10,7 +10,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
 use Filament\Schemas\Schema;
-use Filament\Support\Enums\MaxWidth;
+use Filament\Support\Enums\Width;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Laravel\Fortify\Actions\DisableTwoFactorAuthentication;
@@ -109,7 +109,7 @@ class AccountSecurity extends Component implements HasForms
             ->modalHeading('Confirmer la double authentification')
             ->modalDescription('Saisissez le code à 6 chiffres affiché par votre application d’authentification (Google Authenticator, 1Password…).')
             ->modalSubmitActionLabel('Confirmer')
-            ->modalWidth(MaxWidth::Medium)
+            ->modalWidth(Width::Medium)
             ->schema([
                 TextInput::make('code')
                     ->label('Code TOTP')
