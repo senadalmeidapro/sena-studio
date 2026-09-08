@@ -37,31 +37,57 @@
                     </x-filament::button>
                 </div>
             @elseif (! $this->user->two_factor_confirmed_at)
-                {{-- 2FA activée, en attente de confirmation (QR + code) --}}
-                <div style="display:grid;gap:1rem;">
+                @if ($this->twoFactorCorrupted())
+                    {{-- Secret corrompu (clé APP_KEY modifiée) : proposer une remise à zéro --}}
                     <p style="color:var(--gray-400);font-size:0.875rem;line-height:1.6;">
-                        Scannez ce QR code avec votre application d’authentification, puis saisissez le code
-                        à 6 chiffres pour confirmer l’activation.
+                        La configuration de la double authentification est endommagée (clé de chiffrement
+                        modifiée). Réinitialisez-la, puis activez de nouveau la 2FA.
                     </p>
 
-                    <div style="padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.75rem;background:#fff;display:inline-flex;">
-                        {!! $this->user->twoFactorQrCodeSvg() !!}
+                    <div style="margin-top:1rem;">
+                        <x-filament::button wire:click="resetTwoFactorCorruption" color="warning" icon="heroicon-m-arrow-path">
+                            Réinitialiser la configuration
+                        </x-filament::button>
                     </div>
+                @else
+                    {{-- 2FA activée, en attente de confirmation (QR + code) --}}
+                    <div style="display:grid;gap:1rem;">
+                        <p style="color:var(--gray-400);font-size:0.875rem;line-height:1.6;">
+                            Scannez ce QR code avec votre application d’authentification, puis saisissez le code
+                            à 6 chiffres pour confirmer l’activation.
+                        </p>
 
-                    <div>
-                        <p style="font-size:0.75rem;color:var(--gray-400);margin-bottom:0.25rem;">Code secret (à saisir manuellement si le QR n’est pas lisible)</p>
-                        <code style="font-family:ui-monospace,monospace;font-size:0.9rem;background:var(--gray-100);padding:0.25rem 0.5rem;border-radius:0.375rem;">
-                            {{ $this->twoFactorSecret() }}
-                        </code>
+                        <div style="padding:0.75rem;border:1px solid var(--gray-200);border-radius:0.75rem;background:#fff;display:inline-flex;">
+                            {!! $this->user->twoFactorQrCodeSvg() !!}
+                        </div>
+
+                        <div>
+                            <p style="font-size:0.75rem;color:var(--gray-400);margin-bottom:0.25rem;">Code secret (à saisir manuellement si le QR n’est pas lisible)</p>
+                            <code style="font-family:ui-monospace,monospace;font-size:0.9rem;background:var(--gray-100);padding:0.25rem 0.5rem;border-radius:0.375rem;">
+                                {{ $this->twoFactorSecret() }}
+                            </code>
+                        </div>
+
+                        <x-filament::button wire:click="mountAction('confirmTwoFactor')">
+                            Confirmer
+                        </x-filament::button>
                     </div>
-
-                    <x-filament::button wire:click="mountAction('confirmTwoFactor')">
-                        Confirmer
-                    </x-filament::button>
-                </div>
+                @endif
             @else
                 {{-- 2FA activée et confirmée --}}
-                <div style="display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center;">
+                @if ($this->twoFactorCorrupted())
+                    <p style="color:var(--gray-400);font-size:0.875rem;line-height:1.6;">
+                        La configuration de la double authentification est endommagée (clé de chiffrement
+                        modifiée). Réinitialisez-la pour configurer de nouveau la 2FA.
+                    </p>
+
+                    <div style="margin-top:1rem;">
+                        <x-filament::button wire:click="resetTwoFactorCorruption" color="warning" icon="heroicon-m-arrow-path">
+                            Réinitialiser la configuration
+                        </x-filament::button>
+                    </div>
+                @else
+                    <div style="display:flex;flex-wrap:wrap;gap:0.75rem;align-items:center;">
                     <span style="font-size:0.875rem;color:var(--success-400);display:inline-flex;align-items:center;gap:0.5rem;">
                         <x-filament::icon icon="heroicon-m-shield-check" style="width:1.1rem;height:1.1rem;" />
                         Activée et confirmée
@@ -96,6 +122,7 @@
                         Désactiver
                     </x-filament::button>
                 </div>
+                @endif
             @endif
         </x-filament::section>
     </div>

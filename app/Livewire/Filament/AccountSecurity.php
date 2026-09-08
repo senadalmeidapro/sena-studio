@@ -226,7 +226,31 @@ class AccountSecurity extends Component implements HasForms
             return null;
         }
 
-        return Fortify::currentEncrypter()->decrypt($this->user->two_factor_secret);
+        try {
+            return Fortify::currentEncrypter()->decrypt($this->user->two_factor_secret);
+        } catch (\Throwable) {
+            // Secret chiffré sous une clé antérieure (clé APP_KEY modifiée).
+            return null;
+        }
+    }
+
+    public function twoFactorCorrupted(): bool
+    {
+        return filled($this->user->two_factor_secret) && blank($this->twoFactorSecret());
+    }
+
+    public function resetTwoFactorCorruption(): void
+    {
+        $this->user->forceFill([
+            'two_factor_secret' => null,
+            'two_factor_recovery_codes' => null,
+            'two_factor_confirmed_at' => null,
+        ])->save();
+
+        Notification::make()
+            ->title('Configuration 2FA réinitialisée — réactivez-la.')
+            ->info()
+            ->send();
     }
 
     public function qrCodeUrl(): ?string
@@ -254,7 +278,11 @@ class AccountSecurity extends Component implements HasForms
             return [];
         }
 
-        return json_decode(Fortify::currentEncrypter()->decrypt($this->user->two_factor_recovery_codes), true);
+        try {
+            return json_decode(Fortify::currentEncrypter()->decrypt($this->user->two_factor_recovery_codes), true) ?? [];
+        } catch (\Throwable) {
+            return [];
+        }
     }
 
     public function render()
