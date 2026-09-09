@@ -19,7 +19,7 @@ class Home extends Component
     {
         app(Seo::class)->set(
             description: 'Studio indépendant : conception de produits web, applications et solutions sur mesure — Laravel, Livewire et Filament.',
-            canonical: url()->route('home'),
+            canonical: localized_route('home'),
         );
     }
 

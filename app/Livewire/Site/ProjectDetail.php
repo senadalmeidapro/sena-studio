@@ -23,7 +23,7 @@ class ProjectDetail extends Component
         app(Seo::class)->set(
             title: $project->name,
             description: $project->description ? str($project->description)->limit(160) : null,
-            canonical: url()->route('projects.show', $project),
+            canonical: localized_route('projects.show', $project),
             type: 'website',
             image: $project->image ? asset($project->image) : null,
         );

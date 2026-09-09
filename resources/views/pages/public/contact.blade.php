@@ -7,12 +7,12 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                 </svg>
             </div>
-            <h2 class="mt-5 font-display text-3xl font-medium tracking-tight text-ink-900 dark:text-ink-50">Message envoyé&nbsp;!</h2>
+            <h2 class="mt-5 font-display text-3xl font-medium tracking-tight text-ink-900 dark:text-ink-50">{{ __('contact.success_title') }}</h2>
             <p class="mt-3 text-ink-600 dark:text-ink-300">
-                Merci pour votre message. Je reviens vers vous dans les plus brefs délais.
+                {{ __('contact.success_text') }}
             </p>
             <button wire:click="$set('sent', false)" class="mt-7 font-medium text-emerald-600 underline-offset-4 transition-colors hover:text-emerald-700 hover:underline dark:text-emerald-300 dark:hover:text-emerald-200">
-                Envoyer un autre message
+                {{ __('contact.success_again') }}
             </button>
         </div>
     @else
@@ -20,13 +20,13 @@
         <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">
 <div class="flex items-center gap-3">
             <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-blue-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-blue-500 dark:text-blue-950">SEN</span>
-            <span class="eyebrow">Échange</span>
+            <span class="eyebrow">{{ __('contact.eyebrow') }}</span>
         </div>
             <h1 class="mt-5 font-display text-4xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-5xl">
-                Contact
+                {{ __('contact.title') }}
             </h1>
             <p class="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">
-                Vous avez un projet, une idée ou une question&nbsp;? Remplissez le formulaire et discutons-en.
+                {{ __('contact.subtitle') }}
             </p>
         </header>
 
@@ -34,11 +34,10 @@
             {{-- Colonne infos --}}
             <aside class="motion-safe:animate-fade-up">
                 <h2 class="font-display text-2xl font-medium tracking-tight text-ink-900 dark:text-ink-50">
-                    Une réponse sous 24&nbsp;h
+                    {{ __('contact.aside_title') }}
                 </h2>
                 <p class="mt-3 text-pretty leading-relaxed text-ink-600 dark:text-ink-400">
-                    Pour affiner votre demande, précisez autant que possible le contexte de votre projet :
-                    objectifs, délais envisagés et budget indicatif.
+                    {{ __('contact.aside_text') }}
                 </p>
 
                 <dl class="mt-10 space-y-6 border-t border-ink-300 pt-8 dark:border-ink-700">
@@ -56,7 +55,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                             </svg>
                         </dt>
-                        <dd class="font-mono text-sm uppercase tracking-[0.1em] text-ink-700 dark:text-ink-200">Basé à Lyon — télétravail</dd>
+                        <dd class="font-mono text-sm uppercase tracking-[0.1em] text-ink-700 dark:text-ink-200">{{ __('contact.location') }}</dd>
                     </div>
                     <div class="grid grid-cols-[auto_1fr] gap-4">
                         <dt class="pt-0.5 text-blue-600 dark:text-blue-400">
@@ -64,7 +63,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
                             </svg>
                         </dt>
-                        <dd class="font-mono text-sm uppercase tracking-[0.1em] text-ink-700 dark:text-ink-200">Réponse sous 24&nbsp;h ouvrées</dd>
+                        <dd class="font-mono text-sm uppercase tracking-[0.1em] text-ink-700 dark:text-ink-200">{{ __('contact.response_delay') }}</dd>
                     </div>
                 </dl>
             </aside>
@@ -78,11 +77,11 @@
             <form wire:submit="submit" class="motion-safe:animate-fade-up [animation-delay:120ms]">
                 <div class="mb-6 flex items-center gap-3">
                     <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-blue-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-blue-500 dark:text-blue-950">01</span>
-                    <span class="eyebrow">Formulaire de contact</span>
+                    <span class="eyebrow">{{ __('contact.form_eyebrow') }}</span>
                 </div>
 
                 <p class="mb-6 text-sm text-ink-500 dark:text-ink-400">
-                    Les champs notés <span class="font-medium text-ink-700 dark:text-ink-200">*</span> sont obligatoires, les autres sont optionnels.
+                    {!! __('contact.form_legend') !!}
                 </p>
 
                 <div class="grid gap-6">
@@ -94,7 +93,7 @@
 
                     <div class="grid gap-6 sm:grid-cols-2">
                         <div class="grid gap-2">
-                            <label for="contact-name" class="{{ $label }}">Nom <span class="text-blue-600 dark:text-blue-300">*</span></label>
+                            <label for="contact-name" class="{{ $label }}">{{ __('contact.form_name_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
                             <input
                                 id="contact-name"
                                 type="text"
@@ -106,7 +105,7 @@
                         </div>
 
                         <div class="grid gap-2">
-                            <label for="contact-email" class="{{ $label }}">Email <span class="text-blue-600 dark:text-blue-300">*</span></label>
+                            <label for="contact-email" class="{{ $label }}">{{ __('contact.form_email_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
                             <input
                                 id="contact-email"
                                 type="email"
@@ -120,7 +119,7 @@
 
                     <div class="grid gap-6 sm:grid-cols-2">
                         <div class="grid gap-2">
-                            <label for="contact-phone" class="{{ $label }}">Téléphone <span class="font-normal text-ink-400 dark:text-ink-500">(optionnel)</span></label>
+                            <label for="contact-phone" class="{{ $label }}">{{ __('contact.form_phone_label') }} <span class="font-normal text-ink-400 dark:text-ink-500">({{ __('contact.form_optional') }})</span></label>
                             <input
                                 id="contact-phone"
                                 type="tel"
@@ -132,7 +131,7 @@
                         </div>
 
                         <div class="grid gap-2">
-                            <label for="contact-company" class="{{ $label }}">Société / organisation <span class="font-normal text-ink-400 dark:text-ink-500">(optionnel)</span></label>
+                            <label for="contact-company" class="{{ $label }}">{{ __('contact.form_company_label') }} <span class="font-normal text-ink-400 dark:text-ink-500">({{ __('contact.form_optional') }})</span></label>
                             <input
                                 id="contact-company"
                                 type="text"
@@ -146,7 +145,7 @@
 
                     <div class="grid gap-6 sm:grid-cols-2">
                         <div class="grid gap-2">
-                            <label for="contact-subject" class="{{ $label }}">Sujet <span class="text-blue-600 dark:text-blue-300">*</span></label>
+                            <label for="contact-subject" class="{{ $label }}">{{ __('contact.form_subject_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
                             <input
                                 id="contact-subject"
                                 type="text"
@@ -158,13 +157,13 @@
                         </div>
 
                         <div class="grid gap-2">
-                            <label for="contact-budget" class="{{ $label }}">Budget estimé <span class="font-normal text-ink-400 dark:text-ink-500">(optionnel)</span></label>
+                            <label for="contact-budget" class="{{ $label }}">{{ __('contact.form_budget_label') }} <span class="font-normal text-ink-400 dark:text-ink-500">({{ __('contact.form_optional') }})</span></label>
                             <select
                                 id="contact-budget"
                                 wire:model="budget"
                                 class="{{ $input }} bg-card"
                             >
-                                <option value="">Sélectionner un budget…</option>
+                                <option value="">{{ __('contact.form_budget_placeholder') }}</option>
                                 @foreach ($this->budgetOptions() as $key => $budgetLabel)
                                     <option value="{{ $key }}" class="text-ink-900 dark:text-ink-100">{{ $budgetLabel }}</option>
                                 @endforeach
@@ -174,7 +173,7 @@
                     </div>
 
                     <div class="grid gap-2">
-                        <label for="contact-message" class="{{ $label }}">Message <span class="text-blue-600 dark:text-blue-300">*</span></label>
+                        <label for="contact-message" class="{{ $label }}">{{ __('contact.form_message_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
                         <textarea
                             id="contact-message"
                             wire:model="message"
@@ -188,13 +187,13 @@
                     <div class="flex flex-wrap items-center gap-6">
                         <button type="submit"
                                 class="group inline-flex items-center gap-2.5 rounded-xl bg-blue-600 px-6 py-3.5 font-display text-base font-medium text-white shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-card dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
-                            Envoyer le message
+                            {{ __('contact.form_submit') }}
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                  class="size-4 transition-transform duration-300 group-hover:translate-x-0.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                             </svg>
                         </button>
-                        <span class="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500">Chiffré &amp; confidentiel</span>
+                        <span class="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500">{!! __('contact.form_secure') !!}</span>
                     </div>
                 </div>
             </form>

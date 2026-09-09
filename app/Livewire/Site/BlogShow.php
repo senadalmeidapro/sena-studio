@@ -22,7 +22,7 @@ class BlogShow extends Component
         app(Seo::class)->set(
             title: trim($post->seo_title ?: $post->title),
             description: $post->seo_description ?: str($post->excerpt ?: $post->content)->stripTags()->limit(160),
-            canonical: url()->route('posts.show', $post),
+            canonical: localized_route('posts.show', $post),
             type: 'article',
             image: $post->cover_image ? asset($post->cover_image) : null,
         );

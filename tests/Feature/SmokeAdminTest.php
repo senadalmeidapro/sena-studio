@@ -40,7 +40,7 @@ it('renders admin dashboard and resources', function () {
         CvResource::getUrl('edit', ['record' => $cv]),
         ContactMessageResource::getUrl('index'),
         ContactMessageResource::getUrl('view', ['record' => $message]),
-        '/cv/test-cv',
+        '/fr/cv/test-cv',
     ];
 
     foreach ($paths as $path) {

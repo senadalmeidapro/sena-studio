@@ -2,27 +2,33 @@
 
 @php
     $cvPrimary = \App\Models\Cv::primary()->value('slug');
-    $cvUrl = $cvPrimary ? route('cv.show', $cvPrimary) : null;
+    $cvUrl = $cvPrimary ? localized_route('cv.show', $cvPrimary) : null;
+
+    $links = [
+        'home' => [__('nav.home'), localized_route('home')],
+        'projects' => [__('nav.projects'), localized_route('projects.index')],
+        'skills' => [__('nav.skills'), localized_route('skills.index')],
+        'stack' => [__('nav.stack'), localized_route('stack.index')],
+        'about' => [__('nav.about'), localized_route('about')],
+        'blog' => [__('nav.blog'), localized_route('posts.index')],
+        'cv' => [__('nav.cv'), $cvUrl ?: '#'],
+        'contact' => [__('nav.contact'), localized_route('contact')],
+    ];
+
+    $altPath = alt_locale_path();
+    $altLabel = app()->getLocale() === 'fr' ? 'EN' : 'FR';
+    $altFull = app()->getLocale() === 'fr' ? 'English' : 'Français';
 @endphp
 
 <header class="sticky top-0 z-40 border-b border-ink-300/80 bg-canvas/85 backdrop-blur-md dark:border-ink-700/80 dark:bg-canvas/85">
     <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <a href="{{ route('home') }}" class="group flex items-center gap-2.5" wire:navigate>
+        <a href="{{ localized_route('home') }}" class="group flex items-center gap-2.5" wire:navigate>
             <x-logo class="size-7 transition-transform duration-300 group-hover:scale-105" />
             <span class="font-display text-lg font-medium tracking-tight text-ink-900 dark:text-ink-100">Sena&nbsp;Studio</span>
         </a>
 
         <nav class="hidden items-center gap-8 md:flex">
-            @foreach ([
-                'home' => ['Accueil', route('home')],
-                'projects' => ['Projets', route('projects.index')],
-                'skills' => ['Compétences', route('skills.index')],
-                'stack' => ['Stack', route('stack.index')],
-                'about' => ['À propos', route('about')],
-                'blog' => ['Blog', route('posts.index')],
-                'cv' => ['CV', $cvUrl ?: '#'],
-                'contact' => ['Contact', route('contact')],
-            ] as $key => [$label, $url])
+            @foreach ($links as $key => [$label, $url])
                 <a
                     href="{{ $url }}"
                     wire:navigate
@@ -38,11 +44,21 @@
         </nav>
 
         <div class="flex items-center gap-3">
-            <a href="{{ route('contact') }}" wire:navigate class="group hidden items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-white shadow-soft transition-all duration-200 hover:-translate-y-px hover:bg-blue-700 sm:inline-flex dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
-                Discutons
+            <a href="{{ localized_route('contact') }}" wire:navigate class="group hidden items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-white shadow-soft transition-all duration-200 hover:-translate-y-px hover:bg-blue-700 sm:inline-flex dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
+                {{ __('nav.discuss') }}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                 </svg>
+            </a>
+
+            {{-- Switcher de langue --}}
+            <a
+                href="{{ $altPath }}"
+                wire:navigate
+                class="inline-flex h-8 items-center rounded-full border border-ink-300/80 bg-ink-100/60 px-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-ink-600 transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-ink-700/80 dark:bg-ink-800/60 dark:text-ink-300 dark:hover:border-blue-500/60 dark:hover:text-blue-300"
+                :aria-label="__('nav.language')"
+            >
+                {{ $altLabel }}
             </a>
 
             {{-- Theme switcher : clair / système / sombre --}}
@@ -54,9 +70,9 @@
                 aria-label="Bascule de thème"
             >
                 @foreach ([
-                    'light' => ['Clair', 'M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z'],
-                    'system' => ['Système', 'M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3'],
-                    'dark' => ['Sombre', 'M3 11.25a9.75 9.75 0 1 1 18.125 4.5A9.75 9.75 0 0 1 3 11.251Z'],
+                    'light' => [__('nav.theme.light'), 'M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z'],
+                    'system' => [__('nav.theme.system'), 'M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3'],
+                    'dark' => [__('nav.theme.dark'), 'M3 11.25a9.75 9.75 0 1 1 18.125 4.5A9.75 9.75 0 0 1 3 11.251Z'],
                 ] as $theme => [$label, $icon])
                     <button
                         type="button"
@@ -64,7 +80,7 @@
                         :aria-pressed="active === @js($theme)"
                         :class="active === @js($theme) ? 'bg-white text-ink-900 shadow-sm dark:bg-ink-700 dark:text-ink-50' : 'text-ink-500 hover:bg-white hover:text-ink-800 dark:text-ink-400 dark:hover:bg-ink-700/60 dark:hover:text-ink-100'"
                         class="flex size-7 items-center justify-center rounded-full transition-all duration-200"
-                        aria-label="Thème {{ $label }}"
+                        :aria-label="'{{ $label }}'"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" class="size-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="{{ $icon }}" />
@@ -77,7 +93,7 @@
             <button
                 type="button"
                 class="inline-flex size-10 items-center justify-center rounded-lg text-ink-600 transition-colors hover:bg-ink-100 md:hidden dark:text-ink-200 dark:hover:bg-ink-800/60"
-                aria-label="Menu"
+                :aria-label="__('nav.menu')"
                 data-site-mobile-toggle
             >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-5">
@@ -90,16 +106,7 @@
     {{-- Mobile menu --}}
     <div class="hidden border-t border-ink-300 bg-canvas md:hidden dark:border-ink-700" data-site-mobile-menu>
         <nav class="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4">
-            @foreach ([
-                'home' => ['Accueil', route('home')],
-                'projects' => ['Projets', route('projects.index')],
-                'skills' => ['Compétences', route('skills.index')],
-                'stack' => ['Stack', route('stack.index')],
-                'about' => ['À propos', route('about')],
-                'blog' => ['Blog', route('posts.index')],
-                'cv' => ['CV', $cvUrl ?: '#'],
-                'contact' => ['Contact', route('contact')],
-            ] as $key => [$label, $url])
+            @foreach ($links as $key => [$label, $url])
                 <a
                     href="{{ $url }}"
                     wire:navigate
@@ -114,11 +121,14 @@
                 </a>
             @endforeach
             <div class="mt-2 border-t border-ink-300 pt-3 dark:border-ink-700">
-                <a href="{{ route('contact') }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-blue-600 hover:bg-blue-100 dark:text-blue-300 dark:hover:bg-blue-500/15">
-                    Discutons →
+                <a href="{{ localized_route('contact') }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-blue-600 hover:bg-blue-100 dark:text-blue-300 dark:hover:bg-blue-500/15">
+                    {{ __('nav.discuss') }} →
+                </a>
+                <a href="{{ $altPath }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-ink-500 hover:bg-ink-100 dark:text-ink-400 dark:hover:bg-ink-800/50">
+                    {{ __('nav.language') }}: {{ $altFull }}
                 </a>
                 <a href="{{ route('login') }}" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-ink-500 hover:bg-ink-100 dark:text-ink-400 dark:hover:bg-ink-800/50">
-                    Admin
+                    {{ __('nav.admin') }}
                 </a>
             </div>
         </nav>

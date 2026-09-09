@@ -42,7 +42,7 @@ class Contact extends Component
         app(Seo::class)->set(
             title: null,
             description: 'Discutons de votre projet — devis gratuit sous 48 h, outillage moderne et interlocuteur unique.',
-            canonical: url()->route('contact'),
+            canonical: localized_route('contact'),
         );
     }
 

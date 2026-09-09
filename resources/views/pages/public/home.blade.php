@@ -10,19 +10,18 @@
                 <div class="flex items-center gap-3">
                     <span class="text-[0.7rem] font-medium tabular-nums text-ink-400 dark:text-ink-500">01</span>
                     <span class="text-ink-300 dark:text-ink-600">/</span>
-                    <span class="eyebrow">Studio indépendant — Lyon, France</span>
+                    <span class="eyebrow">{{ __('home.hero_eyebrow') }}</span>
                 </div>
 
                 <h1 class="mt-7 font-display text-5xl font-medium leading-[1.02] tracking-tight text-ink-900 dark:text-ink-50 sm:text-6xl lg:text-7xl">
                     Sena Studio
                     <span class="mt-1 block text-blue-600 dark:text-blue-400">
-                        Développement web sur mesure
+                        {{ __('home.tagline') }}
                     </span>
                 </h1>
 
                 <p class="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">
-                    Je conçois et développe des applications web, des SaaS et des backoffices élégants et performants,
-                    portés par Laravel, Livewire et Filament — de l'idée jusqu'à la mise en production.
+                    {{ __('home.intro') }}
                 </p>
 
                 <div class="mt-8 flex flex-wrap items-center gap-2">
@@ -34,30 +33,30 @@
                 </div>
 
                 <div class="mt-10 flex flex-wrap items-center gap-6">
-                    <a href="{{ route('projects.index') }}" wire:navigate
+                    <a href="{{ localized_route('projects.index') }}" wire:navigate
                        class="group inline-flex items-center gap-2.5 rounded-xl bg-blue-600 px-6 py-3.5 font-display text-base font-medium text-white shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-lifted dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
-                        Voir mes projets
+                        {{ __('home.cta_projects') }}
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                              class="size-4 transition-transform duration-300 group-hover:translate-x-0.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                         </svg>
                     </a>
-                    <x-front.arrow-link :href="route('contact')" wire:navigate>
-                        Discutons de votre projet
+                    <x-front.arrow-link :href="localized_route('contact')" wire:navigate>
+                        {{ __('home.cta_discuss') }}
                     </x-front.arrow-link>
                 </div>
 
                 <dl class="mt-14 grid max-w-xl grid-cols-3 gap-8 border-t border-ink-300 pt-6 dark:border-ink-700">
                     <div>
-                        <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">Projets publics</dt>
+                        <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">{{ __('home.stats_projects') }}</dt>
                         <dd class="mt-1.5 font-display text-3xl font-medium tabular-nums text-ink-900 dark:text-ink-50">{{ $this->projectCount }}</dd>
                     </div>
                     <div>
-                        <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">Expertises</dt>
+                        <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">{{ __('home.stats_expertise') }}</dt>
                         <dd class="mt-1.5 font-display text-3xl font-medium tabular-nums text-ink-900 dark:text-ink-50">{{ $this->topSkills->count() }}+</dd>
                     </div>
                     <div>
-                        <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">Sur mesure</dt>
+                        <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">{{ __('home.stats_custom') }}</dt>
                         <dd class="mt-1.5 font-display text-3xl font-medium tabular-nums text-ink-900 dark:text-ink-50">100%</dd>
                     </div>
                 </dl>
@@ -76,13 +75,13 @@
                 </div>
 
                 <div class="mt-5 flex items-center justify-between gap-4">
-                    <span class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-400 dark:text-ink-500">FIG. 01 — Portrait</span>
+                    <span class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-400 dark:text-ink-500">{{ __('home.fig_portrait') }}</span>
                     <span class="flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-emerald-600 dark:text-emerald-400">
                         <span class="relative flex size-2">
                             <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
                             <span class="relative inline-flex size-2 rounded-full bg-emerald-500"></span>
                         </span>
-                        Disponible
+                        {{ __('home.available') }}
                     </span>
                 </div>
 
@@ -91,9 +90,9 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4 text-blue-600 dark:text-blue-400">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
-                        Web, SaaS &amp; sur mesure
+                        {!! __('home.badge') !!}
                     </div>
-                    <div class="mt-1 pl-6 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-ink-500 dark:text-ink-400">Laravel · Livewire · Filament</div>
+                    <div class="mt-1 pl-6 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-ink-500 dark:text-ink-400">{{ __('home.badge_sub') }}</div>
                 </div>
             </div>
         </div>
@@ -103,18 +102,18 @@
     <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <x-front.section-heading
             index="01"
-            label="Ce que je fais"
-            title="Des services pensés pour durer"
-            subtitle="Chaque mission démarre par une écoute approfondie : comprendre votre métier, vos contraintes et vos objectifs avant d'écrire la moindre ligne de code."
+            :label="__('home.services.label')"
+            :title="__('home.services.title')"
+            :subtitle="__('home.services.subtitle')"
         />
 
         <ol class="divide-y divide-ink-300 border-y border-ink-300 dark:divide-ink-700 dark:border-ink-700">
             @foreach ([
-                ['Application web', 'Sites et applications sur mesure, adaptatifs et rapides, construits autour de vos usages réels.', 'M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5'],
-                ['SaaS & backoffices', 'Produits multi-locataires, interfaces d\'administration claires et tableaux de bord qui font gagner du temps.', 'M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9'],
-                ['APIs & intégrations', 'Webhooks, paiements, SSO, synchronisations : vos systèmes communiquent de façon fiable et sécurisée.', 'M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99'],
-                ['Performance & évolution', 'Audit, refonte et optimisation : temps de chargement réduits, accessibilité et code durable.', 'M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941'],
-            ] as $i => [$title, $text, $icon])
+                [[__('home.services.web'), __('home.services.web_text')], 'M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5'],
+                [[__('home.services.saas'), __('home.services.saas_text')], 'M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9'],
+                [[__('home.services.apis'), __('home.services.apis_text')], 'M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99'],
+                [[__('home.services.perf'), __('home.services.perf_text')], 'M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941'],
+            ] as $i => [[$title, $text], $icon])
                 <li class="group grid gap-2 py-8 transition-colors hover:bg-blue-50/50 sm:grid-cols-[3.5rem_3.5rem_1fr] sm:items-start sm:gap-6 sm:px-4 sm:py-10 dark:hover:bg-blue-950/20">
                     <span class="pt-1 font-mono text-xs tabular-nums text-ink-400 transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
                     <span class="flex size-11 items-center justify-center rounded-xl bg-ink-100 text-ink-700 transition-colors group-hover:bg-blue-500 group-hover:text-white dark:bg-ink-800 dark:text-ink-200 dark:group-hover:bg-blue-500 dark:group-hover:text-white">
@@ -142,18 +141,18 @@
     <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <x-front.section-heading
             index="02"
-            label="Ma méthode"
-            title="Un accompagnement simple et transparent"
-            subtitle="Vous savez toujours où en est votre projet, avec des livraisons régulières et des décisions expliquées."
+            :label="__('home.method.label')"
+            :title="__('home.method.title')"
+            :subtitle="__('home.method.subtitle')"
             align="center"
         />
 
         <ol class="grid gap-px overflow-hidden rounded-2xl border border-ink-300 bg-ink-300/80 sm:grid-cols-2 lg:grid-cols-4 dark:border-ink-700 dark:bg-ink-700/60">
             @foreach ([
-                ['Découverte & cadrage', 'Objectifs, périmètre, budget : je cerne vos besoins et pose des bases claires.'],
-                ['Architecture & design', 'Structuration du code, modèle de données, interfaces pensées pour vos utilisateurs.'],
-                ['Développement itératif', 'Fonctionnalité par fonctionnalité, avec des points d\'étape réguliers et testables.'],
-                ['Suivi & évolution', 'Mise en production accompagnée, documentation et améliorations continues.'],
+                [__('home.method.step1'), __('home.method.step1_text')],
+                [__('home.method.step2'), __('home.method.step2_text')],
+                [__('home.method.step3'), __('home.method.step3_text')],
+                [__('home.method.step4'), __('home.method.step4_text')],
             ] as $i => [$title, $text])
                 <li class="group flex flex-col gap-3 bg-card p-7 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-50/60 hover:shadow-card sm:p-8 dark:hover:bg-blue-950/20">
                     <span class="font-display text-4xl font-medium text-blue-600/80 transition-colors group-hover:text-blue-600 dark:text-blue-400/80 dark:group-hover:text-blue-400">
@@ -171,16 +170,16 @@
         <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <x-front.section-heading
                 index="03"
-                label="Portfolio"
-                title="Projets récents"
-                subtitle="Une sélection de réalisations récentes."
-                actionHref="{{ route('projects.index') }}"
-                actionLabel="Tout voir"
+                :label="__('home.portfolio.label')"
+                :title="__('home.portfolio.title')"
+                :subtitle="__('home.portfolio.subtitle')"
+                :actionHref="localized_route('projects.index')"
+                :actionLabel="__('common.see_all')"
             />
 
             <div class="grid gap-6 md:grid-cols-3">
                 @foreach ($this->featuredProjects as $project)
-                    <a href="{{ route('projects.show', $project->slug) }}" wire:navigate
+                    <a href="{{ localized_route('projects.show', $project->slug) }}" wire:navigate
                        class="group flex flex-col overflow-hidden rounded-2xl border border-ink-300 bg-card shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/60 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/40">
                         <x-project-media :image="$project->image" :label="$project->name" />
                         <div class="flex flex-1 flex-col p-6">
@@ -209,7 +208,7 @@
                             </div>
                             @if ($project->url)
                                 <span class="mt-4 inline-flex items-center gap-1.5 font-medium text-blue-600 transition-colors group-hover:text-blue-700 dark:text-blue-300 dark:group-hover:text-blue-200">
-                                    Voir le projet
+                                    {{ __('home.cta_projects') }}
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                          class="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
@@ -228,17 +227,17 @@
         <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <x-front.section-heading
                 index="04"
-                label="Compétences"
-                title="Expertises"
-                subtitle="Compétences clés au service de vos projets."
-                actionHref="{{ route('skills.index') }}"
-                actionLabel="Toutes les compétences"
+                :label="__('home.expertise.label')"
+                :title="__('home.expertise.title')"
+                :subtitle="__('home.expertise.subtitle')"
+                :actionHref="localized_route('skills.index')"
+                :actionLabel="__('home.expertise.action')"
             />
 
             <ul class="divide-y divide-ink-300 border-y border-ink-300 dark:divide-ink-700 dark:border-ink-700">
                 @foreach ($this->topSkills as $skill)
                     <li>
-                        <a href="{{ route('skills.index') }}" wire:navigate
+                        <a href="{{ localized_route('skills.index') }}" wire:navigate
                            class="group flex items-center justify-between gap-4 py-4 transition-colors hover:bg-blue-50/50 dark:hover:bg-blue-950/20">
                             <span class="flex items-center gap-3.5">
                                 @if ($skill->icon)
@@ -260,9 +259,9 @@
             <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
                 <x-front.section-heading
                     index="05"
-                    label="Technologies"
-                    title="Stack technique"
-                    subtitle="Les technologies que je maîtrise au quotidien."
+                    :label="__('home.stack.label')"
+                    :title="__('home.stack.title')"
+                    :subtitle="__('home.stack.subtitle')"
                     align="center"
                 />
             </div>
@@ -290,7 +289,7 @@
                 <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     @foreach ($this->stackHighlights as $category => $items)
                         <div>
-                            <h3 class="mb-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-blue-600 dark:text-blue-300">{{ ucfirst($category) }}</h3>
+                            <h3 class="mb-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-blue-600 dark:text-blue-300">{{ \App\Enums\StackItemCategory::from($category)->label() }}</h3>
                             <div class="flex flex-wrap gap-2">
                                 @foreach ($items->take(3) as $item)
                                     <span class="inline-flex items-center gap-1.5 rounded-md bg-card px-2.5 py-1 font-mono text-[0.7rem] uppercase tracking-[0.08em] text-ink-700 shadow-soft dark:text-ink-200">
@@ -303,8 +302,8 @@
                     @endforeach
                 </div>
 
-                <x-front.arrow-link :href="route('stack.index')" wire:navigate class="shrink-0">
-                    Explorer toute la stack
+                <x-front.arrow-link :href="localized_route('stack.index')" wire:navigate class="shrink-0">
+                    {{ __('home.stack.explore') }}
                 </x-front.arrow-link>
             </div>
         </section>
@@ -316,24 +315,24 @@
             <div class="pointer-events-none absolute inset-0 bg-grid opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)] dark:opacity-25" aria-hidden="true"></div>
 
             <div class="relative">
-                <span class="font-mono text-[0.7rem] uppercase tracking-[0.25em] text-blue-200">06 — Contact</span>
+                <span class="font-mono text-[0.7rem] uppercase tracking-[0.25em] text-blue-200">{{ __('home.cta_banner.eyebrow') }}</span>
                 <h2 class="mx-auto mt-4 max-w-2xl font-display text-3xl font-medium tracking-tight text-white sm:text-5xl">
-                    Un projet en tête&nbsp;?
+                    {!! __('home.cta_banner.title') !!}
                 </h2>
                 <p class="mx-auto mt-4 max-w-xl text-pretty text-blue-100">
-                    Discutons de vos objectifs et transformons votre idée en produit web fiable et élégant.
+                    {{ __('home.cta_banner.text') }}
                 </p>
                 <div class="mt-9 flex flex-wrap items-center justify-center gap-6">
-                    <a href="{{ route('contact') }}" wire:navigate
+                    <a href="{{ localized_route('contact') }}" wire:navigate
                        class="group inline-flex items-center gap-2.5 rounded-xl bg-white px-6 py-3.5 font-display text-base font-medium text-blue-700 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-50 hover:shadow-card dark:text-blue-800 dark:hover:bg-blue-100">
-                        Démarrer la conversation
+                        {{ __('home.cta_banner.action') }}
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                              class="size-4 transition-transform duration-300 group-hover:translate-x-0.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                         </svg>
                     </a>
-                    <a href="{{ route('stack.index') }}" wire:navigate class="font-medium text-blue-100 underline-offset-4 transition-colors hover:text-white hover:underline">
-                        Voir la stack technique
+                    <a href="{{ localized_route('stack.index') }}" wire:navigate class="font-medium text-blue-100 underline-offset-4 transition-colors hover:text-white hover:underline">
+                        {{ __('home.cta_banner.secondary') }}
                     </a>
                 </div>
             </div>

@@ -19,7 +19,7 @@ test('the home page is accessible and shows featured content', function () {
         'status' => ProjectStatus::Production->value,
     ]);
 
-    $this->get(route('home'))
+    $this->get(localized_route('home'))
         ->assertOk()
         ->assertSee('Sena Studio')
         ->assertSee('Projet Public');
@@ -39,7 +39,7 @@ test('the projects index only shows public projects', function () {
         'status' => ProjectStatus::Production->value,
     ]);
 
-    $response = $this->get(route('projects.index'));
+    $response = $this->get(localized_route('projects.index'));
 
     $response->assertOk()->assertSee('Projet Visible')->assertDontSee('Projet Privé');
 });
@@ -69,7 +69,7 @@ test('a project detail page shows its relationships', function () {
     ]);
     $project->skills()->attach($skill->id, ['proficiency' => 'primary']);
 
-    $this->get(route('projects.show', 'projet-detail'))
+    $this->get(route('projects.show', ['locale' => 'fr', 'project' => 'projet-detail']))
         ->assertOk()
         ->assertSee('Projet Détail')
         ->assertSee('Compétences mobilisées')
@@ -84,13 +84,13 @@ test('a cancelled project detail returns 404', function () {
         'status' => ProjectStatus::Cancelled->value,
     ]);
 
-    $this->get(route('projects.show', 'projet-annule'))->assertNotFound();
+    $this->get(localized_route('projects.show', 'projet-annule'))->assertNotFound();
 });
 
 test('the skills page shows active skills', function () {
     Skill::factory()->create(['name' => 'PHP', 'is_active' => true, 'level' => 'expert']);
 
-    $this->get(route('skills.index'))
+    $this->get(localized_route('skills.index'))
         ->assertOk()
         ->assertSee('PHP');
 });
@@ -99,7 +99,7 @@ test('the stack page shows stack items grouped by category', function () {
     $stack = Stack::factory()->create(['is_active' => true]);
     StackItem::factory()->create(['stack_id' => $stack->id, 'category' => 'backend', 'value' => 'Laravel']);
 
-    $this->get(route('stack.index'))
+    $this->get(localized_route('stack.index'))
         ->assertOk()
         ->assertSee('Laravel');
 });

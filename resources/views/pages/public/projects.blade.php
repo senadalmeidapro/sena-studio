@@ -4,20 +4,20 @@
     <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">
         <div class="flex items-center gap-3">
             <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-blue-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-blue-500 dark:text-blue-950">01</span>
-            <span class="eyebrow">Portfolio</span>
+            <span class="eyebrow">{{ __('projects.eyebrow') }}</span>
         </div>
         <h1 class="mt-5 font-display text-4xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-5xl">
-            Projets
+            {{ __('projects.title') }}
         </h1>
         <p class="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">
-            Une sélection de réalisations : applications web, SaaS et solutions logicielles conçues avec le souci du détail et de la performance.
+            {{ __('projects.subtitle') }}
         </p>
     </header>
 
     {{-- Filtres --}}
     <div class="sticky top-16 z-20 -mx-4 mt-8 border-b border-ink-300 bg-canvas/90 px-4 backdrop-blur-sm sm:mx-0 sm:px-0 dark:border-ink-700 dark:bg-canvas/90">
         <div class="flex flex-wrap gap-6">
-            @foreach (['all' => ['label' => 'Tous', 'count' => $this->counts['all']], 'web' => ['label' => 'Web', 'count' => $this->counts['web']], 'app' => ['label' => 'Applications', 'count' => $this->counts['app']], 'software' => ['label' => 'Logiciels', 'count' => $this->counts['software']]] as $key => $filter)
+            @foreach (['all' => ['label' => __('projects.filter_all'), 'count' => $this->counts['all']], 'web' => ['label' => __('projects.filter_web'), 'count' => $this->counts['web']], 'app' => ['label' => __('projects.filter_apps'), 'count' => $this->counts['app']], 'software' => ['label' => __('projects.filter_software'), 'count' => $this->counts['software']]] as $key => $filter)
                 <button
                     type="button"
                     wire:click="filterBy(@js($key === 'all' ? null : $key))"
@@ -39,7 +39,7 @@
         <div class="mt-7 space-y-3">
             @if ($this->categories->isNotEmpty())
                 <div class="flex flex-wrap items-center gap-2">
-                    <span class="mr-1 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500">Domaines&nbsp;:</span>
+                    <span class="mr-1 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500">{{ __('projects.domains') }}</span>
                     <button
                         type="button"
                         wire:click="filterByCategory(null)"
@@ -49,7 +49,7 @@
                             'border-ink-300 bg-card text-ink-500 hover:text-ink-800 dark:border-ink-700 dark:text-ink-400 dark:hover:text-ink-100' => filled($category),
                         ])
                     >
-                        Tous
+                        {{ __('projects.all_domains') }}
                     </button>
                     @foreach ($this->categories as $cat)
                         <button
@@ -70,7 +70,7 @@
 
             @if ($this->skills->isNotEmpty())
                 <div class="flex flex-wrap items-center gap-2">
-                    <span class="mr-1 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500">Compétences&nbsp;:</span>
+                    <span class="mr-1 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500">{{ __('projects.skills_filter') }}</span>
                     <button
                         type="button"
                         wire:click="filterBySkill(null)"
@@ -80,7 +80,7 @@
                             'border-ink-300 bg-card text-ink-500 hover:text-ink-800 dark:border-ink-700 dark:text-ink-400 dark:hover:text-ink-100' => filled($skill),
                         ])
                     >
-                        Toutes
+                        {{ __('projects.all_skills') }}
                     </button>
                     @foreach ($this->skills as $skillItem)
                         <button
@@ -107,7 +107,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-3.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
-                    Réinitialiser les filtres
+                    {{ __('projects.reset') }}
                 </button>
             @endif
         </div>
@@ -117,7 +117,7 @@
     @if ($this->projects->isNotEmpty())
         <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             @foreach ($this->projects as $project)
-                <a href="{{ route('projects.show', $project->slug) }}" wire:navigate
+                <a href="{{ localized_route('projects.show', $project->slug) }}" wire:navigate
                    class="group flex flex-col overflow-hidden rounded-2xl border border-ink-300 bg-card shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/60 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/40">
                     <x-project-media :image="$project->image" :label="$project->name" />
                     <div class="flex flex-1 flex-col p-6">
@@ -146,7 +146,7 @@
                         </div>
                         @if ($project->url)
                             <span class="mt-4 inline-flex items-center gap-1.5 font-medium text-blue-600 transition-colors group-hover:text-blue-700 dark:text-blue-300 dark:group-hover:text-blue-200">
-                                Voir le projet
+                                {{ __('common.view_project') }}
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
                                 </svg>
@@ -162,7 +162,7 @@
         </div>
     @else
         <div class="mt-12 rounded-2xl border border-dashed border-ink-300 p-12 text-center text-ink-500 dark:border-ink-700 dark:text-ink-400">
-            Aucun projet dans cette catégorie pour le moment.
+            {{ __('projects.empty') }}
         </div>
     @endif
 </div>

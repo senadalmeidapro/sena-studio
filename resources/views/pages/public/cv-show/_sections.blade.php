@@ -5,13 +5,13 @@
     $period = function (?string $start, ?string $end) use ($years): string {
         $from = $years($start);
         $to = $years($end);
-        return $from.($to && $to !== $from ? ' – '.$to : ($to ? '' : ' – Aujourd’hui'));
+        return $from.($to && $to !== $from ? ' – '.$to : ($to ? '' : ' – '.__('cv.present')));
     };
 @endphp
 
 @if ($experience)
     <section>
-        <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Expérience</h2>
+        <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">{{ __('cv.experience') }}</h2>
         <div class="{{ $compact ? 'mt-4 space-y-4' : 'mt-4 space-y-6' }}">
             @foreach ($experience as $job)
                 <div>
@@ -35,7 +35,7 @@
 
 @if ($education)
     <section>
-        <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Formation</h2>
+        <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">{{ __('cv.education') }}</h2>
         <div class="{{ $compact ? 'mt-4 space-y-4' : 'mt-4 space-y-6' }}">
             @foreach ($education as $study)
                 <div>
@@ -59,7 +59,7 @@
 
 @if (! $skipAside && $skills)
     <section>
-        <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Compétences</h2>
+        <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">{{ __('cv.skills') }}</h2>
         <div class="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
             @foreach ($skills as $skill)
                 <div>
@@ -77,7 +77,7 @@
 
 @if (! $skipAside && $languages)
     <section>
-        <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Langues</h2>
+        <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">{{ __('cv.languages') }}</h2>
         <div class="mt-4 flex flex-wrap gap-1.5">
             @foreach ($languages as $language)
                 <span class="rounded-md bg-ink-100 px-2 py-1 text-sm text-ink-700 dark:bg-ink-800 dark:text-ink-200">
@@ -90,7 +90,7 @@
 
 @if ($certifications)
     <section>
-        <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Certifications</h2>
+        <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">{{ __('cv.certifications') }}</h2>
         <div class="mt-4 space-y-3">
             @foreach ($certifications as $certification)
                 <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
@@ -109,7 +109,7 @@
 
 @if (! $skipAside && $hobbies)
     <section>
-        <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Centres d’intérêt</h2>
+        <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">{{ __('cv.hobbies') }}</h2>
         <div class="mt-4 flex flex-wrap gap-1.5">
             @foreach ($hobbies as $hobby)
                 <span class="rounded-full border border-ink-300 px-3 py-1 text-sm text-ink-600 dark:border-ink-700 dark:text-ink-300">

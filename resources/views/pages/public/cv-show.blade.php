@@ -1,9 +1,9 @@
 <div class="mx-auto max-w-4xl px-4 pb-24 pt-10 sm:px-6 lg:px-8">
-    <a href="{{ route('home') }}" wire:navigate class="inline-flex items-center gap-1.5 text-sm text-ink-500 transition-colors hover:text-blue-600 dark:text-ink-400 dark:hover:text-blue-300">
+    <a href="{{ localized_route('home') }}" wire:navigate class="inline-flex items-center gap-1.5 text-sm text-ink-500 transition-colors hover:text-blue-600 dark:text-ink-400 dark:hover:text-blue-300">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12l7.5-7.5m5.25 15L8.25 12l7.5-7.5" />
         </svg>
-        Retour au site
+        {{ __('common.back_site') }}
     </a>
 
     @if (! $cv->isPublished())
@@ -12,7 +12,7 @@
                 <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
                 <span class="relative inline-flex size-2 rounded-full bg-amber-500"></span>
             </span>
-            Brouillon — aperçu, publiéz cette version depuis l’admin
+            {{ __('cv.draft') }}
         </div>
     @endif
 
@@ -69,7 +69,7 @@
                 <aside class="space-y-6">
                     @if ($skills)
                         <section>
-                            <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Compétences</h2>
+                            <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">{{ __('cv.skills') }}</h2>
                             <div class="mt-3 space-y-2.5">
                                 @foreach ($skills as $skill)
                                     <div>
@@ -94,7 +94,7 @@
 
                     @if ($languages)
                         <section>
-                            <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Langues</h2>
+                            <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">{{ __('cv.languages') }}</h2>
                             <ul class="mt-3 space-y-1.5 text-sm text-ink-700 dark:text-ink-200">
                                 @foreach ($languages as $language)
                                     <li class="flex justify-between gap-3">
@@ -108,7 +108,7 @@
 
                     @if ($hobbies)
                         <section>
-                            <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">Centres d’intérêt</h2>
+                            <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-[var(--accent)]">{{ __('cv.hobbies') }}</h2>
                             <div class="mt-3 flex flex-wrap gap-1.5">
                                 @foreach ($hobbies as $hobby)
                                     <span class="rounded-md bg-ink-100 px-2 py-1 text-xs text-ink-600 dark:bg-ink-800 dark:text-ink-300">{{ $hobby['name'] }}</span>

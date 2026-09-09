@@ -111,7 +111,6 @@ class PostForm
                             ->imageEditor()
                             ->disk('public')
                             ->directory('posts')
-                            ->optimize('webp')
                             ->maxSize(4096)
                             ->columnSpanFull(),
                     ]),

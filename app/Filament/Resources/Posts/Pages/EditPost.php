@@ -35,7 +35,7 @@ class EditPost extends EditRecord
                 ->icon('heroicon-m-eye')
                 ->color('gray')
                 ->visible(fn (): bool => $this->record->isPublished())
-                ->url(fn (): string => route('posts.show', $this->record->slug))
+                ->url(fn (): string => localized_route('posts.show', $this->record->slug))
                 ->openUrlInNewTab(),
 
             DeleteAction::make(),

@@ -22,7 +22,7 @@ class CvShow extends Component
         app(Seo::class)->set(
             title: 'CV — '.($cv->version_label ?: 'Sena Studio'),
             description: $cv->headline ?: null,
-            canonical: url()->route('cv.show', $cv),
+            canonical: localized_route('cv.show', $cv),
         );
     }
 

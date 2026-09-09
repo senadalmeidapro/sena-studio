@@ -18,7 +18,7 @@ class Stack extends Component
         app(Seo::class)->set(
             title: 'Stack technique',
             description: 'L’environnement technique de Sena Studio : outils, langages et services utilisés pour livrer des produits fiables.',
-            canonical: url()->route('stack.index'),
+            canonical: localized_route('stack.index'),
         );
     }
 

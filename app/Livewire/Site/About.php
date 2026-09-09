@@ -20,7 +20,7 @@ class About extends Component
         app(Seo::class)->set(
             title: null,
             description: 'Studio indépendant : conception de produits web, applications et solutions sur mesure, de l’idée à la mise en production.',
-            canonical: url()->route('about'),
+            canonical: localized_route('about'),
         );
     }
 

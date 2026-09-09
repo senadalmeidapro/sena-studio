@@ -4,13 +4,13 @@
     <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">
         <div class="flex items-center gap-3">
             <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-blue-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-blue-500 dark:text-blue-950">STK</span>
-            <span class="eyebrow">Technologies</span>
+            <span class="eyebrow">{{ __('stack.eyebrow') }}</span>
         </div>
         <h1 class="mt-5 font-display text-4xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-5xl">
-            Stack technique
+            {{ __('stack.title') }}
         </h1>
         <p class="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">
-            Les briques technologiques que j'utilise pour concevoir, développer et faire évoluer des applications fiables.
+            {{ __('stack.subtitle') }}
         </p>
     </header>
 
@@ -22,7 +22,7 @@
                     <h2 class="font-display text-2xl font-medium tracking-tight text-ink-900 dark:text-ink-50">{{ $stack->name }}</h2>
                     @if ($stack->projects->isNotEmpty())
                         <span class="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500">
-                            {{ $stack->projects->count() }} projet{{ $stack->projects->count() > 1 ? 's' : '' }}
+                            {{ $stack->projects->count() }} {{ $stack->projects->count() > 1 ? __('common.projects_count_plural_unit') : __('common.projects_count_unit') }}
                         </span>
                     @endif
                     <span aria-hidden="true" class="hidden h-px min-w-8 flex-1 bg-ink-300 sm:block dark:bg-ink-700"></span>
@@ -64,7 +64,7 @@
 
     @if ($this->stacks->isEmpty())
         <div class="mt-12 rounded-2xl border border-dashed border-ink-300 p-12 text-center text-ink-500 dark:border-ink-700 dark:text-ink-400">
-            Aucune stack publiée pour le moment.
+            {{ __('stack.empty') }}
         </div>
     @endif
 </div>

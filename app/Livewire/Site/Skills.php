@@ -18,7 +18,7 @@ class Skills extends Component
         app(Seo::class)->set(
             title: 'Compétences',
             description: 'Les technologies et expertises mobilisées par Sena Studio : PHP, Laravel, Livewire, Filament et plus encore.',
-            canonical: url()->route('skills.index'),
+            canonical: localized_route('skills.index'),
         );
     }
 

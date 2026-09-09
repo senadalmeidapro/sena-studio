@@ -4,51 +4,47 @@
     <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">
         <div class="flex items-center gap-3">
             <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-blue-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-blue-500 dark:text-blue-950">ID</span>
-            <span class="eyebrow">Présentation</span>
+            <span class="eyebrow">{{ __('about.eyebrow') }}</span>
         </div>
         <h1 class="mt-5 font-display text-4xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-5xl">
-            À propos
+            {{ __('about.title') }}
         </h1>
         <p class="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">
-            Studio indépendant centré sur la qualité d’exécution : de l’idée à la mise en production, sans usine à gaz.
+            {{ __('about.subtitle') }}
         </p>
     </header>
 
     <div class="mt-14 grid gap-16 lg:grid-cols-[1.1fr_0.9fr]">
         {{-- Récit --}}
         <div class="prose-blog motion-safe:animate-fade-up">
-            <h2>Une approche artisanale du logiciel</h2>
+            <h2>{{ __('about.narrative_h2') }}</h2>
             <p>
-                Chaque projet commence par une phase de cadrage : comprendre le métier, les usages et les contraintes
-                avant d’écrire la première ligne de code. Cette étape évite les mauvaises surprises et aligne
-                les objectifs techniques avec les objectifs business.
+                {{ __('about.narrative_p1') }}
             </p>
             <p>
-                Ma stack s’articule autour de l’écosystème PHP — Laravel, Livewire et Filament — pour livrer des
-                produits robustes, maintenables et accessibles. Mais un projet réussi repose avant tout sur une
-                communication claire, des itérations courtes et des livraisons fréquentes.
+                {{ __('about.narrative_p2') }}
             </p>
-            <h2>Ma façon de travailler</h2>
+            <h2>{{ __('about.work_h2') }}</h2>
             <ul>
-                <li>Cadrage &amp; maquettage : définition du périmètre, du budget et des délais.</li>
-                <li>Développement par itérations, testé et revu à chaque étape.</li>
-                <li>Mise en production, supervision et accompagnement post-livraison.</li>
-                <li>Documentation et transfert de compétences inclus dans l’offre.</li>
+                <li>{!! __('about.work_1') !!}</li>
+                <li>{{ __('about.work_2') }}</li>
+                <li>{{ __('about.work_3') }}</li>
+                <li>{{ __('about.work_4') }}</li>
             </ul>
             <blockquote>
-                Un détail négligé aujourd’hui devient une dette technique demain.
+                {{ __('about.quote') }}
             </blockquote>
         </div>
 
         {{-- Chiffres --}}
         <aside class="grid content-start gap-6 motion-safe:animate-fade-up [animation-delay:120ms]">
             <div class="rounded-2xl border border-ink-300 bg-card p-8 shadow-soft dark:border-ink-700">
-                <p class="eyebrow">Quelques chiffres</p>
+                <p class="eyebrow">{{ __('about.stats_eyebrow') }}</p>
                 <dl class="mt-6 grid grid-cols-3 gap-6">
                     @foreach ([
-                        ['value' => $this->stats['projects'], 'label' => 'Projets'],
-                        ['value' => $this->stats['skills'], 'label' => 'Compétences'],
-                        ['value' => $this->stats['testimonials'], 'label' => 'Avis'],
+                        ['value' => $this->stats['projects'], 'label' => __('about.stats_projects')],
+                        ['value' => $this->stats['skills'], 'label' => __('about.stats_skills')],
+                        ['value' => $this->stats['testimonials'], 'label' => __('about.stats_reviews')],
                     ] as $stat)
                         <div>
                             <dd class="font-display text-3xl font-medium tabular-nums text-ink-900 dark:text-ink-50">{{ $stat['value'] }}</dd>
@@ -59,12 +55,12 @@
             </div>
 
             <div class="rounded-2xl border border-ink-300 bg-blue-50/50 p-8 shadow-soft dark:border-ink-700 dark:bg-blue-950/20">
-                <p class="eyebrow">Disponibilité</p>
+                <p class="eyebrow">{{ __('about.availability_eyebrow') }}</p>
                 <p class="mt-4 text-pretty leading-relaxed text-ink-600 dark:text-ink-300">
-                    Je prends actuellement de nouveaux projets. Pour discuter du vôtre, contactez-moi dès maintenant.
+                    {{ __('about.availability_text') }}
                 </p>
-                <x-front.arrow-link :href="route('contact')" wire:navigate class="mt-5">
-                    Démarrer un projet
+                <x-front.arrow-link :href="localized_route('contact')" wire:navigate class="mt-5">
+                    {{ __('common.start_project') }}
                 </x-front.arrow-link>
             </div>
         </aside>
@@ -75,7 +71,7 @@
         <section class="mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">
             <div class="flex items-center gap-3">
                 <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-blue-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-blue-500 dark:text-blue-950">02</span>
-                <h2 class="eyebrow">Ils m’ont fait confiance</h2>
+                <h2 class="eyebrow">{{ __('about.testimonials_eyebrow') }}</h2>
             </div>
 
             <div class="mt-8 grid gap-6 md:grid-cols-3">

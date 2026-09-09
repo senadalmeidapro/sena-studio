@@ -26,7 +26,7 @@ class EditCv extends EditRecord
                 ->label('Aperçu')
                 ->icon('heroicon-m-eye')
                 ->color('gray')
-                ->url(fn (): string => route('cv.show', $this->record->slug))
+                ->url(fn (): string => localized_route('cv.show', $this->record->slug))
                 ->openUrlInNewTab(),
 
             Action::make('downloadPdf')

@@ -58,7 +58,7 @@ class PostsTable
                     ->label('Aperçu')
                     ->icon('heroicon-m-eye')
                     ->visible(fn (Post $record): bool => $record->isPublished())
-                    ->url(fn (Post $record): string => route('posts.show', $record->slug))
+                    ->url(fn (Post $record): string => localized_route('posts.show', $record->slug))
                     ->openUrlInNewTab(),
 
                 EditAction::make(),

@@ -26,7 +26,7 @@ class BlogIndex extends Component
         app(Seo::class)->set(
             title: 'Blog',
             description: 'Notes sur le développement web : retours d’expérience, bonnes pratiques et coulisses des projets de Sena Studio.',
-            canonical: url()->route('posts.index'),
+            canonical: localized_route('posts.index'),
         );
     }
 

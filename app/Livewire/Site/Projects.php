@@ -33,7 +33,7 @@ class Projects extends Component
         app(Seo::class)->set(
             title: 'Projets',
             description: 'Portfolio de Sena Studio : applications web, SaaS et solutions logicielles, avec les technologies mobilisées.',
-            canonical: url()->route('projects.index'),
+            canonical: localized_route('projects.index'),
         );
     }
 

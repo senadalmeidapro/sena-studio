@@ -42,7 +42,6 @@ class TestimonialForm
                             ->imageEditor()
                             ->disk('public')
                             ->directory('testimonials')
-                            ->optimize('webp')
                             ->maxSize(2048)
                             ->columnSpan(1),
 
