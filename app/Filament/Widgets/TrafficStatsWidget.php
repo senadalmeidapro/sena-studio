@@ -55,7 +55,7 @@ class TrafficStatsWidget extends StatsOverviewWidget
 
             Stat::make('Vues · 30 jours', number_format($thirtyDays))
                 ->description('Dernier mois')
-                ->descriptionIcon('heroicon-m-chart-line')
+                ->descriptionIcon('heroicon-m-presentation-chart-line')
                 ->color('gray'),
         ];
     }
