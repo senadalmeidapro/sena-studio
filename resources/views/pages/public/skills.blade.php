@@ -17,7 +17,6 @@
         @foreach ($this->byLevel as $levelKey => $skills)
             <section>
                 <div class="mb-6 flex items-baseline gap-4">
-                    <span class="font-mono text-[0.7rem] tabular-nums text-ink-400 dark:text-ink-500">{{ str_pad($loop->index + 1, 2, '0', STR_PAD_LEFT) }}</span>
                     <h2 class="font-display text-2xl font-medium tracking-tight text-ink-900 dark:text-ink-50">
                         {{ \App\Enums\SkillLevel::from($levelKey)->label() }}
                     </h2>

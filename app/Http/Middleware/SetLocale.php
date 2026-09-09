@@ -21,6 +21,10 @@ class SetLocale
         app()->setLocale($locale);
         session()->put('locale', $locale);
 
+        if ($request->route('locale') === null && $request->route()?->getName() === 'home') {
+            return redirect()->route('home', ['locale' => $locale]);
+        }
+
         return $next($request);
     }
 }

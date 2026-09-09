@@ -17,7 +17,6 @@
         @foreach ($this->stacks as $stack)
             <section>
                 <div class="mb-6 flex flex-wrap items-baseline gap-4">
-                    <span class="font-mono text-[0.7rem] tabular-nums text-ink-400 dark:text-ink-500">{{ str_pad($loop->index + 1, 2, '0', STR_PAD_LEFT) }}</span>
                     <h2 class="font-display text-2xl font-medium tracking-tight text-ink-900 dark:text-ink-50">{{ $stack->name }}</h2>
                     @if ($stack->projects->isNotEmpty())
                         <span class="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500">

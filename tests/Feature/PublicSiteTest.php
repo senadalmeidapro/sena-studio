@@ -25,6 +25,16 @@ test('the home page is accessible and shows featured content', function () {
         ->assertSee('Projet Public');
 });
 
+test('the bare host root redirects to the default localized home', function () {
+    $this->get('/')
+        ->assertRedirect('/fr');
+});
+
+test('the bare host root redirects to the language stored in session', function () {
+    $this->withSession(['locale' => 'en'])->get('/')
+        ->assertRedirect('/en');
+});
+
 test('the projects index only shows public projects', function () {
     Project::factory()->create([
         'name' => 'Projet Visible',

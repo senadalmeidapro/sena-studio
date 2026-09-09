@@ -110,9 +110,8 @@
                 [[__('home.services.saas'), __('home.services.saas_text')], 'M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9'],
                 [[__('home.services.apis'), __('home.services.apis_text')], 'M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99'],
                 [[__('home.services.perf'), __('home.services.perf_text')], 'M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941'],
-            ] as $i => [[$title, $text], $icon])
-                <li class="group grid gap-2 py-8 transition-colors hover:bg-blue-50/50 sm:grid-cols-[3.5rem_3.5rem_1fr] sm:items-start sm:gap-6 sm:px-4 sm:py-10 dark:hover:bg-blue-950/20">
-                    <span class="pt-1 font-mono text-xs tabular-nums text-ink-400 transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400">{{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}</span>
+            ] as [[$title, $text], $icon])
+                <li class="group grid gap-2 py-8 transition-colors hover:bg-blue-50/50 sm:grid-cols-[3.5rem_1fr] sm:items-start sm:gap-6 sm:px-4 sm:py-10 dark:hover:bg-blue-950/20">
                     <span class="flex size-11 items-center justify-center rounded-xl bg-ink-100 text-ink-700 transition-colors group-hover:bg-blue-500 group-hover:text-white dark:bg-ink-800 dark:text-ink-200 dark:group-hover:bg-blue-500 dark:group-hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="{{ $icon }}" />
@@ -149,11 +148,8 @@
                 [__('home.method.step2'), __('home.method.step2_text')],
                 [__('home.method.step3'), __('home.method.step3_text')],
                 [__('home.method.step4'), __('home.method.step4_text')],
-            ] as $i => [$title, $text])
+            ] as [$title, $text])
                 <li class="group flex flex-col gap-3 bg-card p-7 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-50/60 hover:shadow-card sm:p-8 dark:hover:bg-blue-950/20">
-                    <span class="font-display text-4xl font-medium text-blue-600/80 transition-colors group-hover:text-blue-600 dark:text-blue-400/80 dark:group-hover:text-blue-400">
-                        {{ str_pad($i + 1, 2, '0', STR_PAD_LEFT) }}
-                    </span>
                     <h3 class="font-display text-lg font-medium tracking-tight text-ink-900 dark:text-ink-50">{{ $title }}</h3>
                     <p class="text-sm leading-relaxed text-ink-500 dark:text-ink-400">{{ $text }}</p>
                 </li>
