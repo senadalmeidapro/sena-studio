@@ -58,7 +58,7 @@
     "project.environment": "Environment",
     "project.storage": "Storage",
     "project.cores": ":count cores · :memory MB",
-    "project.inspired": "Inspired by this project?",
+    "project.inspired": "Inspired by this project ?",
 
     "home.hero_eyebrow": "Independent studio — Lyon, France",
     "home.tagline": "Custom web development",
@@ -109,7 +109,7 @@
     "home.stack.subtitle": "The technologies I work with every day.",
     "home.stack.explore": "Explore the full stack",
     "home.cta_banner.eyebrow": "06 — Contact",
-    "home.cta_banner.title": "Got a project in mind?",
+    "home.cta_banner.title": "Got a project in mind ?",
     "home.cta_banner.text": "Let's discuss your goals and turn your idea into a reliable, elegant web product.",
     "home.cta_banner.action": "Start the conversation",
     "home.cta_banner.secondary": "See the tech stack",
@@ -165,7 +165,7 @@
     "blog.index_subtitle": "Notes on web development: lessons learned, best practices and behind the scenes of my projects.",
     "blog.empty": "No published article yet.",
     "blog.reading": ":count min read",
-    "blog.cta_title": "Need something similar?",
+    "blog.cta_title": "Need something similar ?",
     "blog.cta_action": "Let's talk",
 
     "cv.draft": "Draft — preview: publish this version from the admin.",
@@ -179,7 +179,7 @@
 
     "contact.eyebrow": "Exchange",
     "contact.title": "Contact",
-    "contact.subtitle": "Have a project, an idea or a question? Fill in the form and let's talk.",
+    "contact.subtitle": "Have a project, an idea or a question ? Fill in the form and let's talk.",
     "contact.aside_title": "A reply within 24h",
     "contact.aside_text": "To refine your request, give as much context as possible: goals, expected timelines and a rough budget.",
     "contact.location": "Based in Lyon — remote friendly",

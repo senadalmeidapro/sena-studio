@@ -3,7 +3,6 @@
     {{-- En-tête --}}
     <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">
         <div class="flex items-center gap-3">
-            <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-blue-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-blue-500 dark:text-blue-950">ID</span>
             <span class="eyebrow">{{ __('about.eyebrow') }}</span>
         </div>
         <h1 class="mt-5 font-display text-4xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-5xl">
@@ -69,8 +68,7 @@
     {{-- Témoignages --}}
     @if ($this->testimonials->isNotEmpty())
         <section class="mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">
-            <div class="flex items-center gap-3">
-                <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-blue-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-blue-500 dark:text-blue-950">02</span>
+            <div>
                 <h2 class="eyebrow">{{ __('about.testimonials_eyebrow') }}</h2>
             </div>
 

@@ -19,7 +19,6 @@
         {{-- En-tête éditorial --}}
         <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">
 <div class="flex items-center gap-3">
-            <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-blue-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-blue-500 dark:text-blue-950">SEN</span>
             <span class="eyebrow">{{ __('contact.eyebrow') }}</span>
         </div>
             <h1 class="mt-5 font-display text-4xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-5xl">
@@ -75,8 +74,7 @@
             @endphp
 
             <form wire:submit="submit" class="motion-safe:animate-fade-up [animation-delay:120ms]">
-                <div class="mb-6 flex items-center gap-3">
-                    <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-blue-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-blue-500 dark:text-blue-950">01</span>
+                <div class="mb-6">
                     <span class="eyebrow">{{ __('contact.form_eyebrow') }}</span>
                 </div>
 

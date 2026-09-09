@@ -8,8 +8,6 @@
             {{-- Colonne texte --}}
             <div class="motion-safe:animate-fade-up">
                 <div class="flex items-center gap-3">
-                    <span class="text-[0.7rem] font-medium tabular-nums text-ink-400 dark:text-ink-500">01</span>
-                    <span class="text-ink-300 dark:text-ink-600">/</span>
                     <span class="eyebrow">{{ __('home.hero_eyebrow') }}</span>
                 </div>
 
@@ -101,7 +99,6 @@
     {{-- ===================== 01 — SERVICES ===================== --}}
     <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <x-front.section-heading
-            index="01"
             :label="__('home.services.label')"
             :title="__('home.services.title')"
             :subtitle="__('home.services.subtitle')"
@@ -140,7 +137,6 @@
     {{-- ===================== 02 — MÉTHODE ===================== --}}
     <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <x-front.section-heading
-            index="02"
             :label="__('home.method.label')"
             :title="__('home.method.title')"
             :subtitle="__('home.method.subtitle')"
@@ -169,7 +165,6 @@
     @if ($this->featuredProjects->isNotEmpty())
         <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <x-front.section-heading
-                index="03"
                 :label="__('home.portfolio.label')"
                 :title="__('home.portfolio.title')"
                 :subtitle="__('home.portfolio.subtitle')"
@@ -226,7 +221,6 @@
     @if ($this->topSkills->isNotEmpty())
         <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <x-front.section-heading
-                index="04"
                 :label="__('home.expertise.label')"
                 :title="__('home.expertise.title')"
                 :subtitle="__('home.expertise.subtitle')"
@@ -258,7 +252,6 @@
         <section class="border-y border-ink-300 bg-blue-50/60 dark:border-ink-700 dark:bg-surface">
             <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
                 <x-front.section-heading
-                    index="05"
                     :label="__('home.stack.label')"
                     :title="__('home.stack.title')"
                     :subtitle="__('home.stack.subtitle')"

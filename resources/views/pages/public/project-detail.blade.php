@@ -38,9 +38,6 @@
                                 x-cloak
                             />
                         </template>
-                        <span class="absolute right-4 top-4 rounded-md bg-ink-950/70 px-2.5 py-1 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-white backdrop-blur-sm">
-                            FIG. 0{{ $galleryUrls->count() > 1 ? '1/'.$galleryUrls->count() : '1' }}
-                        </span>
                         <span class="absolute inset-0 flex items-center justify-center bg-ink-950/0 opacity-0 transition-all duration-300 group-hover:bg-ink-950/45 group-hover:opacity-100">
                             <span class="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-ink-900 backdrop-blur-sm dark:bg-ink-900/90 dark:text-ink-50">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-4">
@@ -81,8 +78,7 @@
                         aria-modal="true"
                         aria-label="Galerie plein écran"
                     >
-                        <div class="mx-auto flex w-full max-w-6xl items-center justify-between">
-                            <p class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-400" x-text="'FIG. 0' + (active + 1) + '/' + count"></p>
+                        <div class="mx-auto flex w-full max-w-6xl items-center justify-end">
                             <button
                                 type="button"
                                 @click="open = false"
@@ -204,8 +200,7 @@
     {{-- Compétences mobilisées --}}
     @if ($project->skills->isNotEmpty())
         <section class="mt-12">
-            <div class="flex items-center gap-3">
-                <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-blue-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-blue-500 dark:text-blue-950">02</span>
+            <div>
                 <h2 class="eyebrow">{{ __('project.skills_title') }}</h2>
             </div>
             <div class="mt-6 flex flex-wrap gap-2">
@@ -223,8 +218,7 @@
     @if ($project->stack && $project->stack->stackItems->isNotEmpty())
         <section class="mt-14">
             <div class="flex flex-wrap items-baseline justify-between gap-3">
-                <div class="flex items-center gap-3">
-                    <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-blue-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-blue-500 dark:text-blue-950">03</span>
+                <div>
                     <h2 class="eyebrow">{{ __('project.stack_title') }}</h2>
                 </div>
                 <p class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">{{ $project->stack->name }}</p>
@@ -251,8 +245,7 @@
     {{-- Infrastructure --}}
     @if ($project->infra)
         <section class="mt-14">
-            <div class="flex items-center gap-3">
-                <span class="inline-flex h-7 min-w-7 items-center justify-center rounded-lg bg-blue-600 px-2 font-mono text-[0.68rem] font-semibold tabular-nums text-white dark:bg-blue-500 dark:text-blue-950">04</span>
+            <div>
                 <h2 class="eyebrow">{{ __('project.infra_title') }}</h2>
             </div>
             <dl class="mt-6 grid gap-px overflow-hidden rounded-2xl border border-ink-300 bg-ink-300/80 sm:grid-cols-3 dark:border-ink-700 dark:bg-ink-700/60">
