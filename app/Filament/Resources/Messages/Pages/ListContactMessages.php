@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\Messages\Pages;
 
 use App\Filament\Resources\Messages\ContactMessageResource;
+use App\Filament\Widgets\ContactMessageStatsWidget;
+use App\Filament\Widgets\MessagesVolumeChartWidget;
 use App\Models\ContactMessage;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
@@ -63,5 +65,18 @@ class ListContactMessages extends ListRecords
                     ContactMessage::query()->whereNull('read_at')->update(['read_at' => now()]);
                 }),
         ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ContactMessageStatsWidget::class,
+            MessagesVolumeChartWidget::class,
+        ];
+    }
+
+    public function getHeaderWidgetsColumns(): int|array
+    {
+        return 3;
     }
 }
