@@ -56,6 +56,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Default Meta Description
+    |--------------------------------------------------------------------------
+    |
+    | Fallback description used by the SEO service when a page does not
+    | provide its own meta description.
+    |
+    */
+
+    'description' => env('SITE_DESCRIPTION', ''),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |

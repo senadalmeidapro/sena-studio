@@ -86,6 +86,12 @@
                 </p>
 
                 <div class="grid gap-6">
+                    {{-- Honeypot caché : invisible pour les humains, rempli par les bots --}}
+                    <div class="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+                        <label for="contact-website">Ne pas remplir ce champ</label>
+                        <input id="contact-website" type="text" tabindex="-1" autocomplete="off" wire:model="website" />
+                    </div>
+
                     <div class="grid gap-6 sm:grid-cols-2">
                         <div class="grid gap-2">
                             <label for="contact-name" class="{{ $label }}">Nom <span class="text-blue-600 dark:text-blue-300">*</span></label>

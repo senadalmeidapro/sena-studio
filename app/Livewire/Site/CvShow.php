@@ -3,6 +3,7 @@
 namespace App\Livewire\Site;
 
 use App\Models\Cv;
+use App\Services\Seo;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -17,6 +18,12 @@ class CvShow extends Component
     public function mount(Cv $cv): void
     {
         $this->cv = $cv;
+
+        app(Seo::class)->set(
+            title: 'CV — '.($cv->version_label ?: 'Sena Studio'),
+            description: $cv->headline ?: null,
+            canonical: url()->route('cv.show', $cv),
+        );
     }
 
     public function render(): View

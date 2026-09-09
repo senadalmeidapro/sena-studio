@@ -3,11 +3,17 @@
 namespace App\Livewire\Site;
 
 use App\Models\ContactMessage;
+use App\Models\ModelHasRole;
+use App\Models\User;
+use App\Notifications\NewContactMessage;
+use App\Services\Seo;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Throwable;
 
 #[Title('Contact — Sena Studio')]
 #[Layout('layouts.public')]
@@ -27,7 +33,18 @@ class Contact extends Component
 
     public string $message = '';
 
+    public string $website = '';
+
     public bool $sent = false;
+
+    public function mount(): void
+    {
+        app(Seo::class)->set(
+            title: null,
+            description: 'Discutons de votre projet — devis gratuit sous 48 h, outillage moderne et interlocuteur unique.',
+            canonical: url()->route('contact'),
+        );
+    }
 
     public function budgetOptions(): array
     {
@@ -50,14 +67,41 @@ class Contact extends Component
             'subject' => ['required', 'string', 'max:160'],
             'budget' => ['nullable', Rule::in(array_keys($this->budgetOptions()))],
             'message' => ['required', 'string', 'min:20', 'max:5000'],
+            'website' => ['sometimes', 'max:0'],
         ];
     }
 
     public function submit(): void
     {
-        $data = $this->validate();
+        // Honeypot : champ invisible, rempli uniquement par les bots.
+        if ($this->website !== '') {
+            $this->sent = true;
 
-        ContactMessage::create([
+            return;
+        }
+
+        $data = $this->validate();
+        $key = 'contact:'.md5(request()->ip().'|'.strtolower($data['email']));
+
+        $allowed = RateLimiter::attempt(
+            $key,
+            maxAttempts: 3,
+            callback: fn () => $this->store($data),
+            decaySeconds: 3600,
+        );
+
+        if (! $allowed) {
+            $this->addError('email', 'Trop de messages envoyés. Réessayez dans une heure.');
+
+            return;
+        }
+
+        $this->sent = true;
+    }
+
+    protected function store(array $data): void
+    {
+        $message = ContactMessage::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'] ?: null,
@@ -67,6 +111,31 @@ class Contact extends Component
             'message' => $data['message'],
         ]);
 
+        $this->notifyAdmins($message);
+
+        try {
+            $this->sendMail($data);
+        } catch (Throwable) {
+            // L'envoi d'email reste best-effort : le message est déjà enregistré.
+            report(new \RuntimeException('Échec de l\'envoi du mail de contact pour '.$data['email']));
+        }
+
+        $this->reset('name', 'email', 'phone', 'company', 'subject', 'budget', 'message');
+    }
+
+    protected function notifyAdmins(ContactMessage $message): void
+    {
+        $adminIds = ModelHasRole::query()->pluck('model_id')->filter()->unique()->all();
+
+        if ($adminIds === []) {
+            return;
+        }
+
+        User::query()->whereIn('id', $adminIds)->get()->each->notify(new NewContactMessage($message));
+    }
+
+    protected function sendMail(array $data): void
+    {
         $lines = [
             "Nom : {$data['name']}",
             "Email : {$data['email']}",
@@ -95,9 +164,6 @@ class Contact extends Component
                     ->subject('[Sena Studio] '.$data['subject']);
             },
         );
-
-        $this->reset('name', 'email', 'phone', 'company', 'subject', 'budget', 'message');
-        $this->sent = true;
     }
 
     public function render()

@@ -18,8 +18,15 @@
         @endphp
 
         @if ($galleryUrls->isNotEmpty())
-            <div x-data="{ active: 0, images: @js($galleryUrls->all()), count: @js($galleryUrls->count()) }">
-                <div class="crop-frame overflow-hidden rounded-3xl border border-ink-300 bg-ink-100 dark:border-ink-700 dark:bg-ink-900">
+            <div x-data="{ active: 0, open: false, images: @js($galleryUrls->all()), count: @js($galleryUrls->count()) }"
+                 x-on:keydown.escape.window="open = false"
+                 @class(['overflow-hidden rounded-3xl' => $galleryUrls->count() > 1])>
+                <button
+                    type="button"
+                    @click="open = true"
+                    class="crop-frame group block w-full overflow-hidden rounded-3xl border border-ink-300 bg-ink-100 text-left focus:outline-none dark:border-ink-700 dark:bg-ink-900"
+                    aria-label="Afficher la galerie en plein écran"
+                >
                     <div class="relative aspect-video">
                         <template x-for="(img, i) in images" :key="i">
                             <img
@@ -32,10 +39,18 @@
                             />
                         </template>
                         <span class="absolute right-4 top-4 rounded-md bg-ink-950/70 px-2.5 py-1 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-white backdrop-blur-sm">
-                            FIG. 01
+                            FIG. 0{{ $galleryUrls->count() > 1 ? '1/'.$galleryUrls->count() : '1' }}
+                        </span>
+                        <span class="absolute inset-0 flex items-center justify-center bg-ink-950/0 opacity-0 transition-all duration-300 group-hover:bg-ink-950/45 group-hover:opacity-100">
+                            <span class="inline-flex items-center gap-2 rounded-xl bg-white/90 px-4 py-2 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-ink-900 backdrop-blur-sm dark:bg-ink-900/90 dark:text-ink-50">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15m11.25-11.25v4.5m0-4.5h-4.5m4.5 0L15 9m6 11.25v-4.5m0 4.5h-4.5m4.5 0L15 15" />
+                                </svg>
+                                Agrandir
+                            </span>
                         </span>
                     </div>
-                </div>
+                </button>
 
                 @if ($galleryUrls->count() > 1)
                     <div class="mt-3 flex gap-3">
@@ -52,6 +67,82 @@
                         </template>
                     </div>
                 @endif
+
+                {{-- Lightbox --}}
+                <template x-teleport="body">
+                    <div
+                        x-show="open"
+                        x-cloak
+                        x-transition.opacity.duration.200ms
+                        @keydown.arrow-left.window.prevent="active = (active - 1 + count) % count"
+                        @keydown.arrow-right.window.prevent="active = (active + 1) % count"
+                        class="fixed inset-0 z-[100] flex flex-col bg-ink-950/95 p-4 backdrop-blur-sm sm:p-8"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Galerie plein écran"
+                    >
+                        <div class="mx-auto flex w-full max-w-6xl items-center justify-between">
+                            <p class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-400" x-text="'FIG. 0' + (active + 1) + '/' + count"></p>
+                            <button
+                                type="button"
+                                @click="open = false"
+                                class="inline-flex size-10 items-center justify-center rounded-full border border-ink-700 text-ink-100 transition-colors hover:border-ink-500 hover:bg-ink-800"
+                                aria-label="Fermer"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="relative mx-auto mt-4 flex w-full max-w-6xl flex-1 items-center justify-center">
+                            <button
+                                type="button"
+                                @click="active = (active - 1 + count) % count"
+                                x-show="count > 1"
+                                class="absolute left-0 z-10 inline-flex size-12 items-center justify-center rounded-full border border-ink-700 bg-ink-900/60 text-ink-100 transition-colors hover:bg-ink-800 sm:-left-4"
+                                aria-label="Image précédente"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                                </svg>
+                            </button>
+
+                            <img
+                                :src="images[active]"
+                                :alt="'Vue ' + (active + 1)"
+                                x-transition.opacity.duration.200ms
+                                class="max-h-[78vh] w-auto rounded-xl object-contain shadow-2xl"
+                            />
+
+                            <button
+                                type="button"
+                                @click="active = (active + 1) % count"
+                                x-show="count > 1"
+                                class="absolute right-0 z-10 inline-flex size-12 items-center justify-center rounded-full border border-ink-700 bg-ink-900/60 text-ink-100 transition-colors hover:bg-ink-800 sm:-right-4"
+                                aria-label="Image suivante"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="mx-auto mt-4 flex w-full max-w-6xl items-center justify-center gap-3">
+                            <template x-for="(img, i) in images" :key="i">
+                                <button
+                                    type="button"
+                                    @click="active = i"
+                                    :class="i === active ? 'ring-2 ring-blue-400' : 'opacity-50 hover:opacity-100'"
+                                    class="w-16 overflow-hidden rounded-lg border border-ink-700 transition-all"
+                                    :aria-label="'Aller à la vue ' + (i + 1)"
+                                >
+                                    <img :src="img" alt="" loading="lazy" class="aspect-video w-full object-cover" />
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+                </template>
             </div>
         @else
             <x-project-media :image="$project->image" :label="$project->name" />

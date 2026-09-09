@@ -24,6 +24,8 @@
                 <li><a href="{{ route('projects.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">Projets</a></li>
                 <li><a href="{{ route('skills.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">Compétences</a></li>
                 <li><a href="{{ route('stack.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">Stack technique</a></li>
+                <li><a href="{{ route('about') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">À propos</a></li>
+                <li><a href="{{ route('posts.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">Blog</a></li>
                 <li>
                     <a href="{{ $cvUrl ?: '#' }}" wire:navigate @class(['ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300' => $cvUrl, 'pointer-events-none opacity-40' => ! $cvUrl])>CV</a>
                 </li>

@@ -18,6 +18,8 @@
                 'projects' => ['Projets', route('projects.index')],
                 'skills' => ['Compétences', route('skills.index')],
                 'stack' => ['Stack', route('stack.index')],
+                'about' => ['À propos', route('about')],
+                'blog' => ['Blog', route('posts.index')],
                 'cv' => ['CV', $cvUrl ?: '#'],
                 'contact' => ['Contact', route('contact')],
             ] as $key => [$label, $url])
@@ -93,6 +95,8 @@
                 'projects' => ['Projets', route('projects.index')],
                 'skills' => ['Compétences', route('skills.index')],
                 'stack' => ['Stack', route('stack.index')],
+                'about' => ['À propos', route('about')],
+                'blog' => ['Blog', route('posts.index')],
                 'cv' => ['CV', $cvUrl ?: '#'],
                 'contact' => ['Contact', route('contact')],
             ] as $key => [$label, $url])

@@ -3,6 +3,7 @@
 namespace App\Livewire\Site;
 
 use App\Models\Skill;
+use App\Services\Seo;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -12,6 +13,15 @@ use Livewire\Component;
 #[Layout('layouts.public')]
 class Skills extends Component
 {
+    public function mount(): void
+    {
+        app(Seo::class)->set(
+            title: 'Compétences',
+            description: 'Les technologies et expertises mobilisées par Sena Studio : PHP, Laravel, Livewire, Filament et plus encore.',
+            canonical: url()->route('skills.index'),
+        );
+    }
+
     #[Computed]
     public function byLevel()
     {

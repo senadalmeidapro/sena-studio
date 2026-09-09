@@ -5,6 +5,7 @@ namespace App\Livewire\Site;
 use App\Models\Project;
 use App\Models\Skill;
 use App\Models\StackItem;
+use App\Services\Seo;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
@@ -14,6 +15,14 @@ use Livewire\Component;
 #[Layout('layouts.public')]
 class Home extends Component
 {
+    public function mount(): void
+    {
+        app(Seo::class)->set(
+            description: 'Studio indépendant : conception de produits web, applications et solutions sur mesure — Laravel, Livewire et Filament.',
+            canonical: url()->route('home'),
+        );
+    }
+
     #[Computed]
     public function featuredProjects()
     {

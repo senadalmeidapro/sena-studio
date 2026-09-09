@@ -34,6 +34,85 @@
         </div>
     </div>
 
+    {{-- Filtres secondaires : catégories & compétences --}}
+    @if ($this->categories->isNotEmpty() || $this->skills->isNotEmpty())
+        <div class="mt-7 space-y-3">
+            @if ($this->categories->isNotEmpty())
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="mr-1 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500">Domaines&nbsp;:</span>
+                    <button
+                        type="button"
+                        wire:click="filterByCategory(null)"
+                        @class([
+                            'rounded-lg border px-3 py-1 font-mono text-[0.7rem] uppercase tracking-[0.08em] transition-colors',
+                            'border-blue-500 bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' => blank($category),
+                            'border-ink-300 bg-card text-ink-500 hover:text-ink-800 dark:border-ink-700 dark:text-ink-400 dark:hover:text-ink-100' => filled($category),
+                        ])
+                    >
+                        Tous
+                    </button>
+                    @foreach ($this->categories as $cat)
+                        <button
+                            type="button"
+                            wire:click="filterByCategory(@js($cat->slug))"
+                            @class([
+                                'rounded-lg border px-3 py-1 font-mono text-[0.7rem] uppercase tracking-[0.08em] transition-colors',
+                                'border-blue-500 bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' => $category === $cat->slug,
+                                'border-ink-300 bg-card text-ink-500 hover:text-ink-800 dark:border-ink-700 dark:text-ink-400 dark:hover:text-ink-100' => $category !== $cat->slug,
+                            ])
+                        >
+                            {{ $cat->name }}
+                            <span class="opacity-60">{{ $cat->projects_count }}</span>
+                        </button>
+                    @endforeach
+                </div>
+            @endif
+
+            @if ($this->skills->isNotEmpty())
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="mr-1 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500">Compétences&nbsp;:</span>
+                    <button
+                        type="button"
+                        wire:click="filterBySkill(null)"
+                        @class([
+                            'rounded-full border px-3 py-1 text-[0.7rem] transition-colors',
+                            'border-blue-500 bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' => blank($skill),
+                            'border-ink-300 bg-card text-ink-500 hover:text-ink-800 dark:border-ink-700 dark:text-ink-400 dark:hover:text-ink-100' => filled($skill),
+                        ])
+                    >
+                        Toutes
+                    </button>
+                    @foreach ($this->skills as $skillItem)
+                        <button
+                            type="button"
+                            wire:click="filterBySkill(@js($skillItem->slug))"
+                            @class([
+                                'rounded-full border px-3 py-1 text-[0.7rem] transition-colors',
+                                'border-blue-500 bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' => $skill === $skillItem->slug,
+                                'border-ink-300 bg-card text-ink-500 hover:text-ink-800 dark:border-ink-700 dark:text-ink-400 dark:hover:text-ink-100' => $skill !== $skillItem->slug,
+                            ])
+                        >
+                            {{ $skillItem->name }}
+                        </button>
+                    @endforeach
+                </div>
+            @endif
+
+            @if (filled($type) || filled($category) || filled($skill))
+                <button
+                    type="button"
+                    wire:click="clearFilters"
+                    class="inline-flex items-center gap-1.5 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-ink-500 transition-colors hover:text-red-500 dark:text-ink-400"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-3.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                    </svg>
+                    Réinitialiser les filtres
+                </button>
+            @endif
+        </div>
+    @endif
+
     {{-- Grille --}}
     @if ($this->projects->isNotEmpty())
         <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

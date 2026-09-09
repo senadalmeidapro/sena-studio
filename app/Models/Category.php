@@ -34,4 +34,10 @@ class Category extends Model
         return $this->morphedByMany(Project::class, 'categorizable')
             ->withTimestamps();
     }
+
+    public function posts(): MorphToMany
+    {
+        return $this->morphedByMany(Post::class, 'categorizable')
+            ->withTimestamps();
+    }
 }
