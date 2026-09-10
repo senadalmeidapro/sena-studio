@@ -31,7 +31,7 @@
 
     @if ($post->cover_image)
         <div class="mt-10 overflow-hidden rounded-3xl border border-ink-300 bg-ink-100 motion-safe:animate-fade-up [animation-delay:100ms] dark:border-ink-700 dark:bg-ink-900">
-            <img src="{{ asset($post->cover_image) }}" alt="{{ $post->title }}" loading="lazy" class="aspect-video w-full object-cover" />
+            <img src="{{ media_url($post->cover_image) }}" alt="{{ $post->title }}" loading="lazy" class="aspect-video w-full object-cover" />
         </div>
     @endif
 

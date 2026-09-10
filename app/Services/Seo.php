@@ -54,6 +54,6 @@ class Seo
 
     public function image(): string
     {
-        return asset($this->image);
+        return media_url($this->image) ?? asset('/images/brand/sena-mark.svg');
     }
 }

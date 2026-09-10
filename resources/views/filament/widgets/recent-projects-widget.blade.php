@@ -22,7 +22,7 @@
                     <li style="display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-top:1px solid var(--gray-200);">
                         @if ($project->image)
                             <x-filament::avatar
-                                src="{{ asset($project->image) }}"
+                                src="{{ media_url($project->image) }}"
                                 alt="{{ $project->name }}"
                                 size="lg"
                             />

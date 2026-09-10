@@ -18,7 +18,7 @@ class PostsTable
             ->columns([
                 ImageColumn::make('cover_image')
                     ->label('')
-                    ->url(fn (Post $record): ?string => $record->cover_image ? asset($record->cover_image) : null)
+                    ->url(fn (Post $record): ?string => media_url($record->cover_image))
                     ->placeholder('—')
                     ->circular()
                     ->width(56)

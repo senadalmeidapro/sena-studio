@@ -6,6 +6,7 @@ use App\Enums\ProjectComplexity;
 use App\Enums\ProjectStatus;
 use App\Enums\ProjectType;
 use App\Enums\ProjectVisibility;
+use App\Services\CloudinaryService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -41,6 +42,7 @@ class Project extends Model
         'url',
         'repository_url',
         'image',
+        'cloudinary_public_id',
         'status',
         'type',
         'complexity',
@@ -77,5 +79,14 @@ class Project extends Model
     public function projectImages(): HasMany
     {
         return $this->hasMany(ProjectImage::class)->orderBy('sort_order');
+    }
+
+    protected static function booted(): void
+    {
+        static::forceDeleted(function (Project $project): void {
+            if (filled($project->cloudinary_public_id)) {
+                rescue(fn () => app(CloudinaryService::class)->delete($project->cloudinary_public_id), report: false);
+            }
+        });
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\CloudinaryService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,6 +31,7 @@ class Post extends Model
         'excerpt',
         'content',
         'cover_image',
+        'cloudinary_public_id',
         'status',
         'published_at',
         'seo_title',
@@ -61,6 +63,12 @@ class Post extends Model
 
             if ($post->status !== self::STATUS_PUBLISHED) {
                 $post->published_at = null;
+            }
+        });
+
+        static::deleted(function (Post $post): void {
+            if (filled($post->cloudinary_public_id)) {
+                rescue(fn () => app(CloudinaryService::class)->delete($post->cloudinary_public_id), report: false);
             }
         });
     }

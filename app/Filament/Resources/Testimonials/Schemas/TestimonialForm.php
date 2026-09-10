@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Testimonials\Schemas;
 
-use Filament\Forms\Components\FileUpload;
+use App\Services\CloudinaryService;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -36,7 +36,7 @@ class TestimonialForm
                             ->maxLength(120)
                             ->columnSpan(1),
 
-                        FileUpload::make('avatar')
+                        app(CloudinaryService::class)->fileUpload('avatar')
                             ->label('Avatar')
                             ->image()
                             ->imageEditor()

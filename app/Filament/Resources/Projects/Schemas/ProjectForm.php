@@ -6,6 +6,7 @@ use App\Enums\ProjectComplexity;
 use App\Enums\ProjectStatus;
 use App\Enums\ProjectType;
 use App\Enums\ProjectVisibility;
+use App\Services\CloudinaryService;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
@@ -49,7 +50,7 @@ class ProjectForm
                     ->url()
                     ->maxLength(255),
 
-                FileUpload::make('image')
+                app(CloudinaryService::class)->fileUpload('image')
                     ->image()
                     ->directory('projects')
                     ->preserveFilenames()

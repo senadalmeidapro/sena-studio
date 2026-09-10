@@ -13,7 +13,7 @@
             $galleryUrls = collect([$project->image])
                 ->merge($project->projectImages->pluck('path'))
                 ->filter()
-                ->map(fn (string $path) => asset($path))
+                ->map(fn (string $path) => media_url($path))
                 ->values();
         @endphp
 

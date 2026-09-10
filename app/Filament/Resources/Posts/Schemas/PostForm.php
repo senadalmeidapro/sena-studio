@@ -3,9 +3,9 @@
 namespace App\Filament\Resources\Posts\Schemas;
 
 use App\Models\Post;
+use App\Services\CloudinaryService;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -105,7 +105,7 @@ class PostForm
                             ])
                             ->columnSpanFull(),
 
-                        FileUpload::make('cover_image')
+                        app(CloudinaryService::class)->fileUpload('cover_image')
                             ->label('Image de couverture')
                             ->image()
                             ->imageEditor()

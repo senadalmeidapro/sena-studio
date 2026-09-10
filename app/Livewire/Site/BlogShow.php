@@ -24,7 +24,7 @@ class BlogShow extends Component
             description: $post->seo_description ?: str($post->excerpt ?: $post->content)->stripTags()->limit(160),
             canonical: localized_route('posts.show', $post),
             type: 'article',
-            image: $post->cover_image ? asset($post->cover_image) : null,
+            image: media_url($post->cover_image),
         );
     }
 

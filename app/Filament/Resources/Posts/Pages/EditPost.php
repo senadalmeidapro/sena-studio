@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Posts\Pages;
 
+use App\Filament\Resources\Concerns\HandlesCloudinaryImages;
 use App\Filament\Resources\Posts\PostResource;
 use App\Models\AdminActivityLog;
 use Filament\Actions\Action;
@@ -10,7 +11,14 @@ use Filament\Resources\Pages\EditRecord;
 
 class EditPost extends EditRecord
 {
+    use HandlesCloudinaryImages;
+
     protected static string $resource = PostResource::class;
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        return $this->cloudinaryFormImage($data, 'cover_image', 'sena-studio/posts');
+    }
 
     protected function afterSave(): void
     {

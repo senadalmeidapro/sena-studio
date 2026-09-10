@@ -58,3 +58,21 @@ if (! function_exists('current_locale')) {
         return app()->getLocale() === 'en' ? 'en' : 'fr';
     }
 }
+
+if (! function_exists('media_url')) {
+    /**
+     * URL d'un média stocké localement (asset) ou en Cloudinary (URL absolue).
+     */
+    function media_url(?string $path): ?string
+    {
+        if (blank($path)) {
+            return null;
+        }
+
+        if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://') || str_starts_with($path, '//')) {
+            return $path;
+        }
+
+        return asset($path);
+    }
+}

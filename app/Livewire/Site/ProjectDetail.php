@@ -25,7 +25,7 @@ class ProjectDetail extends Component
             description: $project->description ? str($project->description)->limit(160) : null,
             canonical: localized_route('projects.show', $project),
             type: 'website',
-            image: $project->image ? asset($project->image) : null,
+            image: media_url($project->image),
         );
     }
 
