@@ -58,13 +58,16 @@ trait HandlesCloudinaryImages
         $oldPublicId = $this->record->cloudinary_public_id;
         $service = app(CloudinaryService::class);
 
-        Log::info('DIAG_EDIT', [
+        Log::info('DIAG_SAVE', [
             'field' => $field,
             'value' => $value,
             'oldValue' => $oldValue,
             'oldPublicId' => $oldPublicId,
             'exists_public' => is_string($value) ? $disk->exists($value) : null,
             'exists_local' => is_string($value) ? Storage::disk('local')->exists($value) : null,
+            'projectImages.paths' => collect(($data['projectImages'] ?? []))->map(fn ($row) => $row['path'] ?? null)->values()->toArray(),
+            'projectImages.count' => count($data['projectImages'] ?? []),
+            'livewire_tmp' => collect(Storage::disk('local')->files('livewire-tmp'))->toArray(),
         ]);
 
         /*
