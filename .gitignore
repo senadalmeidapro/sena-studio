@@ -35,3 +35,4 @@ yarn-error.log
 .codex
 FILAMENT_ARCHITECTURE.md
 .filament-resources-manifest
+backup.sql

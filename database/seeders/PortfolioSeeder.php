@@ -31,7 +31,7 @@ class PortfolioSeeder extends Seeder
         $portfolioStack = Stack::firstOrCreate([
             'name' => 'Portfolio Sena Studio',
         ], [
-            'description' => 'La stack complète utilisée par Sena Studio pour concevoir, développer et déployer ses projets.',
+            'description' => 'Sena Studio is a personal freelance business command center. It unifies project tracking, technology cataloging, skill management, and infrastructure provisioning into a single, beautifully crafted admin interface — backed by a robust and extendable architecture.',
             'is_active' => true,
         ]);
 
@@ -45,7 +45,6 @@ class PortfolioSeeder extends Seeder
             [StackItemCategory::Backend, 'Laravel', '13.x', $buildIcon('laravel')],
             [StackItemCategory::Backend, 'Filament', '5.x', $buildIcon('filament')],
             [StackItemCategory::Database, 'SQLite', null, $buildIcon('sqlite')],
-            [StackItemCategory::Database, 'MySQL', '8.x', $buildIcon('mysql')],
             [StackItemCategory::Database, 'PostgreSQL', '16.x', $buildIcon('postgresql')],
             [StackItemCategory::Cache, 'Redis', '7.x', $buildIcon('redis')],
             [StackItemCategory::Queue, 'Redis Queue', null, $buildIcon('redis')],
@@ -58,11 +57,16 @@ class PortfolioSeeder extends Seeder
             [StackItemCategory::Devops, 'Helm', null, '⚓'],
             [StackItemCategory::Devops, 'GitHub Actions', null, $buildIcon('githubactions')],
             [StackItemCategory::Testing, 'Pest', '4.x', '🧪'],
-            [StackItemCategory::Design, 'Figma', null, $buildIcon('figma')],
-            [StackItemCategory::Design, 'Tailwind UI', null, '💠'],
             [StackItemCategory::Analytics, 'Plausible', null, $buildIcon('plausible')],
             [StackItemCategory::Documentation, 'Markdown', null, $buildIcon('markdown')],
+            [StackItemCategory::Design, 'Tailwind UI', null, null],
         ];
+
+        $stackItemValues = collect($stackItems)->map(fn (array $item): string => $item[1]);
+
+        StackItem::where('stack_id', $portfolioStack->id)
+            ->whereNotIn('value', $stackItemValues)
+            ->delete();
 
         foreach ($stackItems as [$category, $value, $version, $icon]) {
             StackItem::updateOrCreate(
@@ -72,14 +76,30 @@ class PortfolioSeeder extends Seeder
         }
 
         $categories = [
-            ['name' => 'Web', 'slug' => 'web', 'description' => 'Applications et sites web'],
-            ['name' => 'Application', 'slug' => 'application', 'description' => 'Applications métier et SaaS'],
-            ['name' => 'Logiciel', 'slug' => 'logiciel', 'description' => 'Outils et solutions logicielles'],
-            ['name' => 'Open Source', 'slug' => 'open-source', 'description' => 'Projets open source'],
+            ['name' => 'Backend', 'slug' => 'backend', 'description' => 'Technologies and practices used to build server-side applications, business logic, and backend services.', 'sort_order' => 1],
+            ['name' => 'Programming', 'slug' => 'programming', 'description' => 'Programming languages, concepts, paradigms, and techniques used to develop software.', 'sort_order' => 2],
+            ['name' => 'Web', 'slug' => 'web', 'description' => 'Technologies and practices for building modern websites and web-based solutions.', 'sort_order' => 3],
+            ['name' => 'API', 'slug' => 'api', 'description' => 'Technologies and practices for designing, developing, integrating, documenting, and securing application programming interfaces.', 'sort_order' => 4],
+            ['name' => 'Database', 'slug' => 'database', 'description' => 'Database technologies, data modeling, querying, optimization, and data management systems.', 'sort_order' => 5],
+            ['name' => 'Architecture', 'slug' => 'architecture', 'description' => 'Software architecture patterns, system design principles, scalability, modularity, and maintainability.', 'sort_order' => 6],
+            ['name' => 'Frontend', 'slug' => 'frontend', 'description' => 'Technologies and tools used to build interactive, responsive, and user-friendly interfaces.', 'sort_order' => 7],
+            ['name' => 'DevOps', 'slug' => 'devops', 'description' => 'Practices and tools for automating development, testing, deployment, monitoring, and software operations.', 'sort_order' => 8],
+            ['name' => 'Security', 'slug' => 'security', 'description' => 'Technologies and practices for protecting applications, APIs, systems, data, and infrastructure.', 'sort_order' => 9],
+            ['name' => 'Testing', 'slug' => 'testing', 'description' => 'Tools, methodologies, and practices for verifying software quality, reliability, and correctness.', 'sort_order' => 10],
+            ['name' => 'Cloud', 'slug' => 'cloud', 'description' => 'Cloud platforms, services, and technologies used to deploy, scale, and manage applications.', 'sort_order' => 11],
+            ['name' => 'Infrastructure', 'slug' => 'infrastructure', 'description' => 'Technologies and practices for managing servers, networks, containers, storage, and computing environments.', 'sort_order' => 12],
+            ['name' => 'Tools', 'slug' => 'tools', 'description' => 'Development tools and utilities used to improve coding, collaboration, productivity, and workflows.', 'sort_order' => 13],
+            ['name' => 'Open Source', 'slug' => 'open-source', 'description' => 'Open-source technologies, projects, contributions, and development practices.', 'sort_order' => 14],
+            ['name' => 'Application', 'slug' => 'application', 'description' => 'Technologies and practices used to design and develop functional software applications.', 'sort_order' => 15],
+            ['name' => 'Automation', 'slug' => 'automation', 'description' => 'Technologies and practices for automating repetitive tasks, workflows, integrations, and development processes.', 'sort_order' => 16],
+            ['name' => 'UI/UX', 'slug' => 'ui-ux', 'description' => 'Principles and tools for designing intuitive, accessible, attractive, and effective user experiences.', 'sort_order' => 17],
+            ['name' => 'AI', 'slug' => 'ai', 'description' => 'Technologies and techniques for artificial intelligence, machine learning, intelligent applications, and data-driven systems.', 'sort_order' => 18],
+            ['name' => 'Mobile', 'slug' => 'mobile', 'description' => 'Technologies and frameworks used to develop applications and experiences for mobile devices.', 'sort_order' => 19],
+            ['name' => 'Logiciel', 'slug' => 'logiciel', 'description' => 'Software development technologies, methodologies, and tools used to build complete software solutions.', 'sort_order' => 20],
         ];
 
         foreach ($categories as $category) {
-            Category::firstOrCreate(['slug' => $category['slug']], $category);
+            Category::updateOrCreate(['slug' => $category['slug']], $category);
         }
 
         $infra = Infra::firstOrCreate(['name' => 'Production Cloud'], [
@@ -87,29 +107,45 @@ class PortfolioSeeder extends Seeder
             'docker_image' => 'php:8.3-fpm-alpine',
             'kubernetes_config' => 'deployment + service + ingress',
             'helm_chart' => 'stable/laravel',
-            'cpu_cores' => 4,
-            'memory_mb' => 8192,
+            'cpu_cores' => 2,
+            'memory_mb' => 1024,
             'storage_gb' => 100,
             'environment' => InfraEnvironment::Production,
             'is_active' => true,
         ]);
 
         $skillsData = [
-            ['PHP', SkillLevel::Expert, 'Développement backend robuste et sécurisé.', $buildIcon('php')],
-            ['Laravel', SkillLevel::Expert, 'Architecture MVC, Eloquent, services, jobs, queues.', $buildIcon('laravel')],
-            ['Livewire', SkillLevel::Advanced, 'Composants réactifs full-stack côté serveur.', $buildIcon('livewire')],
-            ['Filament', SkillLevel::Advanced, 'Construction de backoffices et d’administrations sur mesure.', $buildIcon('filament')],
-            ['Blade', SkillLevel::Expert, 'Template engine et composants Laravel.', '🧩'],
-            ['Tailwind CSS', SkillLevel::Advanced, 'Design system et UI utilitaires.', $buildIcon('tailwindcss')],
-            ['Alpine.js', SkillLevel::Advanced, 'Interactions front légères sans framework lourd.', $buildIcon('alpine.js')],
-            ['MySQL', SkillLevel::Advanced, 'Modélisation relationnelle et optimisation.', $buildIcon('mysql')],
-            ['PostgreSQL', SkillLevel::Intermediate, 'Bases relationnelles avancées.', $buildIcon('postgresql')],
-            ['Redis', SkillLevel::Advanced, 'Cache, sessions et files de travail.', $buildIcon('redis')],
-            ['Docker', SkillLevel::Advanced, 'Conteneurisation et environnements reproductibles.', $buildIcon('docker')],
-            ['Kubernetes', SkillLevel::Intermediate, 'Orchestration et déploiement cloud natif.', $buildIcon('kubernetes')],
-            ['Pest', SkillLevel::Advanced, 'Tests unitaires et fonctionnels.', '🧪'],
-            ['Git', SkillLevel::Expert, 'Versionnement et workflow collaboratif.', $buildIcon('git')],
-            ['Figma', SkillLevel::Intermediate, 'Prototypage et design UI/UX.', $buildIcon('figma')],
+            ['TypeScript', SkillLevel::Advanced, 'Typed superset of JavaScript used to build scalable and maintainable web applications and backend services.', $buildIcon('typescript')],
+            ['JavaScript', SkillLevel::Advanced, 'Core programming language for building interactive web applications and modern backend services.', $buildIcon('javascript')],
+            ['Node.js', SkillLevel::Advanced, 'JavaScript runtime used to build scalable server-side applications, APIs, and backend services.', $buildIcon('nodedotjs')],
+            ['NestJS', SkillLevel::Advanced, 'Progressive Node.js framework for building scalable, modular, and maintainable server-side applications with TypeScript.', $buildIcon('nestjs')],
+            ['Express.js', SkillLevel::Intermediate, 'Lightweight Node.js web framework for building REST APIs, middleware, and server-side applications.', $buildIcon('express')],
+            ['Prisma', SkillLevel::Advanced, 'Modern TypeScript ORM for type-safe database access, schema management, migrations, and query building.', $buildIcon('prisma')],
+            ['React', SkillLevel::Intermediate, 'JavaScript library for building component-based user interfaces and modern frontend applications.', $buildIcon('react')],
+            ['Vue.js', SkillLevel::Intermediate, 'Progressive JavaScript framework for building reactive and component-based web interfaces.', $buildIcon('vuedotjs')],
+            ['REST API', SkillLevel::Advanced, 'Design and development of RESTful APIs using HTTP methods, resources, status codes, validation, and structured responses.', $buildIcon('openapiinitiative')],
+            ['WebSockets', SkillLevel::Intermediate, 'Real-time bidirectional communication technology for applications requiring persistent client-server connections.', $buildIcon('socketdotio')],
+            ['GitHub', SkillLevel::Advanced, 'Development platform for source control, collaboration, pull requests, code review, repositories, and project management.', $buildIcon('github')],
+            ['Linux', SkillLevel::Intermediate, 'Unix-like operating system ecosystem used for development, server administration, automation, and deployment.', $buildIcon('linux')],
+            ['GitHub Actions', SkillLevel::Intermediate, 'CI/CD automation platform for building, testing, deploying, and automating software development workflows.', $buildIcon('githubactions')],
+            ['Git', SkillLevel::Advanced, 'Managing source code, branching strategies, version history, merges, and collaborative development workflows.', $buildIcon('git')],
+            ['Kubernetes', SkillLevel::Intermediate, 'Orchestrating containerized applications, managing deployments and services, scaling workloads, and maintaining resilient application environments.', $buildIcon('kubernetes')],
+            ['MySQL', SkillLevel::Advanced, 'Designing and managing relational databases, writing complex SQL queries, and optimizing database performance.', $buildIcon('mysql')],
+            ['TypeORM', SkillLevel::Advanced, 'TypeScript ORM for working with relational databases through entities, repositories, relations, and migrations.', $buildIcon('typeorm')],
+            ['Blade', SkillLevel::Advanced, 'Template engine et composants Laravel.', $buildIcon('laravel')],
+            ['Alpine.js', SkillLevel::Intermediate, 'Building lightweight and reactive user interfaces by adding client-side interactions and dynamic behavior without the complexity of a full frontend framework.', $buildIcon('alpine.js')],
+            ['Figma', SkillLevel::Intermediate, 'Designing user interfaces, creating interactive prototypes, organizing design systems, and translating product ideas into structured visual interfaces.', $buildIcon('figma')],
+            ['Pest', SkillLevel::Intermediate, 'Writing expressive automated tests for PHP applications, covering application behavior, business logic, and regression scenarios to improve software reliability.', '🧪'],
+            ['Postman', SkillLevel::Advanced, 'API development and testing platform used to design, test, document, and debug HTTP APIs.', $buildIcon('postman')],
+            ['Swagger / OpenAPI', SkillLevel::Advanced, 'API specification and documentation tooling for designing, documenting, and testing HTTP APIs.', $buildIcon('swagger')],
+            ['PHP', SkillLevel::Intermediate, 'A server-side programming language used to build dynamic web applications, APIs, and backend services.', $buildIcon('php')],
+            ['Laravel', SkillLevel::Intermediate, 'A modern PHP framework for building robust web applications, APIs, and backend systems with an expressive development workflow.', $buildIcon('laravel')],
+            ['Filament', SkillLevel::Advanced, 'A Laravel-based framework for building modern admin panels, dashboards, forms, tables, and internal applications.', $buildIcon('filament')],
+            ['Livewire', SkillLevel::Intermediate, 'A Laravel framework for building dynamic and interactive web interfaces using server-driven components and minimal JavaScript.', $buildIcon('livewire')],
+            ['Redis', SkillLevel::Advanced, 'Implementing high-performance caching, session management, temporary data storage, and background job queues.', $buildIcon('redis')],
+            ['Docker', SkillLevel::Advanced, 'Containerizing applications and services to create consistent, isolated, and reproducible development and production environments.', $buildIcon('docker')],
+            ['PostgreSQL', SkillLevel::Advanced, 'Designing relational databases, developing complex SQL queries, managing data integrity, and optimizing database performance.', $buildIcon('postgresql')],
+            ['Tailwind CSS', SkillLevel::Intermediate, 'Building responsive and maintainable user interfaces using a utility-first approach with reusable styling patterns and responsive design principles.', $buildIcon('tailwindcss')],
         ];
 
         $webCategory = Category::where('slug', 'web')->first();
@@ -124,6 +160,58 @@ class PortfolioSeeder extends Seeder
                 'icon' => $icon,
             ]);
             $skills->push($skill);
+        }
+
+        $skillCategories = [
+            'Node.js' => ['application', 'frontend', 'web'],
+            'NestJS' => ['application', 'frontend', 'ai', 'architecture'],
+            'React' => ['web', 'architecture', 'application'],
+            'Vue.js' => ['web', 'architecture', 'application'],
+            'PHP' => ['programming', 'frontend', 'web'],
+            'Laravel' => ['frontend', 'web', 'application'],
+            'Livewire' => ['architecture', 'frontend', 'web'],
+            'Filament' => ['architecture', 'frontend', 'web', 'tools'],
+            'Blade' => ['architecture', 'web'],
+            'Tailwind CSS' => ['architecture', 'web', 'ui-ux'],
+            'Alpine.js' => ['architecture', 'web', 'ui-ux'],
+            'MySQL' => ['database', 'frontend'],
+            'PostgreSQL' => ['database', 'frontend'],
+            'Redis' => ['database', 'frontend', 'infrastructure'],
+            'Docker' => ['devops', 'infrastructure', 'tools'],
+            'Kubernetes' => ['devops', 'infrastructure', 'cloud'],
+            'Pest' => ['testing', 'programming'],
+            'Git' => ['tools', 'open-source', 'devops'],
+            'Figma' => ['ui-ux', 'architecture', 'web'],
+            'TypeScript' => ['programming', 'architecture', 'frontend', 'web'],
+            'JavaScript' => ['programming', 'architecture', 'frontend', 'web'],
+            'Express.js' => ['frontend', 'ai', 'web'],
+            'Prisma' => ['database', 'frontend', 'programming'],
+            'TypeORM' => ['database', 'frontend', 'programming'],
+            'REST API' => ['api', 'frontend', 'architecture'],
+            'WebSockets' => ['api', 'frontend', 'application'],
+            'Postman' => ['tools', 'api', 'testing'],
+            'Swagger / OpenAPI' => ['api', 'frontend', 'tools'],
+            'GitHub' => ['tools', 'open-source', 'devops'],
+            'GitHub Actions' => ['devops', 'automation', 'tools'],
+            'Linux' => ['infrastructure', 'devops', 'tools'],
+        ];
+
+        $categoryIdsBySlug = Category::pluck('id', 'slug');
+
+        foreach ($skillCategories as $skillName => $categorySlugs) {
+            $skill = $skills->firstWhere('name', $skillName);
+            if (! $skill) {
+                continue;
+            }
+
+            $categoryIds = collect($categorySlugs)
+                ->map(fn (string $slug): ?int => $categoryIdsBySlug[$slug] ?? null)
+                ->filter()
+                ->values()
+                ->all();
+
+            $skill->categories()->detach();
+            $skill->categories()->attach($categoryIds);
         }
 
         $projectsData = [
