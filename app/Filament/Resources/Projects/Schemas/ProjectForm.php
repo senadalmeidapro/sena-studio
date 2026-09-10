@@ -52,6 +52,7 @@ class ProjectForm
 
                 app(CloudinaryService::class)->fileUpload('image')
                     ->image()
+                    ->disk('public')
                     ->directory('projects')
                     ->preserveFilenames()
                     ->helperText('Aperçu principal / couverture du projet.'),
@@ -62,6 +63,7 @@ class ProjectForm
                     ->schema([
                         FileUpload::make('path')
                             ->image()
+                            ->disk('public')
                             ->directory('projects')
                             ->preserveFilenames()
                             ->required(),
