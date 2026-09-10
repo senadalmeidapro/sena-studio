@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Concerns;
 
 use App\Services\CloudinaryService;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Throwable;
@@ -57,6 +58,15 @@ trait HandlesCloudinaryImages
         $oldPublicId = $this->record->cloudinary_public_id;
         $service = app(CloudinaryService::class);
 
+        Log::info('DIAG_EDIT', [
+            'field' => $field,
+            'value' => $value,
+            'oldValue' => $oldValue,
+            'oldPublicId' => $oldPublicId,
+            'exists_public' => is_string($value) ? $disk->exists($value) : null,
+            'exists_local' => is_string($value) ? Storage::disk('local')->exists($value) : null,
+        ]);
+
         /*
          * Image retirée : suppression de l'ancien asset Cloudinary
          * et de l'éventuel fichier local historique.
@@ -102,6 +112,8 @@ trait HandlesCloudinaryImages
 
             throw $e;
         }
+
+        Log::info('DIAG_EDIT_RESULT', ['field' => $field, 'data_image' => $data[$field] ?? null]);
 
         return $data;
     }
