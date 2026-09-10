@@ -105,4 +105,10 @@ Route::middleware(['auth', 'verified'])->get('/admin/cvs/{cv}/pdf', function (Cv
     return $file->download($name);
 })->name('admin.cvs.pdf');
 
+use App\Http\Controllers\Admin\CloudinaryUploadController;
+
+Route::post('/admin/cloudinary/upload', [CloudinaryUploadController::class, 'store'])
+    ->middleware(['web', 'auth'])
+    ->name('admin.cloudinary.upload');
+
 require __DIR__.'/settings.php';
