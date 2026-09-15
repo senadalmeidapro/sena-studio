@@ -9,9 +9,7 @@ use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
 use Filament\PanelProvider;
-use Filament\Support\Assets\Js;
 use Filament\Support\Colors\Color;
-use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentView;
 use Filament\View\PanelsRenderHook;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -28,13 +26,10 @@ class AdminPanelProvider extends PanelProvider
     {
         parent::register();
 
-        FilamentAsset::register([
-            Js::make('cloudinary-upload', __DIR__.'/../../../public/js/admin/cloudinary-upload.js'),
-        ]);
-
         FilamentView::registerRenderHook(
             PanelsRenderHook::HEAD_START,
-            fn (): string => '<link rel="stylesheet" href="'.Vite::asset('resources/css/filament.css').'">',
+            fn (): string => '<script src="'.e(asset('js/admin/cloudinary-upload.js')).'"></script>'
+                .'<link rel="stylesheet" href="'.Vite::asset('resources/css/filament.css').'">',
         );
     }
 
