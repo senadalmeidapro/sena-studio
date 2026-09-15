@@ -1,6 +1,6 @@
 <x-dynamic-component :component="$getFieldWrapperView()" :field="$field">
     <div
-        x-data="cloudinaryUploadComponent({!! $getXData() !!})"
+        x-data="window.cloudinaryUploadComponent({!! $getXData() !!})"
         class="fi-fo-cloudinary-upload rounded-xl bg-gray-50 p-4 text-sm ring-1 ring-gray-950/10 dark:bg-white/5 dark:ring-white/10"
     >
         <template x-if="preview">
