@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Concerns;
 
+use App\Models\ProjectImage;
 use App\Services\CloudinaryService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -65,8 +66,8 @@ trait HandlesCloudinaryImages
     {
         $disk = Storage::disk('public');
         $value = $data[$field] ?? null;
-        $oldValue = $this->record->getRawOriginal($field);
-        $oldPublicId = $this->record->cloudinary_public_id;
+        $oldValue = $this->record?->getRawOriginal($field);
+        $oldPublicId = $this->record?->cloudinary_public_id;
         $service = app(CloudinaryService::class);
 
         /*
@@ -135,6 +136,33 @@ trait HandlesCloudinaryImages
         $this->pendingCloudinaryPublicId = null;
         $this->pendingLocalImagePath = null;
         $this->hasPendingCloudinaryCleanup = false;
+    }
+
+    protected function normalizeCloudinaryProjectImages(): void
+    {
+        if (! method_exists($this->record, 'projectImages')) {
+            return;
+        }
+
+        $disk = Storage::disk('cloudinary');
+
+        foreach ($this->record->projectImages()->get() as $image) {
+            if (
+                ! $image instanceof ProjectImage
+                || blank($image->path)
+                || Str::startsWith($image->path, ['http://', 'https://'])
+                || ! $disk->exists($image->path)
+            ) {
+                continue;
+            }
+
+            $path = $image->path;
+
+            $image->forceFill([
+                'path' => $disk->url($path),
+                'cloudinary_public_id' => preg_replace('/\.[^.]+$/', '', ltrim($path, '/')) ?: $path,
+            ])->saveQuietly();
+        }
     }
 
     private function queueCloudinaryCleanup(?string $publicId, ?string $localPath): void

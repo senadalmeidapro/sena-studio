@@ -6,9 +6,8 @@ use App\Enums\ProjectComplexity;
 use App\Enums\ProjectStatus;
 use App\Enums\ProjectType;
 use App\Enums\ProjectVisibility;
-use App\Filament\Forms\Components\CloudinaryUpload;
+use App\Services\CloudinaryService;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -50,19 +49,24 @@ class ProjectForm
                     ->url()
                     ->maxLength(255),
 
-                CloudinaryUpload::make('image')
-                    ->folder('sena-studio/projects')
-                    ->publicIdStatePath('cloudinary_public_id')
+                app(CloudinaryService::class)->fileUpload('image')
+                    ->label('Couverture du projet')
+                    ->image()
+                    ->imageEditor()
+                    ->directory('sena-studio/projects')
+                    ->maxSize(10240)
                     ->helperText('Aperçu principal / couverture du projet.'),
-
-                Hidden::make('cloudinary_public_id'),
 
                 Repeater::make('projectImages')
                     ->relationship()
                     ->label('Aperçus supplémentaires')
                     ->schema([
-                        CloudinaryUpload::make('path')
-                            ->folder('sena-studio/gallery')
+                        app(CloudinaryService::class)->fileUpload('path')
+                            ->label('Aperçu')
+                            ->image()
+                            ->imageEditor()
+                            ->directory('sena-studio/gallery')
+                            ->maxSize(10240)
                             ->required(),
                         TextInput::make('caption')
                             ->maxLength(160),

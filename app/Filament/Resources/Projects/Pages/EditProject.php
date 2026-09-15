@@ -19,6 +19,7 @@ class EditProject extends EditRecord
 
     protected function afterSave(): void
     {
+        $this->normalizeCloudinaryProjectImages();
         $this->finalizeCloudinaryCleanup();
     }
 }

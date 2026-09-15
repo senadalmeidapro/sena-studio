@@ -12,8 +12,13 @@ class CreateProject extends CreateRecord
 
     protected static string $resource = ProjectResource::class;
 
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        return $this->cloudinaryFormImage($data, 'image', 'sena-studio/projects');
+    }
+
     protected function afterCreate(): void
     {
-        $this->uploadLocalImageToCloudinary('image', 'sena-studio/projects');
+        $this->normalizeCloudinaryProjectImages();
     }
 }
