@@ -118,31 +118,35 @@ trait HandlesCloudinaryImages
         }
 
         $disk = Storage::disk('cloudinary');
+        $service = app(CloudinaryService::class);
 
         foreach ($this->record->projectImages()->get() as $image) {
-            if (
-                ! $image instanceof ProjectImage
-                || blank($image->path)
-                || Str::startsWith($image->path, ['http://', 'https://'])
-                || Str::startsWith($image->path, ['images/screenshots/', 'images/brand/'])
-            ) {
+            if (! $image instanceof ProjectImage || blank($image->path)) {
                 continue;
             }
 
             $path = $image->path;
-            $deliveryUrl = $disk->url($path);
+            if (Str::startsWith($path, ['images/screenshots/', 'images/brand/'])) {
+                continue;
+            }
+
+            $deliveryUrl = Str::startsWith($path, ['http://', 'https://'])
+                ? $path
+                : $disk->url($path);
 
             if (! is_string($deliveryUrl) || blank($deliveryUrl)) {
                 continue;
             }
 
-            $publicId = $image->cloudinary_public_id
-                ?: app(CloudinaryService::class)->publicIdFromUrl($deliveryUrl)
-                ?: ltrim($path, '/');
+            $resolved = $service->resolveSecureUrl($deliveryUrl);
+
+            if ($resolved === null) {
+                continue;
+            }
 
             $image->forceFill([
-                'path' => $deliveryUrl,
-                'cloudinary_public_id' => $publicId,
+                'path' => $resolved['url'],
+                'cloudinary_public_id' => $resolved['public_id'],
             ])->saveQuietly();
         }
     }
