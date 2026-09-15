@@ -11,6 +11,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
@@ -30,6 +31,11 @@ class ProjectsTable
 
                 ImageColumn::make('image')
                     ->circular(),
+
+                IconColumn::make('featured')
+                    ->label('À la une')
+                    ->boolean()
+                    ->toggleable(),
 
                 TextColumn::make('status')
                     ->badge()

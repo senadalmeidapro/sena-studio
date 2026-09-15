@@ -306,6 +306,59 @@ class PortfolioSeeder extends Seeder
             'portfolio-sena-studio' => ['images/screenshots/project-2.svg', 'images/screenshots/project-5.svg', 'images/screenshots/project-3.svg'],
         ];
 
+        $caseStudies = [
+            'mini-shop-api' => [
+                'role' => 'Conception backend et architecture API',
+                'problem' => 'Construire un socle e-commerce capable de couvrir le catalogue, le panier, les commandes et les paiements sans mélanger les responsabilités.',
+                'architecture' => 'API REST modulaire avec NestJS, TypeORM et PostgreSQL, organisée autour de domaines métier explicites.',
+                'technical_decisions' => 'Validation stricte des entrées, authentification JWT, gestion du stock au niveau du parcours de commande et documentation OpenAPI.',
+                'result' => 'Un backend indépendant du frontend, plus simple à tester, documenter et faire évoluer.',
+                'featured' => true,
+                'sort_order' => 1,
+            ],
+            'api-orientation' => [
+                'role' => 'Backend, modélisation métier et moteur de recommandation',
+                'problem' => 'Transformer un questionnaire d’orientation en recommandations cohérentes, traçables et compréhensibles pour l’utilisateur.',
+                'architecture' => 'API NestJS avec modèle de données PostgreSQL, cache Redis, authentification par rôles et services dédiés au calcul des résultats.',
+                'technical_decisions' => 'Séparer le calcul psychométrique, la recommandation et la génération de conseils afin de garder chaque étape testable.',
+                'result' => 'Une base applicative structurée autour du domaine plutôt qu’autour des seuls écrans de l’application.',
+                'featured' => true,
+                'sort_order' => 2,
+            ],
+            'itdesk' => [
+                'role' => 'Conception full-stack et modélisation des workflows',
+                'problem' => 'Centraliser les demandes IT, les incidents, les changements et les actifs dans un outil interne compréhensible par plusieurs profils.',
+                'architecture' => 'Application Laravel avec Livewire, Filament, politiques d’accès et modèles métier séparés pour les tickets et les actifs.',
+                'technical_decisions' => 'Utiliser des transitions d’état et des permissions explicites pour rendre les workflows prévisibles et auditables.',
+                'result' => 'Un outil interne construit autour des processus réels plutôt qu’une simple liste de tickets.',
+                'sort_order' => 3,
+            ],
+            'mini-shop' => [
+                'role' => 'Développement frontend et intégration API',
+                'problem' => 'Proposer une expérience storefront légère au-dessus d’un backend e-commerce indépendant.',
+                'architecture' => 'Frontend Vue 3 et Vite consommant une API REST, avec une séparation claire entre interface, état du panier et appels réseau.',
+                'technical_decisions' => 'Privilégier des composants simples et une interface responsive afin de garder le produit rapide et maintenable.',
+                'result' => 'Une interface prête à évoluer sans coupler le frontend aux détails internes du backend.',
+                'sort_order' => 4,
+            ],
+            'express-js-onboarding-api' => [
+                'role' => 'Conception d’API et implémentation TypeScript',
+                'problem' => 'Structurer un parcours d’inscription en plusieurs étapes sans perdre la cohérence des données utilisateur.',
+                'architecture' => 'API Express.js typée avec des endpoints REST dédiés au parcours d’onboarding et à la validation des requêtes.',
+                'technical_decisions' => 'Conserver une architecture volontairement simple pour rendre le flux lisible et facile à brancher sur différents clients.',
+                'result' => 'Une base claire pour les produits qui doivent accompagner un utilisateur pendant son inscription.',
+                'sort_order' => 5,
+            ],
+            'portfolio-sena-studio' => [
+                'role' => 'Architecture, développement et déploiement',
+                'problem' => 'Gérer le contenu d’un portfolio technique tout en gardant une expérience publique rapide et éditoriale.',
+                'architecture' => 'Application Laravel avec frontend Livewire, administration Filament, PostgreSQL, Redis, Cloudinary et déploiement Railway.',
+                'technical_decisions' => 'Séparer le backoffice de la présentation publique, utiliser des composants réutilisables et centraliser le stockage des médias.',
+                'result' => 'Une base de portfolio conçue comme un produit maintenable, et non comme une page statique difficile à faire évoluer.',
+                'sort_order' => 0,
+            ],
+        ];
+
         foreach ($projectsData as $projectData) {
             $skillsInProject = $projectData['skills'];
             $stackModel = $projectData['stack'] ?? null;
@@ -317,6 +370,7 @@ class PortfolioSeeder extends Seeder
                 ['slug' => $projectData['slug']],
                 [
                     ...$projectData,
+                    ...($caseStudies[$projectData['slug']] ?? []),
                     'version' => '1.0.0',
                     'started_at' => now()->subMonths(rand(1, 10)),
                     'ended_at' => $projectData['status'] === ProjectStatus::Production ? now()->subMonths(rand(0, 4)) : null,

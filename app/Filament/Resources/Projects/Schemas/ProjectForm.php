@@ -12,6 +12,8 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 class ProjectForm
@@ -29,7 +31,51 @@ class ProjectForm
                     ->unique(ignoreRecord: true)
                     ->maxLength(255),
 
-                Textarea::make('description')
+                Section::make('Positionnement')
+                    ->description('Présente le contexte technique du projet sans inventer de métriques.')
+                    ->schema([
+                        Textarea::make('description')
+                            ->label('Description courte')
+                            ->rows(4)
+                            ->columnSpanFull(),
+
+                        TextInput::make('role')
+                            ->label('Rôle')
+                            ->placeholder('Ex. Conception backend et architecture API')
+                            ->maxLength(255),
+
+                        Toggle::make('featured')
+                            ->label('Projet mis en avant')
+                            ->default(false),
+
+                        TextInput::make('sort_order')
+                            ->label('Ordre d’affichage')
+                            ->numeric()
+                            ->default(0),
+                    ])
+                    ->columns(2)
+                    ->columnSpanFull(),
+
+                Section::make('Étude de cas')
+                    ->description('Ces champs structurent la réflexion d’ingénierie présentée publiquement.')
+                    ->schema([
+                        Textarea::make('problem')
+                            ->label('Problème ou contexte')
+                            ->rows(4),
+
+                        Textarea::make('architecture')
+                            ->label('Architecture')
+                            ->rows(4),
+
+                        Textarea::make('technical_decisions')
+                            ->label('Décisions techniques')
+                            ->rows(4),
+
+                        Textarea::make('result')
+                            ->label('Résultat ou apprentissage')
+                            ->rows(4),
+                    ])
+                    ->columns(2)
                     ->columnSpanFull(),
 
                 TextInput::make('version')

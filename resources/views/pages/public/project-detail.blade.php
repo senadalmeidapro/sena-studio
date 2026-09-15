@@ -198,6 +198,44 @@
     </header>
 
     {{-- Compétences mobilisées --}}
+    @if ($project->problem || $project->architecture || $project->technical_decisions || $project->result)
+        <section class="mt-14 border-y border-ink-300 py-12 dark:border-ink-700">
+            <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+                <div>
+                    <p class="eyebrow">{{ __('project.case_study_eyebrow') }}</p>
+                    <h2 class="mt-3 max-w-md font-display text-3xl font-bold tracking-[-0.035em] text-ink-900 dark:text-ink-50">
+                        {{ __('project.case_study_title') }}
+                    </h2>
+                    @if ($project->role)
+                        <p class="mt-5 font-mono text-xs uppercase tracking-[0.14em] text-blue-600 dark:text-blue-300">
+                            {{ $project->role }}
+                        </p>
+                    @endif
+                </div>
+
+                <div class="grid gap-8 sm:grid-cols-2">
+                    @foreach ([
+                        'problem' => 'project.case_study_problem',
+                        'architecture' => 'project.case_study_architecture',
+                        'technical_decisions' => 'project.case_study_decisions',
+                        'result' => 'project.case_study_result',
+                    ] as $field => $label)
+                        @if ($project->{$field})
+                            <article>
+                                <h3 class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-blue-600 dark:text-blue-300">
+                                    {{ __($label) }}
+                                </h3>
+                                <p class="mt-3 text-sm leading-7 text-ink-600 dark:text-ink-300">
+                                    {{ $project->{$field} }}
+                                </p>
+                            </article>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+
     @if ($project->skills->isNotEmpty())
         <section class="mt-12">
             <div>

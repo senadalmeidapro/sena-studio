@@ -31,12 +31,21 @@ class Project extends Model
         'type' => ProjectType::class,
         'complexity' => ProjectComplexity::class,
         'visibility' => ProjectVisibility::class,
+        'featured' => 'boolean',
+        'sort_order' => 'integer',
     ];
 
     protected $fillable = [
         'name',
         'slug',
         'description',
+        'role',
+        'problem',
+        'architecture',
+        'technical_decisions',
+        'result',
+        'featured',
+        'sort_order',
         'version',
         'price',
         'url',
