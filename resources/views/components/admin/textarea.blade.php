@@ -1,2 +1,0 @@
-@props(['label', 'model', 'rows' => 4])
-<div><label class="mb-2 block text-sm text-slate-300">{{ $label }}</label><textarea wire:model="{{ $model }}" rows="{{ $rows }}" {{ $attributes->merge(['class' => 'w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500']) }}></textarea></div>

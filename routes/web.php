@@ -18,8 +18,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 
-require __DIR__.'/admin.php';
-
 Route::prefix('{locale?}')
     ->whereIn('locale', ['fr', 'en'])
     ->group(function () {
@@ -109,11 +107,5 @@ Route::middleware(['auth', 'verified'])->get('/admin/cvs/{cv}/pdf', function (Re
 
     return $file->download($name);
 })->name('admin.cvs.pdf');
-
-use App\Http\Controllers\Admin\CloudinaryUploadController;
-
-Route::post('/admin/cloudinary/upload', [CloudinaryUploadController::class, 'store'])
-    ->middleware(['web', 'auth'])
-    ->name('admin.cloudinary.upload');
 
 require __DIR__.'/settings.php';

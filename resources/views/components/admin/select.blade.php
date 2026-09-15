@@ -1,2 +1,0 @@
-@props(['label', 'model', 'options' => [], 'placeholder' => null])
-<div><label class="mb-2 block text-sm text-slate-300">{{ $label }}</label><select wire:model="{{ $model }}" {{ $attributes->merge(['class' => 'w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500']) }}>@if($placeholder !== null)<option value="">{{ $placeholder }}</option>@endif @foreach($options as $value => $option)<option value="{{ $value }}">{{ $option }}</option>@endforeach</select></div>

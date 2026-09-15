@@ -43,11 +43,3 @@ it('blocks users without the admin role from downloading CV files', function () 
         ->get(route('admin.cvs.pdf', $cv))
         ->assertForbidden();
 });
-
-it('blocks users without the admin role from uploading to Cloudinary', function () {
-    $user = userWithoutAdminRole();
-
-    $this->actingAs($user)
-        ->post(route('admin.cloudinary.upload'))
-        ->assertForbidden();
-});
