@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use Cloudinary\Uploader;
+use Cloudinary\Cloudinary;
 use Filament\Forms\Components\BaseFileUpload;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Support\Str;
@@ -11,7 +11,7 @@ use UnexpectedValueException;
 
 class CloudinaryService
 {
-    private function configure(): void
+    private function configure(): Cloudinary
     {
         $cloudName = config('cloudinary.cloud_name');
         $apiKey = config('cloudinary.api_key');
@@ -21,11 +21,15 @@ class CloudinaryService
             throw new InvalidArgumentException('Cloudinary is not configured. Set CLOUDINARY_URL or CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET.');
         }
 
-        \Cloudinary::config([
-            'cloud_name' => $cloudName,
-            'api_key' => $apiKey,
-            'api_secret' => $apiSecret,
-            'secure' => true,
+        return new Cloudinary([
+            'cloud' => [
+                'cloud_name' => $cloudName,
+                'api_key' => $apiKey,
+                'api_secret' => $apiSecret,
+            ],
+            'url' => [
+                'secure' => true,
+            ],
         ]);
     }
 
@@ -33,18 +37,20 @@ class CloudinaryService
         string $filePath,
         string $folder = 'sena-studio'
     ): array {
-        $this->configure();
+        $cloudinary = $this->configure();
 
         if (! is_file($filePath) || ! is_readable($filePath)) {
             throw new InvalidArgumentException('The file to upload does not exist or is not readable.');
         }
 
-        $result = Uploader::upload(
+        $result = $cloudinary->uploadApi()->upload(
             $filePath,
             [
                 'folder' => $folder,
             ]
         );
+
+        $result = $result->getArrayCopy();
 
         if (blank(data_get($result, 'secure_url')) || blank(data_get($result, 'public_id'))) {
             throw new UnexpectedValueException('Cloudinary returned an incomplete upload response.');
@@ -55,9 +61,9 @@ class CloudinaryService
 
     public function delete(string $publicId): array
     {
-        $this->configure();
+        $cloudinary = $this->configure();
 
-        return Uploader::destroy($publicId);
+        return $cloudinary->uploadApi()->destroy($publicId, ['invalidate' => true])->getArrayCopy();
     }
 
     /**
@@ -68,6 +74,7 @@ class CloudinaryService
     public function fileUpload(string $name): FileUpload
     {
         return FileUpload::make($name)
+            ->disk('cloudinary')
             ->getUploadedFileUsing(static function (BaseFileUpload $component, string $file, string|array|null $storedFileNames): ?array {
                 if (Str::startsWith($file, ['http://', 'https://'])) {
                     return [

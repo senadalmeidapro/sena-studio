@@ -89,6 +89,16 @@ trait HandlesCloudinaryImages
             return $data;
         }
 
+        $cloudinaryDisk = Storage::disk('cloudinary');
+
+        if ($cloudinaryDisk->exists($value)) {
+            $data[$field] = $cloudinaryDisk->url($value);
+            $data['cloudinary_public_id'] = preg_replace('/\.[^.]+$/', '', ltrim($value, '/')) ?: $value;
+            $this->queueCloudinaryCleanup($oldPublicId, $oldValue);
+
+            return $data;
+        }
+
         /*
          * Nouveau fichier local envoyé par FileUpload.
          */
