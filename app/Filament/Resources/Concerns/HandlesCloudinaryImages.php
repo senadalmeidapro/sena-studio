@@ -71,10 +71,18 @@ trait HandlesCloudinaryImages
 
         $cloudinaryDisk = Storage::disk('cloudinary');
 
-        if ($cloudinaryDisk->exists($value)) {
-            $data['cloudinary_public_id'] = ltrim($value, '/');
-            $data[$field] = $service->secureUrl($data['cloudinary_public_id'])
-                ?? $cloudinaryDisk->url($value);
+        /*
+         * Filament has already stored the TemporaryUploadedFile on the selected
+         * Cloudinary disk at this point. Do not depend on `exists()` here: the
+         * adapter performs an Admin API lookup and can return false immediately
+         * after an upload, which previously left a relative path in the DB.
+         */
+        $deliveryUrl = $cloudinaryDisk->url($value);
+
+        if (is_string($deliveryUrl) && filled($deliveryUrl)) {
+            $data[$field] = $deliveryUrl;
+            $data['cloudinary_public_id'] = $service->publicIdFromUrl($deliveryUrl)
+                ?? ltrim($value, '/');
             $this->queueCloudinaryCleanup($oldPublicId, $oldValue);
 
             return $data;
@@ -113,17 +121,24 @@ trait HandlesCloudinaryImages
                 ! $image instanceof ProjectImage
                 || blank($image->path)
                 || Str::startsWith($image->path, ['http://', 'https://'])
-                || ! $disk->exists($image->path)
+                || Str::startsWith($image->path, ['images/screenshots/', 'images/brand/'])
             ) {
                 continue;
             }
 
             $path = $image->path;
+            $deliveryUrl = $disk->url($path);
+
+            if (! is_string($deliveryUrl) || blank($deliveryUrl)) {
+                continue;
+            }
+
             $publicId = $image->cloudinary_public_id
+                ?: app(CloudinaryService::class)->publicIdFromUrl($deliveryUrl)
                 ?: ltrim($path, '/');
 
             $image->forceFill([
-                'path' => app(CloudinaryService::class)->secureUrl($publicId) ?? $disk->url($path),
+                'path' => $deliveryUrl,
                 'cloudinary_public_id' => $publicId,
             ])->saveQuietly();
         }

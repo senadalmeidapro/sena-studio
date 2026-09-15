@@ -145,7 +145,20 @@ class CloudinaryService
         return FileUpload::make($name)
             ->disk('cloudinary')
             ->fetchFileInformation(false)
-            ->preventFilePathTampering()
+            ->preventFilePathTampering(
+                allowFilePathUsing: static function (string $file): bool {
+                    if (Str::startsWith($file, ['images/screenshots/', 'images/brand/'])) {
+                        return true;
+                    }
+
+                    $host = parse_url($file, PHP_URL_HOST);
+
+                    return in_array($host, [
+                        'res.cloudinary.com',
+                        'cloudinary.com',
+                    ], true);
+                },
+            )
             ->deleteUploadedFileUsing(static function (mixed $file): void {
                 if (! is_string($file)) {
                     return;

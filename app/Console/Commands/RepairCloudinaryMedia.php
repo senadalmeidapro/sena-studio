@@ -9,6 +9,7 @@ use App\Models\Testimonial;
 use App\Services\CloudinaryService;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class RepairCloudinaryMedia extends Command
@@ -53,13 +54,30 @@ class RepairCloudinaryMedia extends Command
         foreach ($models as $model) {
             $value = $model->getAttribute($field);
 
-            if (! is_string($value) || ! Str::startsWith($value, ['http://', 'https://'])) {
+            if (! is_string($value) || blank($value)) {
                 continue;
             }
 
-            $resolved = $cloudinary->resolveSecureUrl($value);
+            if (Str::startsWith($value, ['images/screenshots/', 'images/brand/'])) {
+                continue;
+            }
 
-            if ($resolved === null) {
+            $candidateUrl = Str::startsWith($value, ['http://', 'https://'])
+                ? $value
+                : Storage::disk('cloudinary')->url($value);
+
+            if (! is_string($candidateUrl) || blank($candidateUrl)) {
+                $unresolved++;
+
+                continue;
+            }
+
+            $resolved = $cloudinary->resolveSecureUrl($candidateUrl) ?? [
+                'url' => $candidateUrl,
+                'public_id' => $cloudinary->publicIdFromUrl($candidateUrl) ?: ltrim($value, '/'),
+            ];
+
+            if (blank($resolved['public_id'] ?? null)) {
                 $unresolved++;
                 $this->warn('Impossible de résoudre '.$model::class.' #'.$model->getKey().' ('.$field.').');
 
