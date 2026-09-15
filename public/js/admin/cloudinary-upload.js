@@ -1,4 +1,4 @@
-window.cloudinaryUploadComponent = (config) => ({
+const cloudinaryUploadComponent = (config) => ({
     value: config.state,
     uploading: false,
     progress: 0,
@@ -77,3 +77,17 @@ window.cloudinaryUploadComponent = (config) => ({
         if (config.publicIdState) config.publicIdState = null;
     },
 });
+
+window.cloudinaryUploadComponent = cloudinaryUploadComponent;
+
+const registerCloudinaryUpload = () => {
+    if (window.Alpine?.data) {
+        window.Alpine.data('cloudinaryUploadComponent', cloudinaryUploadComponent);
+    }
+};
+
+if (window.Alpine?.data) {
+    registerCloudinaryUpload();
+} else {
+    document.addEventListener('alpine:init', registerCloudinaryUpload, { once: true });
+}
