@@ -7,6 +7,7 @@ use Filament\Forms\Components\BaseFileUpload;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use Throwable;
 use UnexpectedValueException;
 
 class CloudinaryService
@@ -64,6 +65,24 @@ class CloudinaryService
         $cloudinary = $this->configure();
 
         return $cloudinary->uploadApi()->destroy($publicId, ['invalidate' => true])->getArrayCopy();
+    }
+
+    public function secureUrl(string $publicId, string $resourceType = 'image'): ?string
+    {
+        try {
+            $response = $this->configure()->uploadApi()->explicit($publicId, [
+                'type' => 'upload',
+                'resource_type' => $resourceType,
+            ]);
+
+            $url = data_get($response->getArrayCopy(), 'secure_url');
+
+            return filled($url) ? $url : null;
+        } catch (Throwable $e) {
+            report($e);
+
+            return null;
+        }
     }
 
     /**

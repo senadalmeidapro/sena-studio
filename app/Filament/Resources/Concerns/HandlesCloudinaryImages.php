@@ -93,8 +93,9 @@ trait HandlesCloudinaryImages
         $cloudinaryDisk = Storage::disk('cloudinary');
 
         if ($cloudinaryDisk->exists($value)) {
-            $data[$field] = $cloudinaryDisk->url($value);
-            $data['cloudinary_public_id'] = preg_replace('/\.[^.]+$/', '', ltrim($value, '/')) ?: $value;
+            $data['cloudinary_public_id'] = ltrim($value, '/');
+            $data[$field] = $service->secureUrl($data['cloudinary_public_id'])
+                ?? $cloudinaryDisk->url($value);
             $this->queueCloudinaryCleanup($oldPublicId, $oldValue);
 
             return $data;
@@ -157,10 +158,12 @@ trait HandlesCloudinaryImages
             }
 
             $path = $image->path;
+            $publicId = $image->cloudinary_public_id
+                ?: ltrim($path, '/');
 
             $image->forceFill([
-                'path' => $disk->url($path),
-                'cloudinary_public_id' => preg_replace('/\.[^.]+$/', '', ltrim($path, '/')) ?: $path,
+                'path' => app(CloudinaryService::class)->secureUrl($publicId) ?? $disk->url($path),
+                'cloudinary_public_id' => $publicId,
             ])->saveQuietly();
         }
     }
