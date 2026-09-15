@@ -6,6 +6,7 @@ use Cloudinary\Api\Exception\NotFound;
 use Cloudinary\Cloudinary;
 use Filament\Forms\Components\BaseFileUpload;
 use Filament\Forms\Components\FileUpload;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Throwable;
@@ -39,6 +40,36 @@ class CloudinaryService
         $cloudinary = $this->configure();
 
         return $cloudinary->uploadApi()->destroy($publicId, ['invalidate' => true])->getArrayCopy();
+    }
+
+    /**
+     * Uploads a form file directly through Cloudinary's SDK and returns the
+     * canonical delivery URL. The public ID intentionally has no extension;
+     * Cloudinary adds the format only to the delivery URL.
+     *
+     * @return array{url: string, public_id: string}|null
+     */
+    public function uploadFile(UploadedFile $file, ?string $directory = null): ?array
+    {
+        $publicId = trim(collect([$directory, (string) Str::ulid()])->filter()->implode('/'), '/');
+
+        $response = $this->configure()->uploadApi()->upload($file->getRealPath(), [
+            'public_id' => $publicId,
+            'resource_type' => 'image',
+            'overwrite' => false,
+            'invalidate' => true,
+        ])->getArrayCopy();
+
+        $url = data_get($response, 'secure_url');
+
+        if (! is_string($url) || blank($url)) {
+            return null;
+        }
+
+        return [
+            'url' => $url,
+            'public_id' => $publicId,
+        ];
     }
 
     public function secureUrl(string $publicId, string $resourceType = 'image'): ?string
@@ -146,15 +177,13 @@ class CloudinaryService
             ->disk('cloudinary')
             ->fetchFileInformation(false)
             ->saveUploadedFileUsing(static function (BaseFileUpload $component, mixed $file): ?string {
-                $path = $component->saveUploadedFile($file);
-
-                if (! is_string($path) || blank($path)) {
+                if (! $file instanceof UploadedFile) {
                     return null;
                 }
 
-                $url = $component->getDisk()->url($path);
+                $uploaded = app(self::class)->uploadFile($file, $component->getDirectory());
 
-                return is_string($url) && filled($url) ? $url : $path;
+                return $uploaded['url'] ?? null;
             })
             ->preventFilePathTampering(
                 allowFilePathUsing: static function (string $file): bool {
