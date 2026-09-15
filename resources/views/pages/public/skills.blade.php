@@ -13,6 +13,19 @@
         </p>
     </header>
 
+    <section class="mt-10 grid gap-4 border-y border-ink-300 py-6 dark:border-ink-700 sm:grid-cols-[1.2fr_repeat(3,1fr)] sm:items-center">
+        <div>
+            <p class="eyebrow">{{ __('skills.signal_title') }}</p>
+            <p class="mt-2 max-w-md text-sm leading-relaxed text-ink-500 dark:text-ink-400">{{ __('skills.signal_text') }}</p>
+        </div>
+        @foreach ([__('skills.signal_backend') => '01', __('skills.signal_data') => '02', __('skills.signal_infra') => '03'] as $label => $number)
+            <div class="border-l border-ink-200 pl-4 dark:border-ink-700">
+                <span class="engineering-number">{{ $number }}</span>
+                <p class="mt-2 text-sm font-medium text-ink-800 dark:text-ink-200">{{ $label }}</p>
+            </div>
+        @endforeach
+    </section>
+
     <div class="mt-12 space-y-16">
         @foreach ($this->byLevel as $levelKey => $skills)
             <section>

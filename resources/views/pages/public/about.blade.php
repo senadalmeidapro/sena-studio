@@ -65,6 +65,26 @@
         </aside>
     </div>
 
+    {{-- Principes d'ingénierie --}}
+    <section class="mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">
+        <div class="max-w-2xl">
+            <p class="eyebrow">{{ __('about.principles_eyebrow') }}</p>
+            <h2 class="mt-4 font-display text-3xl font-bold tracking-[-0.035em] text-ink-900 dark:text-ink-50 sm:text-4xl">
+                {{ __('about.principles_title') }}
+            </h2>
+        </div>
+
+        <ol class="mt-8 grid gap-px overflow-hidden rounded-xl border border-ink-300 bg-ink-300/80 sm:grid-cols-2 dark:border-ink-700 dark:bg-ink-700/60">
+            @foreach (range(1, 4) as $number)
+                <li class="bg-card p-6 transition-colors hover:bg-blue-50/60 dark:hover:bg-blue-950/20">
+                    <span class="engineering-number">0{{ $number }}</span>
+                    <h3 class="mt-5 font-display text-lg font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('about.principle_'.$number) }}</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-ink-500 dark:text-ink-400">{{ __('about.principle_'.$number.'_text') }}</p>
+                </li>
+            @endforeach
+        </ol>
+    </section>
+
     {{-- Témoignages --}}
     @if ($this->testimonials->isNotEmpty())
         <section class="mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">

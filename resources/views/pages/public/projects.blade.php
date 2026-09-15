@@ -13,6 +13,25 @@
         </p>
     </header>
 
+    <section class="mt-10 grid gap-6 border-y border-ink-300 py-7 dark:border-ink-700 sm:grid-cols-[1.4fr_repeat(3,1fr)] sm:items-center">
+        <div>
+            <p class="eyebrow">{{ __('projects.signal_title') }}</p>
+            <p class="mt-2 max-w-xl text-sm leading-relaxed text-ink-500 dark:text-ink-400">{{ __('projects.signal_text') }}</p>
+        </div>
+        <div class="border-l border-ink-200 pl-4 dark:border-ink-700">
+            <span class="engineering-number">{{ $this->counts['all'] }}</span>
+            <p class="mt-2 text-xs font-medium text-ink-700 dark:text-ink-200">{{ __('projects.signal_total') }}</p>
+        </div>
+        <div class="border-l border-ink-200 pl-4 dark:border-ink-700">
+            <span class="engineering-number">{{ $this->categories->count() }}</span>
+            <p class="mt-2 text-xs font-medium text-ink-700 dark:text-ink-200">{{ __('projects.signal_domains') }}</p>
+        </div>
+        <div class="border-l border-ink-200 pl-4 dark:border-ink-700">
+            <span class="engineering-number">{{ $this->skills->count() }}</span>
+            <p class="mt-2 text-xs font-medium text-ink-700 dark:text-ink-200">{{ __('projects.signal_skills') }}</p>
+        </div>
+    </section>
+
     {{-- Filtres --}}
     <div class="sticky top-16 z-20 -mx-4 mt-8 border-b border-ink-300 bg-canvas/90 px-4 backdrop-blur-sm sm:mx-0 sm:px-0 dark:border-ink-700 dark:bg-canvas/90">
         <div class="flex flex-wrap gap-6">

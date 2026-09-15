@@ -8,11 +8,11 @@
     'class' => null,
 ])
 
-<div @class(['mb-10 flex flex-col gap-4 md:mb-14', $align === 'center' ? 'mx-auto items-center text-center' : '', $class])>
+<div @class(['section-heading mb-10 flex flex-col gap-4 md:mb-14', $align === 'center' ? 'mx-auto items-center text-center' : '', $class])>
     <div @class(['flex w-full items-center gap-3', $align === 'center' ? 'justify-center' : ''])>
         <span class="eyebrow">{{ $label }}</span>
         @if ($align !== 'center')
-            <span aria-hidden="true" class="h-px min-w-8 flex-1 bg-ink-300 dark:bg-ink-700"></span>
+            <span aria-hidden="true" class="section-heading-line h-px min-w-8 flex-1 bg-ink-300 dark:bg-ink-700"></span>
         @endif
     </div>
 

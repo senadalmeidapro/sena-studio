@@ -13,6 +13,23 @@
         </p>
     </header>
 
+    <section class="mt-10 grid gap-6 rounded-xl border border-ink-300 bg-card p-6 dark:border-ink-700 sm:grid-cols-[1.5fr_1fr] sm:items-end sm:p-8">
+        <div>
+            <p class="eyebrow">{{ __('blog.signal_title') }}</p>
+            <p class="mt-3 max-w-xl text-sm leading-relaxed text-ink-600 dark:text-ink-400">{{ __('blog.signal_text') }}</p>
+        </div>
+        <dl class="grid grid-cols-2 gap-4 sm:justify-self-end">
+            <div class="border-l border-ink-200 pl-4 dark:border-ink-700">
+                <dd class="engineering-number text-base">{{ $this->posts->total() }}</dd>
+                <dt class="mt-2 text-xs font-medium text-ink-700 dark:text-ink-200">{{ __('blog.signal_articles') }}</dt>
+            </div>
+            <div class="border-l border-ink-200 pl-4 dark:border-ink-700">
+                <dd class="engineering-number text-base">{{ $this->categories->count() }}</dd>
+                <dt class="mt-2 text-xs font-medium text-ink-700 dark:text-ink-200">{{ __('blog.signal_categories') }}</dt>
+            </div>
+        </dl>
+    </section>
+
     {{-- Catégories --}}
     @if ($this->categories->isNotEmpty())
         <div class="mt-8 flex flex-wrap gap-2">

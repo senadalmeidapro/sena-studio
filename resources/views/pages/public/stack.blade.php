@@ -13,6 +13,23 @@
         </p>
     </header>
 
+    <section class="mt-10 rounded-xl border border-ink-300 bg-card p-6 dark:border-ink-700 sm:p-8">
+        <div class="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-end">
+            <div>
+                <p class="eyebrow">{{ __('stack.signal_title') }}</p>
+                <p class="mt-3 max-w-xl text-sm leading-relaxed text-ink-600 dark:text-ink-400">{{ __('stack.signal_text') }}</p>
+            </div>
+            <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                @foreach ([__('stack.signal_interface') => '01', __('stack.signal_core') => '02', __('stack.signal_data') => '03', __('stack.signal_delivery') => '04'] as $label => $number)
+                    <div class="border-l border-ink-200 pl-3 dark:border-ink-700">
+                        <span class="engineering-number">{{ $number }}</span>
+                        <p class="mt-2 text-xs font-medium text-ink-700 dark:text-ink-200">{{ $label }}</p>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
     <div class="mt-14 space-y-14">
         @foreach ($this->stacks as $stack)
             <section>

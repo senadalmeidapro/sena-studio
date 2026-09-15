@@ -1,4 +1,4 @@
-<div class="public-page space-y-28 pb-24 sm:space-y-36">
+<div class="public-page home-page space-y-28 pb-24 sm:space-y-36">
 
     {{-- ===================== HERO ===================== --}}
     <section class="relative overflow-hidden">

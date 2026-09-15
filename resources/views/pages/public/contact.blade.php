@@ -1,4 +1,4 @@
-<div class="public-page mx-auto max-w-6xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
+<div class="public-page contact-page mx-auto max-w-6xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
 
     @if ($sent)
         <div class="mx-auto max-w-2xl rounded-3xl border border-emerald-200 bg-emerald-50 p-10 text-center shadow-soft motion-safe:animate-fade-up dark:border-emerald-700/40 dark:bg-emerald-950/40">

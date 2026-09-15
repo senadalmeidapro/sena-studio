@@ -265,6 +265,27 @@
         font-size: 0.68rem;
         letter-spacing: 0.08em;
     }
+
+    .project-media-image {
+        filter: saturate(0.92) contrast(1.02);
+        transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), filter 0.35s ease;
+    }
+
+    .project-media-image:hover,
+    .group:hover .project-media-image {
+        filter: saturate(1) contrast(1.04);
+        transform: scale(1.045);
+    }
+
+    .section-heading-line {
+        transform-origin: left center;
+        transition: transform 0.35s ease, background-color 0.35s ease;
+    }
+
+    .section-heading:hover .section-heading-line {
+        background-color: var(--color-blue-500);
+        transform: scaleX(1.04);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -326,6 +347,141 @@
 
     .public-page .font-display {
         font-feature-settings: 'kern' 1, 'liga' 1;
+    }
+
+    .home-page .technical-visual {
+        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+    }
+
+    .home-page .technical-visual:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 26px 60px rgb(11 31 58 / 0.22);
+    }
+
+    .contact-page form {
+        border-left: 1px solid var(--line);
+        padding-left: 2rem;
+    }
+
+    .contact-page form:focus-within {
+        border-color: rgb(37 99 235 / 0.55);
+    }
+
+    .project-detail-page .project-media-image {
+        transition-duration: 0.7s;
+    }
+
+    .project-detail-page .prose-blog {
+        border-left: 2px solid rgb(37 99 235 / 0.25);
+        padding-left: 1.25rem;
+    }
+
+    .article-page .prose-blog > p:first-of-type::first-letter {
+        float: left;
+        margin: 0.15rem 0.5rem 0 0;
+        color: var(--color-blue-600);
+        font-family: var(--font-display);
+        font-size: 3.5rem;
+        font-weight: 700;
+        line-height: 0.8;
+    }
+
+    .article-page .prose-blog h2,
+    .article-page .prose-blog h3 {
+        position: relative;
+    }
+
+    .article-page .prose-blog h2::before,
+    .article-page .prose-blog h3::before {
+        position: absolute;
+        left: -1.25rem;
+        color: var(--color-blue-500);
+        content: '—';
+    }
+
+    .cv-page article {
+        box-shadow: 0 12px 40px rgb(15 23 42 / 0.08);
+        transition: box-shadow 0.35s ease, transform 0.35s ease;
+    }
+
+    .cv-page article:hover {
+        box-shadow: 0 18px 50px rgb(15 23 42 / 0.13);
+        transform: translateY(-2px);
+    }
+
+    .public-page {
+        animation: public-page-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .public-page .group.flex.flex-col {
+        transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .public-page .group.flex.flex-col:hover {
+        transform: translateY(-3px);
+    }
+
+    .public-page .bg-card.border:not(input):not(select):not(textarea) {
+        transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .public-page .bg-card.border:not(input):not(select):not(textarea):hover {
+        border-color: rgb(59 130 246 / 0.5);
+        transform: translateY(-2px);
+    }
+
+    [data-site-mobile-menu]:not(.hidden) {
+        animation: menu-enter 0.2s ease-out both;
+    }
+}
+
+@keyframes public-page-enter {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes menu-enter {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes technical-scan {
+    0%,
+    100% {
+        opacity: 0.15;
+        transform: translateY(-110%);
+    }
+    50% {
+        opacity: 0.45;
+    }
+    65% {
+        opacity: 0;
+        transform: translateY(110%);
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .technical-visual::after {
+        position: absolute;
+        inset-inline: 0;
+        top: 0;
+        height: 35%;
+        background: linear-gradient(to bottom, transparent, rgb(147 197 253 / 0.16), transparent);
+        content: '';
+        pointer-events: none;
+        animation: technical-scan 8s ease-in-out infinite;
     }
 }
 
