@@ -145,6 +145,17 @@ class CloudinaryService
         return FileUpload::make($name)
             ->disk('cloudinary')
             ->fetchFileInformation(false)
+            ->saveUploadedFileUsing(static function (BaseFileUpload $component, mixed $file): ?string {
+                $path = $component->saveUploadedFile($file);
+
+                if (! is_string($path) || blank($path)) {
+                    return null;
+                }
+
+                $url = $component->getDisk()->url($path);
+
+                return is_string($url) && filled($url) ? $url : $path;
+            })
             ->preventFilePathTampering(
                 allowFilePathUsing: static function (string $file): bool {
                     if (Str::startsWith($file, ['images/screenshots/', 'images/brand/'])) {

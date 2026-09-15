@@ -60,6 +60,9 @@ trait HandlesCloudinaryImages
             if ($resolved !== null) {
                 $data[$field] = $resolved['url'];
                 $data['cloudinary_public_id'] = $resolved['public_id'];
+            } elseif (Str::contains($value, ['res.cloudinary.com', 'cloudinary.com'])) {
+                $data[$field] = $value;
+                $data['cloudinary_public_id'] = $service->publicIdFromUrl($value);
             }
 
             return $data;

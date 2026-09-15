@@ -49,6 +49,9 @@
     </style>
 </head>
 <body>
+    @if ($cv->template->value === 'engineering')
+        @include('pdf.cv-engineering')
+    @else
     <div class="topbar"></div>
     <div class="page">
         <h1>{{ $cv->headline }}</h1>
@@ -218,5 +221,6 @@
             </section>
         @endif
     </div>
+    @endif
 </body>
 </html>
