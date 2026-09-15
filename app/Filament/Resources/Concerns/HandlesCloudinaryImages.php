@@ -70,6 +70,11 @@ trait HandlesCloudinaryImages
         $oldPublicId = $this->record?->cloudinary_public_id;
         $service = app(CloudinaryService::class);
 
+        if (is_string($oldValue) && Str::startsWith($oldValue, ['http://', 'https://'])) {
+            $resolvedOldImage = $service->resolveSecureUrl($oldValue);
+            $oldPublicId = $resolvedOldImage['public_id'] ?? $oldPublicId;
+        }
+
         /*
          * Image retirée : suppression de l'ancien asset Cloudinary
          * et de l'éventuel fichier local historique.
@@ -86,7 +91,18 @@ trait HandlesCloudinaryImages
         /*
          * Image inchangée : URL Cloudinary déjà en base ou même chemin local.
          */
-        if (Str::startsWith($value, ['http://', 'https://']) || $value === $oldValue) {
+        if (Str::startsWith($value, ['http://', 'https://'])) {
+            $resolved = $service->resolveSecureUrl($value);
+
+            if ($resolved !== null) {
+                $data[$field] = $resolved['url'];
+                $data['cloudinary_public_id'] = $resolved['public_id'];
+            }
+
+            return $data;
+        }
+
+        if ($value === $oldValue) {
             return $data;
         }
 
