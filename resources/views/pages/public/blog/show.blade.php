@@ -1,5 +1,12 @@
 <div class="public-page article-page mx-auto max-w-3xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
 
+    @if ($preview ?? false)
+        <div class="mb-8 flex items-center gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 font-mono text-xs uppercase tracking-[0.12em] text-amber-800 dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-200">
+            <span class="size-2 rounded-full bg-amber-500"></span>
+            Aperçu privé — ce contenu n’est pas publié
+        </div>
+    @endif
+
     <a href="{{ localized_route('posts.index') }}" wire:navigate class="group inline-flex items-center gap-1.5 font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-500 transition-colors hover:text-blue-600 dark:text-ink-400 dark:hover:text-blue-300">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-3.5 transition-transform duration-300 group-hover:-translate-x-0.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12l7.5-7.5m5.25 15L8.25 12l7.5-7.5" />
@@ -31,7 +38,7 @@
 
     @if ($post->cover_image)
         <div class="mt-10 overflow-hidden rounded-3xl border border-ink-300 bg-ink-100 motion-safe:animate-fade-up [animation-delay:100ms] dark:border-ink-700 dark:bg-ink-900">
-            <img src="{{ media_url($post->cover_image) }}" alt="{{ $post->title }}" loading="lazy" class="aspect-video w-full object-cover" />
+            <img src="{{ media_url($post->cover_image, 'f_auto,q_auto,w_1400') }}" alt="{{ $post->title }}" loading="lazy" decoding="async" class="aspect-video w-full object-cover" />
         </div>
     @endif
 

@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Posts\Pages;
 
 use App\Filament\Resources\Concerns\HandlesCloudinaryImages;
 use App\Filament\Resources\Posts\PostResource;
+use App\Models\AdminActivityLog;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreatePost extends CreateRecord
@@ -12,8 +13,13 @@ class CreatePost extends CreateRecord
 
     protected static string $resource = PostResource::class;
 
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        return $this->cloudinaryFormImage($data, 'cover_image');
+    }
+
     protected function afterCreate(): void
     {
-        $this->uploadLocalImageToCloudinary('cover_image', 'sena-studio/posts');
+        AdminActivityLog::record('posts.create', "Article Â« {$this->record->title} Â» crÃ©Ã©.", $this->record);
     }
 }

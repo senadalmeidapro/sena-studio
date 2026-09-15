@@ -12,8 +12,8 @@ class CreateTestimonial extends CreateRecord
 
     protected static string $resource = TestimonialResource::class;
 
-    protected function afterCreate(): void
+    protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $this->uploadLocalImageToCloudinary('avatar', 'sena-studio/testimonials');
+        return $this->cloudinaryFormImage($data, 'avatar');
     }
 }

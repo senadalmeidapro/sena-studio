@@ -16,6 +16,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -106,6 +107,9 @@ class ProjectsTable
 
                 SelectFilter::make('infra')
                     ->relationship('infra', 'name'),
+
+                TernaryFilter::make('featured')
+                    ->label('Projets mis en avant'),
 
                 Filter::make('price_range')
                     ->label('Price Range')

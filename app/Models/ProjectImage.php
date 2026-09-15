@@ -26,8 +26,12 @@ class ProjectImage extends Model
     protected static function booted(): void
     {
         static::deleted(function (ProjectImage $image): void {
-            if (filled($image->cloudinary_public_id)) {
-                rescue(fn () => app(CloudinaryService::class)->delete($image->cloudinary_public_id), report: false);
+            $service = app(CloudinaryService::class);
+            $publicId = $image->cloudinary_public_id
+                ?: (is_string($image->path) ? $service->publicIdFromUrl($image->path) : null);
+
+            if (filled($publicId)) {
+                rescue(fn () => $service->delete($publicId), report: false);
             }
         });
     }

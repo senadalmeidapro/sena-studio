@@ -15,7 +15,7 @@ class EditTestimonial extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        return $this->cloudinaryFormImage($data, 'avatar', 'sena-studio/testimonials');
+        return $this->cloudinaryFormImage($data, 'avatar');
     }
 
     protected function afterSave(): void

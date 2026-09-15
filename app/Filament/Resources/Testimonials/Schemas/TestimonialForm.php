@@ -40,7 +40,6 @@ class TestimonialForm
                             ->label('Avatar')
                             ->image()
                             ->imageEditor()
-                            ->disk('public')
                             ->directory('testimonials')
                             ->maxSize(2048)
                             ->columnSpan(1),

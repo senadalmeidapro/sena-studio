@@ -27,6 +27,18 @@ class BlogIndex extends Component
             title: 'Blog',
             description: 'Notes sur le développement web : retours d’expérience, bonnes pratiques et coulisses des projets de Sena Studio.',
             canonical: localized_route('posts.index'),
+            structuredData: [
+                '@context' => 'https://schema.org',
+                '@type' => 'CollectionPage',
+                'name' => 'Blog — Sena Studio',
+                'description' => 'Notes sur le développement web, l’architecture logicielle et la mise en production.',
+                'url' => localized_route('posts.index'),
+                'isPartOf' => [
+                    '@type' => 'WebSite',
+                    'name' => config('app.name'),
+                    'url' => localized_route('home'),
+                ],
+            ],
         );
     }
 

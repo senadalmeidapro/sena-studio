@@ -18,7 +18,7 @@ class ProjectDetail extends Component
     {
         abort_unless($project->visibility->value === 'public' && $project->status->value !== 'cancelled', 404);
 
-        $this->project = $project->load(['stack.stackItems', 'skills', 'categories', 'infra']);
+        $this->project = $project->load(['stack.stackItems', 'skills', 'categories', 'infra', 'projectImages']);
 
         app(Seo::class)->set(
             title: $project->name,
@@ -26,6 +26,16 @@ class ProjectDetail extends Component
             canonical: localized_route('projects.show', $project),
             type: 'website',
             image: media_url($project->image),
+            structuredData: [
+                '@context' => 'https://schema.org',
+                '@type' => 'SoftwareSourceCode',
+                'name' => $project->name,
+                'description' => $project->description,
+                'url' => localized_route('projects.show', $project),
+                'codeRepository' => $project->repository_url,
+                'image' => media_url($project->image) ?? asset('/images/brand/sena-mark.svg'),
+                'programmingLanguage' => $project->skills->pluck('name')->values()->all(),
+            ],
         );
     }
 

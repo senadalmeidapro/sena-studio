@@ -20,6 +20,29 @@ class Home extends Component
         app(Seo::class)->set(
             description: 'Studio indépendant : conception de produits web, applications et solutions sur mesure — Laravel, Livewire et Filament.',
             canonical: localized_route('home'),
+            structuredData: [
+                '@context' => 'https://schema.org',
+                '@graph' => [
+                    [
+                        '@type' => 'WebSite',
+                        'name' => config('app.name'),
+                        'url' => localized_route('home'),
+                        'description' => 'Conception de produits web, applications et solutions logicielles sur mesure.',
+                    ],
+                    [
+                        '@type' => 'Person',
+                        'name' => config('app.name'),
+                        'url' => localized_route('home'),
+                        'jobTitle' => 'Software Engineer',
+                        'knowsAbout' => [
+                            'Backend engineering',
+                            'API design',
+                            'Software architecture',
+                            'DevOps',
+                        ],
+                    ],
+                ],
+            ],
         );
     }
 
@@ -30,6 +53,8 @@ class Home extends Component
             ->where('visibility', 'public')
             ->where('status', '!=', 'cancelled')
             ->with(['stack.stackItems', 'skills'])
+            ->orderByDesc('featured')
+            ->orderBy('sort_order')
             ->latest('started_at')
             ->limit(3)
             ->get();

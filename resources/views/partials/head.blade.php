@@ -8,10 +8,13 @@
     $canonical = $seo->canonical();
     $ogType = $seo->type();
     $ogImage = $seo->image();
+    $structuredData = $seo->structuredData();
+    $robots = $seo->robots();
 @endphp
 
 <title>{{ $seoTitle }}</title>
 <meta name="description" content="{{ $seoDescription }}" />
+<meta name="robots" content="{{ $robots }}" />
 <link rel="canonical" href="{{ $canonical }}" />
 
 <meta property="og:site_name" content="{{ config('app.name') }}" />
@@ -24,6 +27,10 @@
 <meta name="twitter:title" content="{{ $seoTitle }}" />
 <meta name="twitter:description" content="{{ $seoDescription }}" />
 <meta name="twitter:image" content="{{ $ogImage }}" />
+
+@if ($structuredData !== [])
+    <script type="application/ld+json">@json($structuredData, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)</script>
+@endif
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 

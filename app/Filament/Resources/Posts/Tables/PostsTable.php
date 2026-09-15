@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Posts\Tables;
 
+use App\Models\AdminActivityLog;
 use App\Models\Post;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
@@ -9,6 +10,7 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\URL;
 
 class PostsTable
 {
@@ -54,11 +56,37 @@ class PostsTable
                     ]),
             ])
             ->recordActions([
+                Action::make('publish')
+                    ->label('Publier')
+                    ->icon('heroicon-m-check-circle')
+                    ->color('success')
+                    ->visible(fn (Post $record): bool => $record->status !== Post::STATUS_PUBLISHED)
+                    ->requiresConfirmation()
+                    ->action(function (Post $record): void {
+                        $record->update(['status' => Post::STATUS_PUBLISHED]);
+                        AdminActivityLog::record('posts.publish', "Article « {$record->title} » publié.", $record);
+                    }),
+
+                Action::make('unpublish')
+                    ->label('Remettre en brouillon')
+                    ->icon('heroicon-m-arrow-uturn-left')
+                    ->color('warning')
+                    ->visible(fn (Post $record): bool => $record->status === Post::STATUS_PUBLISHED)
+                    ->requiresConfirmation()
+                    ->action(function (Post $record): void {
+                        $record->update(['status' => Post::STATUS_DRAFT]);
+                        AdminActivityLog::record('posts.unpublish', "Article « {$record->title} » remis en brouillon.", $record);
+                    }),
+
                 Action::make('preview')
                     ->label('Aperçu')
                     ->icon('heroicon-m-eye')
-                    ->visible(fn (Post $record): bool => $record->isPublished())
-                    ->url(fn (Post $record): string => localized_route('posts.show', $record->slug))
+                    ->url(fn (Post $record): string => $record->isPublished()
+                        ? localized_route('posts.show', $record->slug)
+                        : URL::temporarySignedRoute('posts.preview', now()->addMinutes(30), [
+                            'locale' => app()->getLocale(),
+                            'post' => $record->slug,
+                        ]))
                     ->openUrlInNewTab(),
 
                 EditAction::make(),

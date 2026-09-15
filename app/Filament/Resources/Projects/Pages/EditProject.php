@@ -14,7 +14,7 @@ class EditProject extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        return $this->cloudinaryFormImage($data, 'image', 'sena-studio/projects');
+        return $this->cloudinaryFormImage($data, 'image');
     }
 
     protected function afterSave(): void

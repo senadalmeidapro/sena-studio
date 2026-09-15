@@ -28,8 +28,7 @@ class AdminPanelProvider extends PanelProvider
 
         FilamentView::registerRenderHook(
             PanelsRenderHook::HEAD_START,
-            fn (): string => '<script src="'.e(asset('js/admin/cloudinary-upload.js').'?v='.filemtime(public_path('js/admin/cloudinary-upload.js'))).'" ></script>'
-                .'<link rel="stylesheet" href="'.Vite::asset('resources/css/filament.css').'">',
+            fn (): string => '<link rel="stylesheet" href="'.Vite::asset('resources/css/filament.css').'">',
         );
     }
 

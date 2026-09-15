@@ -63,13 +63,21 @@ if (! function_exists('media_url')) {
     /**
      * URL d'un média stocké localement (asset) ou en Cloudinary (URL absolue).
      */
-    function media_url(?string $path): ?string
+    function media_url(?string $path, ?string $transformation = null): ?string
     {
         if (blank($path)) {
             return null;
         }
 
         if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://') || str_starts_with($path, '//')) {
+            if (
+                filled($transformation)
+                && str_contains($path, 'res.cloudinary.com/')
+                && str_contains($path, '/image/upload/')
+            ) {
+                return str_replace('/image/upload/', '/image/upload/'.$transformation.'/', $path);
+            }
+
             return $path;
         }
 

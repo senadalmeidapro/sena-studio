@@ -14,18 +14,26 @@ class Seo
 
     protected string $image = '/images/brand/sena-mark.svg';
 
+    protected array $structuredData = [];
+
+    protected string $robots = 'index, follow';
+
     public function set(
         ?string $title = null,
         ?string $description = null,
         ?string $canonical = null,
         string $type = 'website',
         ?string $image = null,
+        ?array $structuredData = null,
+        ?string $robots = null,
     ): static {
         $this->title = $title ?? $this->title;
         $this->description = $description ?? $this->description;
         $this->canonical = $canonical ?? $this->canonical;
         $this->type = $type;
         $this->image = $image ?? $this->image;
+        $this->structuredData = $structuredData ?? $this->structuredData;
+        $this->robots = $robots ?? $this->robots;
 
         return $this;
     }
@@ -55,5 +63,15 @@ class Seo
     public function image(): string
     {
         return media_url($this->image) ?? asset('/images/brand/sena-mark.svg');
+    }
+
+    public function structuredData(): array
+    {
+        return $this->structuredData;
+    }
+
+    public function robots(): string
+    {
+        return $this->robots;
     }
 }

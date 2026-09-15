@@ -109,7 +109,6 @@ class PostForm
                             ->label('Image de couverture')
                             ->image()
                             ->imageEditor()
-                            ->disk('public')
                             ->directory('posts')
                             ->maxSize(4096)
                             ->columnSpanFull(),

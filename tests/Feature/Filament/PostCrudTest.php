@@ -105,6 +105,37 @@ it('updates a post and republishes it', function () {
         ->and($post->published_at)->not->toBeNull();
 });
 
+it('publishes a draft from the posts table workflow', function () {
+    $user = User::factory()->create();
+    $post = Post::factory()->draft()->create();
+
+    Livewire::actingAs($user)
+        ->test(ListPosts::class)
+        ->callTableAction('publish', $post);
+
+    $post->refresh();
+
+    expect($post->status)->toBe(Post::STATUS_PUBLISHED)
+        ->and($post->published_at)->not->toBeNull();
+});
+
+it('returns a published post to draft from the posts table workflow', function () {
+    $user = User::factory()->create();
+    $post = Post::factory()->create([
+        'status' => Post::STATUS_PUBLISHED,
+        'published_at' => now()->subDay(),
+    ]);
+
+    Livewire::actingAs($user)
+        ->test(ListPosts::class)
+        ->callTableAction('unpublish', $post);
+
+    $post->refresh();
+
+    expect($post->status)->toBe(Post::STATUS_DRAFT)
+        ->and($post->published_at)->toBeNull();
+});
+
 it('deletes a post', function () {
     $user = User::factory()->create();
     $post = Post::factory()->create();

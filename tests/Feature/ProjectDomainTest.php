@@ -5,8 +5,10 @@ use App\Enums\ProjectVisibility;
 use App\Models\Category;
 use App\Models\Infra;
 use App\Models\Project;
+use App\Models\ProjectImage;
 use App\Models\Skill;
 use App\Models\Stack;
+use App\Services\CloudinaryService;
 
 it('casts project enum columns to their backed enum classes', function () {
     $project = Project::factory()->create([
@@ -60,4 +62,39 @@ it('soft deletes projects instead of removing them', function () {
 
     expect(Project::find($project->id))->toBeNull()
         ->and(Project::withTrashed()->find($project->id))->not->toBeNull();
+});
+
+it('deletes a gallery asset using its cloudinary url when no public id is stored', function () {
+    $project = Project::factory()->create();
+    $image = ProjectImage::create([
+        'project_id' => $project->id,
+        'path' => 'https://res.cloudinary.com/demo/image/upload/v123/sena-studio/gallery/preview.png',
+    ]);
+    $cloudinary = Mockery::mock(CloudinaryService::class);
+    $cloudinary->shouldReceive('publicIdFromUrl')
+        ->once()
+        ->with($image->path)
+        ->andReturn('sena-studio/gallery/preview');
+    $cloudinary->shouldReceive('delete')
+        ->once()
+        ->with('sena-studio/gallery/preview')
+        ->andReturn([]);
+    $this->app->instance(CloudinaryService::class, $cloudinary);
+
+    $image->delete();
+
+    expect(ProjectImage::find($image->id))->toBeNull();
+});
+
+it('deletes gallery records and their assets before force deleting a project', function () {
+    $project = Project::factory()->create();
+    $image = ProjectImage::create([
+        'project_id' => $project->id,
+        'path' => 'images/screenshots/project-1.svg',
+    ]);
+
+    $project->forceDelete();
+
+    expect(Project::withTrashed()->find($project->id))->toBeNull()
+        ->and(ProjectImage::find($image->id))->toBeNull();
 });

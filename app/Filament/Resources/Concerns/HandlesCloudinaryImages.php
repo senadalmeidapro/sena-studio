@@ -20,51 +20,14 @@ trait HandlesCloudinaryImages
      * Uploade l'image locale (déjà stockée par FileUpload)
      * puis met à jour le record avec l'URL et le public_id Cloudinary.
      */
-    protected function uploadLocalImageToCloudinary(string $field, string $folder): void
-    {
-        $path = $this->record->getAttribute($field);
-
-        if (blank($path) || Str::startsWith($path, ['http://', 'https://'])) {
-            return;
-        }
-
-        $disk = Storage::disk('public');
-
-        if (! $disk->exists($path)) {
-            return;
-        }
-
-        try {
-            $result = app(CloudinaryService::class)->upload($disk->path($path), $folder);
-
-            $this->record->update([
-                $field => $result['secure_url'],
-                'cloudinary_public_id' => $result['public_id'] ?? null,
-            ]);
-
-            $disk->delete($path);
-        } catch (Throwable $e) {
-            $disk->delete($path);
-            $this->record->forceFill([
-                $field => null,
-                'cloudinary_public_id' => null,
-            ])->saveQuietly();
-
-            report($e);
-
-            throw $e;
-        }
-    }
-
     /**
      * Prépare les données du formulaire avant sauvegarde :
      * - image retirée  -> supprime l'ancien asset Cloudinary / fichier local ;
      * - URL inchangée  -> conservation ;
      * - nouveau fichier -> upload Cloudinary + nettoyage de l'ancien asset.
      */
-    protected function cloudinaryFormImage(array $data, string $field, string $folder): array
+    protected function cloudinaryFormImage(array $data, string $field): array
     {
-        $disk = Storage::disk('public');
         $value = $data[$field] ?? null;
         $oldValue = $this->record?->getRawOriginal($field);
         $oldPublicId = $this->record?->cloudinary_public_id;
@@ -120,24 +83,6 @@ trait HandlesCloudinaryImages
         /*
          * Nouveau fichier local envoyé par FileUpload.
          */
-        if (! $disk->exists($value)) {
-            return $data;
-        }
-
-        try {
-            $result = $service->upload($disk->path($value), $folder);
-
-            $data[$field] = $result['secure_url'];
-            $data['cloudinary_public_id'] = $result['public_id'] ?? null;
-
-            $disk->delete($value);
-            $this->queueCloudinaryCleanup($oldPublicId, $oldValue);
-        } catch (Throwable $e) {
-            report($e);
-
-            throw $e;
-        }
-
         return $data;
     }
 

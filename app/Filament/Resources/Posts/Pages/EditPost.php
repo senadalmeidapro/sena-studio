@@ -8,6 +8,7 @@ use App\Models\AdminActivityLog;
 use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Support\Facades\URL;
 
 class EditPost extends EditRecord
 {
@@ -17,7 +18,7 @@ class EditPost extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        return $this->cloudinaryFormImage($data, 'cover_image', 'sena-studio/posts');
+        return $this->cloudinaryFormImage($data, 'cover_image');
     }
 
     protected function afterSave(): void
@@ -25,11 +26,6 @@ class EditPost extends EditRecord
         $this->finalizeCloudinaryCleanup();
 
         AdminActivityLog::record('posts.update', "Article « {$this->record->title} » mis à jour.", $this->record);
-    }
-
-    protected function afterCreate(): void
-    {
-        AdminActivityLog::record('posts.create', "Article « {$this->record->title} » créé.", $this->record);
     }
 
     protected function afterDelete(): void
@@ -44,8 +40,12 @@ class EditPost extends EditRecord
                 ->label('Aperçu')
                 ->icon('heroicon-m-eye')
                 ->color('gray')
-                ->visible(fn (): bool => $this->record->isPublished())
-                ->url(fn (): string => localized_route('posts.show', $this->record->slug))
+                ->url(fn (): string => $this->record->isPublished()
+                    ? localized_route('posts.show', $this->record->slug)
+                    : URL::temporarySignedRoute('posts.preview', now()->addMinutes(30), [
+                        'locale' => app()->getLocale(),
+                        'post' => $this->record->slug,
+                    ]))
                 ->openUrlInNewTab(),
 
             DeleteAction::make(),

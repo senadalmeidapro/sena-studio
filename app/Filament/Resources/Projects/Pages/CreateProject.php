@@ -14,7 +14,7 @@ class CreateProject extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        return $this->cloudinaryFormImage($data, 'image', 'sena-studio/projects');
+        return $this->cloudinaryFormImage($data, 'image');
     }
 
     protected function afterCreate(): void

@@ -34,6 +34,18 @@ class Projects extends Component
             title: 'Projets',
             description: 'Portfolio de Sena Studio : applications web, SaaS et solutions logicielles, avec les technologies mobilisées.',
             canonical: localized_route('projects.index'),
+            structuredData: [
+                '@context' => 'https://schema.org',
+                '@type' => 'CollectionPage',
+                'name' => 'Projets — Sena Studio',
+                'description' => 'Sélection de projets web, SaaS et logiciels conçus par Sena Studio.',
+                'url' => localized_route('projects.index'),
+                'isPartOf' => [
+                    '@type' => 'WebSite',
+                    'name' => config('app.name'),
+                    'url' => localized_route('home'),
+                ],
+            ],
         );
     }
 
@@ -73,6 +85,8 @@ class Projects extends Component
             ->when($this->category, fn (Builder $q) => $q->whereHas('categories', fn (Builder $c) => $c->where('categories.slug', $this->category)))
             ->when($this->skill, fn (Builder $q) => $q->whereHas('skills', fn (Builder $s) => $s->where('skills.slug', $this->skill)))
             ->with(['stack.stackItems', 'skills', 'categories'])
+            ->orderByDesc('featured')
+            ->orderBy('sort_order')
             ->orderByDesc('ended_at')
             ->orderByDesc('started_at')
             ->paginate(9);

@@ -9,7 +9,6 @@ use Filament\Forms\Components\FileUpload;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Throwable;
-use UnexpectedValueException;
 
 class CloudinaryService
 {
@@ -33,32 +32,6 @@ class CloudinaryService
                 'secure' => true,
             ],
         ]);
-    }
-
-    public function upload(
-        string $filePath,
-        string $folder = 'sena-studio'
-    ): array {
-        $cloudinary = $this->configure();
-
-        if (! is_file($filePath) || ! is_readable($filePath)) {
-            throw new InvalidArgumentException('The file to upload does not exist or is not readable.');
-        }
-
-        $result = $cloudinary->uploadApi()->upload(
-            $filePath,
-            [
-                'folder' => $folder,
-            ]
-        );
-
-        $result = $result->getArrayCopy();
-
-        if (blank(data_get($result, 'secure_url')) || blank(data_get($result, 'public_id'))) {
-            throw new UnexpectedValueException('Cloudinary returned an incomplete upload response.');
-        }
-
-        return $result;
     }
 
     public function delete(string $publicId): array
@@ -172,6 +145,7 @@ class CloudinaryService
         return FileUpload::make($name)
             ->disk('cloudinary')
             ->fetchFileInformation(false)
+            ->preventFilePathTampering()
             ->deleteUploadedFileUsing(static function (mixed $file): void {
                 if (! is_string($file)) {
                     return;
@@ -187,16 +161,13 @@ class CloudinaryService
             })
             ->getUploadedFileUsing(static function (BaseFileUpload $component, string $file, string|array|null $storedFileNames): ?array {
                 if (Str::startsWith($file, ['http://', 'https://'])) {
-                    $resolved = app(self::class)->resolveSecureUrl($file);
-                    $url = $resolved['url'] ?? $file;
-
                     return [
-                        'name' => basename($url),
+                        'name' => basename($file),
                         'size' => 0,
                         'type' => null,
-                        'url' => $url,
-                        'openableUrl' => $url,
-                        'downloadableUrl' => $url,
+                        'url' => $file,
+                        'openableUrl' => $file,
+                        'downloadableUrl' => $file,
                     ];
                 }
 

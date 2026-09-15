@@ -92,6 +92,10 @@ class Project extends Model
 
     protected static function booted(): void
     {
+        static::forceDeleting(function (Project $project): void {
+            $project->projectImages()->get()->each->delete();
+        });
+
         static::forceDeleted(function (Project $project): void {
             if (filled($project->cloudinary_public_id)) {
                 rescue(fn () => app(CloudinaryService::class)->delete($project->cloudinary_public_id), report: false);

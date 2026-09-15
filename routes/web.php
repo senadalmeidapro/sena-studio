@@ -6,6 +6,7 @@ use App\Livewire\Site\BlogShow;
 use App\Livewire\Site\Contact;
 use App\Livewire\Site\CvShow;
 use App\Livewire\Site\Home;
+use App\Livewire\Site\PostPreview;
 use App\Livewire\Site\ProjectDetail;
 use App\Livewire\Site\Projects;
 use App\Livewire\Site\Skills;
@@ -29,6 +30,9 @@ Route::prefix('{locale?}')
         Route::get('a-propos', About::class)->name('about');
         Route::get('blog', BlogIndex::class)->name('posts.index');
         Route::get('blog/{post:slug}', BlogShow::class)->name('posts.show');
+        Route::get('blog/{post:slug}/preview', PostPreview::class)
+            ->middleware('signed')
+            ->name('posts.preview');
         Route::get('contact', Contact::class)->name('contact');
         Route::get('cv/{cv:slug}', CvShow::class)->name('cv.show');
     });
