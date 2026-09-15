@@ -18,6 +18,11 @@ class EditTestimonial extends EditRecord
         return $this->cloudinaryFormImage($data, 'avatar', 'sena-studio/testimonials');
     }
 
+    protected function afterSave(): void
+    {
+        $this->finalizeCloudinaryCleanup();
+    }
+
     protected function afterDelete(): void
     {
         rescue(fn () => $this->deleteCloudinaryAsset($this->record->cloudinary_public_id), report: false);

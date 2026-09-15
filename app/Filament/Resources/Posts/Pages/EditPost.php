@@ -22,6 +22,8 @@ class EditPost extends EditRecord
 
     protected function afterSave(): void
     {
+        $this->finalizeCloudinaryCleanup();
+
         AdminActivityLog::record('posts.update', "Article « {$this->record->title} » mis à jour.", $this->record);
     }
 

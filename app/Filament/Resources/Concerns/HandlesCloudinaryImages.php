@@ -9,6 +9,12 @@ use Throwable;
 
 trait HandlesCloudinaryImages
 {
+    protected ?string $pendingCloudinaryPublicId = null;
+
+    protected ?string $pendingLocalImagePath = null;
+
+    protected bool $hasPendingCloudinaryCleanup = false;
+
     /**
      * Uploade l'image locale (déjà stockée par FileUpload)
      * puis met à jour le record avec l'URL et le public_id Cloudinary.
@@ -37,6 +43,12 @@ trait HandlesCloudinaryImages
 
             $disk->delete($path);
         } catch (Throwable $e) {
+            $disk->delete($path);
+            $this->record->forceFill([
+                $field => null,
+                'cloudinary_public_id' => null,
+            ])->saveQuietly();
+
             report($e);
 
             throw $e;
@@ -62,9 +74,7 @@ trait HandlesCloudinaryImages
          * et de l'éventuel fichier local historique.
          */
         if (blank($value)) {
-            $this->deleteCloudinaryAsset($oldPublicId);
-
-            $this->deleteLocalImage($disk, $oldValue);
+            $this->queueCloudinaryCleanup($oldPublicId, $oldValue);
 
             $data[$field] = null;
             $data['cloudinary_public_id'] = null;
@@ -92,11 +102,8 @@ trait HandlesCloudinaryImages
             $data[$field] = $result['secure_url'];
             $data['cloudinary_public_id'] = $result['public_id'] ?? null;
 
-            $this->deleteCloudinaryAsset($oldPublicId);
-
             $disk->delete($value);
-
-            $this->deleteLocalImage($disk, $oldValue);
+            $this->queueCloudinaryCleanup($oldPublicId, $oldValue);
         } catch (Throwable $e) {
             report($e);
 
@@ -104,6 +111,27 @@ trait HandlesCloudinaryImages
         }
 
         return $data;
+    }
+
+    protected function finalizeCloudinaryCleanup(): void
+    {
+        if (! $this->hasPendingCloudinaryCleanup) {
+            return;
+        }
+
+        $this->deleteCloudinaryAsset($this->pendingCloudinaryPublicId);
+        $this->deleteLocalImage(Storage::disk('public'), $this->pendingLocalImagePath);
+
+        $this->pendingCloudinaryPublicId = null;
+        $this->pendingLocalImagePath = null;
+        $this->hasPendingCloudinaryCleanup = false;
+    }
+
+    private function queueCloudinaryCleanup(?string $publicId, ?string $localPath): void
+    {
+        $this->pendingCloudinaryPublicId = $publicId;
+        $this->pendingLocalImagePath = $localPath;
+        $this->hasPendingCloudinaryCleanup = filled($publicId) || filled($localPath);
     }
 
     protected function deleteCloudinaryAsset(?string $publicId): void

@@ -320,11 +320,24 @@ In the Railway dashboard: **Create → Database → PostgreSQL**. Then reference
 | `DB_SSLMODE` | `require` | Railway requires SSL |
 | `LOG_CHANNEL` | `stderr` | Logs visible in Railway |
 | `SESSION_SECURE_COOKIE` | `true` | Secure cookies over HTTPS |
-| `DB_SEED` | `true` *(1st deployment)* | Seeds admin user + portfolio |
-| `APP_MIGRATE` | `true` *(default)* | Automatic migrations on startup |
+| `DB_SEED` | `true` *(1st deployment)* | Seeds portfolio and admin from `ADMIN_*` variables |
+| `APP_MIGRATE` | `true` *(default)* | Automatic migrations on startup for the web service |
 
 > The server waits for the database (up to `DB_RETRIES=30` attempts) before applying migrations.
 > The `/up` health route is exposed for health checks.
+
+### Queue and scheduler services
+
+The web service does not process queued jobs. Create two additional Railway services
+from the same image:
+
+```text
+Worker     → APP_MIGRATE=false /usr/local/bin/worker.sh
+Scheduler  → APP_MIGRATE=false /usr/local/bin/scheduler.sh
+```
+
+All three services must share the same `APP_KEY`, database and queue configuration.
+The worker is required for database notifications such as new contact messages.
 
 ### 4. Push and deploy
 

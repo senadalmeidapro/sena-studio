@@ -7,6 +7,7 @@ use Filament\Forms\Components\BaseFileUpload;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
+use UnexpectedValueException;
 
 class CloudinaryService
 {
@@ -38,12 +39,18 @@ class CloudinaryService
             throw new InvalidArgumentException('The file to upload does not exist or is not readable.');
         }
 
-        return Uploader::upload(
+        $result = Uploader::upload(
             $filePath,
             [
                 'folder' => $folder,
             ]
         );
+
+        if (blank(data_get($result, 'secure_url')) || blank(data_get($result, 'public_id'))) {
+            throw new UnexpectedValueException('Cloudinary returned an incomplete upload response.');
+        }
+
+        return $result;
     }
 
     public function delete(string $publicId): array

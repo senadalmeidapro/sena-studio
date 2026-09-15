@@ -103,8 +103,10 @@ WORKDIR /app
 COPY --from=build /app /app
 COPY --from=assets /app/public/build /app/public/build
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY docker/worker.sh /usr/local/bin/worker.sh
+COPY docker/scheduler.sh /usr/local/bin/scheduler.sh
 
-RUN chmod +x /usr/local/bin/entrypoint.sh \
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/worker.sh /usr/local/bin/scheduler.sh \
     && mkdir -p /app/storage/framework/{sessions,views,cache} \
     && chown -R www-data:www-data /app/storage /app/bootstrap/cache
 

@@ -16,4 +16,9 @@ class EditProject extends EditRecord
     {
         return $this->cloudinaryFormImage($data, 'image', 'sena-studio/projects');
     }
+
+    protected function afterSave(): void
+    {
+        $this->finalizeCloudinaryCleanup();
+    }
 }
