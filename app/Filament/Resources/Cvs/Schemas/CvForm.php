@@ -178,6 +178,38 @@ class CvForm
                                     ->collapsible(),
                             ]),
 
+                        Tab::make('Projets')
+                            ->schema([
+                                Repeater::make('projects')
+                                    ->label('Projets sélectionnés')
+                                    ->default([])
+                                    ->defaultItems(0)
+                                    ->columns(2)
+                                    ->schema([
+                                        TextInput::make('title')
+                                            ->label('Nom du projet')
+                                            ->required()
+                                            ->maxLength(255),
+                                        TextInput::make('subtitle')
+                                            ->label('Contexte / rôle')
+                                            ->maxLength(255),
+                                        TextInput::make('stack')
+                                            ->label('Stack technique')
+                                            ->maxLength(255)
+                                            ->columnSpanFull(),
+                                        TextInput::make('url')
+                                            ->label('Lien')
+                                            ->url()
+                                            ->maxLength(255),
+                                        Textarea::make('description')
+                                            ->label('Réalisations')
+                                            ->rows(3)
+                                            ->columnSpanFull(),
+                                    ])
+                                    ->collapsible()
+                                    ->columnSpanFull(),
+                            ]),
+
                         Tab::make('Compétences')
                             ->schema([
                                 Repeater::make('skills')

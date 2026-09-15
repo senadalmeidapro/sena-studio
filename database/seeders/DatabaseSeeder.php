@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             $admin = User::query()->updateOrCreate(
                 ['email' => $email],
                 [
-                    'name' => env('ADMIN_NAME'),
+                    'name' => env('ADMIN_NAME', "Sèna Gédéon D'ALMEIDA"),
                     'password' => Hash::make($password),
                     'email_verified_at' => now(),
                 ],

@@ -122,6 +122,26 @@
             </section>
         @endif
 
+        @if ($cv->projects)
+            <section>
+                <h2>Projets sélectionnés</h2>
+                @foreach ($cv->projects as $project)
+                    <div class="item">
+                        <h3>{{ $project['title'] }}</h3>
+                        @if (! blank($project['subtitle'] ?? null))
+                            <span class="sub"> - {{ $project['subtitle'] }}</span>
+                        @endif
+                        @if (! blank($project['stack'] ?? null))
+                            <p><b>Stack :</b> {{ $project['stack'] }}</p>
+                        @endif
+                        @if (! blank($project['description'] ?? null))
+                            <p>{{ $project['description'] }}</p>
+                        @endif
+                    </div>
+                @endforeach
+            </section>
+        @endif
+
         @if ($cv->skills)
             <section>
                 <h2>Compétences</h2>

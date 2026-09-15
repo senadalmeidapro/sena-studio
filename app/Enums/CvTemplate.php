@@ -4,6 +4,8 @@ namespace App\Enums;
 
 enum CvTemplate: string
 {
+    case Engineering = 'engineering';
+
     case Classique = 'classique';
     case Moderne = 'moderne';
     case Minimal = 'minimal';
@@ -11,6 +13,7 @@ enum CvTemplate: string
     public function label(): string
     {
         return match ($this) {
+            self::Engineering => 'Engineering',
             self::Classique => 'Classique',
             self::Moderne => 'Moderne',
             self::Minimal => 'Minimal',

@@ -32,7 +32,9 @@
         style="--accent: {{ $accent }};"
         class="mt-8 overflow-hidden rounded-3xl border border-ink-300 bg-card shadow-xl shadow-ink-900/5 motion-safe:animate-fade-up dark:border-ink-700"
     >
-        @if ($cv->template->value === 'moderne')
+        @if ($cv->template->value === 'engineering')
+            @include('pages.public.cv-show._engineering')
+        @elseif ($cv->template->value === 'moderne')
             {{-- Modern : bandeau accent + double colonne --}}
             <div class="bg-[var(--accent)] px-8 py-8 sm:px-10">
                 <div class="flex flex-wrap items-end justify-between gap-4">

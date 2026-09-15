@@ -50,14 +50,11 @@ class PortfolioSeeder extends Seeder
             [StackItemCategory::Queue, 'Redis Queue', null, $buildIcon('redis')],
             [StackItemCategory::Orm, 'Eloquent', null, '🧙'],
             [StackItemCategory::Storage, 'Local Storage', null, '🗃️'],
-            [StackItemCategory::Cloud, 'DigitalOcean', null, $buildIcon('digitalocean')],
-            [StackItemCategory::Monitoring, 'Laravel Pulse', null, '📊'],
+            [StackItemCategory::Cloud, 'Railway', null, $buildIcon('railway')],
+            [StackItemCategory::Storage, 'Cloudinary', null, $buildIcon('cloudinary')],
             [StackItemCategory::Devops, 'Docker', null, $buildIcon('docker')],
-            [StackItemCategory::Devops, 'Kubernetes', null, $buildIcon('kubernetes')],
-            [StackItemCategory::Devops, 'Helm', null, '⚓'],
             [StackItemCategory::Devops, 'GitHub Actions', null, $buildIcon('githubactions')],
             [StackItemCategory::Testing, 'Pest', '4.x', '🧪'],
-            [StackItemCategory::Analytics, 'Plausible', null, $buildIcon('plausible')],
             [StackItemCategory::Documentation, 'Markdown', null, $buildIcon('markdown')],
             [StackItemCategory::Design, 'Tailwind UI', null, null],
         ];
@@ -102,14 +99,16 @@ class PortfolioSeeder extends Seeder
             Category::updateOrCreate(['slug' => $category['slug']], $category);
         }
 
-        $infra = Infra::firstOrCreate(['name' => 'Production Cloud'], [
-            'description' => 'Infrastructure cloud containerisée pour la mise en production des projets web.',
-            'docker_image' => 'php:8.3-fpm-alpine',
-            'kubernetes_config' => 'deployment + service + ingress',
-            'helm_chart' => 'stable/laravel',
-            'cpu_cores' => 2,
-            'memory_mb' => 1024,
-            'storage_gb' => 100,
+        Infra::where('name', 'Production Cloud')->delete();
+
+        $infra = Infra::updateOrCreate(['name' => 'Railway Production'], [
+            'description' => 'Déploiement Railway documenté pour l’application Laravel, avec image Docker multi-stage et base PostgreSQL managée.',
+            'docker_image' => 'Dockerfile multi-stage',
+            'kubernetes_config' => null,
+            'helm_chart' => null,
+            'cpu_cores' => 1,
+            'memory_mb' => 512,
+            'storage_gb' => 10,
             'environment' => InfraEnvironment::Production,
             'is_active' => true,
         ]);
@@ -129,7 +128,6 @@ class PortfolioSeeder extends Seeder
             ['Linux', SkillLevel::Intermediate, 'Unix-like operating system ecosystem used for development, server administration, automation, and deployment.', $buildIcon('linux')],
             ['GitHub Actions', SkillLevel::Intermediate, 'CI/CD automation platform for building, testing, deploying, and automating software development workflows.', $buildIcon('githubactions')],
             ['Git', SkillLevel::Advanced, 'Managing source code, branching strategies, version history, merges, and collaborative development workflows.', $buildIcon('git')],
-            ['Kubernetes', SkillLevel::Intermediate, 'Orchestrating containerized applications, managing deployments and services, scaling workloads, and maintaining resilient application environments.', $buildIcon('kubernetes')],
             ['MySQL', SkillLevel::Advanced, 'Designing and managing relational databases, writing complex SQL queries, and optimizing database performance.', $buildIcon('mysql')],
             ['TypeORM', SkillLevel::Advanced, 'TypeScript ORM for working with relational databases through entities, repositories, relations, and migrations.', $buildIcon('typeorm')],
             ['Blade', SkillLevel::Advanced, 'Template engine et composants Laravel.', $buildIcon('laravel')],
@@ -150,6 +148,9 @@ class PortfolioSeeder extends Seeder
 
         $webCategory = Category::where('slug', 'web')->first();
         $appCategory = Category::where('slug', 'application')->first();
+
+        // Remove the legacy infrastructure claim that is no longer part of the verified profile.
+        Skill::where('name', 'Kubernetes')->delete();
 
         $skills = collect();
         foreach ($skillsData as [$name, $level, $description, $icon]) {
@@ -178,7 +179,6 @@ class PortfolioSeeder extends Seeder
             'PostgreSQL' => ['database', 'frontend'],
             'Redis' => ['database', 'frontend', 'infrastructure'],
             'Docker' => ['devops', 'infrastructure', 'tools'],
-            'Kubernetes' => ['devops', 'infrastructure', 'cloud'],
             'Pest' => ['testing', 'programming'],
             'Git' => ['tools', 'open-source', 'devops'],
             'Figma' => ['ui-ux', 'architecture', 'web'],
@@ -218,7 +218,7 @@ class PortfolioSeeder extends Seeder
             [
                 'name' => 'Mini Shop API',
                 'slug' => 'mini-shop-api',
-                'description' => 'A production-grade REST API powering a complete e-commerce platform. It covers the full sales lifecycle — products and categories, cart management, orders with stock validation, payments and product reviews — secured with JWT authentication and strict request validation. Clean modular architecture (NestJS, TypeORM, PostgreSQL) designed to feed any storefront frontend.',
+                'description' => 'REST API for an e-commerce platform built with NestJS and TypeORM. The repository covers authentication, users, addresses, products, categories, carts, orders, payments and reviews with JWT authentication and request validation.',
                 'status' => ProjectStatus::Development,
                 'type' => ProjectType::Software,
                 'complexity' => ProjectComplexity::Complex,
@@ -231,12 +231,12 @@ class PortfolioSeeder extends Seeder
             [
                 'name' => 'Orientation-BJ API',
                 'slug' => 'api-orientation',
-                'description' => 'Backend of a career-guidance platform helping young people in Benin find their professional path. Implements the RIASEC psychometric model with two-phase testing, multi-dimensional scoring, an adaptive recommendation engine, gamification, and an AI layer (GPT-4o) that turns results into actionable advice. JWT auth, role-based access, rate limiting, audit trail and full Swagger documentation make it ready for production.',
+                'description' => 'Backend of a career-guidance platform for young people in Benin. The repository implements the RIASEC model, two-phase testing, multi-dimensional scoring, career recommendations, adaptive behavior, gamification, administration and security layers.',
                 'status' => ProjectStatus::Development,
                 'type' => ProjectType::App,
                 'complexity' => ProjectComplexity::Complex,
                 'visibility' => ProjectVisibility::Public,
-                'url' => null,
+                'url' => 'https://orientation-bj-production.up.railway.app',
                 'repository_url' => 'https://github.com/senadalmeidapro/api-orientation',
                 'image' => 'images/screenshots/project-5.svg',
                 'skills' => ['TypeScript', 'Node.js', 'NestJS', 'Prisma', 'PostgreSQL', 'Redis', 'REST API', 'Swagger / OpenAPI', 'Docker', 'GitHub Actions', 'Linux'],
@@ -270,7 +270,7 @@ class PortfolioSeeder extends Seeder
             [
                 'name' => 'Express Onboarding API',
                 'slug' => 'express-js-onboarding-api',
-                'description' => 'A focused onboarding API built with Express.js and TypeScript. It guides new users through a step-by-step signup and onboarding flow behind clean REST endpoints, strong typing and straightforward request validation — a great starting point for any product that needs structured user onboarding.',
+                'description' => 'A TypeScript Express.js repository focused on structuring an onboarding API and its REST endpoints.',
                 'status' => ProjectStatus::Development,
                 'type' => ProjectType::Software,
                 'complexity' => ProjectComplexity::Simple,
@@ -288,7 +288,7 @@ class PortfolioSeeder extends Seeder
                 'type' => ProjectType::Web,
                 'complexity' => ProjectComplexity::Medium,
                 'visibility' => ProjectVisibility::Public,
-                'url' => url('/'),
+                'url' => env('SITE_URL', url('/')),
                 'repository_url' => 'https://github.com/senadalmeidapro/sena-studio',
                 'image' => 'images/screenshots/project-6.svg',
                 'stack' => $portfolioStack,
@@ -372,8 +372,8 @@ class PortfolioSeeder extends Seeder
                     ...$projectData,
                     ...($caseStudies[$projectData['slug']] ?? []),
                     'version' => '1.0.0',
-                    'started_at' => now()->subMonths(rand(1, 10)),
-                    'ended_at' => $projectData['status'] === ProjectStatus::Production ? now()->subMonths(rand(0, 4)) : null,
+                    'started_at' => $projectData['started_at'] ?? null,
+                    'ended_at' => $projectData['ended_at'] ?? null,
                     'stack_id' => $stackModel?->id,
                     'infra_id' => $infraModel?->id,
                 ],
@@ -413,6 +413,14 @@ class PortfolioSeeder extends Seeder
             }
         }
 
+        // Remove the three placeholder leads created by the former demo seeder.
+        ContactMessage::whereIn('email', [
+            'claire@atelier-fontaine.fr',
+            'marc@indepmarc.fr',
+            'sonia@meunier-studio.com',
+        ])->delete();
+
+        /* Demo leads removed: seed only verified portfolio data.
         $demoMessages = [
             [
                 'name' => 'Claire Fontaine',
@@ -456,11 +464,14 @@ class PortfolioSeeder extends Seeder
             );
         }
 
+        */
+
         $this->seedCvs();
     }
 
     private function seedCvs(): void
     {
+        /* Legacy CV fixture replaced by the verified profile below.
         $base = [
             'title' => 'Curriculum vitae — Développeur Fullstack',
             'headline' => 'Développeur Fullstack Laravel & Vue.js',
@@ -520,19 +531,120 @@ class PortfolioSeeder extends Seeder
                 ['name' => 'Cyclisme'],
                 ['name' => 'Café de spécialité'],
             ],
+        ]; */
+
+        $base = [
+            'title' => 'Curriculum vitae - Full-Stack Developer',
+            'headline' => 'Full-Stack Developer',
+            'email' => 'senadalmeidapro@gmail.com',
+            'phone' => '(+229) 01 45 74 08 16',
+            'location' => 'Cotonou, Benin',
+            'website' => 'https://senadalmeidapro.github.io/CV/',
+            'summary' => 'Full-Stack Developer focused on building secure, reliable, and maintainable web applications across the full development lifecycle, from architecture and database design to API development, frontend integration, testing, and deployment. Experienced with TypeScript, backend systems, relational databases, authentication, authorization, web security, Linux, Git, Docker, CI/CD, and infrastructure automation.',
+            'links' => [
+                ['label' => 'GitHub', 'url' => 'https://github.com/senadalmeidapro'],
+                ['label' => 'LinkedIn', 'url' => 'https://www.linkedin.com/in/senadalmeida'],
+                ['label' => 'Portfolio', 'url' => 'https://senadalmeidapro.github.io/CV/'],
+            ],
+            'experience' => [
+                [
+                    'title' => 'Full-Stack Developer and DevOps (Freelance)',
+                    'subtitle' => 'Fintech and ed-tech web applications',
+                    'period_start' => '2023-01',
+                    'period_end' => null,
+                    'description' => 'Built and deployed REST APIs with NestJS, Prisma, PostgreSQL and Docker; modeled relational data, integrated transactional services, automated operations with self-hosted n8n, and owned the workflow from requirements to delivery.',
+                ],
+            ],
+            'projects' => [
+                [
+                    'title' => 'Orientation-BJ API',
+                    'subtitle' => 'Career guidance platform | Backend and domain architecture',
+                    'stack' => 'NestJS - Prisma - PostgreSQL - Redis - Docker',
+                    'url' => 'https://github.com/senadalmeidapro/api-orientation',
+                    'description' => 'Implemented the RIASEC assessment flow, multi-dimensional scoring, career recommendations, adaptive behavior, administration and security layers for a platform focused on young people in Benin.',
+                ],
+                [
+                    'title' => 'ITDesk / TAKTIC',
+                    'subtitle' => 'IT service management platform | Full-stack architecture',
+                    'stack' => 'Laravel - Livewire - Filament - Tailwind CSS - Pest',
+                    'url' => 'https://github.com/senadalmeidapro/itdesk',
+                    'description' => 'Designed ticket workflows, approvals, incident/problem/change management, asset tracking and a lead-to-ticket pipeline with permission-based policies and a Filament back office.',
+                ],
+                [
+                    'title' => 'Mini Shop API',
+                    'subtitle' => 'E-commerce backend | REST API design',
+                    'stack' => 'NestJS - TypeORM - PostgreSQL - JWT',
+                    'url' => 'https://github.com/senadalmeidapro/mini-shop-api',
+                    'description' => 'Built the core commerce domains: users, addresses, cart, products, categories, orders, payments and reviews, with authentication, validation and stock-aware order flows.',
+                ],
+                [
+                    'title' => 'Sena Studio',
+                    'subtitle' => 'Engineering portfolio and freelance command center',
+                    'stack' => 'Laravel - Filament - Livewire - PostgreSQL - Redis - Cloudinary',
+                    'url' => 'https://github.com/senadalmeidapro/sena-studio',
+                    'description' => 'Built a maintainable public portfolio and administration system for projects, case studies, media, CV versions, editorial content and freelance leads.',
+                ],
+            ],
+            'education' => [
+                [
+                    'title' => "Bachelor's Degree - Computer Science and Software Engineering",
+                    'subtitle' => 'ENEAM',
+                    'period_start' => '2023-01',
+                    'period_end' => '2026-12',
+                    'description' => null,
+                ],
+                [
+                    'title' => 'High School Diploma - Science Track',
+                    'subtitle' => 'Collège Catholique Père Planque',
+                    'period_start' => '2022-01',
+                    'period_end' => '2023-01',
+                    'description' => null,
+                ],
+            ],
+            'skills' => [
+                ['name' => 'TypeScript', 'group' => 'Languages', 'level' => 'avance'],
+                ['name' => 'JavaScript', 'group' => 'Languages', 'level' => 'avance'],
+                ['name' => 'Python', 'group' => 'Languages', 'level' => 'intermediaire'],
+                ['name' => 'SQL', 'group' => 'Languages', 'level' => 'avance'],
+                ['name' => 'NestJS', 'group' => 'Backend', 'level' => 'avance'],
+                ['name' => 'Node.js', 'group' => 'Backend', 'level' => 'avance'],
+                ['name' => 'Laravel', 'group' => 'Backend', 'level' => 'intermediaire'],
+                ['name' => 'REST API', 'group' => 'Backend', 'level' => 'avance'],
+                ['name' => 'JWT / OAuth2', 'group' => 'Backend', 'level' => 'intermediaire'],
+                ['name' => 'React', 'group' => 'Frontend', 'level' => 'intermediaire'],
+                ['name' => 'Responsive UI', 'group' => 'Frontend', 'level' => 'intermediaire'],
+                ['name' => 'PostgreSQL', 'group' => 'Database', 'level' => 'avance'],
+                ['name' => 'Prisma', 'group' => 'Database', 'level' => 'avance'],
+                ['name' => 'MySQL', 'group' => 'Database', 'level' => 'avance'],
+                ['name' => 'Linux', 'group' => 'DevOps', 'level' => 'intermediaire'],
+                ['name' => 'Docker', 'group' => 'DevOps', 'level' => 'avance'],
+                ['name' => 'CI/CD', 'group' => 'DevOps', 'level' => 'intermediaire'],
+                ['name' => 'GitHub Actions', 'group' => 'DevOps', 'level' => 'intermediaire'],
+            ],
+            'languages' => [
+                ['name' => 'Fon', 'level' => 'Native'],
+                ['name' => 'French', 'level' => 'C1'],
+                ['name' => 'English', 'level' => 'B1'],
+            ],
+            'certifications' => [],
+            'hobbies' => [
+                ['name' => 'Self-hosting'],
+                ['name' => 'Problem solving'],
+                ['name' => 'Developer tooling'],
+            ],
         ];
 
         $published = [
-            'version_label' => 'V1 · Fullstack',
+            'version_label' => 'V1 - Engineering',
             'slug' => 'senastudio-cv',
-            'template' => CvTemplate::Moderne,
+            'template' => CvTemplate::Engineering,
             'status' => CvStatus::Published,
             'accent_color' => '#059669',
             'is_primary' => true,
         ];
 
         $draft = [
-            'version_label' => 'V2 · Minimal',
+            'version_label' => 'V2 - Minimal',
             'slug' => 'senastudio-cv-minimal',
             'template' => CvTemplate::Minimal,
             'status' => CvStatus::Draft,
