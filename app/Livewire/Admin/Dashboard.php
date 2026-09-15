@@ -49,6 +49,9 @@ class Dashboard extends Component
                 ['label' => 'Vues · 30 jours', 'value' => (clone $traffic)->since(30)->count(), 'detail' => 'Dernier mois'],
             ],
             'trafficSeries' => $this->dailySeries($traffic, 30),
+            'activitySeries' => $this->activitySeries(),
+            'messageSeries' => $this->monthlySeries(ContactMessage::query(), 6, 'created_at'),
+            'publicationSeries' => $this->monthlySeries(Post::query()->where('status', Post::STATUS_PUBLISHED), 12, 'published_at'),
             'localeSeries' => $this->localeSeries(),
             'topPages' => PageView::query()->public()->since(30)->get(['path'])->groupBy('path')->map->count()->sortDesc()->take(10),
             'projectStatuses' => $this->enumCounts(Project::query()->selectRaw('status, count(*) as total')->groupBy('status')->pluck('total', 'status'), ProjectStatus::cases()),
@@ -87,6 +90,22 @@ class Dashboard extends Component
         $counts = PageView::query()->public()->since(30)->get(['locale'])->groupBy(fn (PageView $view): string => $view->locale ?: 'fr')->map->count();
 
         return [['label' => 'English', 'value' => (int) ($counts['en'] ?? 0)], ['label' => 'Français', 'value' => (int) ($counts['fr'] ?? 0)]];
+    }
+
+    protected function activitySeries(): array
+    {
+        $start = now()->subDays(13)->startOfDay();
+        $counts = AdminActivityLog::query()->where('created_at', '>=', $start)->get(['created_at'])->groupBy(fn (AdminActivityLog $log): string => $log->created_at->format('Y-m-d'))->map->count();
+
+        return collect(range(13, 0))->map(fn (int $i): array => ['label' => now()->subDays($i)->format('d M'), 'value' => (int) ($counts[now()->subDays($i)->format('Y-m-d')] ?? 0)])->all();
+    }
+
+    protected function monthlySeries($query, int $months, string $dateColumn): array
+    {
+        $start = now()->subMonths($months - 1)->startOfMonth();
+        $counts = $query->where($dateColumn, '>=', $start)->get([$dateColumn])->groupBy(fn ($record): string => $record->{$dateColumn}->format('Y-m'))->map->count();
+
+        return collect(range($months - 1, 0))->map(fn (int $i): array => ['label' => now()->subMonths($i)->format('M Y'), 'value' => (int) ($counts[now()->subMonths($i)->format('Y-m')] ?? 0)])->all();
     }
 
     protected function enumCounts(Collection $counts, array $cases): array
