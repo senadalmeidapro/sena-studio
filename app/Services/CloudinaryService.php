@@ -5,16 +5,25 @@ namespace App\Services;
 use Cloudinary\Uploader;
 use Filament\Forms\Components\BaseFileUpload;
 use Filament\Forms\Components\FileUpload;
+use InvalidArgumentException;
 use Illuminate\Support\Str;
 
 class CloudinaryService
 {
     private function configure(): void
     {
+        $cloudName = config('cloudinary.cloud_name');
+        $apiKey = config('cloudinary.api_key');
+        $apiSecret = config('cloudinary.api_secret');
+
+        if (blank($cloudName) || blank($apiKey) || blank($apiSecret)) {
+            throw new InvalidArgumentException('Cloudinary is not configured. Set CLOUDINARY_URL or CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET.');
+        }
+
         \Cloudinary::config([
-            'cloud_name' => config('cloudinary.cloud_name'),
-            'api_key' => config('cloudinary.api_key'),
-            'api_secret' => config('cloudinary.api_secret'),
+            'cloud_name' => $cloudName,
+            'api_key' => $apiKey,
+            'api_secret' => $apiSecret,
             'secure' => true,
         ]);
     }
@@ -24,6 +33,10 @@ class CloudinaryService
         string $folder = 'sena-studio'
     ): array {
         $this->configure();
+
+        if (! is_file($filePath) || ! is_readable($filePath)) {
+            throw new InvalidArgumentException('The file to upload does not exist or is not readable.');
+        }
 
         return Uploader::upload(
             $filePath,

@@ -39,12 +39,13 @@ class CloudinaryUpload extends Field
 
     public function getUploadUrl(): string
     {
-        return url('/admin/cloudinary/upload');
+        // URL relative : l'upload reste sur le domaine courant en production.
+        return route('admin.cloudinary.upload', [], false);
     }
 
     public function getBaseUrl(): string
     {
-        return url('/');
+        return '';
     }
 
     public function getXData(): string

@@ -24,8 +24,10 @@ window.cloudinaryUploadComponent = (config) => ({
         fd.append('folder', config.folder);
 
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', config.uploadUrl);
+        xhr.open('POST', config.uploadUrl, true);
+        xhr.timeout = 120000;
         xhr.setRequestHeader('X-CSRF-TOKEN', config.csrf);
+        xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         xhr.setRequestHeader('Accept', 'application/json');
 
         this.uploading = true;
@@ -59,6 +61,12 @@ window.cloudinaryUploadComponent = (config) => ({
             this.uploading = false;
             this.progress = 0;
             this.error = 'Erreur réseau pendant l\'envoi';
+        };
+
+        xhr.ontimeout = () => {
+            this.uploading = false;
+            this.progress = 0;
+            this.error = 'Le délai d\'upload est dépassé. Vérifiez la connexion et Cloudinary.';
         };
 
         xhr.send(fd);
