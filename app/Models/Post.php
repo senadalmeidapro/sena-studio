@@ -51,7 +51,9 @@ class Post extends Model
 
     public function isPublished(): bool
     {
-        return $this->status === self::STATUS_PUBLISHED;
+        return $this->status === self::STATUS_PUBLISHED
+            && $this->published_at !== null
+            && $this->published_at->isPast();
     }
 
     protected static function booted(): void

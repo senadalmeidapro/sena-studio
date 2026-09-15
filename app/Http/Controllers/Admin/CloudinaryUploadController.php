@@ -13,6 +13,8 @@ class CloudinaryUploadController extends Controller
 {
     public function store(Request $request): JsonResponse
     {
+        abort_unless($request->user()?->isAdmin(), 403);
+
         $data = $request->validate([
             'file' => ['required', 'file', 'image', 'max:10240'],
             'folder' => ['nullable', 'string', 'max:120'],

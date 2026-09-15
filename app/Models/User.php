@@ -9,6 +9,7 @@ namespace App\Models;
 use Carbon\Carbon;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -39,7 +40,20 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return $this->isAdmin();
+    }
+
+    public function isAdmin(): bool
+    {
+        return ModelHasRole::query()
+            ->where('model_type', self::class)
+            ->where('model_id', $this->getKey())
+            ->whereHas('role', function (Builder $query): void {
+                $query
+                    ->where('name', 'admin')
+                    ->where('guard_name', 'web');
+            })
+            ->exists();
     }
 
     protected $fillable = [

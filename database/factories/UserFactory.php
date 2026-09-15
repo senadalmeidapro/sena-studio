@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\ModelHasRole;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -22,6 +24,22 @@ class UserFactory extends Factory
      * (le seeding production ne doit dépendre d'aucun paquet de développement).
      */
     protected static int $sequence = 0;
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (User $user): void {
+            $role = Role::query()->firstOrCreate([
+                'name' => 'admin',
+                'guard_name' => 'web',
+            ]);
+
+            ModelHasRole::query()->firstOrCreate([
+                'role_id' => $role->getKey(),
+                'model_type' => User::class,
+                'model_id' => $user->getKey(),
+            ]);
+        });
+    }
 
     /**
      * Define the model's default state.

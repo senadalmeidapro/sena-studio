@@ -14,6 +14,7 @@ use App\Models\Cv;
 use App\Models\Post;
 use App\Models\Project;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 
@@ -57,7 +58,7 @@ Route::get('sitemap.xml', function () {
             $urls[] = [$prefix.'/projets/'.$project->slug, $project->updated_at?->toAtomString()];
         }
 
-        foreach (Cv::primary()->get('slug') as $cv) {
+        foreach (Cv::published()->primary()->get('slug') as $cv) {
             $urls[] = [$prefix.'/cv/'.$cv->slug, now()->toAtomString()];
         }
 
@@ -90,7 +91,9 @@ Route::fallback(function () {
     abort(404);
 })->name('fallback');
 
-Route::middleware(['auth', 'verified'])->get('/admin/cvs/{cv}/pdf', function (Cv $cv) {
+Route::middleware(['auth', 'verified'])->get('/admin/cvs/{cv}/pdf', function (Request $request, Cv $cv) {
+    abort_unless($request->user()?->isAdmin(), 403);
+
     $html = View::make('pdf.cv', ['cv' => $cv])->render();
 
     $file = Pdf::loadHTML($html);

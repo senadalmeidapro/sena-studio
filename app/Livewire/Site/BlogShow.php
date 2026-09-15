@@ -5,7 +5,6 @@ namespace App\Livewire\Site;
 use App\Models\Post;
 use App\Services\Seo;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Layout('layouts.public')]
@@ -28,7 +27,6 @@ class BlogShow extends Component
         );
     }
 
-    #[Title]
     public function title(): string
     {
         return ($this->post->seo_title ?: $this->post->title).' — Sena Studio';

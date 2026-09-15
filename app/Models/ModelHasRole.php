@@ -29,6 +29,12 @@ class ModelHasRole extends Model
         'model_id' => 'int',
     ];
 
+    protected $fillable = [
+        'role_id',
+        'model_type',
+        'model_id',
+    ];
+
     public function role()
     {
         return $this->belongsTo(Role::class);

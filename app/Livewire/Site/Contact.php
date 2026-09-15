@@ -125,7 +125,13 @@ class Contact extends Component
 
     protected function notifyAdmins(ContactMessage $message): void
     {
-        $adminIds = ModelHasRole::query()->pluck('model_id')->filter()->unique()->all();
+        $adminIds = ModelHasRole::query()
+            ->where('model_type', User::class)
+            ->whereHas('role', fn ($query) => $query->where('name', 'admin')->where('guard_name', 'web'))
+            ->pluck('model_id')
+            ->filter()
+            ->unique()
+            ->all();
 
         if ($adminIds === []) {
             return;
