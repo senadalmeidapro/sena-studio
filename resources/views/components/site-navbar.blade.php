@@ -20,11 +20,11 @@
     $altFull = app()->getLocale() === 'fr' ? 'English' : 'Français';
 @endphp
 
-<header class="sticky top-0 z-40 border-b border-ink-300/80 bg-canvas/85 backdrop-blur-md dark:border-ink-700/80 dark:bg-canvas/85">
+<header class="sticky top-0 z-40 border-b border-ink-200/90 bg-canvas/90 backdrop-blur-md dark:border-ink-800 dark:bg-canvas/90">
     <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="{{ localized_route('home') }}" class="group flex items-center gap-2.5" wire:navigate>
             <x-logo class="size-7 transition-transform duration-300 group-hover:scale-105" />
-            <span class="font-display text-lg font-medium tracking-tight text-ink-900 dark:text-ink-100">Sena&nbsp;Studio</span>
+            <span class="font-display text-[1.05rem] font-semibold tracking-[-0.02em] text-ink-900 dark:text-ink-100">Sena&nbsp;Studio</span>
         </a>
 
         <nav class="hidden items-center gap-8 md:flex">

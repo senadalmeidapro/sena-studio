@@ -17,6 +17,8 @@ class CvShow extends Component
 
     public function mount(Cv $cv): void
     {
+        abort_unless($cv->isPublished(), 404);
+
         $this->cv = $cv;
 
         app(Seo::class)->set(

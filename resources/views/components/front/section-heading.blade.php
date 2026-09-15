@@ -19,7 +19,7 @@
     <div @class(['flex w-full flex-col gap-6', $align === 'between' ? 'sm:flex-row sm:items-end sm:justify-between' : '', $align === 'center' ? 'items-center' : ''])>
         <div @class(['max-w-2xl', $align === 'center' ? 'mx-auto' : ''])>
             @if ($title)
-                <h2 class="font-display text-3xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-4xl">
+                <h2 class="font-display text-3xl font-bold tracking-[-0.035em] text-ink-900 dark:text-ink-50 sm:text-4xl">
                     {{ $title }}
                 </h2>
             @endif

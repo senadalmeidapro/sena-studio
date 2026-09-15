@@ -1,4 +1,4 @@
-<div class="mx-auto max-w-3xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
+<div class="public-page mx-auto max-w-3xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
 
     <a href="{{ localized_route('posts.index') }}" wire:navigate class="group inline-flex items-center gap-1.5 font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-500 transition-colors hover:text-blue-600 dark:text-ink-400 dark:hover:text-blue-300">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-3.5 transition-transform duration-300 group-hover:-translate-x-0.5">
@@ -16,7 +16,7 @@
             </div>
         @endif
 
-        <h1 class="font-display text-3xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-4xl">
+        <h1 class="font-display text-3xl font-bold tracking-[-0.04em] text-ink-900 dark:text-ink-50 sm:text-4xl">
             {{ $post->title }}
         </h1>
 

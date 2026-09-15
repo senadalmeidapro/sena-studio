@@ -1,21 +1,18 @@
-<div class="space-y-24 pb-24 sm:space-y-32">
+<div class="public-page space-y-28 pb-24 sm:space-y-36">
 
     {{-- ===================== HERO ===================== --}}
     <section class="relative overflow-hidden">
         <div class="pointer-events-none absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_72%)]" aria-hidden="true"></div>
 
-        <div class="relative mx-auto grid max-w-7xl items-center gap-14 px-4 pt-16 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20 lg:px-8 lg:pt-28">
+        <div class="relative mx-auto grid max-w-7xl items-center gap-14 px-4 pt-16 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:gap-24 lg:px-8 lg:pt-28">
             {{-- Colonne texte --}}
             <div class="motion-safe:animate-fade-up">
                 <div class="flex items-center gap-3">
                     <span class="eyebrow">{{ __('home.hero_eyebrow') }}</span>
                 </div>
 
-                <h1 class="mt-7 font-display text-5xl font-medium leading-[1.02] tracking-tight text-ink-900 dark:text-ink-50 sm:text-6xl lg:text-7xl">
-                    Sena Studio
-                    <span class="mt-1 block text-blue-600 dark:text-blue-400">
-                        {{ __('home.tagline') }}
-                    </span>
+                <h1 class="mt-7 max-w-3xl font-display text-5xl font-bold leading-[1.02] tracking-[-0.045em] text-ink-900 dark:text-ink-50 sm:text-6xl lg:text-[4.25rem]">
+                    {{ __('home.tagline') }}
                 </h1>
 
                 <p class="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">
@@ -23,8 +20,8 @@
                 </p>
 
                 <div class="mt-8 flex flex-wrap items-center gap-2">
-                    @foreach (['Laravel', 'Livewire', 'Filament', 'Tailwind'] as $tech)
-                        <span class="rounded-full border border-ink-300 px-3 py-1 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-ink-600 dark:border-ink-700 dark:text-ink-300">
+                    @foreach (['Backend', 'APIs', 'Architecture', 'DevOps'] as $tech)
+                        <span class="rounded-md border border-ink-300 bg-card/60 px-3 py-1.5 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-ink-600 dark:border-ink-700 dark:bg-card/60 dark:text-ink-300">
                             {{ $tech }}
                         </span>
                     @endforeach
@@ -44,7 +41,7 @@
                     </x-front.arrow-link>
                 </div>
 
-                <dl class="mt-14 grid max-w-xl grid-cols-3 gap-8 border-t border-ink-300 pt-6 dark:border-ink-700">
+                <dl class="mt-14 grid max-w-xl grid-cols-2 gap-8 border-t border-ink-300 pt-6 dark:border-ink-700">
                     <div>
                         <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">{{ __('home.stats_projects') }}</dt>
                         <dd class="mt-1.5 font-display text-3xl font-medium tabular-nums text-ink-900 dark:text-ink-50">{{ $this->projectCount }}</dd>
@@ -55,20 +52,31 @@
                     </div>
                     <div>
                         <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">{{ __('home.stats_custom') }}</dt>
-                        <dd class="mt-1.5 font-display text-3xl font-medium tabular-nums text-ink-900 dark:text-ink-50">100%</dd>
+                        <dd class="mt-1.5 font-display text-2xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('home.stats_focus') }}</dd>
                     </div>
                 </dl>
             </div>
 
-            {{-- Colonne photo --}}
+            {{-- Colonne architecture --}}
             <div class="relative mx-auto w-full max-w-sm motion-safe:animate-fade-up [animation-delay:160ms] lg:max-w-none">
-                <div class="crop-frame">
-                    <div class="relative rotate-2 rounded-[2rem] bg-blue-500 p-1.5 transition-transform duration-500 hover:rotate-0">
-                        <img
-                            src="{{ asset('images/portrait.jpeg') }}"
-                            alt="Portrait Sena Studio"
-                            class="aspect-square w-full rounded-[1.6rem] bg-card object-cover"
-                        />
+                <div class="technical-visual p-5 sm:p-7">
+                    <div class="mb-6 flex items-center justify-between font-mono text-[0.62rem] uppercase tracking-[0.16em] text-blue-200/70">
+                        <span>system.map</span>
+                        <span>v1.0 / online</span>
+                    </div>
+                    <div class="grid gap-3">
+                        <div class="technical-node px-4 py-3">client / interface</div>
+                        <div class="mx-auto h-5 w-px bg-blue-300/40"></div>
+                        <div class="technical-node border-blue-300/60 bg-blue-400/15 px-4 py-3 text-center">API / domain logic</div>
+                        <div class="mx-auto h-5 w-px bg-blue-300/40"></div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="technical-node px-3 py-3 text-center">database</div>
+                            <div class="technical-node px-3 py-3 text-center">jobs / cache</div>
+                        </div>
+                    </div>
+                    <div class="mt-7 flex items-center gap-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-blue-100/60">
+                        <span class="size-1.5 rounded-full bg-blue-300"></span>
+                        reliable systems, deliberately built
                     </div>
                 </div>
 
@@ -83,7 +91,7 @@
                     </span>
                 </div>
 
-                <div class="mt-6 rounded-2xl border border-ink-300 bg-card px-5 py-4 shadow-soft dark:border-ink-700">
+                <div class="engineering-panel mt-6 px-5 py-4">
                     <div class="flex items-center gap-2 text-sm font-medium text-ink-800 dark:text-ink-100">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4 text-blue-600 dark:text-blue-400">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -171,7 +179,7 @@
             <div class="grid gap-6 md:grid-cols-3">
                 @foreach ($this->featuredProjects as $project)
                     <a href="{{ localized_route('projects.show', $project->slug) }}" wire:navigate
-                       class="group flex flex-col overflow-hidden rounded-2xl border border-ink-300 bg-card shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/60 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/40">
+                       class="group flex flex-col overflow-hidden rounded-xl border border-ink-300 bg-card transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/70 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/50">
                         <x-project-media :image="$project->image" :label="$project->name" />
                         <div class="flex flex-1 flex-col p-6">
                             <div class="mb-4 flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.12em]">

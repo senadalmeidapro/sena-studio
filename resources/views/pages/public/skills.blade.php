@@ -1,4 +1,4 @@
-<div class="mx-auto max-w-7xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
+<div class="public-page mx-auto max-w-7xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
 
     {{-- En-tête éditorial --}}
     <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">
@@ -32,7 +32,7 @@
                             <div class="flex items-start justify-between gap-3">
                                 <div class="flex items-start gap-3">
                                     @if ($skill->icon)
-                                        <span class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-blue-700 transition-colors group-hover:bg-blue-500 group-hover:text-white dark:bg-blue-500/15 dark:text-blue-300 dark:group-hover:bg-blue-500 dark:group-hover:text-white">
+                                        <span class="flex size-11 shrink-0 items-center justify-center rounded-lg bg-ink-100 text-ink-700 transition-colors group-hover:bg-blue-600 group-hover:text-white dark:bg-ink-800 dark:text-blue-300 dark:group-hover:bg-blue-500 dark:group-hover:text-white">
                                             <x-site-icon :icon="$skill->icon" class="size-6" />
                                         </span>
                                     @endif
