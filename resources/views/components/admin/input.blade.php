@@ -1,0 +1,2 @@
+@props(['label', 'model', 'type' => 'text', 'required' => false, 'step' => null])
+<div><label class="mb-2 block text-sm text-slate-300">{{ $label }} @if($required)<span class="text-blue-400">*</span>@endif</label><input wire:model="{{ $model }}" type="{{ $type }}" @if($step) step="{{ $step }}" @endif @required($required) {{ $attributes->merge(['class' => 'w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white placeholder:text-slate-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500']) }}></div>

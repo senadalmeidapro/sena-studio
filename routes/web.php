@@ -18,6 +18,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 
+require __DIR__.'/admin.php';
+
 Route::prefix('{locale?}')
     ->whereIn('locale', ['fr', 'en'])
     ->group(function () {

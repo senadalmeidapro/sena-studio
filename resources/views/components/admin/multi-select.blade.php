@@ -1,0 +1,2 @@
+@props(['label', 'model', 'options' => []])
+<div><label class="mb-2 block text-sm text-slate-300">{{ $label }}</label><select wire:model="{{ $model }}" multiple size="5" {{ $attributes->merge(['class' => 'w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2.5 text-sm text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500']) }}>@foreach($options as $value => $option)<option value="{{ $value }}">{{ $option }}</option>@endforeach</select><p class="mt-1 text-xs text-slate-500">Ctrl/Cmd + clic pour plusieurs choix.</p></div>
