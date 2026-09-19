@@ -7,6 +7,13 @@
         {{ __('common.back_projects') }}
     </a>
 
+    {{-- Titre du projet (première position) --}}
+    <header class="mt-10 max-w-3xl motion-safe:animate-fade-up">
+        <h1 class="font-display text-4xl font-bold tracking-[-0.04em] text-ink-900 dark:text-ink-50 sm:text-5xl">
+            {{ $project->name }}
+        </h1>
+    </header>
+
     {{-- Galerie --}}
     <div class="mt-8 motion-safe:animate-fade-up [animation-delay:80ms]">
         @php
@@ -161,10 +168,6 @@
                 <span class="rounded-md px-2 py-1 {{ $statusTone[0] }}">{{ $project->status->label() }}</span>
                 <span class="rounded-md bg-ink-100 px-2 py-1 text-ink-600 dark:bg-ink-800 dark:text-ink-300">{{ $project->complexity->label() }}</span>
             </div>
-
-            <h1 class="mt-5 max-w-3xl font-display text-4xl font-bold tracking-[-0.04em] text-ink-900 dark:text-ink-50 sm:text-5xl">
-                {{ $project->name }}
-            </h1>
 
             @if ($project->description)
                 <p class="mt-5 max-w-2xl text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">
