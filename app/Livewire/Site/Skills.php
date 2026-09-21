@@ -73,10 +73,15 @@ class Skills extends Component
             ->get()
             ->groupBy(fn ($skill): string => $primaryRoleBySkill[$skill->name] ?? 'other');
 
-        return collect($roleOrder)
+        $ordered = collect($roleOrder)
             ->mapWithKeys(fn (string $role): array => [$role => $grouped->get($role, collect())])
-            ->filter(fn ($skills) => $skills->isNotEmpty())
-            ->union($grouped->except($roleOrder));
+            ->filter(fn ($skills) => $skills->isNotEmpty());
+
+        $remaining = $grouped->keys()
+            ->diff($roleOrder)
+            ->mapWithKeys(fn (string $role): array => [$role => $grouped->get($role)]);
+
+        return $ordered->union($remaining);
     }
 
     #[Computed]
