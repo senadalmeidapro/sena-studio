@@ -29,7 +29,7 @@
 @if (in_array($currentRouteName, $publicRouteNames, true))
     <link rel="alternate" hreflang="fr" href="{{ url('/fr'.$publicTail) }}" />
     <link rel="alternate" hreflang="en" href="{{ url('/en'.$publicTail) }}" />
-    <link rel="alternate" hreflang="x-default" href="{{ url('/fr'.$publicTail) }}" />
+    <link rel="alternate" hreflang="x-default" href="{{ url('/en'.$publicTail) }}" />
 @endif
 
 <meta property="og:site_name" content="{{ config('app.name') }}" />
