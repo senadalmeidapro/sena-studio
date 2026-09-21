@@ -20,11 +20,11 @@
         </div>
         <dl class="grid grid-cols-2 gap-4 sm:justify-self-end">
             <div class="border-l border-ink-200 pl-4 dark:border-ink-700">
-                <dd class="engineering-number text-base">{{ $this->posts->total() }}</dd>
+                <dd class="font-display text-2xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ $this->posts->total() }}</dd>
                 <dt class="mt-2 text-xs font-medium text-ink-700 dark:text-ink-200">{{ __('blog.signal_articles') }}</dt>
             </div>
             <div class="border-l border-ink-200 pl-4 dark:border-ink-700">
-                <dd class="engineering-number text-base">{{ $this->categories->count() }}</dd>
+                <dd class="font-display text-2xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ $this->categories->count() }}</dd>
                 <dt class="mt-2 text-xs font-medium text-ink-700 dark:text-ink-200">{{ __('blog.signal_categories') }}</dt>
             </div>
         </dl>
