@@ -14,6 +14,13 @@ it('keeps a logical Cloudinary path unchanged when it is not an URL', function (
         ->toBe('sena-studio/projects/demo.jpeg');
 });
 
+it('ignores delivery transformations when extracting the public id', function () {
+    $url = 'https://res.cloudinary.com/demo/image/upload/f_auto,q_auto,w_960/v123456/sena-studio/projects/demo.png.png';
+
+    expect(app(CloudinaryService::class)->publicIdFromUrl($url))
+        ->toBe('sena-studio/projects/demo.png');
+});
+
 it('adds Cloudinary delivery optimizations only to Cloudinary image URLs', function () {
     expect(media_url(
         'https://res.cloudinary.com/demo/image/upload/v123/sena-studio/projects/demo.jpeg.jpeg',

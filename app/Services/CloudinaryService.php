@@ -107,8 +107,11 @@ class CloudinaryService
         $assetPath = Str::after($path, '/upload/');
         $segments = explode('/', trim($assetPath, '/'));
 
-        if (isset($segments[0]) && preg_match('/^v\d+$/', $segments[0])) {
-            array_shift($segments);
+        foreach ($segments as $index => $segment) {
+            if (preg_match('/^v\d+$/', $segment)) {
+                $segments = array_slice($segments, $index + 1);
+                break;
+            }
         }
 
         $publicId = implode('/', $segments);
