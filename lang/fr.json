@@ -111,7 +111,7 @@
     "home.stats_base": "Base de travail",
     "home.stats_location": "Cotonou · remote",
     "home.fig_portrait": "FIG. 01 — Portrait",
-    "home.available": "Cotonou · remote",
+    "home.available": "Ouvert aux nouveaux projets · Cotonou · remote",
     "home.badge": "APIs · applications métier · backoffices",
     "home.badge_sub": "Laravel · NestJS · PostgreSQL · Docker",
     "home.diagram_interface": "interface / client",
@@ -247,7 +247,7 @@
     "about.stats_skills": "Compétences",
     "about.stats_reviews": "Avis",
     "about.availability_eyebrow": "Disponibilité",
-    "about.availability_text": "Basé à Cotonou, je travaille à distance avec des équipes qui construisent des APIs, des applications métier et des backoffices.",
+    "about.availability_text": "Ouvert aux nouveaux projets, je travaille depuis Cotonou à distance avec des équipes qui construisent des APIs, des applications métier et des backoffices.",
     "about.testimonials_eyebrow": "Ils m'ont fait confiance",
 
     "blog.index_eyebrow": "Journal",

@@ -111,7 +111,7 @@
     "home.stats_base": "Base of work",
     "home.stats_location": "Cotonou · remote",
     "home.fig_portrait": "FIG. 01 — Portrait",
-    "home.available": "Cotonou · remote",
+    "home.available": "Open to new projects · Cotonou · remote",
     "home.badge": "APIs · business applications · back-offices",
     "home.badge_sub": "Laravel · NestJS · PostgreSQL · Docker",
     "home.diagram_interface": "client / interface",
@@ -246,7 +246,7 @@
     "about.stats_skills": "Skills",
     "about.stats_reviews": "Reviews",
     "about.availability_eyebrow": "Availability",
-    "about.availability_text": "Based in Cotonou, I work remotely with teams building APIs, business applications and back-offices.",
+    "about.availability_text": "Open to new projects, I work remotely from Cotonou with teams building APIs, business applications and back-offices.",
     "about.testimonials_eyebrow": "They trusted me",
 
     "blog.index_eyebrow": "Journal",
