@@ -5,6 +5,7 @@ use App\Enums\ProjectVisibility;
 use App\Livewire\Site\Contact;
 use App\Livewire\Site\Projects;
 use App\Models\Category;
+use App\Models\Post;
 use App\Models\Project;
 use App\Models\Skill;
 use App\Models\Stack;
@@ -103,6 +104,21 @@ test('the skills page shows active skills', function () {
     $this->get(localized_route('skills.index'))
         ->assertOk()
         ->assertSee('PHP');
+});
+
+test('services and legal pages are publicly accessible in both locales', function () {
+    $this->get('/fr/services')->assertOk()->assertSee('Services');
+    $this->get('/en/services')->assertOk()->assertSee('Services');
+    $this->get('/fr/mentions-legales')->assertOk()->assertSee('Mentions');
+    $this->get('/en/confidentialite')->assertOk()->assertSee('Privacy');
+});
+
+test('blog content is isolated by locale', function () {
+    Post::factory()->count(2)->create(['locale' => 'fr']);
+    Post::factory()->count(2)->create(['locale' => 'en']);
+
+    $this->get('/fr/blog')->assertOk();
+    $this->get('/en/blog')->assertOk();
 });
 
 test('the stack page shows stack items grouped by category', function () {

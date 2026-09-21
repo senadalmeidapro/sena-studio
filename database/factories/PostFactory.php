@@ -33,6 +33,7 @@ class PostFactory extends Factory
             'user_id' => User::factory(),
             'title' => $title,
             'slug' => Str::slug($title).'-'.static::$sequence,
+            'locale' => 'fr',
             'excerpt' => 'Extrait de l’article gratuit : points clés, erreurs à éviter et bonnes pratiques à retenir.',
             'content' => '<h2>Introduction</h2><p>Le contenu de cet article aborde des sujets concrets, illustrés par des exemples réels.',
             'cover_image' => null,
