@@ -29,7 +29,7 @@
             <span class="font-display text-[1.05rem] font-semibold tracking-[-0.02em] text-ink-900 dark:text-ink-100">Sena Studio</span>
         </a>
 
-        <nav class="hidden items-center gap-8 md:flex">
+        <nav class="hidden items-center gap-6 xl:flex 2xl:gap-8">
             @foreach ($links as $key => [$label, $url])
                 <a
                     href="{{ $url }}"
@@ -46,7 +46,7 @@
         </nav>
 
         <div class="flex items-center gap-3">
-            <a href="{{ localized_route('contact') }}" wire:navigate class="group hidden items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-white shadow-soft transition-all duration-200 hover:-translate-y-px hover:bg-blue-700 sm:inline-flex dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
+            <a href="{{ localized_route('contact') }}" wire:navigate class="group hidden items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-white shadow-soft transition-all duration-200 hover:-translate-y-px hover:bg-blue-700 xl:inline-flex dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
                 {{ __('nav.discuss') }}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -54,7 +54,7 @@
             </a>
 
             @if ($cvUrl)
-                <a href="{{ $cvUrl }}" wire:navigate class="hidden rounded-lg border border-ink-300 px-3.5 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-ink-700 transition-colors hover:border-blue-400 hover:text-blue-700 sm:inline-flex dark:border-ink-700 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300">
+                <a href="{{ $cvUrl }}" wire:navigate class="hidden rounded-lg border border-ink-300 px-3.5 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-ink-700 transition-colors hover:border-blue-400 hover:text-blue-700 xl:inline-flex dark:border-ink-700 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300">
                     {{ __('nav.cv') }}
                 </a>
             @endif
@@ -63,7 +63,7 @@
             <a
                 href="{{ $altPath }}"
                 wire:navigate
-                class="inline-flex h-8 items-center rounded-full border border-ink-300/80 bg-ink-100/60 px-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-ink-600 transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-ink-700/80 dark:bg-ink-800/60 dark:text-ink-300 dark:hover:border-blue-500/60 dark:hover:text-blue-300"
+                class="inline-flex h-8 shrink-0 items-center rounded-full border border-ink-300/80 bg-ink-100/60 px-3 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-ink-600 transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-ink-700/80 dark:bg-ink-800/60 dark:text-ink-300 dark:hover:border-blue-500/60 dark:hover:text-blue-300"
                 :aria-label="__('nav.language')"
             >
                 {{ $altLabel }}
@@ -100,7 +100,7 @@
             {{-- Mobile toggle --}}
             <button
                 type="button"
-                class="inline-flex size-10 items-center justify-center rounded-lg text-ink-600 transition-colors hover:bg-ink-100 md:hidden dark:text-ink-200 dark:hover:bg-ink-800/60"
+                class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg text-ink-600 transition-colors hover:bg-ink-100 xl:hidden dark:text-ink-200 dark:hover:bg-ink-800/60"
                 :aria-label="__('nav.menu')"
                 data-site-mobile-toggle
             >
@@ -112,7 +112,7 @@
     </div>
 
     {{-- Mobile menu --}}
-    <div class="hidden border-t border-ink-300 bg-canvas md:hidden dark:border-ink-700" data-site-mobile-menu>
+    <div class="hidden border-t border-ink-300 bg-canvas xl:hidden dark:border-ink-700" data-site-mobile-menu>
         <nav class="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4">
             @foreach ($links as $key => [$label, $url])
                 <a
