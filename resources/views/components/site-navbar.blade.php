@@ -13,7 +13,7 @@
         'contact' => [__('nav.contact'), localized_route('contact')],
     ];
 
-    if (\App\Models\Post::published()->count() < 2) {
+    if (\App\Models\Post::published()->where('locale', app()->getLocale())->count() < 2) {
         unset($links['blog']);
     }
 

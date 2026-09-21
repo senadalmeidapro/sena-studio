@@ -15,6 +15,7 @@ use App\Models\Category;
 use App\Models\ContactMessage;
 use App\Models\Cv;
 use App\Models\Infra;
+use App\Models\Post;
 use App\Models\Project;
 use App\Models\ProjectImage;
 use App\Models\Skill;
@@ -494,7 +495,87 @@ class PortfolioSeeder extends Seeder
 
         */
 
+        $this->seedPosts();
         $this->seedCvs();
+    }
+
+    private function seedPosts(): void
+    {
+        $posts = [
+            [
+                'key' => 'riasec-scoring-engine',
+                'category' => 'architecture',
+                'fr' => [
+                    'title' => 'Concevoir un moteur de scoring RIASEC traçable',
+                    'excerpt' => 'Retour sur la séparation entre réponses, scoring, cohérence du profil et recommandations dans Orientation-BJ.',
+                    'content' => '<h2>Le problème</h2><p>Un questionnaire d’orientation ne se résume pas à additionner des réponses. Le système doit conserver le parcours de la session, calculer plusieurs dimensions et produire un résultat que l’on peut expliquer.</p><h2>Séparer les responsabilités</h2><p>Dans Orientation-BJ, les réponses, les sessions, le calcul des scores, les résultats et les recommandations correspondent à des modules distincts. Cette séparation évite de mélanger la collecte avec la décision métier et rend chaque étape plus facile à tester.</p><h2>Du score à la recommandation</h2><p>Le profil RIASEC est calculé à partir des réponses, puis les codes dominants et les indicateurs de cohérence sont persistés avec le résultat. Les recommandations peuvent ensuite s’appuyer sur ce résultat sans recalculer tout le parcours.</p><h2>Ce que cela change</h2><p>Cette structure rend le système plus lisible : une règle de scoring peut évoluer sans réécrire les contrôleurs de session, et une recommandation peut être expliquée à partir de données conservées.</p>',
+                    'seo' => 'Concevoir un moteur de scoring RIASEC traçable avec NestJS, Prisma et PostgreSQL.',
+                ],
+                'en' => [
+                    'title' => 'Designing a traceable RIASEC scoring engine',
+                    'excerpt' => 'How Orientation-BJ separates answers, scoring, profile consistency and recommendations.',
+                    'content' => '<h2>The problem</h2><p>A career questionnaire is not just a sum of answers. The system must preserve the session journey, calculate several dimensions and produce an explainable result.</p><h2>Separate responsibilities</h2><p>In Orientation-BJ, answers, sessions, scoring, results and recommendations are represented by separate modules. This keeps data collection apart from business decisions and makes each stage easier to test.</p><h2>From score to recommendation</h2><p>The RIASEC profile is calculated from the answers, then dominant codes and consistency indicators are persisted with the result. Recommendations can use that result without recalculating the entire journey.</p><h2>Why it matters</h2><p>This structure keeps the system readable: a scoring rule can evolve without rewriting session controllers, and a recommendation can be explained from stored data.</p>',
+                    'seo' => 'Designing a traceable RIASEC scoring engine with NestJS, Prisma and PostgreSQL.',
+                ],
+            ],
+            [
+                'key' => 'itdesk-lead-to-ticket',
+                'category' => 'application',
+                'fr' => [
+                    'title' => 'De la demande publique au ticket IT : concevoir un workflow fiable',
+                    'excerpt' => 'Comment ITDesk transforme une demande de service en ticket tout en gardant les règles métier dans le domaine.',
+                    'content' => '<h2>Un formulaire n’est que le début</h2><p>Dans ITDesk, une demande envoyée depuis le site public est un lead. Elle doit ensuite être qualifiée, éventuellement convertie en ticket et reliée à un agent sans perdre son contexte.</p><h2>Une conversion idempotente</h2><p>La conversion lead vers ticket est conçue pour être idempotente : une seconde action ne crée pas un doublon. Le lead conserve son statut et la relation vers le ticket créé.</p><h2>Les états appartiennent au domaine</h2><p>Les transitions de ticket sont définies par le modèle métier. Les chemins invalides sont refusés, et le statut fermé reste terminal sauf règle explicite de réouverture.</p><h2>Pourquoi le back-office compte</h2><p>Filament sert ici à rendre les opérations visibles : statuts, permissions, clients, agents et historique sont réunis dans un espace de travail adapté aux rôles.</p>',
+                    'seo' => 'Concevoir un workflow lead vers ticket fiable avec Laravel, Livewire et Filament.',
+                ],
+                'en' => [
+                    'title' => 'From public request to IT ticket: designing a reliable workflow',
+                    'excerpt' => 'How ITDesk turns a service request into a ticket while keeping business rules in the domain.',
+                    'content' => '<h2>A form is only the beginning</h2><p>In ITDesk, a request submitted through the public site is a lead. It must be qualified, potentially converted into a ticket and assigned without losing its context.</p><h2>An idempotent conversion</h2><p>The lead-to-ticket conversion is designed to be idempotent: repeating the action does not create a duplicate. The lead keeps its status and its relation to the created ticket.</p><h2>States belong to the domain</h2><p>Ticket transitions are defined by the domain model. Invalid paths are rejected, and a closed ticket remains terminal unless an explicit reopen rule applies.</p><h2>Why the back office matters</h2><p>Filament makes operations visible: statuses, permissions, clients, agents and history are brought together in a role-aware workspace.</p>',
+                    'seo' => 'Designing a reliable lead-to-ticket workflow with Laravel, Livewire and Filament.',
+                ],
+            ],
+            [
+                'key' => 'stock-transactions-ecommerce-api',
+                'category' => 'api',
+                'fr' => [
+                    'title' => 'Stock et transactions dans une API e-commerce',
+                    'excerpt' => 'Les décisions récentes de Mini Shop API pour éviter les commandes incohérentes et faire évoluer les parcours métier.',
+                    'content' => '<h2>Le stock est une règle métier</h2><p>Ajouter un article au panier et créer une commande ne sont pas de simples opérations CRUD. La quantité demandée doit être validée, et l’état du stock doit rester cohérent pendant le parcours.</p><h2>Valider au bon endroit</h2><p>Mini Shop API combine la validation des DTO avec une vérification métier du stock. La création de commande s’appuie sur une transaction afin de regrouper les écritures liées au panier, aux lignes de commande et à l’inventaire.</p><h2>Faire évoluer sans tout coupler</h2><p>Les commits récents ajoutent la pagination, le rate limiting, les événements de paiement, les factures et les notifications par modules séparés. Ces évolutions gardent les contrôleurs minces et déplacent les décisions dans les services.</p><h2>Une base utile pour le frontend</h2><p>Le frontend n’a pas besoin de connaître les détails internes de la persistance. Il consomme des contrats HTTP et reçoit des erreurs explicites lorsque la règle métier n’est pas respectée.</p>',
+                    'seo' => 'Gérer le stock et les transactions dans une API e-commerce NestJS.',
+                ],
+                'en' => [
+                    'title' => 'Stock and transactions in an e-commerce API',
+                    'excerpt' => 'Recent Mini Shop API decisions for preventing inconsistent orders and evolving business workflows.',
+                    'content' => '<h2>Stock is a business rule</h2><p>Adding an item to a cart and creating an order are not simple CRUD operations. The requested quantity must be validated and stock must remain consistent throughout the flow.</p><h2>Validate at the right boundary</h2><p>Mini Shop API combines DTO validation with a business-level stock check. Order creation uses a transaction to group writes related to the cart, order lines and inventory.</p><h2>Evolve without tight coupling</h2><p>Recent commits add pagination, rate limiting, payment events, invoices and notifications as separate modules. This keeps controllers thin and moves decisions into services.</p><h2>A useful frontend contract</h2><p>The frontend does not need to know persistence details. It consumes HTTP contracts and receives explicit errors when a business rule is not satisfied.</p>',
+                    'seo' => 'Managing stock and transactions in a NestJS e-commerce API.',
+                ],
+            ],
+        ];
+
+        foreach ($posts as $index => $postData) {
+            $category = Category::where('slug', $postData['category'])->first();
+
+            foreach (['fr', 'en'] as $locale) {
+                $content = $postData[$locale];
+                $post = Post::updateOrCreate(
+                    ['slug' => $postData['key'].'-'.$locale],
+                    [
+                        'locale' => $locale,
+                        'title' => $content['title'],
+                        'excerpt' => $content['excerpt'],
+                        'content' => $content['content'],
+                        'status' => Post::STATUS_PUBLISHED,
+                        'published_at' => now()->subDays(10 - ($index * 3)),
+                        'seo_title' => $content['title'],
+                        'seo_description' => $content['seo'],
+                    ],
+                );
+
+                if ($category && ! $post->categories()->whereKey($category->id)->exists()) {
+                    $post->categories()->attach($category->id);
+                }
+            }
+        }
     }
 
     private function seedCvs(): void

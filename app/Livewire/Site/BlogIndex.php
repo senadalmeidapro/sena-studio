@@ -53,6 +53,7 @@ class BlogIndex extends Component
     {
         return Post::query()
             ->published()
+            ->where('locale', app()->getLocale())
             ->with(['categories', 'author'])
             ->when($this->category, fn ($q) => $q->whereHas('categories', fn ($cq) => $cq->where('slug', $this->category)))
             ->orderByDesc('published_at')
@@ -63,7 +64,7 @@ class BlogIndex extends Component
     public function categories()
     {
         return Category::query()
-            ->whereHas('posts')
+            ->whereHas('posts', fn ($query) => $query->published()->where('locale', app()->getLocale()))
             ->withCount('posts')
             ->orderBy('name')
             ->get();

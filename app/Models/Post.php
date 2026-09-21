@@ -28,6 +28,7 @@ class Post extends Model
         'user_id',
         'title',
         'slug',
+        'locale',
         'excerpt',
         'content',
         'cover_image',

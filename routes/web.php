@@ -71,7 +71,7 @@ Route::get('sitemap.xml', function () {
             $urls[] = [$prefix.'/cv/'.$cv->slug, now()->toAtomString()];
         }
 
-        foreach (Post::query()->published()->get(['slug', 'updated_at']) as $post) {
+        foreach (Post::query()->published()->where('locale', $locale)->get(['slug', 'updated_at']) as $post) {
             $urls[] = [$prefix.'/blog/'.$post->slug, $post->updated_at?->toAtomString()];
         }
     }

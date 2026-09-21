@@ -2,7 +2,7 @@
     @php
         $cvPrimarySlug = \App\Models\Cv::primary()->value('slug');
         $cvUrl = $cvPrimarySlug ? localized_route('cv.show', $cvPrimarySlug) : null;
-        $showBlog = \App\Models\Post::published()->count() >= 2;
+        $showBlog = \App\Models\Post::published()->where('locale', app()->getLocale())->count() >= 2;
     @endphp
     <div class="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-[1.4fr_0.8fr_0.8fr] lg:px-8">
         <div class="space-y-4">

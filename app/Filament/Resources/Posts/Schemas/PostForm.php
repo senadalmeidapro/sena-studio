@@ -33,6 +33,12 @@ class PostForm
                             ->default(Post::STATUS_DRAFT)
                             ->required(),
 
+                        Select::make('locale')
+                            ->label('Langue')
+                            ->options(['fr' => 'Français', 'en' => 'English'])
+                            ->default('fr')
+                            ->required(),
+
                         DateTimePicker::make('published_at')
                             ->label('Publié le')
                             ->helperText('Laisser vide : défini automatiquement à la première publication.')

@@ -14,7 +14,7 @@ class BlogShow extends Component
 
     public function mount(Post $post): void
     {
-        abort_unless($post->isPublished(), 404);
+        abort_unless($post->isPublished() && $post->locale === app()->getLocale(), 404);
 
         $this->post = $post->load(['categories', 'author']);
 
