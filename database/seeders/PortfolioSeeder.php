@@ -643,13 +643,13 @@ class PortfolioSeeder extends Seeder
         ]; */
 
         $base = [
-            'title' => 'Curriculum vitae - Full-Stack Developer',
-            'headline' => 'Full-Stack Developer',
+            'title' => 'Curriculum vitae - Sèna Gédéon D\'ALMEIDA',
+            'headline' => 'Sèna Gédéon D\'ALMEIDA - Backend Engineer',
             'email' => 'senadalmeidapro@gmail.com',
             'phone' => '(+229) 01 45 74 08 16',
             'location' => 'Cotonou, Benin',
             'website' => 'https://senadalmeidapro.github.io/CV/',
-            'summary' => 'Full-Stack Developer focused on building secure, reliable, and maintainable web applications across the full development lifecycle, from architecture and database design to API development, frontend integration, testing, and deployment. Experienced with TypeScript, backend systems, relational databases, authentication, authorization, web security, Linux, Git, Docker, CI/CD, and infrastructure automation.',
+            'summary' => 'Backend Engineer focused on building secure, reliable, and maintainable APIs and business applications across the full development lifecycle, from architecture and database design to implementation, testing and deployment. Based in Cotonou, Benin, and open to remote international collaborations.',
             'links' => [
                 ['label' => 'GitHub', 'url' => 'https://github.com/senadalmeidapro'],
                 ['label' => 'LinkedIn', 'url' => 'https://www.linkedin.com/in/senadalmeida'],

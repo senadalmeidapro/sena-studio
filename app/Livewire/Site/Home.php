@@ -33,7 +33,7 @@ class Home extends Component
                         '@type' => 'Person',
                         'name' => config('app.name'),
                         'url' => localized_route('home'),
-                        'jobTitle' => 'Software Engineer',
+                        'jobTitle' => 'Backend Engineer',
                         'knowsAbout' => [
                             'Backend engineering',
                             'API design',
