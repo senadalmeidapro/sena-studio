@@ -34,8 +34,7 @@ trait HandlesCloudinaryImages
         $service = app(CloudinaryService::class);
 
         if (is_string($oldValue) && Str::startsWith($oldValue, ['http://', 'https://'])) {
-            $resolvedOldImage = $service->resolveSecureUrl($oldValue);
-            $oldPublicId = $resolvedOldImage['public_id'] ?? $oldPublicId;
+            $oldPublicId ??= $service->publicIdFromUrl($oldValue);
         }
 
         /*
@@ -54,21 +53,19 @@ trait HandlesCloudinaryImages
         /*
          * Image inchangée : URL Cloudinary déjà en base ou même chemin local.
          */
-        if (Str::startsWith($value, ['http://', 'https://'])) {
-            $resolved = $service->resolveSecureUrl($value);
-
-            if ($resolved !== null) {
-                $data[$field] = $resolved['url'];
-                $data['cloudinary_public_id'] = $resolved['public_id'];
-            } elseif (Str::contains($value, ['res.cloudinary.com', 'cloudinary.com'])) {
-                $data[$field] = $value;
-                $data['cloudinary_public_id'] = $service->publicIdFromUrl($value);
-            }
+        if ($value === $oldValue) {
+            $data[$field] = $oldValue;
+            $data['cloudinary_public_id'] ??= $oldPublicId;
 
             return $data;
         }
 
-        if ($value === $oldValue) {
+        if (Str::startsWith($value, ['http://', 'https://'])) {
+            if (Str::contains($value, ['res.cloudinary.com', 'cloudinary.com'])) {
+                $data[$field] = $value;
+                $data['cloudinary_public_id'] = $service->publicIdFromUrl($value);
+            }
+
             return $data;
         }
 
@@ -84,8 +81,7 @@ trait HandlesCloudinaryImages
 
         if (is_string($deliveryUrl) && filled($deliveryUrl)) {
             $data[$field] = $deliveryUrl;
-            $data['cloudinary_public_id'] = $service->publicIdFromUrl($deliveryUrl)
-                ?? ltrim($value, '/');
+            $data['cloudinary_public_id'] = $service->publicIdFromUrl($deliveryUrl) ?? ltrim($value, '/');
             $this->queueCloudinaryCleanup($oldPublicId, $oldValue);
 
             return $data;
@@ -138,15 +134,15 @@ trait HandlesCloudinaryImages
                 continue;
             }
 
-            $resolved = $service->resolveSecureUrl($deliveryUrl);
+            $publicId = $service->publicIdFromUrl($deliveryUrl);
 
-            if ($resolved === null) {
+            if (blank($publicId)) {
                 continue;
             }
 
             $image->forceFill([
-                'path' => $resolved['url'],
-                'cloudinary_public_id' => $resolved['public_id'],
+                'path' => $deliveryUrl,
+                'cloudinary_public_id' => $publicId,
             ])->saveQuietly();
         }
     }
