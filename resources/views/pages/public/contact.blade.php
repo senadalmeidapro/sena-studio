@@ -67,6 +67,12 @@
                 </dl>
 
                 <div class="mt-10 border-t border-ink-300 pt-8 dark:border-ink-700">
+                    @if (filled(config('services.booking.url')))
+                        <a href="{{ config('services.booking.url') }}" target="_blank" rel="noopener noreferrer" class="mb-8 inline-flex items-center gap-2 rounded-lg border border-blue-300 bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-800 transition-colors hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-200 dark:hover:bg-blue-950/60">
+                            {{ __('contact.booking_label') }}
+                            <span aria-hidden="true">↗</span>
+                        </a>
+                    @endif
                     <p class="eyebrow">{{ __('contact.process_eyebrow') }}</p>
                     <ol class="mt-5 space-y-5">
                         @foreach (['discussion', 'clarification', 'next_step'] as $index => $step)

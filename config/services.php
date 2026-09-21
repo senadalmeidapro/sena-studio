@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'booking' => [
+        'url' => env('BOOKING_URL'),
+    ],
+
 ];
