@@ -359,6 +359,33 @@ class PortfolioSeeder extends Seeder
             ],
         ];
 
+        $verifiedProjectUpdates = [
+            'mini-shop-api' => [
+                'description' => 'API REST e-commerce NestJS et TypeORM couvrant l’authentification, les utilisateurs, les adresses, les produits, les catégories, les paniers, les commandes, les paiements, les avis, les notifications et la facturation.',
+                'role' => 'Conception backend et architecture API',
+                'problem' => 'Construire un socle e-commerce capable de gérer le catalogue, le panier, les commandes et les paiements avec des règles métier explicites.',
+                'architecture' => 'API REST modulaire avec NestJS, TypeORM et PostgreSQL, organisée autour de modules métier et d’événements de paiement.',
+                'technical_decisions' => 'Validation stricte des entrées, authentification JWT, vérification du stock dans une transaction, pagination, rate limiting et génération de factures.',
+                'result' => 'Un backend indépendant du frontend avec des parcours métier structurés et des évolutions récentes vérifiables dans l’historique GitHub.',
+            ],
+            'api-orientation' => [
+                'description' => 'Backend NestJS d’une plateforme d’orientation professionnelle destinée principalement aux jeunes béninois, avec parcours RIASEC, scoring multidimensionnel et recommandations de métiers.',
+                'role' => 'Backend, modélisation métier et moteur de recommandation',
+                'problem' => 'Transformer un questionnaire d’orientation en résultats cohérents, traçables et compréhensibles, adaptés au contexte local.',
+                'architecture' => 'Application NestJS, TypeScript, Prisma et PostgreSQL, avec Redis pour le cache adaptatif, des guards globaux et des modules métier séparés.',
+                'technical_decisions' => 'Validation globale stricte, JWT, RBAC, rate limiting, audit trail, scoring séparé des recommandations, export PDF et intégrations optionnelles.',
+                'result' => 'Une base backend documentée autour du domaine : sessions, réponses, scoring, résultats, recommandations, métiers, établissements et ressources.',
+            ],
+            'itdesk' => [
+                'description' => 'Plateforme Laravel de gestion des services IT avec catalogue public, formulaires par service, back-office Filament, tickets, approbations, incidents, problèmes, changements et suivi des actifs.',
+                'role' => 'Conception full-stack et modélisation des workflows',
+                'problem' => 'Relier les demandes publiques, les opérations IT et le support interne dans un même flux compréhensible par chaque rôle.',
+                'architecture' => 'Monolithe Laravel avec Blade, Livewire, Filament, politiques d’accès et modèles métier séparés pour les leads, tickets, actifs et licences.',
+                'technical_decisions' => 'Limiter les champs de formulaire au schéma déclaré, convertir les leads en tickets de manière idempotente et imposer les transitions d’état au niveau du modèle.',
+                'result' => 'Un workflow vérifiable de capture lead → ticket, complété par un back-office, une CMDB et des suites de tests dédiées.',
+            ],
+        ];
+
         foreach ($projectsData as $projectData) {
             $skillsInProject = $projectData['skills'];
             $stackModel = $projectData['stack'] ?? null;
@@ -371,6 +398,7 @@ class PortfolioSeeder extends Seeder
                 [
                     ...$projectData,
                     ...($caseStudies[$projectData['slug']] ?? []),
+                    ...($verifiedProjectUpdates[$projectData['slug']] ?? []),
                     'version' => '1.0.0',
                     'started_at' => $projectData['started_at'] ?? null,
                     'ended_at' => $projectData['ended_at'] ?? null,
