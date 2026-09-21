@@ -1,5 +1,75 @@
-<div class="public-page cv-page mx-auto max-w-4xl px-4 pb-24 pt-10 sm:px-6 lg:px-8">
-    <a href="{{ localized_route('home') }}" wire:navigate class="inline-flex items-center gap-1.5 text-sm text-ink-500 transition-colors hover:text-blue-600 dark:text-ink-400 dark:hover:text-blue-300">
+<style>
+    .cv-page {
+        --cv-paper: #ffffff;
+        --cv-frame: #dfe1e6;
+        min-height: 100vh;
+        padding: 24px 0;
+        background: var(--cv-frame);
+    }
+
+    .cv-page > .cv-back-link,
+    .cv-page > .cv-draft-notice {
+        display: block;
+        width: min(210mm, calc(100% - 32px));
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .cv-page > .cv-back-link {
+        margin-bottom: 12px;
+    }
+
+    .cv-page > .cv-draft-notice {
+        margin-bottom: 12px;
+    }
+
+    .cv-page > article {
+        width: min(210mm, 100%);
+        margin-right: auto;
+        margin-left: auto;
+        border: 0;
+        border-radius: 0;
+        background: var(--cv-paper);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.14);
+    }
+
+    @media print {
+        .cv-page {
+            padding: 0;
+            background: var(--cv-paper);
+        }
+
+        .cv-page > .cv-back-link,
+        .cv-page > .cv-draft-notice {
+            display: none;
+        }
+
+        .cv-page > article {
+            width: 100%;
+            box-shadow: none;
+        }
+    }
+
+    @media (max-width: 720px) {
+        .cv-page {
+            padding: 0;
+        }
+
+        .cv-page > .cv-back-link,
+        .cv-page > .cv-draft-notice {
+            width: auto;
+            margin-right: 16px;
+            margin-left: 16px;
+        }
+
+        .cv-page > article {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="public-page cv-page">
+    <a href="{{ localized_route('home') }}" wire:navigate class="cv-back-link inline-flex items-center gap-1.5 text-sm text-ink-500 transition-colors hover:text-blue-600 dark:text-ink-400 dark:hover:text-blue-300">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4">
             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12l7.5-7.5m5.25 15L8.25 12l7.5-7.5" />
         </svg>
@@ -7,7 +77,7 @@
     </a>
 
     @if (! $cv->isPublished())
-        <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-amber-300 bg-amber-50 px-4 py-1.5 text-xs font-medium text-amber-800 dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-300">
+        <div class="cv-draft-notice inline-flex items-center gap-2 rounded-full border border-amber-300 bg-amber-50 px-4 py-1.5 text-xs font-medium text-amber-800 dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-300">
             <span class="relative flex size-2">
                 <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
                 <span class="relative inline-flex size-2 rounded-full bg-amber-500"></span>
@@ -30,7 +100,7 @@
 
     <article
         style="--accent: {{ $accent }};"
-        class="mt-8 overflow-hidden rounded-3xl border border-ink-300 bg-card shadow-xl shadow-ink-900/5 motion-safe:animate-fade-up dark:border-ink-700"
+        class="overflow-hidden"
     >
         @if ($cv->template->value === 'engineering')
             @include('pages.public.cv-show._engineering')
