@@ -246,10 +246,10 @@
             </div>
             <div class="mt-6 flex flex-wrap gap-2">
                 @foreach ($project->skills as $skill)
-                    <span class="inline-flex items-center gap-2 rounded-lg border border-ink-300 bg-card px-3 py-1.5 font-mono text-[0.72rem] uppercase tracking-[0.08em] text-ink-700 shadow-soft dark:border-ink-700 dark:text-ink-200">
+                    <a href="{{ skill_url($skill->name) }}" wire:navigate class="inline-flex items-center gap-2 rounded-lg border border-ink-300 bg-card px-3 py-1.5 font-mono text-[0.72rem] uppercase tracking-[0.08em] text-ink-700 shadow-soft transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-ink-700 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300">
                         @if ($skill->icon) <x-site-icon :icon="$skill->icon" class="size-4" /> @endif
                         {{ $skill->name }}
-                    </span>
+                    </a>
                 @endforeach
             </div>
         </section>
@@ -271,10 +271,14 @@
                         <h3 class="mb-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-blue-600 dark:text-blue-300">{{ \App\Enums\StackItemCategory::from($category)->label() }}</h3>
                         <div class="flex flex-wrap gap-2">
                             @foreach ($items as $item)
-                                <span class="inline-flex items-center gap-1.5 rounded bg-ink-100 px-2 py-1 font-mono text-[0.72rem] text-ink-700 dark:bg-ink-800 dark:text-ink-200">
+                                @if ($project->skills->contains('name', $item->value))
+                                    <a href="{{ skill_url($item->value) }}" wire:navigate class="inline-flex items-center gap-1.5 rounded bg-ink-100 px-2 py-1 font-mono text-[0.72rem] text-ink-700 transition-colors hover:text-blue-700 dark:bg-ink-800 dark:text-ink-200 dark:hover:text-blue-300">
+                                @else
+                                    <span class="inline-flex items-center gap-1.5 rounded bg-ink-100 px-2 py-1 font-mono text-[0.72rem] text-ink-700 dark:bg-ink-800 dark:text-ink-200">
+                                @endif
                                     @if ($item->icon) <x-site-icon :icon="$item->icon" class="size-3.5" /> @endif
                                     {{ $item->value }}@if ($item->version) <span class="text-ink-500 dark:text-ink-500">{{ $item->version }}</span>@endif
-                                </span>
+                                @if ($project->skills->contains('name', $item->value))</a>@else</span>@endif
                             @endforeach
                         </div>
                     </div>

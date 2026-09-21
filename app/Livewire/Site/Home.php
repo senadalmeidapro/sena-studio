@@ -75,6 +75,15 @@ class Home extends Component
     }
 
     #[Computed]
+    public function skillNames(): array
+    {
+        return Skill::query()
+            ->where('is_active', true)
+            ->pluck('name')
+            ->all();
+    }
+
+    #[Computed]
     public function projectCount()
     {
         return Project::query()

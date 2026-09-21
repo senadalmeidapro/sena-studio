@@ -2,6 +2,7 @@
 
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 if (! function_exists('localized_route')) {
     /**
@@ -15,6 +16,20 @@ if (! function_exists('localized_route')) {
         $url = app('url');
 
         return $url->route($name, ['locale' => app()->getLocale()] + $params, $absolute);
+    }
+}
+
+if (! function_exists('skill_anchor')) {
+    function skill_anchor(string $name): string
+    {
+        return 'skill-'.Str::slug($name);
+    }
+}
+
+if (! function_exists('skill_url')) {
+    function skill_url(string $name): string
+    {
+        return localized_route('skills.index').'#'.skill_anchor($name);
     }
 }
 

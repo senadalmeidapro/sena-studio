@@ -41,7 +41,7 @@
 
                 <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($skills as $skill)
-                        <div class="group flex flex-col rounded-2xl border border-ink-300 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-400/60 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/40">
+                        <div id="{{ skill_anchor($skill->name) }}" class="group scroll-mt-28 flex flex-col rounded-2xl border border-ink-300 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-400/60 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/40">
                             <div class="flex items-start justify-between gap-3">
                                 <div class="flex items-start gap-3">
                                     @if ($skill->icon)
@@ -106,10 +106,14 @@
                                     <h4 class="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-blue-600 dark:text-blue-300">{{ \App\Enums\StackItemCategory::from($category)->label() }}</h4>
                                     <div class="flex flex-wrap gap-2">
                                         @foreach ($items as $item)
-                                            <span class="inline-flex items-center gap-1.5 rounded-md border border-ink-200 bg-ink-50 px-2.5 py-1 text-xs text-ink-700 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-200">
+                                            @if ($this->byRole->flatten()->contains('name', $item->value))
+                                                <a href="{{ skill_url($item->value) }}" wire:navigate class="inline-flex items-center gap-1.5 rounded-md border border-ink-200 bg-ink-50 px-2.5 py-1 text-xs text-ink-700 transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300">
+                                            @else
+                                                <span class="inline-flex items-center gap-1.5 rounded-md border border-ink-200 bg-ink-50 px-2.5 py-1 text-xs text-ink-700 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-200">
+                                            @endif
                                                 @if ($item->icon) <x-site-icon :icon="$item->icon" class="size-3.5" /> @endif
                                                 {{ $item->value }}
-                                            </span>
+                                            @if ($this->byRole->flatten()->contains('name', $item->value))</a>@else</span>@endif
                                         @endforeach
                                     </div>
                                 </div>

@@ -61,7 +61,11 @@
                                                         <x-site-icon :icon="$item->icon" class="size-5" />
                                                     @endif
                                                 </span>
-                                                {{ $item->value }}
+                                                @if (in_array($item->value, $this->skillNames, true))
+                                                    <a href="{{ skill_url($item->value) }}" wire:navigate class="transition-colors hover:text-blue-700 dark:hover:text-blue-300">{{ $item->value }}</a>
+                                                @else
+                                                    {{ $item->value }}
+                                                @endif
                                             </span>
                                             @if ($item->version)
                                                 <span class="font-mono text-xs tabular-nums text-ink-500 dark:text-ink-500">{{ $item->version }}</span>

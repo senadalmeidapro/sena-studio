@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Site;
 
+use App\Models\Skill;
 use App\Models\Stack as StackModel;
 use App\Services\Seo;
 use Livewire\Attributes\Computed;
@@ -29,6 +30,15 @@ class Stack extends Component
             ->where('is_active', true)
             ->with(['stackItems', 'projects' => fn ($q) => $q->where('visibility', 'public')->where('status', '!=', 'cancelled')])
             ->get();
+    }
+
+    #[Computed]
+    public function skillNames(): array
+    {
+        return Skill::query()
+            ->where('is_active', true)
+            ->pluck('name')
+            ->all();
     }
 
     public function render()
