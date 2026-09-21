@@ -19,8 +19,13 @@ class ProjectsMissingMediaWidget extends Widget
     {
         return [
             'projects' => Project::query()
-                ->whereNull('image')
-                ->orWhereDoesntHave('projectImages')
+                ->where('visibility', 'public')
+                ->where('status', '!=', 'cancelled')
+                ->where('slug', '!=', 'portfolio-sena-studio')
+                ->where(function ($query): void {
+                    $query->whereNull('image')
+                        ->orWhereDoesntHave('projectImages');
+                })
                 ->latest()
                 ->take(8)
                 ->get(),
