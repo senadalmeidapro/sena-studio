@@ -18,10 +18,10 @@
             <p class="eyebrow">{{ __('skills.signal_title') }}</p>
             <p class="mt-2 max-w-md text-sm leading-relaxed text-ink-500 dark:text-ink-400">{{ __('skills.signal_text') }}</p>
         </div>
-        @foreach ([__('skills.signal_backend') => '01', __('skills.signal_data') => '02', __('skills.signal_infra') => '03'] as $label => $number)
+        @foreach ([__('skills.signal_backend'), __('skills.signal_data'), __('skills.signal_infra')] as $label)
             <div class="border-l border-ink-200 pl-4 dark:border-ink-700">
-                <span class="engineering-number">{{ $number }}</span>
-                <p class="mt-2 text-sm font-medium text-ink-800 dark:text-ink-200">{{ $label }}</p>
+                <span class="block size-2 rounded-full bg-blue-500"></span>
+                <p class="mt-3 text-sm font-medium text-ink-800 dark:text-ink-200">{{ $label }}</p>
             </div>
         @endforeach
     </section>

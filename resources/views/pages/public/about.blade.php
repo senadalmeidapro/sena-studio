@@ -77,7 +77,7 @@
         <ol class="mt-8 grid gap-px overflow-hidden rounded-xl border border-ink-300 bg-ink-300/80 sm:grid-cols-2 dark:border-ink-700 dark:bg-ink-700/60">
             @foreach (range(1, 4) as $number)
                 <li class="bg-card p-6 transition-colors hover:bg-blue-50/60 dark:hover:bg-blue-950/20">
-                    <span class="engineering-number">0{{ $number }}</span>
+                    <span class="block size-2 rounded-full bg-blue-500"></span>
                     <h3 class="mt-5 font-display text-lg font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('about.principle_'.$number) }}</h3>
                     <p class="mt-2 text-sm leading-relaxed text-ink-500 dark:text-ink-400">{{ __('about.principle_'.$number.'_text') }}</p>
                 </li>

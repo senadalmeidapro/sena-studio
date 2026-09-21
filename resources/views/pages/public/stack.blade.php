@@ -20,10 +20,10 @@
                 <p class="mt-3 max-w-xl text-sm leading-relaxed text-ink-600 dark:text-ink-400">{{ __('stack.signal_text') }}</p>
             </div>
             <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                @foreach ([__('stack.signal_interface') => '01', __('stack.signal_core') => '02', __('stack.signal_data') => '03', __('stack.signal_delivery') => '04'] as $label => $number)
+                @foreach ([__('stack.signal_interface'), __('stack.signal_core'), __('stack.signal_data'), __('stack.signal_delivery')] as $label)
                     <div class="border-l border-ink-200 pl-3 dark:border-ink-700">
-                        <span class="engineering-number">{{ $number }}</span>
-                        <p class="mt-2 text-xs font-medium text-ink-700 dark:text-ink-200">{{ $label }}</p>
+                        <span class="block size-2 rounded-full bg-blue-500"></span>
+                        <p class="mt-3 text-xs font-medium text-ink-700 dark:text-ink-200">{{ $label }}</p>
                     </div>
                 @endforeach
             </div>

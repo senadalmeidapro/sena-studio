@@ -110,7 +110,6 @@
     "home.stats_case_studies": "Études de cas",
     "home.stats_base": "Base de travail",
     "home.stats_location": "Cotonou · remote",
-    "home.fig_portrait": "FIG. 01 — Portrait",
     "home.available": "Ouvert aux nouveaux projets · Cotonou · remote",
     "home.badge": "APIs · applications métier · backoffices",
     "home.badge_sub": "Laravel · NestJS · PostgreSQL · Docker",
@@ -172,9 +171,9 @@
 
     "projects.eyebrow": "Portfolio",
     "projects.title": "Projets",
-    "projects.subtitle": "Une sélection de réalisations : applications web, SaaS et solutions logicielles conçues avec le souci du détail et de la performance.",
-    "projects.signal_title": "Réalisations d’ingénierie",
-    "projects.signal_text": "Filtrez par type de produit, domaine ou technologie. Chaque projet met en avant les choix et les outils derrière le résultat.",
+    "projects.subtitle": "Découvrez des APIs, applications métier et plateformes web conçues pour rester compréhensibles, testables et utiles.",
+    "projects.signal_title": "Explorer les projets",
+    "projects.signal_text": "Parcourez les réalisations par type, domaine ou technologie, puis ouvrez une fiche pour comprendre les décisions techniques.",
     "projects.signal_total": "Projets publics",
     "projects.signal_domains": "Domaines",
     "projects.signal_skills": "Technologies utilisées",
@@ -187,6 +186,7 @@
     "projects.skills_filter": "Compétences :",
     "projects.all_skills": "Toutes",
     "projects.reset": "Réinitialiser les filtres",
+    "projects.filters_title": "Affiner la sélection",
     "projects.empty": "Aucun projet dans cette catégorie pour le moment.",
 
     "skills.eyebrow": "Expertises",
