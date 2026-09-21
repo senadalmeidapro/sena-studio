@@ -27,6 +27,12 @@ class Skills extends Component
     public function byRole()
     {
         $roles = ['backend', 'frontend', 'database', 'devops', 'other'];
+        $roleHints = [
+            'backend' => ['PHP', 'Laravel', 'Livewire', 'Filament', 'Node.js', 'NestJS', 'Express.js', 'REST API', 'WebSockets', 'Prisma', 'TypeORM'],
+            'database' => ['MySQL', 'PostgreSQL', 'Redis'],
+            'devops' => ['Docker', 'Linux', 'Git', 'GitHub', 'GitHub Actions'],
+            'frontend' => ['React', 'Vue.js', 'Blade', 'Alpine.js', 'Tailwind CSS'],
+        ];
 
         return Skill::query()
             ->where('is_active', true)
@@ -38,9 +44,12 @@ class Skills extends Component
                     ->where('slug', '!=', 'portfolio-sena-studio'),
             ])
             ->get()
-            ->groupBy(function ($skill) use ($roles): string {
+            ->groupBy(function ($skill) use ($roles, $roleHints): string {
                 foreach ($roles as $role) {
-                    if ($role !== 'other' && $skill->categories->contains('slug', $role)) {
+                    if ($role !== 'other' && (
+                        $skill->categories->contains('slug', $role)
+                        || in_array($skill->name, $roleHints[$role] ?? [], true)
+                    )) {
                         return $role;
                     }
                 }

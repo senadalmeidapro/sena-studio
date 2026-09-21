@@ -164,7 +164,7 @@
 
     "skills.eyebrow": "Expertises",
     "skills.title": "Compétences",
-    "skills.subtitle": "Un aperçu de mes expertises, classées par niveau de maîtrise.",
+    "skills.subtitle": "Un aperçu de mes compétences, regroupées par rôle et reliées aux projets qui les mettent en pratique.",
     "skills.signal_title": "Capacités d’ingénierie",
     "skills.signal_text": "Les technologies sont présentées dans leur contexte : l’essentiel est la manière de les combiner pour résoudre un problème concret.",
     "skills.signal_backend": "Backend & APIs",

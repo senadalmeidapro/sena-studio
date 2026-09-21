@@ -164,7 +164,7 @@
 
     "skills.eyebrow": "Expertise",
     "skills.title": "Skills",
-    "skills.subtitle": "An overview of my expertise, sorted by mastery level.",
+    "skills.subtitle": "An overview of my skills, grouped by role and connected to the projects where they are applied.",
     "skills.signal_title": "Engineering capabilities",
     "skills.signal_text": "Technologies are shown in context: what matters is how they are combined to solve a real problem.",
     "skills.signal_backend": "Backend & APIs",
