@@ -9,6 +9,7 @@ use App\Livewire\Site\Home;
 use App\Livewire\Site\PostPreview;
 use App\Livewire\Site\ProjectDetail;
 use App\Livewire\Site\Projects;
+use App\Livewire\Site\Services;
 use App\Livewire\Site\Skills;
 use App\Models\Cv;
 use App\Models\Post;
@@ -25,6 +26,7 @@ Route::prefix('{locale?}')
         Route::get('projets', Projects::class)->name('projects.index');
         Route::get('projets/{project:slug}', ProjectDetail::class)->name('projects.show');
         Route::get('competences', Skills::class)->name('skills.index');
+        Route::get('services', Services::class)->name('services');
         Route::get('stack', fn () => redirect(localized_route('skills.index'), 301))->name('stack.index');
         Route::get('a-propos', About::class)->name('about');
         Route::get('blog', BlogIndex::class)->name('posts.index');
@@ -52,6 +54,7 @@ Route::get('sitemap.xml', function () {
         $urls[] = [$prefix, now()->toAtomString()];
         $urls[] = [$prefix.'/projets', now()->toAtomString()];
         $urls[] = [$prefix.'/competences', now()->toAtomString()];
+        $urls[] = [$prefix.'/services', now()->toAtomString()];
         $urls[] = [$prefix.'/a-propos', now()->toAtomString()];
         $urls[] = [$prefix.'/blog', now()->toAtomString()];
         $urls[] = [$prefix.'/contact', now()->toAtomString()];

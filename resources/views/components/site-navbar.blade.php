@@ -6,7 +6,8 @@
 
     $links = [
         'projects' => [__('nav.projects'), localized_route('projects.index')],
-        'services' => [__('nav.services'), localized_route('home').'#services'],
+        'services' => [__('nav.services'), localized_route('services')],
+        'skills' => [__('nav.skills'), localized_route('skills.index')],
         'about' => [__('nav.about'), localized_route('about')],
         'blog' => [__('nav.blog'), localized_route('posts.index')],
         'contact' => [__('nav.contact'), localized_route('contact')],
