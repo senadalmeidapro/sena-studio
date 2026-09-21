@@ -62,6 +62,8 @@ Route::get('sitemap.xml', function () {
         $urls[] = [$prefix.'/a-propos', now()->toAtomString()];
         $urls[] = [$prefix.'/blog', now()->toAtomString()];
         $urls[] = [$prefix.'/contact', now()->toAtomString()];
+        $urls[] = [$prefix.'/mentions-legales', now()->toAtomString()];
+        $urls[] = [$prefix.'/confidentialite', now()->toAtomString()];
 
         foreach (Project::query()->where('visibility', 'public')->where('status', '!=', 'cancelled')->where('slug', '!=', 'portfolio-sena-studio')->get(['slug', 'updated_at']) as $project) {
             $urls[] = [$prefix.'/projets/'.$project->slug, $project->updated_at?->toAtomString()];
