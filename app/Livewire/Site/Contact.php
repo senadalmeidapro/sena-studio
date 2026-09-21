@@ -49,11 +49,11 @@ class Contact extends Component
     public function budgetOptions(): array
     {
         return [
-            'moins-1k' => 'Moins de 1 000 €',
-            '1k-5k' => '1 000 € – 5 000 €',
-            '5k-15k' => '5 000 € – 15 000 €',
-            'plus-15k' => 'Plus de 15 000 €',
-            'a-definir' => 'À définir ensemble',
+            'moins-1k' => __('contact.budget_less_1k'),
+            '1k-5k' => __('contact.budget_1k_5k'),
+            '5k-15k' => __('contact.budget_5k_15k'),
+            'plus-15k' => __('contact.budget_more_15k'),
+            'a-definir' => __('contact.budget_to_define'),
         ];
     }
 

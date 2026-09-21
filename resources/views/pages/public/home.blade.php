@@ -162,6 +162,27 @@
         </ol>
     </section>
 
+    <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <x-front.section-heading
+            :label="__('home.engagement.label')"
+            :title="__('home.engagement.title')"
+            :subtitle="__('home.engagement.subtitle')"
+        />
+
+        <div class="grid gap-4 md:grid-cols-3">
+            @foreach ([
+                [__('home.engagement.mvp'), __('home.engagement.mvp_text')],
+                [__('home.engagement.audit'), __('home.engagement.audit_text')],
+                [__('home.engagement.continuous'), __('home.engagement.continuous_text')],
+            ] as [$title, $text])
+                <article class="rounded-2xl border border-ink-300 bg-card p-6 transition-colors hover:border-blue-400/60 dark:border-ink-700 dark:hover:border-blue-500/50">
+                    <h3 class="font-display text-xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ $title }}</h3>
+                    <p class="mt-3 text-sm leading-relaxed text-ink-600 dark:text-ink-400">{{ $text }}</p>
+                </article>
+            @endforeach
+        </div>
+    </section>
+
     {{-- ===================== 03 — PORTFOLIO ===================== --}}
     @if ($this->featuredProjects->isNotEmpty())
         <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

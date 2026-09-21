@@ -46,7 +46,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
                             </svg>
                         </dt>
-                        <dd class="font-mono text-sm uppercase tracking-[0.1em] text-ink-700 dark:text-ink-200">contact@senastudio.fr</dd>
+                        <dd class="font-mono text-sm uppercase tracking-[0.1em] text-ink-700 dark:text-ink-200">senadalmeidapro@gmail.com</dd>
                     </div>
                     <div class="grid grid-cols-[auto_1fr] gap-4">
                         <dt class="pt-0.5 text-blue-600 dark:text-blue-400">
@@ -97,7 +97,7 @@
                                 type="text"
                                 wire:model="name"
                                 class="{{ $input }}"
-                                placeholder="Votre nom"
+                                placeholder="{{ __('contact.form_name_placeholder') }}"
                             />
                             @error('name') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                         </div>
@@ -109,7 +109,7 @@
                                 type="email"
                                 wire:model="email"
                                 class="{{ $input }}"
-                                placeholder="vous@exemple.com"
+                                placeholder="{{ __('contact.form_email_placeholder') }}"
                             />
                             @error('email') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                         </div>
@@ -123,7 +123,7 @@
                                 type="tel"
                                 wire:model="phone"
                                 class="{{ $input }}"
-                                placeholder="06 12 34 56 78"
+                                placeholder="{{ __('contact.form_phone_placeholder') }}"
                             />
                             @error('phone') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                         </div>
@@ -135,7 +135,7 @@
                                 type="text"
                                 wire:model="company"
                                 class="{{ $input }}"
-                                placeholder="Nom de votre entreprise"
+                                placeholder="{{ __('contact.form_company_placeholder') }}"
                             />
                             @error('company') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                         </div>
@@ -149,7 +149,7 @@
                                 type="text"
                                 wire:model="subject"
                                 class="{{ $input }}"
-                                placeholder="Objet de votre message"
+                                placeholder="{{ __('contact.form_subject_placeholder') }}"
                             />
                             @error('subject') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                         </div>
@@ -177,7 +177,7 @@
                             wire:model="message"
                             rows="6"
                             class="resize-none {{ $input }}"
-                            placeholder="Décrivez votre projet..."
+                            placeholder="{{ __('contact.form_message_placeholder') }}"
                         ></textarea>
                         @error('message') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                     </div>
