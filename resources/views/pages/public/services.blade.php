@@ -6,10 +6,9 @@
     </header>
 
     <section class="mt-14 grid gap-px overflow-hidden rounded-2xl border border-ink-300 bg-ink-300 dark:border-ink-700 dark:bg-ink-700/70 sm:grid-cols-2">
-        @foreach ([['home.services.web', 'home.services.web_text'], ['home.services.saas', 'home.services.saas_text'], ['home.services.apis', 'home.services.apis_text'], ['home.services.perf', 'home.services.perf_text']] as $index => [$title, $text])
+        @foreach ([['home.services.web', 'home.services.web_text'], ['home.services.saas', 'home.services.saas_text'], ['home.services.apis', 'home.services.apis_text'], ['home.services.perf', 'home.services.perf_text']] as [$title, $text])
             <article class="bg-card p-7 transition-colors hover:bg-blue-50/60 dark:hover:bg-blue-950/20 sm:p-9">
-                <span class="font-mono text-xs font-semibold text-blue-600 dark:text-blue-300">0{{ $index + 1 }}</span>
-                <h2 class="mt-8 font-display text-2xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __($title) }}</h2>
+                <h2 class="font-display text-2xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __($title) }}</h2>
                 <p class="mt-3 max-w-md leading-relaxed text-ink-600 dark:text-ink-300">{{ __($text) }}</p>
             </article>
         @endforeach
@@ -22,11 +21,10 @@
             <p class="mt-4 max-w-md leading-relaxed text-ink-600 dark:text-ink-300">{{ __('services.engagement_text') }}</p>
         </div>
         <div class="grid gap-4">
-            @foreach (['mvp', 'audit', 'support'] as $index => $item)
+            @foreach (['mvp', 'audit', 'continuous'] as $item)
                 <article class="rounded-xl border border-ink-300 bg-card p-6 shadow-soft dark:border-ink-700">
-                    <div class="flex items-start justify-between gap-4">
+                    <div>
                         <h3 class="font-display text-xl font-semibold text-ink-900 dark:text-ink-50">{{ __('home.engagement.'.$item) }}</h3>
-                        <span class="font-mono text-xs text-blue-600 dark:text-blue-300">0{{ $index + 1 }}</span>
                     </div>
                     <p class="mt-3 leading-relaxed text-ink-600 dark:text-ink-300">{{ __('home.engagement.'.$item.'_text') }}</p>
                 </article>
