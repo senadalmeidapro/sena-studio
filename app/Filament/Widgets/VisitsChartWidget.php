@@ -4,7 +4,6 @@ namespace App\Filament\Widgets;
 
 use App\Models\PageView;
 use Filament\Widgets\LineChartWidget;
-use Illuminate\Support\Collection;
 
 class VisitsChartWidget extends LineChartWidget
 {
@@ -24,9 +23,9 @@ class VisitsChartWidget extends LineChartWidget
         $views = PageView::query()
             ->public()
             ->where('created_at', '>=', $start)
-            ->get(['created_at'])
-            ->groupBy(fn (PageView $view): string => $view->created_at->format('Y-m-d'))
-            ->map(fn (Collection $day): int => $day->count());
+            ->selectRaw('DATE(created_at) as day, COUNT(*) as aggregate')
+            ->groupByRaw('DATE(created_at)')
+            ->pluck('aggregate', 'day');
 
         $labels = [];
         $data = [];

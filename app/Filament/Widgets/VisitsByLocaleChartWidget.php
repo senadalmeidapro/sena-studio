@@ -21,9 +21,9 @@ class VisitsByLocaleChartWidget extends DoughnutChartWidget
         $counts = PageView::query()
             ->public()
             ->since(30)
-            ->get(['locale'])
-            ->groupBy(fn (PageView $view): string => $view->locale ?: 'fr')
-            ->map->count();
+            ->selectRaw("COALESCE(locale, 'fr') as locale, COUNT(*) as aggregate")
+            ->groupByRaw("COALESCE(locale, 'fr')")
+            ->pluck('aggregate', 'locale');
 
         return [
             'datasets' => [

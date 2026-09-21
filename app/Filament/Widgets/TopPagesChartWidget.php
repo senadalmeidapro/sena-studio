@@ -21,11 +21,11 @@ class TopPagesChartWidget extends BarChartWidget
         $pages = PageView::query()
             ->public()
             ->since(30)
-            ->get(['path'])
+            ->selectRaw('path, COUNT(*) as aggregate')
             ->groupBy('path')
-            ->map->count()
-            ->sortDesc()
-            ->take(10);
+            ->orderByDesc('aggregate')
+            ->limit(10)
+            ->pluck('aggregate', 'path');
 
         return [
             'datasets' => [
