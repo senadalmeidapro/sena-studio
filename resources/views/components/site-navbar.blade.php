@@ -17,6 +17,16 @@
         unset($links['blog']);
     }
 
+    $activeKey = $current ?: match (true) {
+        request()->routeIs('projects.*') => 'projects',
+        request()->routeIs('services') => 'services',
+        request()->routeIs('skills.*', 'stack.*') => 'skills',
+        request()->routeIs('about') => 'about',
+        request()->routeIs('posts.*') => 'blog',
+        request()->routeIs('contact') => 'contact',
+        default => null,
+    };
+
     $altPath = alt_locale_path();
     $altLabel = app()->getLocale() === 'fr' ? 'EN' : 'FR';
     $altFull = app()->getLocale() === 'fr' ? 'English' : 'Français';
@@ -36,7 +46,7 @@
                     wire:navigate
                     @class([
                         'nav-link pb-0.5',
-                        'nav-link-active' => $current === $key,
+                        'nav-link-active' => $activeKey === $key,
                         'pointer-events-none opacity-40' => ! $cvUrl && $key === 'cv',
                     ])
                 >
@@ -54,7 +64,11 @@
             </a>
 
             @if ($cvUrl)
-                <a href="{{ $cvUrl }}" wire:navigate class="hidden rounded-lg border border-ink-300 px-3.5 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-ink-700 transition-colors hover:border-blue-400 hover:text-blue-700 xl:inline-flex dark:border-ink-700 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300">
+                <a href="{{ $cvUrl }}" wire:navigate @class([
+                    'hidden rounded-lg px-3.5 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] transition-colors xl:inline-flex',
+                    'border border-blue-500 bg-blue-50 text-blue-700 dark:border-blue-500 dark:bg-blue-500/15 dark:text-blue-300' => request()->routeIs('cv.show'),
+                    'border border-ink-300 text-ink-700 hover:border-blue-400 hover:text-blue-700 dark:border-ink-700 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300' => ! request()->routeIs('cv.show'),
+                ])>
                     {{ __('nav.cv') }}
                 </a>
             @endif
@@ -120,8 +134,8 @@
                     wire:navigate
                     @class([
                         'rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
-                        'bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' => $current === $key,
-                        'text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-800/50' => $current !== $key,
+                        'bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' => $activeKey === $key,
+                        'text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-800/50' => $activeKey !== $key,
                         'pointer-events-none opacity-40' => ($key === 'cv' && ! $cvUrl),
                     ])
                 >
