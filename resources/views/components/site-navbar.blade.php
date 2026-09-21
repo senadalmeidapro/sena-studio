@@ -34,7 +34,7 @@
     }
     $localeTail = $pathSegments->isEmpty() ? '' : '/'.$pathSegments->implode('/');
     $localeOptions = [
-        'fr' => ['label' => 'Francais', 'url' => '/fr'.$localeTail],
+        'fr' => ['label' => 'Français', 'url' => '/fr'.$localeTail],
         'en' => ['label' => 'English', 'url' => '/en'.$localeTail],
     ];
 @endphp
