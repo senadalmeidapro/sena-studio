@@ -41,7 +41,7 @@ class Contact extends Component
     {
         app(Seo::class)->set(
             title: null,
-            description: 'Contact Sena Studio to discuss an API, business application or backend engineering project.',
+            description: __('seo.contact_description'),
             canonical: localized_route('contact'),
         );
     }

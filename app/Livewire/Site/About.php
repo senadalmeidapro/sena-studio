@@ -19,7 +19,7 @@ class About extends Component
     {
         app(Seo::class)->set(
             title: null,
-            description: 'Sena Studio is a backend engineering studio based in Cotonou, building APIs, business applications and back-offices for fintech and ed-tech use cases.',
+            description: __('seo.about_description'),
             canonical: localized_route('about'),
         );
     }
