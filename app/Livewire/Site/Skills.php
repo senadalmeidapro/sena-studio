@@ -26,15 +26,42 @@ class Skills extends Component
     #[Computed]
     public function byRole()
     {
-        $roles = ['backend', 'frontend', 'database', 'devops', 'other'];
-        $roleHints = [
-            'backend' => ['PHP', 'Laravel', 'Livewire', 'Filament', 'Node.js', 'NestJS', 'Express.js', 'REST API', 'WebSockets', 'Prisma', 'TypeORM'],
-            'database' => ['MySQL', 'PostgreSQL', 'Redis'],
-            'devops' => ['Docker', 'Linux', 'Git', 'GitHub', 'GitHub Actions'],
-            'frontend' => ['React', 'Vue.js', 'Blade', 'Alpine.js', 'Tailwind CSS'],
+        $primaryRoleBySkill = [
+            'TypeScript' => 'languages',
+            'JavaScript' => 'languages',
+            'PHP' => 'languages',
+            'Node.js' => 'backend',
+            'NestJS' => 'backend',
+            'Express.js' => 'backend',
+            'Laravel' => 'backend',
+            'Filament' => 'backend',
+            'REST API' => 'backend',
+            'WebSockets' => 'backend',
+            'React' => 'frontend',
+            'Vue.js' => 'frontend',
+            'Blade' => 'frontend',
+            'Livewire' => 'frontend',
+            'Alpine.js' => 'frontend',
+            'Tailwind CSS' => 'frontend',
+            'MySQL' => 'database',
+            'PostgreSQL' => 'database',
+            'Prisma' => 'database',
+            'TypeORM' => 'database',
+            'Redis' => 'cache',
+            'Docker' => 'devops',
+            'Linux' => 'devops',
+            'GitHub Actions' => 'devops',
+            'Git' => 'tools',
+            'GitHub' => 'tools',
+            'Postman' => 'tools',
+            'Swagger / OpenAPI' => 'tools',
+            'Pest' => 'testing',
+            'Figma' => 'design',
         ];
 
-        return Skill::query()
+        $roleOrder = ['languages', 'backend', 'frontend', 'database', 'cache', 'devops', 'testing', 'tools', 'design'];
+
+        $grouped = Skill::query()
             ->where('is_active', true)
             ->with([
                 'categories',
@@ -44,18 +71,12 @@ class Skills extends Component
                     ->where('slug', '!=', 'portfolio-sena-studio'),
             ])
             ->get()
-            ->groupBy(function ($skill) use ($roles, $roleHints): string {
-                foreach ($roles as $role) {
-                    if ($role !== 'other' && (
-                        $skill->categories->contains('slug', $role)
-                        || in_array($skill->name, $roleHints[$role] ?? [], true)
-                    )) {
-                        return $role;
-                    }
-                }
+            ->groupBy(fn ($skill): string => $primaryRoleBySkill[$skill->name] ?? 'other');
 
-                return 'other';
-            });
+        return collect($roleOrder)
+            ->mapWithKeys(fn (string $role): array => [$role => $grouped->get($role, collect())])
+            ->filter(fn ($skills) => $skills->isNotEmpty())
+            ->union($grouped->except($roleOrder));
     }
 
     #[Computed]
