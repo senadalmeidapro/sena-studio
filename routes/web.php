@@ -6,7 +6,9 @@ use App\Livewire\Site\BlogShow;
 use App\Livewire\Site\Contact;
 use App\Livewire\Site\CvShow;
 use App\Livewire\Site\Home;
+use App\Livewire\Site\LegalNotice;
 use App\Livewire\Site\PostPreview;
+use App\Livewire\Site\Privacy;
 use App\Livewire\Site\ProjectDetail;
 use App\Livewire\Site\Projects;
 use App\Livewire\Site\Services;
@@ -35,6 +37,8 @@ Route::prefix('{locale?}')
             ->middleware('signed')
             ->name('posts.preview');
         Route::get('contact', Contact::class)->name('contact');
+        Route::get('mentions-legales', LegalNotice::class)->name('legal.notice');
+        Route::get('confidentialite', Privacy::class)->name('legal.privacy');
         Route::get('cv/{cv:slug}', CvShow::class)->name('cv.show');
     });
 

@@ -50,8 +50,10 @@
     <div class="border-t border-ink-300 dark:border-ink-700">
         <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-[0.7rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500 sm:flex-row sm:px-6 lg:px-8">
             <p>© {{ date('Y') }} Sena Studio. {{ __('footer.rights') }}</p>
-            <p class="flex items-center gap-5">
+            <p class="flex flex-wrap items-center gap-5">
                 <span>{!! __('footer.built', ['laravel' => '<span class="text-blue-600 dark:text-blue-400">Laravel</span>', 'livewire' => '<span class="text-blue-600 dark:text-blue-400">Livewire</span>']) !!}</span>
+                <a href="{{ localized_route('legal.notice') }}" wire:navigate class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('footer.legal_notice') }}</a>
+                <a href="{{ localized_route('legal.privacy') }}" wire:navigate class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('footer.privacy') }}</a>
             </p>
         </div>
     </div>
