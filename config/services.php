@@ -36,7 +36,7 @@ return [
     ],
 
     'booking' => [
-        'url' => env('BOOKING_URL'),
+        'url' => env('BOOKING_URL', 'https://cal.com/sena-dalmeida/30min'),
     ],
 
 ];
