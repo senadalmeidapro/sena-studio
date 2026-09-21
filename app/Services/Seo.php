@@ -18,15 +18,8 @@ class Seo
 
     protected string $robots = 'index, follow';
 
-    public function set(
-        ?string $title = null,
-        ?string $description = null,
-        ?string $canonical = null,
-        string $type = 'website',
-        ?string $image = null,
-        ?array $structuredData = null,
-        ?string $robots = null,
-    ): static {
+    public function set(?string $title = null, ?string $description = null, ?string $canonical = null, string $type = 'website', ?string $image = null, ?array $structuredData = null, ?string $robots = null): static
+    {
         $this->title = $title ?? $this->title;
         $this->description = $description ?? $this->description;
         $this->canonical = $canonical ?? $this->canonical;
@@ -47,7 +40,7 @@ class Seo
     {
         return $this->description !== ''
             ? $this->description
-            : (config('app.description') ?: config('app.name').' — développement web, applications et solutions sur mesure.');
+            : (config('app.description') ?: config('app.name').' — backend engineering, APIs and business applications.');
     }
 
     public function canonical(): string

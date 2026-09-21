@@ -17,16 +17,33 @@
 <meta name="robots" content="{{ $robots }}" />
 <link rel="canonical" href="{{ $canonical }}" />
 
+@php
+    $publicRouteNames = ['home', 'projects.index', 'projects.show', 'skills.index', 'about', 'posts.index', 'posts.show', 'contact', 'cv.show'];
+    $currentRouteName = request()->route()?->getName();
+    $publicPath = collect(explode('/', trim(request()->path(), '/')))->filter()->values();
+    if (in_array($publicPath->first(), ['fr', 'en'], true)) {
+        $publicPath->shift();
+    }
+    $publicTail = $publicPath->isEmpty() ? '' : '/'.$publicPath->implode('/');
+@endphp
+@if (in_array($currentRouteName, $publicRouteNames, true))
+    <link rel="alternate" hreflang="fr" href="{{ url('/fr'.$publicTail) }}" />
+    <link rel="alternate" hreflang="en" href="{{ url('/en'.$publicTail) }}" />
+    <link rel="alternate" hreflang="x-default" href="{{ url('/fr'.$publicTail) }}" />
+@endif
+
 <meta property="og:site_name" content="{{ config('app.name') }}" />
 <meta property="og:type" content="{{ $ogType }}" />
 <meta property="og:title" content="{{ $seoTitle }}" />
 <meta property="og:description" content="{{ $seoDescription }}" />
 <meta property="og:url" content="{{ $canonical }}" />
 <meta property="og:image" content="{{ $ogImage }}" />
+<meta property="og:image:alt" content="{{ $seoTitle }}" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{{ $seoTitle }}" />
 <meta name="twitter:description" content="{{ $seoDescription }}" />
 <meta name="twitter:image" content="{{ $ogImage }}" />
+<meta name="twitter:image:alt" content="{{ $seoTitle }}" />
 
 @if ($structuredData !== [])
     <script type="application/ld+json">@json($structuredData, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)</script>
