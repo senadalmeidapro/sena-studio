@@ -12,7 +12,7 @@ class Seo
 
     protected string $type = 'website';
 
-    protected string $image = '/images/brand/sena-mark.svg';
+    protected string $image = '/images/brand/sena-studio-og.png';
 
     protected array $structuredData = [];
 
@@ -55,7 +55,7 @@ class Seo
 
     public function image(): string
     {
-        return media_url($this->image) ?? asset('/images/brand/sena-mark.svg');
+        return media_url($this->image) ?? asset('/images/brand/sena-studio-og.png');
     }
 
     public function structuredData(): array
