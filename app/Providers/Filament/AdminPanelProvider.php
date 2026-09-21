@@ -28,7 +28,8 @@ class AdminPanelProvider extends PanelProvider
 
         FilamentView::registerRenderHook(
             PanelsRenderHook::HEAD_START,
-            fn (): string => '<link rel="stylesheet" href="'.Vite::asset('resources/css/filament.css').'">',
+            fn (): string => '<meta name="robots" content="noindex, nofollow, noarchive">'
+                .'<link rel="stylesheet" href="'.Vite::asset('resources/css/filament.css').'">',
         );
     }
 

@@ -48,6 +48,15 @@ it('renders admin dashboard and resources', function () {
     }
 });
 
+it('marks the admin panel as private for search engines', function () {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)
+        ->get('/admin')
+        ->assertSuccessful()
+        ->assertSee('<meta name="robots" content="noindex, nofollow, noarchive">', false);
+});
+
 it('marks contact message as read when viewed', function () {
     $user = User::factory()->create();
     $message = ContactMessage::create([
