@@ -5,13 +5,10 @@
     $cvUrl = $cvPrimary ? localized_route('cv.show', $cvPrimary) : null;
 
     $links = [
-        'home' => [__('nav.home'), localized_route('home')],
         'projects' => [__('nav.projects'), localized_route('projects.index')],
-        'skills' => [__('nav.skills'), localized_route('skills.index')],
-        'stack' => [__('nav.stack'), localized_route('stack.index')],
+        'services' => [__('nav.services'), localized_route('home').'#services'],
         'about' => [__('nav.about'), localized_route('about')],
         'blog' => [__('nav.blog'), localized_route('posts.index')],
-        'cv' => [__('nav.cv'), $cvUrl ?: '#'],
         'contact' => [__('nav.contact'), localized_route('contact')],
     ];
 
@@ -24,7 +21,7 @@
     <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="{{ localized_route('home') }}" class="group flex items-center gap-2.5" wire:navigate>
             <x-logo class="size-7 transition-transform duration-300 group-hover:scale-105" />
-            <span class="font-display text-[1.05rem] font-semibold tracking-[-0.02em] text-ink-900 dark:text-ink-100">Sena&nbsp;Studio</span>
+            <span class="font-display text-[1.05rem] font-semibold tracking-[-0.02em] text-ink-900 dark:text-ink-100">Sena Studio</span>
         </a>
 
         <nav class="hidden items-center gap-8 md:flex">
@@ -50,6 +47,12 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                 </svg>
             </a>
+
+            @if ($cvUrl)
+                <a href="{{ $cvUrl }}" wire:navigate class="hidden rounded-lg border border-ink-300 px-3.5 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-ink-700 transition-colors hover:border-blue-400 hover:text-blue-700 sm:inline-flex dark:border-ink-700 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300">
+                    {{ __('nav.cv') }}
+                </a>
+            @endif
 
             {{-- Switcher de langue --}}
             <a
@@ -127,9 +130,11 @@
                 <a href="{{ $altPath }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-ink-500 hover:bg-ink-100 dark:text-ink-400 dark:hover:bg-ink-800/50">
                     {{ __('nav.language') }}: {{ $altFull }}
                 </a>
-                <a href="{{ route('login') }}" class="block rounded-lg px-3 py-2.5 text-sm font-medium text-ink-500 hover:bg-ink-100 dark:text-ink-400 dark:hover:bg-ink-800/50">
-                    {{ __('nav.admin') }}
-                </a>
+                @if ($cvUrl)
+                    <a href="{{ $cvUrl }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-ink-500 hover:bg-ink-100 dark:text-ink-400 dark:hover:bg-ink-800/50">
+                        {{ __('nav.cv') }}
+                    </a>
+                @endif
             </div>
         </nav>
     </div>

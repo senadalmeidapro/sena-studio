@@ -11,14 +11,14 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-#[Title('Studio — Développement web sur mesure')]
+#[Title('Sena Studio — Backend engineering studio')]
 #[Layout('layouts.public')]
 class Home extends Component
 {
     public function mount(): void
     {
         app(Seo::class)->set(
-            description: 'Studio indépendant : conception de produits web, applications et solutions sur mesure — Laravel, Livewire et Filament.',
+            description: 'Sena Studio conçoit des APIs, des systèmes backend et des produits web métier pour la fintech, l’ed-tech et les outils internes.',
             canonical: localized_route('home'),
             structuredData: [
                 '@context' => 'https://schema.org',
@@ -27,7 +27,7 @@ class Home extends Component
                         '@type' => 'WebSite',
                         'name' => config('app.name'),
                         'url' => localized_route('home'),
-                        'description' => 'Conception de produits web, applications et solutions logicielles sur mesure.',
+                        'description' => 'Backend engineering studio for APIs, business applications and reliable web products.',
                     ],
                     [
                         '@type' => 'Person',
@@ -52,6 +52,7 @@ class Home extends Component
         return Project::query()
             ->where('visibility', 'public')
             ->where('status', '!=', 'cancelled')
+            ->where('slug', '!=', 'portfolio-sena-studio')
             ->with(['stack.stackItems', 'skills'])
             ->orderByDesc('featured')
             ->orderBy('sort_order')
@@ -76,7 +77,20 @@ class Home extends Component
     #[Computed]
     public function projectCount()
     {
-        return Project::query()->where('visibility', 'public')->count();
+        return Project::query()
+            ->where('visibility', 'public')
+            ->where('slug', '!=', 'portfolio-sena-studio')
+            ->count();
+    }
+
+    #[Computed]
+    public function caseStudyCount()
+    {
+        return Project::query()
+            ->where('visibility', 'public')
+            ->whereNotNull('problem')
+            ->where('slug', '!=', 'portfolio-sena-studio')
+            ->count();
     }
 
     #[Computed]

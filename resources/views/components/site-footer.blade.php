@@ -7,13 +7,13 @@
         <div class="space-y-4">
             <a href="{{ localized_route('home') }}" wire:navigate class="group inline-flex items-center gap-3">
                 <x-logo class="size-8" />
-                <span class="font-display text-2xl font-medium tracking-tight text-ink-900 dark:text-ink-50">Sena&nbsp;Studio</span>
+                <span class="font-display text-2xl font-medium tracking-tight text-ink-900 dark:text-ink-50">Sena Studio</span>
             </a>
             <p class="max-w-sm text-sm leading-relaxed text-ink-500 dark:text-ink-400">
                 {{ __('footer.tagline') }}
             </p>
             <p class="flex items-center gap-2 text-[0.72rem] uppercase tracking-[0.18em] text-ink-400 dark:text-ink-500">
-                <span class="size-1.5 rounded-full bg-emerald-500"></span>
+                <span class="size-1.5 rounded-full bg-blue-500"></span>
                 {{ __('footer.available') }}
             </p>
         </div>
@@ -22,8 +22,7 @@
             <h3 class="eyebrow mb-4">{{ __('footer.navigation') }}</h3>
             <ul class="space-y-2.5 text-sm text-ink-500 dark:text-ink-400">
                 <li><a href="{{ localized_route('projects.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.projects') }}</a></li>
-                <li><a href="{{ localized_route('skills.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.skills') }}</a></li>
-                <li><a href="{{ localized_route('stack.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.stack') }}</a></li>
+                <li><a href="{{ localized_route('home') }}#services" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.services') }}</a></li>
                 <li><a href="{{ localized_route('about') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.about') }}</a></li>
                 <li><a href="{{ localized_route('posts.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.blog') }}</a></li>
                 <li>
@@ -48,7 +47,6 @@
         <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-[0.7rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500 sm:flex-row sm:px-6 lg:px-8">
             <p>© {{ date('Y') }} Sena Studio. {{ __('footer.rights') }}</p>
             <p class="flex items-center gap-5">
-                <a href="{{ route('filament.admin.pages.dashboard') }}" class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('footer.admin') }}</a>
                 <span>{!! __('footer.built', ['laravel' => '<span class="text-blue-600 dark:text-blue-400">Laravel</span>', 'livewire' => '<span class="text-blue-600 dark:text-blue-400">Livewire</span>']) !!}</span>
             </p>
         </div>

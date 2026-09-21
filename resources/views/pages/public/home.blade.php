@@ -47,12 +47,12 @@
                         <dd class="mt-1.5 font-display text-3xl font-medium tabular-nums text-ink-900 dark:text-ink-50">{{ $this->projectCount }}</dd>
                     </div>
                     <div>
-                        <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">{{ __('home.stats_expertise') }}</dt>
-                        <dd class="mt-1.5 font-display text-3xl font-medium tabular-nums text-ink-900 dark:text-ink-50">{{ $this->topSkills->count() }}+</dd>
+                        <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">{{ __('home.stats_case_studies') }}</dt>
+                        <dd class="mt-1.5 font-display text-3xl font-medium tabular-nums text-ink-900 dark:text-ink-50">{{ $this->caseStudyCount }}</dd>
                     </div>
                     <div>
-                        <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">{{ __('home.stats_custom') }}</dt>
-                        <dd class="mt-1.5 font-display text-2xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('home.stats_focus') }}</dd>
+                        <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">{{ __('home.stats_base') }}</dt>
+                        <dd class="mt-1.5 font-display text-2xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('home.stats_location') }}</dd>
                     </div>
                 </dl>
             </div>
@@ -65,28 +65,25 @@
                         <span>v1.0 / online</span>
                     </div>
                     <div class="grid gap-3">
-                        <div class="technical-node px-4 py-3">client / interface</div>
+                        <div class="technical-node px-4 py-3">{{ __('home.diagram_interface') }}</div>
                         <div class="mx-auto h-5 w-px bg-blue-300/40"></div>
-                        <div class="technical-node border-blue-300/60 bg-blue-400/15 px-4 py-3 text-center">API / domain logic</div>
+                        <div class="technical-node border-blue-300/60 bg-blue-400/15 px-4 py-3 text-center">{{ __('home.diagram_api') }}</div>
                         <div class="mx-auto h-5 w-px bg-blue-300/40"></div>
                         <div class="grid grid-cols-2 gap-3">
-                            <div class="technical-node px-3 py-3 text-center">database</div>
-                            <div class="technical-node px-3 py-3 text-center">jobs / cache</div>
+                            <div class="technical-node px-3 py-3 text-center">{{ __('home.diagram_database') }}</div>
+                            <div class="technical-node px-3 py-3 text-center">{{ __('home.diagram_jobs') }}</div>
                         </div>
                     </div>
                     <div class="mt-7 flex items-center gap-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-blue-100/60">
                         <span class="size-1.5 rounded-full bg-blue-300"></span>
-                        reliable systems, deliberately built
+                        {{ __('home.diagram_caption') }}
                     </div>
                 </div>
 
                 <div class="mt-5 flex items-center justify-between gap-4">
                     <span class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-400 dark:text-ink-500">{{ __('home.fig_portrait') }}</span>
-                    <span class="flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-emerald-600 dark:text-emerald-400">
-                        <span class="relative flex size-2">
-                            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-                            <span class="relative inline-flex size-2 rounded-full bg-emerald-500"></span>
-                        </span>
+                    <span class="flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">
+                        <span class="size-1.5 rounded-full bg-blue-500"></span>
                         {{ __('home.available') }}
                     </span>
                 </div>
