@@ -65,6 +65,21 @@
                         <dd class="font-mono text-sm uppercase tracking-[0.1em] text-ink-700 dark:text-ink-200">{{ __('contact.response_delay') }}</dd>
                     </div>
                 </dl>
+
+                <div class="mt-10 border-t border-ink-300 pt-8 dark:border-ink-700">
+                    <p class="eyebrow">{{ __('contact.process_eyebrow') }}</p>
+                    <ol class="mt-5 space-y-5">
+                        @foreach (['discussion', 'clarification', 'next_step'] as $index => $step)
+                            <li class="flex gap-4">
+                                <span class="font-mono text-xs font-semibold text-blue-600 dark:text-blue-300">0{{ $index + 1 }}</span>
+                                <div>
+                                    <h3 class="font-display text-sm font-semibold text-ink-900 dark:text-ink-50">{{ __('contact.process_'.$step.'_title') }}</h3>
+                                    <p class="mt-1 text-sm leading-relaxed text-ink-500 dark:text-ink-400">{{ __('contact.process_'.$step.'_text') }}</p>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ol>
+                </div>
             </aside>
 
             {{-- Formulaire --}}
