@@ -158,6 +158,13 @@
     "skills.count_unit": "compétence",
     "skills.count_plural_unit": "compétences",
     "skills.empty": "Aucune compétence publiée pour le moment.",
+    "skills.stack_title": "Stack utilisée en contexte",
+    "skills.stack_subtitle": "Les technologies sont regroupées par rôle et reliées aux projets qui les mettent en pratique.",
+    "skills.role_backend": "Backend & APIs",
+    "skills.role_frontend": "Frontend & interfaces",
+    "skills.role_database": "Données & persistance",
+    "skills.role_devops": "DevOps & livraison",
+    "skills.role_other": "Autres outils",
 
     "stack.eyebrow": "Technologies",
     "stack.title": "Stack technique",

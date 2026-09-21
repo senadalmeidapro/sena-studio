@@ -157,6 +157,13 @@
     "skills.count_unit": "skill",
     "skills.count_plural_unit": "skills",
     "skills.empty": "No published skill yet.",
+    "skills.stack_title": "Stack used in context",
+    "skills.stack_subtitle": "Technologies are grouped by role and connected to the projects where they are applied.",
+    "skills.role_backend": "Backend & APIs",
+    "skills.role_frontend": "Frontend & interfaces",
+    "skills.role_database": "Data & persistence",
+    "skills.role_devops": "DevOps & delivery",
+    "skills.role_other": "Other tools",
 
     "stack.eyebrow": "Technologies",
     "stack.title": "Tech stack",

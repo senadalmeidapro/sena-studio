@@ -109,7 +109,12 @@ test('the stack page shows stack items grouped by category', function () {
     $stack = Stack::factory()->create(['is_active' => true]);
     StackItem::factory()->create(['stack_id' => $stack->id, 'category' => 'backend', 'value' => 'Laravel']);
 
-    $this->get(localized_route('stack.index'))
+    $response = $this->get(localized_route('stack.index'));
+
+    $response
+        ->assertRedirect(localized_route('skills.index'));
+
+    $this->get(localized_route('skills.index'))
         ->assertOk()
         ->assertSee('Laravel');
 });

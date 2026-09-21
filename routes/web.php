@@ -10,7 +10,6 @@ use App\Livewire\Site\PostPreview;
 use App\Livewire\Site\ProjectDetail;
 use App\Livewire\Site\Projects;
 use App\Livewire\Site\Skills;
-use App\Livewire\Site\Stack;
 use App\Models\Cv;
 use App\Models\Post;
 use App\Models\Project;
@@ -26,7 +25,7 @@ Route::prefix('{locale?}')
         Route::get('projets', Projects::class)->name('projects.index');
         Route::get('projets/{project:slug}', ProjectDetail::class)->name('projects.show');
         Route::get('competences', Skills::class)->name('skills.index');
-        Route::get('stack', Stack::class)->name('stack.index');
+        Route::get('stack', fn () => redirect(localized_route('skills.index'), 301))->name('stack.index');
         Route::get('a-propos', About::class)->name('about');
         Route::get('blog', BlogIndex::class)->name('posts.index');
         Route::get('blog/{post:slug}', BlogShow::class)->name('posts.show');
@@ -53,12 +52,11 @@ Route::get('sitemap.xml', function () {
         $urls[] = [$prefix, now()->toAtomString()];
         $urls[] = [$prefix.'/projets', now()->toAtomString()];
         $urls[] = [$prefix.'/competences', now()->toAtomString()];
-        $urls[] = [$prefix.'/stack', now()->toAtomString()];
         $urls[] = [$prefix.'/a-propos', now()->toAtomString()];
         $urls[] = [$prefix.'/blog', now()->toAtomString()];
         $urls[] = [$prefix.'/contact', now()->toAtomString()];
 
-        foreach (Project::query()->where('visibility', 'public')->where('status', '!=', 'cancelled')->get(['slug', 'updated_at']) as $project) {
+        foreach (Project::query()->where('visibility', 'public')->where('status', '!=', 'cancelled')->where('slug', '!=', 'portfolio-sena-studio')->get(['slug', 'updated_at']) as $project) {
             $urls[] = [$prefix.'/projets/'.$project->slug, $project->updated_at?->toAtomString()];
         }
 

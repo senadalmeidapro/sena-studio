@@ -81,6 +81,7 @@ class Projects extends Component
         return Project::query()
             ->where('visibility', 'public')
             ->where('status', '!=', 'cancelled')
+            ->where('slug', '!=', 'portfolio-sena-studio')
             ->when($this->type, fn (Builder $q) => $q->where('type', $this->type))
             ->when($this->category, fn (Builder $q) => $q->whereHas('categories', fn (Builder $c) => $c->where('categories.slug', $this->category)))
             ->when($this->skill, fn (Builder $q) => $q->whereHas('skills', fn (Builder $s) => $s->where('skills.slug', $this->skill)))
@@ -96,10 +97,10 @@ class Projects extends Component
     public function counts()
     {
         return [
-            'all' => Project::query()->where('visibility', 'public')->where('status', '!=', 'cancelled')->count(),
-            'web' => Project::query()->where('visibility', 'public')->where('type', ProjectType::Web)->count(),
-            'app' => Project::query()->where('visibility', 'public')->where('type', ProjectType::App)->count(),
-            'software' => Project::query()->where('visibility', 'public')->where('type', ProjectType::Software)->count(),
+            'all' => Project::query()->where('visibility', 'public')->where('status', '!=', 'cancelled')->where('slug', '!=', 'portfolio-sena-studio')->count(),
+            'web' => Project::query()->where('visibility', 'public')->where('type', ProjectType::Web)->where('slug', '!=', 'portfolio-sena-studio')->count(),
+            'app' => Project::query()->where('visibility', 'public')->where('type', ProjectType::App)->where('slug', '!=', 'portfolio-sena-studio')->count(),
+            'software' => Project::query()->where('visibility', 'public')->where('type', ProjectType::Software)->where('slug', '!=', 'portfolio-sena-studio')->count(),
         ];
     }
 
@@ -107,7 +108,7 @@ class Projects extends Component
     public function categories()
     {
         return Category::query()
-            ->withCount(['projects' => fn (Builder $q) => $q->where('visibility', 'public')->where('status', '!=', 'cancelled')])
+            ->withCount(['projects' => fn (Builder $q) => $q->where('visibility', 'public')->where('status', '!=', 'cancelled')->where('slug', '!=', 'portfolio-sena-studio')])
             ->get()
             ->filter(fn (Category $category): bool => $category->projects_count > 0)
             ->values()
@@ -120,7 +121,7 @@ class Projects extends Component
     {
         return Skill::query()
             ->where('is_active', true)
-            ->whereHas('projects', fn (Builder $q) => $q->where('projects.visibility', 'public')->where('projects.status', '!=', 'cancelled'))
+            ->whereHas('projects', fn (Builder $q) => $q->where('projects.visibility', 'public')->where('projects.status', '!=', 'cancelled')->where('projects.slug', '!=', 'portfolio-sena-studio'))
             ->orderBy('name')
             ->get();
     }

@@ -3,6 +3,7 @@
 namespace App\Livewire\Site;
 
 use App\Models\Skill;
+use App\Models\Stack as StackModel;
 use App\Services\Seo;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
@@ -23,16 +24,41 @@ class Skills extends Component
     }
 
     #[Computed]
-    public function byLevel()
+    public function byRole()
     {
-        $order = ['expert' => 0, 'advanced' => 1, 'intermediate' => 2, 'beginner' => 3];
+        $roles = ['backend', 'frontend', 'database', 'devops', 'other'];
 
         return Skill::query()
             ->where('is_active', true)
-            ->with(['projects' => fn ($q) => $q->where('visibility', 'public')->where('status', '!=', 'cancelled')])
+            ->with([
+                'categories',
+                'projects' => fn ($q) => $q
+                    ->where('visibility', 'public')
+                    ->where('status', '!=', 'cancelled')
+                    ->where('slug', '!=', 'portfolio-sena-studio'),
+            ])
             ->get()
-            ->sortBy(fn ($skill) => $order[$skill->level->value] ?? 9)
-            ->groupBy('level');
+            ->groupBy(function ($skill) use ($roles): string {
+                foreach ($roles as $role) {
+                    if ($role !== 'other' && $skill->categories->contains('slug', $role)) {
+                        return $role;
+                    }
+                }
+
+                return 'other';
+            });
+    }
+
+    #[Computed]
+    public function stacks()
+    {
+        return StackModel::query()
+            ->where('is_active', true)
+            ->with(['stackItems', 'projects' => fn ($q) => $q
+                ->where('visibility', 'public')
+                ->where('status', '!=', 'cancelled')
+                ->where('slug', '!=', 'portfolio-sena-studio')])
+            ->get();
     }
 
     public function render()

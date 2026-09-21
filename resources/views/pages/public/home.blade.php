@@ -296,7 +296,7 @@
                     @endforeach
                 </div>
 
-                <x-front.arrow-link :href="localized_route('stack.index')" wire:navigate class="shrink-0">
+                <x-front.arrow-link :href="localized_route('skills.index')" wire:navigate class="shrink-0">
                     {{ __('home.stack.explore') }}
                 </x-front.arrow-link>
             </div>
@@ -325,7 +325,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                         </svg>
                     </a>
-                    <a href="{{ localized_route('stack.index') }}" wire:navigate class="font-medium text-blue-100 underline-offset-4 transition-colors hover:text-white hover:underline">
+                    <a href="{{ localized_route('skills.index') }}" wire:navigate class="font-medium text-blue-100 underline-offset-4 transition-colors hover:text-white hover:underline">
                         {{ __('home.cta_banner.secondary') }}
                     </a>
                 </div>
