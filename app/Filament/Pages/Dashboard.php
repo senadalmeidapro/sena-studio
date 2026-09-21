@@ -2,23 +2,19 @@
 
 namespace App\Filament\Pages;
 
-use App\Filament\Widgets\AdminActivityChartWidget;
 use App\Filament\Widgets\ContactPipelineWidget;
 use App\Filament\Widgets\InfrastructureStatusOverviewWidget;
 use App\Filament\Widgets\MediaHealthWidget;
 use App\Filament\Widgets\MessagesWidget;
 use App\Filament\Widgets\OverviewStatsWidget;
 use App\Filament\Widgets\ProjectsMissingMediaWidget;
-use App\Filament\Widgets\ProjectStatusChartWidget;
 use App\Filament\Widgets\QuickActionsWidget;
 use App\Filament\Widgets\RecentActivityWidget;
 use App\Filament\Widgets\RecentProjectsWidget;
-use App\Filament\Widgets\SkillLevelChartWidget;
-use App\Filament\Widgets\StackDistributionChartWidget;
+use App\Filament\Widgets\ProjectStatusChartWidget;
 use App\Filament\Widgets\SystemHealthWidget;
 use App\Filament\Widgets\TopPagesChartWidget;
 use App\Filament\Widgets\TrafficStatsWidget;
-use App\Filament\Widgets\VisitsByLocaleChartWidget;
 use App\Filament\Widgets\VisitsChartWidget;
 use BackedEnum;
 use Filament\Pages\Dashboard as BaseDashboard;
@@ -36,18 +32,14 @@ class Dashboard extends BaseDashboard
             OverviewStatsWidget::class,
             SystemHealthWidget::class,
             ContactPipelineWidget::class,
-            TrafficStatsWidget::class,
-            VisitsChartWidget::class,
-            VisitsByLocaleChartWidget::class,
-            TopPagesChartWidget::class,
-            AdminActivityChartWidget::class,
-            ProjectStatusChartWidget::class,
-            StackDistributionChartWidget::class,
-            SkillLevelChartWidget::class,
-            RecentProjectsWidget::class,
             MessagesWidget::class,
             MediaHealthWidget::class,
             ProjectsMissingMediaWidget::class,
+            TrafficStatsWidget::class,
+            VisitsChartWidget::class,
+            TopPagesChartWidget::class,
+            ProjectStatusChartWidget::class,
+            RecentProjectsWidget::class,
             InfrastructureStatusOverviewWidget::class,
             RecentActivityWidget::class,
             QuickActionsWidget::class,

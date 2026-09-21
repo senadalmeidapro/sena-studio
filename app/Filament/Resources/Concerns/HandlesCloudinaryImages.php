@@ -64,6 +64,7 @@ trait HandlesCloudinaryImages
             if (Str::contains($value, ['res.cloudinary.com', 'cloudinary.com'])) {
                 $data[$field] = $value;
                 $data['cloudinary_public_id'] = $service->publicIdFromUrl($value);
+                $this->queueCloudinaryCleanup($oldPublicId, $oldValue);
             }
 
             return $data;

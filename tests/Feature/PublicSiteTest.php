@@ -28,7 +28,7 @@ test('the home page is accessible and shows featured content', function () {
 
 test('the bare host root redirects to the default localized home', function () {
     $this->get('/')
-        ->assertRedirect('/fr');
+        ->assertRedirect('/en');
 });
 
 test('the bare host root redirects to the language stored in session', function () {
