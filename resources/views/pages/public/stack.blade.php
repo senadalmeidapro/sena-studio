@@ -62,7 +62,7 @@
                                                     @endif
                                                 </span>
                                                 @if (in_array($item->value, $this->skillNames, true))
-                                                    <a href="{{ skill_url($item->value) }}" wire:navigate class="transition-colors hover:text-blue-700 dark:hover:text-blue-300">{{ $item->value }}</a>
+                                                    <a href="{{ skill_url($item->value) }}" class="transition-colors hover:text-blue-700 dark:hover:text-blue-300">{{ $item->value }}</a>
                                                 @else
                                                     {{ $item->value }}
                                                 @endif

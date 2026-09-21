@@ -107,7 +107,7 @@
                                     <div class="flex flex-wrap gap-2">
                                         @foreach ($items as $item)
                                             @if ($this->byRole->flatten()->contains('name', $item->value))
-                                                <a href="{{ skill_url($item->value) }}" wire:navigate class="inline-flex items-center gap-1.5 rounded-md border border-ink-200 bg-ink-50 px-2.5 py-1 text-xs text-ink-700 transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300">
+                                                <a href="{{ skill_url($item->value) }}" class="inline-flex items-center gap-1.5 rounded-md border border-ink-200 bg-ink-50 px-2.5 py-1 text-xs text-ink-700 transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300">
                                             @else
                                                 <span class="inline-flex items-center gap-1.5 rounded-md border border-ink-200 bg-ink-50 px-2.5 py-1 text-xs text-ink-700 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-200">
                                             @endif

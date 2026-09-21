@@ -248,7 +248,7 @@
             <ul class="divide-y divide-ink-300 border-y border-ink-300 dark:divide-ink-700 dark:border-ink-700">
                 @foreach ($this->topSkills as $skill)
                     <li>
-                        <a href="{{ skill_url($skill->name) }}" wire:navigate
+                        <a href="{{ skill_url($skill->name) }}"
                            class="group flex items-center justify-between gap-4 py-4 transition-colors hover:bg-blue-50/50 dark:hover:bg-blue-950/20">
                             <span class="flex items-center gap-3.5">
                                 @if ($skill->icon)
@@ -302,7 +302,7 @@
                             <div class="flex flex-wrap gap-2">
                                 @foreach ($items->take(3) as $item)
                                     @if (in_array($item->value, $this->skillNames, true))
-                                        <a href="{{ skill_url($item->value) }}" wire:navigate class="inline-flex items-center gap-1.5 rounded-md bg-card px-2.5 py-1 font-mono text-[0.7rem] uppercase tracking-[0.08em] text-ink-700 shadow-soft transition-colors hover:text-blue-700 dark:text-ink-200 dark:hover:text-blue-300">
+                                        <a href="{{ skill_url($item->value) }}" class="inline-flex items-center gap-1.5 rounded-md bg-card px-2.5 py-1 font-mono text-[0.7rem] uppercase tracking-[0.08em] text-ink-700 shadow-soft transition-colors hover:text-blue-700 dark:text-ink-200 dark:hover:text-blue-300">
                                     @else
                                         <span class="inline-flex items-center gap-1.5 rounded-md bg-card px-2.5 py-1 font-mono text-[0.7rem] uppercase tracking-[0.08em] text-ink-700 shadow-soft dark:text-ink-200">
                                     @endif
