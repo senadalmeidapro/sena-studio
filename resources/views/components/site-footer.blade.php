@@ -2,6 +2,7 @@
     @php
         $cvPrimarySlug = \App\Models\Cv::primary()->value('slug');
         $cvUrl = $cvPrimarySlug ? localized_route('cv.show', $cvPrimarySlug) : null;
+        $showBlog = \App\Models\Post::published()->count() >= 2;
     @endphp
     <div class="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-[1.4fr_0.8fr_0.8fr] lg:px-8">
         <div class="space-y-4">
@@ -25,7 +26,9 @@
                 <li><a href="{{ localized_route('services') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.services') }}</a></li>
                 <li><a href="{{ localized_route('skills.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.skills') }}</a></li>
                 <li><a href="{{ localized_route('about') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.about') }}</a></li>
-                <li><a href="{{ localized_route('posts.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.blog') }}</a></li>
+                @if ($showBlog)
+                    <li><a href="{{ localized_route('posts.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.blog') }}</a></li>
+                @endif
                 <li>
                     <a href="{{ $cvUrl ?: '#' }}" wire:navigate @class(['ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300' => $cvUrl, 'pointer-events-none opacity-40' => ! $cvUrl])>{{ __('nav.cv') }}</a>
                 </li>

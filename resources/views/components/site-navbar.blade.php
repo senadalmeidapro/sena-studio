@@ -13,6 +13,10 @@
         'contact' => [__('nav.contact'), localized_route('contact')],
     ];
 
+    if (\App\Models\Post::published()->count() < 2) {
+        unset($links['blog']);
+    }
+
     $altPath = alt_locale_path();
     $altLabel = app()->getLocale() === 'fr' ? 'EN' : 'FR';
     $altFull = app()->getLocale() === 'fr' ? 'English' : 'Français';
