@@ -315,6 +315,7 @@ In the Railway dashboard: **Create → Database → PostgreSQL**. Then reference
 | `APP_ENV` | `production` | Environment |
 | `APP_DEBUG` | `false` | Never in production |
 | `APP_URL` | `https://<your-app>.up.railway.app` | Canonical URL (HTTPS via trusted proxies) |
+| `ASSET_URL` | `${APP_URL}` | Public base URL for Vite and static assets |
 | `DB_URL` | `${DATABASE_URL}` | PostgreSQL connection string injected by Railway |
 | `DB_CONNECTION` | `pgsql` | PostgreSQL driver |
 | `DB_SSLMODE` | `require` | Railway requires SSL |
