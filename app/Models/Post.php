@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Services\CloudinaryService;
+use App\Services\SanitizesArticleHtml;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,6 +39,11 @@ class Post extends Model
         'seo_title',
         'seo_description',
     ];
+
+    public function setContentAttribute(?string $value): void
+    {
+        $this->attributes['content'] = app(SanitizesArticleHtml::class)->sanitize($value);
+    }
 
     public function author(): BelongsTo
     {

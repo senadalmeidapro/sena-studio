@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Permissions;
 
+use App\Filament\Resources\Concerns\RequiresSuperAdmin;
 use App\Filament\Resources\Permissions\Pages\CreatePermission;
 use App\Filament\Resources\Permissions\Pages\EditPermission;
 use App\Filament\Resources\Permissions\Pages\ListPermissions;
@@ -17,6 +18,8 @@ use UnitEnum;
 
 class PermissionResource extends Resource
 {
+    use RequiresSuperAdmin;
+
     protected static ?string $model = Permission::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedLockOpen;

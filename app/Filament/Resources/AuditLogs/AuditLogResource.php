@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\AuditLogs;
 
 use App\Filament\Resources\AuditLogs\Pages\ListAuditLogs;
+use App\Filament\Resources\Concerns\RequiresSuperAdmin;
 use App\Models\AdminActivityLog;
 use App\Support\Activity;
 use BackedEnum;
@@ -18,6 +19,8 @@ use UnitEnum;
 
 class AuditLogResource extends Resource
 {
+    use RequiresSuperAdmin;
+
     protected static ?string $model = AdminActivityLog::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedListBullet;

@@ -35,8 +35,19 @@ class DatabaseSeeder extends Seeder
                 'guard_name' => 'web',
             ]);
 
+            $superAdminRole = Role::query()->firstOrCreate([
+                'name' => 'super-admin',
+                'guard_name' => 'web',
+            ]);
+
             ModelHasRole::query()->firstOrCreate([
                 'role_id' => $role->getKey(),
+                'model_type' => User::class,
+                'model_id' => $admin->getKey(),
+            ]);
+
+            ModelHasRole::query()->firstOrCreate([
+                'role_id' => $superAdminRole->getKey(),
                 'model_type' => User::class,
                 'model_id' => $admin->getKey(),
             ]);

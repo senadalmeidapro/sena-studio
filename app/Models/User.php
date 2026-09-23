@@ -56,6 +56,24 @@ class User extends Authenticatable implements FilamentUser
             ->exists();
     }
 
+    public function isSuperAdmin(): bool
+    {
+        if (! $this->isAdmin()) {
+            return false;
+        }
+
+        return ModelHasRole::query()
+            ->where('model_type', self::class)
+            ->where('model_id', $this->getKey())
+            ->whereHas('role', function (Builder $query): void {
+                $query
+                    ->where('name', 'super-admin')
+                    ->where('guard_name', 'web');
+            })
+            ->exists()
+            || ($this->email !== '' && hash_equals((string) env('ADMIN_EMAIL'), $this->email));
+    }
+
     protected $fillable = [
         'name',
         'email',

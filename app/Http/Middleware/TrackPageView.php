@@ -61,7 +61,7 @@ class TrackPageView
         $userAgent = (string) $request->userAgent();
         $ip = (string) $request->ip();
 
-        PageView::create([
+        rescue(fn () => PageView::create([
             'path' => $path,
             'route_name' => $request->route()?->getName(),
             'locale' => $request->route('locale') ?? app()->getLocale(),
@@ -70,7 +70,7 @@ class TrackPageView
             'ip_hash' => hash('sha256', $ip.'|'.$userAgent),
             'is_bot' => $this->isBot($userAgent),
             'created_at' => now(),
-        ]);
+        ]), report: false);
 
         return $response;
     }
