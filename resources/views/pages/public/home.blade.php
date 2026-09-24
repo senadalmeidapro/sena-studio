@@ -1,4 +1,4 @@
-<div class="public-page home-page space-y-28 pb-24 sm:space-y-36">
+<div class="public-page home-page space-y-20 pb-20 sm:space-y-28">
 
     {{-- ===================== HERO ===================== --}}
     <section class="relative overflow-hidden">
@@ -214,6 +214,16 @@
                             <p class="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-ink-500 dark:text-ink-400">
                                 {{ $project->description }}
                             </p>
+                            @if ($project->problem || $project->result)
+                                <div class="mt-4 space-y-2 border-l-2 border-blue-400/70 pl-3 text-sm leading-relaxed text-ink-600 dark:text-ink-300">
+                                    @if ($project->problem)
+                                        <p><span class="font-semibold text-ink-800 dark:text-ink-100">{{ __('project.case_study_problem') }}:</span> {{ str($project->problem)->limit(125) }}</p>
+                                    @endif
+                                    @if ($project->result)
+                                        <p><span class="font-semibold text-ink-800 dark:text-ink-100">{{ __('project.case_study_result') }}:</span> {{ str($project->result)->limit(125) }}</p>
+                                    @endif
+                                </div>
+                            @endif
                             <div class="mt-4 flex flex-wrap gap-1.5 font-mono text-[0.68rem] uppercase tracking-[0.08em]">
                                 @foreach ($project->skills->take(3) as $skill)
                                     <span class="rounded bg-ink-100/80 px-2 py-0.5 text-ink-600 dark:bg-ink-800/70 dark:text-ink-300">{{ $skill->name }}</span>

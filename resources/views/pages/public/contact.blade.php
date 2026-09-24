@@ -46,7 +46,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
                             </svg>
                         </dt>
-                        <dd class="font-mono text-sm uppercase tracking-[0.1em] text-ink-700 dark:text-ink-200">senadalmeidapro@gmail.com</dd>
+                        <dd><a href="mailto:senadalmeidapro@gmail.com" class="break-all font-mono text-sm uppercase tracking-[0.1em] text-ink-700 underline decoration-ink-300 underline-offset-4 transition-colors hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-ink-200 dark:decoration-ink-600 dark:hover:text-blue-300">senadalmeidapro@gmail.com</a></dd>
                     </div>
                     <div class="grid grid-cols-[auto_1fr] gap-4">
                         <dt class="pt-0.5 text-blue-600 dark:text-blue-400">
@@ -94,7 +94,7 @@
                 $label = 'text-sm font-medium text-ink-700 dark:text-ink-200';
             @endphp
 
-            <form wire:submit="submit" class="motion-safe:animate-fade-up [animation-delay:120ms]">
+            <form wire:submit="submit" wire:loading.attr="aria-busy" wire:target="submit" class="motion-safe:animate-fade-up [animation-delay:120ms]">
                 <div class="mb-6">
                     <span class="eyebrow">{{ __('contact.form_eyebrow') }}</span>
                 </div>
@@ -204,13 +204,20 @@
                     </div>
 
                     <div class="flex flex-wrap items-center gap-6">
-                        <button type="submit"
+                        <button type="submit" wire:loading.attr="disabled" wire:target="submit"
                                 class="group inline-flex items-center gap-2.5 rounded-xl bg-blue-600 px-6 py-3.5 font-display text-base font-medium text-white shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-card dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
-                            {{ __('contact.form_submit') }}
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                            <span wire:loading.remove wire:target="submit">{{ __('contact.form_submit') }}</span>
+                            <svg wire:loading.remove wire:target="submit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                  class="size-4 transition-transform duration-300 group-hover:translate-x-0.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                             </svg>
+                            <span wire:loading.flex wire:target="submit" role="status" aria-live="polite" class="items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="size-4 animate-spin" aria-hidden="true">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4Z" />
+                                </svg>
+                                {{ __('contact.form_sending') }}
+                            </span>
                         </button>
                         <span class="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500">{!! __('contact.form_secure') !!}</span>
                     </div>

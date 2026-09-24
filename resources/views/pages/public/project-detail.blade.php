@@ -25,12 +25,12 @@
         @endphp
 
         @if ($galleryUrls->isNotEmpty())
-            <div x-data="{ active: 0, open: false, images: @js($galleryUrls->all()), count: @js($galleryUrls->count()) }"
-                 x-on:keydown.escape.window="open = false"
+            <div x-data="{ active: 0, open: false, images: @js($galleryUrls->all()), count: @js($galleryUrls->count()), opener: null, openGallery() { this.opener = document.activeElement; this.open = true; this.$nextTick(() => this.$refs.closeButton.focus()); }, closeGallery() { this.open = false; this.$nextTick(() => this.opener?.focus()); }, trapFocus(event) { const items = [...this.$refs.dialog.querySelectorAll('button:not([disabled])')].filter((item) => item.offsetParent !== null); const first = items[0]; const last = items[items.length - 1]; if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); } else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); } } }"
+                 x-on:keydown.escape.window="if (open) closeGallery()"
                  @class(['overflow-hidden rounded-3xl' => $galleryUrls->count() > 1])>
                 <button
                     type="button"
-                    @click="open = true"
+                    @click="openGallery()"
                     class="crop-frame group block w-full overflow-hidden rounded-3xl border border-ink-300 bg-ink-100 text-left focus:outline-none dark:border-ink-700 dark:bg-ink-900"
                     aria-label="{{ __('common.fullscreen_gallery') }}"
                 >
@@ -40,8 +40,8 @@
                                 :src="img"
                                 :class="i === active ? 'opacity-100' : 'pointer-events-none absolute inset-0 opacity-0'"
                                 class="size-full object-cover transition-opacity duration-500"
-                                alt=""
-                                loading="lazy"
+                                :alt="@js($project->name . ' — ' . __('common.view')) + ' ' + (i + 1)"
+                                :loading="i === active ? 'eager' : 'lazy'"
                                 x-cloak
                             />
                         </template>
@@ -64,7 +64,7 @@
                                 @click="active = i"
                                 :class="i === active ? 'ring-2 ring-blue-400 ring-offset-2 ring-offset-white dark:ring-offset-ink-950' : 'opacity-60 hover:opacity-100'"
                                 class="w-24 overflow-hidden rounded-xl border border-ink-300 bg-ink-100 transition-all dark:border-ink-700 dark:bg-ink-800"
-                                :aria-label="'{{ __('common.preview') }} ' + (i + 1)"
+                                :aria-label="@js($project->name . ' — ' . __('common.preview')) + ' ' + (i + 1)"
                             >
                                 <img :src="img" alt="" loading="lazy" class="aspect-video w-full object-cover" />
                             </button>
@@ -78,17 +78,21 @@
                         x-show="open"
                         x-cloak
                         x-transition.opacity.duration.200ms
-                        @keydown.arrow-left.window.prevent="active = (active - 1 + count) % count"
-                        @keydown.arrow-right.window.prevent="active = (active + 1) % count"
+                        @keydown.arrow-left.window="if (open) { $event.preventDefault(); active = (active - 1 + count) % count }"
+                        @keydown.arrow-right.window="if (open) { $event.preventDefault(); active = (active + 1) % count }"
+                        @keydown.tab="trapFocus($event)"
                         class="fixed inset-0 z-[100] flex flex-col bg-ink-950/95 p-4 backdrop-blur-sm sm:p-8"
+                        x-ref="dialog"
+                        tabindex="-1"
                         role="dialog"
                         aria-modal="true"
-                        aria-label="Galerie plein écran"
+                        aria-label="{{ __('common.fullscreen_gallery') }}"
                     >
                         <div class="mx-auto flex w-full max-w-6xl items-center justify-end">
                             <button
                                 type="button"
-                                @click="open = false"
+                                x-ref="closeButton"
+                                @click="closeGallery()"
                                 class="inline-flex size-10 items-center justify-center rounded-full border border-ink-700 text-ink-100 transition-colors hover:border-ink-500 hover:bg-ink-800"
                                 aria-label="{{ __('common.close') }}"
                             >
@@ -113,7 +117,7 @@
 
                             <img
                                 :src="images[active]"
-                                :alt="'{{ __('common.view') }} ' + (active + 1)"
+                                :alt="@js($project->name . ' — ' . __('common.view')) + ' ' + (active + 1)"
                                 x-transition.opacity.duration.200ms
                                 class="max-h-[78vh] w-auto rounded-xl object-contain shadow-2xl"
                             />
@@ -136,9 +140,10 @@
                                 <button
                                     type="button"
                                     @click="active = i"
+                                    :aria-pressed="i === active"
                                     :class="i === active ? 'ring-2 ring-blue-400' : 'opacity-50 hover:opacity-100'"
                                     class="w-16 overflow-hidden rounded-lg border border-ink-700 transition-all"
-                                    :aria-label="'{{ __('common.view') }} ' + (i + 1)"
+                                    :aria-label="@js($project->name . ' — ' . __('common.preview')) + ' ' + (i + 1)"
                                 >
                                     <img :src="img" alt="" loading="lazy" class="aspect-video w-full object-cover" />
                                 </button>
@@ -174,6 +179,28 @@
                     {{ $project->description }}
                 </p>
             @endif
+            @if ($project->role || $project->started_at || $project->ended_at || $project->categories->isNotEmpty())
+                <dl class="mt-6 flex flex-wrap gap-x-8 gap-y-4 border-t border-ink-200 pt-5 dark:border-ink-700">
+                    @if ($project->role)
+                        <div class="max-w-sm">
+                            <dt class="font-mono text-[0.64rem] uppercase tracking-[0.14em] text-ink-500 dark:text-ink-400">{{ __('project.contribution') }}</dt>
+                            <dd class="mt-1 text-sm font-medium text-ink-800 dark:text-ink-100">{{ $project->role }}</dd>
+                        </div>
+                    @endif
+                    @if ($project->started_at || $project->ended_at)
+                        <div>
+                            <dt class="font-mono text-[0.64rem] uppercase tracking-[0.14em] text-ink-500 dark:text-ink-400">{{ __('project.timeline') }}</dt>
+                            <dd class="mt-1 text-sm font-medium text-ink-800 dark:text-ink-100">{{ $project->started_at?->translatedFormat('M Y') ?? '—' }} – {{ $project->ended_at?->translatedFormat('M Y') ?? __('project.ongoing') }}</dd>
+                        </div>
+                    @endif
+                    @if ($project->categories->isNotEmpty())
+                        <div>
+                            <dt class="font-mono text-[0.64rem] uppercase tracking-[0.14em] text-ink-500 dark:text-ink-400">{{ __('project.domain') }}</dt>
+                            <dd class="mt-1 text-sm font-medium text-ink-800 dark:text-ink-100">{{ $project->categories->pluck('name')->join(' · ') }}</dd>
+                        </div>
+                    @endif
+                </dl>
+            @endif
         </div>
 
         @if ($project->url || $project->repository_url)
@@ -202,21 +229,16 @@
 
     {{-- Compétences mobilisées --}}
     @if ($project->problem || $project->architecture || $project->technical_decisions || $project->result)
-        <section class="mt-14 border-y border-ink-300 py-12 dark:border-ink-700">
+        <section class="mt-14 border-y border-ink-300 py-12 dark:border-ink-700" aria-labelledby="project-case-study-title">
             <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
                 <div>
                     <p class="eyebrow">{{ __('project.case_study_eyebrow') }}</p>
-                    <h2 class="mt-3 max-w-md font-display text-3xl font-bold tracking-[-0.035em] text-ink-900 dark:text-ink-50">
+                    <h2 id="project-case-study-title" class="mt-3 max-w-md font-display text-3xl font-bold tracking-[-0.035em] text-ink-900 dark:text-ink-50">
                         {{ __('project.case_study_title') }}
                     </h2>
-                    @if ($project->role)
-                        <p class="mt-5 font-mono text-xs uppercase tracking-[0.14em] text-blue-600 dark:text-blue-300">
-                            {{ $project->role }}
-                        </p>
-                    @endif
                 </div>
 
-                <div class="grid gap-8 sm:grid-cols-2">
+                <div class="relative grid gap-x-8 gap-y-9 border-l border-ink-200 pl-6 dark:border-ink-700 sm:grid-cols-2">
                     @foreach ([
                         'problem' => 'project.case_study_problem',
                         'architecture' => 'project.case_study_architecture',
@@ -224,7 +246,8 @@
                         'result' => 'project.case_study_result',
                     ] as $field => $label)
                         @if ($project->{$field})
-                            <article>
+                            <article class="relative">
+                                <span aria-hidden="true" class="absolute -left-[1.72rem] top-1.5 size-2 rounded-full bg-blue-500 ring-4 ring-canvas"></span>
                                 <h3 class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-blue-600 dark:text-blue-300">
                                     {{ __($label) }}
                                 </h3>

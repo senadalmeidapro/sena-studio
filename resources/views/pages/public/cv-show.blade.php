@@ -1,10 +1,18 @@
 <div class="public-page cv-page mx-auto max-w-4xl px-4 pb-24 pt-10 sm:px-6 lg:px-8">
-    <a href="{{ localized_route('home') }}" wire:navigate class="inline-flex items-center gap-1.5 text-sm text-ink-500 transition-colors hover:text-blue-600 dark:text-ink-400 dark:hover:text-blue-300">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12l7.5-7.5m5.25 15L8.25 12l7.5-7.5" />
-        </svg>
-        {{ __('common.back_site') }}
-    </a>
+    <div class="cv-actions flex flex-wrap items-center justify-between gap-4">
+        <a href="{{ localized_route('home') }}" wire:navigate class="inline-flex items-center gap-1.5 text-sm text-ink-500 transition-colors hover:text-blue-600 dark:text-ink-400 dark:hover:text-blue-300">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12l7.5-7.5m5.25 15L8.25 12l7.5-7.5" />
+            </svg>
+            {{ __('common.back_site') }}
+        </a>
+        <button type="button" data-cv-print class="inline-flex items-center gap-2 rounded-lg border border-ink-300 bg-card px-4 py-2.5 text-sm font-semibold text-ink-700 shadow-soft transition-colors hover:border-blue-400 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-ink-700 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-4" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 9V3.75h10.5V9m-10.5 9H4.5A2.25 2.25 0 0 1 2.25 15.75v-4.5A2.25 2.25 0 0 1 4.5 9h15a2.25 2.25 0 0 1 2.25 2.25v4.5A2.25 2.25 0 0 1 19.5 18h-2.25m-10.5-3h10.5v5.25H6.75V15Z" />
+            </svg>
+            {{ __('cv.print') }}
+        </button>
+    </div>
 
     @if (! $cv->isPublished())
         <div class="mt-4 inline-flex items-center gap-2 rounded-full border border-amber-300 bg-amber-50 px-4 py-1.5 text-xs font-medium text-amber-800 dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-300">

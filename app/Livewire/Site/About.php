@@ -40,6 +40,17 @@ class About extends Component
         return Testimonial::query()->visible()->take(6)->get();
     }
 
+    #[Computed]
+    public function proofProjects()
+    {
+        return Project::query()
+            ->where('visibility', 'public')
+            ->where('status', '!=', 'cancelled')
+            ->whereNotNull('problem')
+            ->whereIn('slug', ['mini-shop-api', 'api-orientation', 'itdesk'])
+            ->get();
+    }
+
     public function render()
     {
         return view('pages.public.about');

@@ -4,6 +4,7 @@ namespace App\Livewire\Site;
 
 use App\Models\Post;
 use App\Services\Seo;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -47,6 +48,26 @@ class BlogShow extends Component
     public function title(): string
     {
         return ($this->post->seo_title ?: $this->post->title).' — Sena Studio';
+    }
+
+    #[Computed]
+    public function relatedPosts()
+    {
+        $categoryIds = $this->post->categories->modelKeys();
+
+        if ($categoryIds === []) {
+            return collect();
+        }
+
+        return Post::query()
+            ->published()
+            ->where('locale', app()->getLocale())
+            ->where($this->post->getKeyName(), '!=', $this->post->getKey())
+            ->whereHas('categories', fn ($query) => $query->whereIn('categories.id', $categoryIds))
+            ->with(['categories', 'author'])
+            ->orderByDesc('published_at')
+            ->take(3)
+            ->get();
     }
 
     public function render()

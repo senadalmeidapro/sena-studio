@@ -825,3 +825,56 @@ select:focus[data-flux-control] {
         color: var(--color-ink-50, #f8fafc);
     }
 }
+
+@media print {
+    @page {
+        margin: 12mm;
+    }
+
+    body:has(.cv-page) {
+        background: #fff !important;
+        color: #111827 !important;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
+
+    body:has(.cv-page) .engineering-shell > div > header,
+    body:has(.cv-page) .engineering-shell > div > footer,
+    body:has(.cv-page) .cv-actions {
+        display: none !important;
+    }
+
+    body:has(.cv-page) .engineering-shell,
+    body:has(.cv-page) .engineering-shell > div,
+    body:has(.cv-page) main {
+        display: block !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        background: #fff !important;
+    }
+
+    body:has(.cv-page) .cv-page {
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        animation: none !important;
+    }
+
+    body:has(.cv-page) .cv-page > article {
+        margin: 0 !important;
+        overflow: visible !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        transform: none !important;
+    }
+
+    body:has(.cv-page) .cv-page article:not(:has(.cv-engineering)) {
+        background-color: #fff !important;
+        color: #111827 !important;
+    }
+
+    body:has(.cv-page) .cv-page article:not(:has(.cv-engineering)) :is(h1, h2, h3, h4, p, span, dt, dd, li) {
+        color: #1f2937 !important;
+    }
+}

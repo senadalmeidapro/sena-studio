@@ -61,6 +61,9 @@
                                 <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-500 dark:text-ink-400">{{ $skill->description }}</p>
                             @endif
 
+                            @if ($skill->projects->isNotEmpty())
+                                <p class="mt-5 font-mono text-[0.64rem] uppercase tracking-[0.12em] text-ink-500 dark:text-ink-400">{{ __('skills.applied_in') }}</p>
+                            @endif
                             <div class="mt-4 flex flex-wrap gap-1.5">
                                 @foreach ($skill->projects->take(3) as $project)
                                     <a href="{{ localized_route('projects.show', $project->slug) }}" wire:navigate

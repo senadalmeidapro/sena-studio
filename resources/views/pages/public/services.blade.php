@@ -5,11 +5,30 @@
         <p class="mt-5 text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">{{ __('services.subtitle') }}</p>
     </header>
 
-    <section class="mt-14 grid gap-px overflow-hidden rounded-2xl border border-ink-300 bg-ink-300 dark:border-ink-700 dark:bg-ink-700/70 sm:grid-cols-2">
-        @foreach ([['home.services.web', 'home.services.web_text'], ['home.services.saas', 'home.services.saas_text'], ['home.services.apis', 'home.services.apis_text'], ['home.services.perf', 'home.services.perf_text']] as [$title, $text])
-            <article class="bg-card p-7 transition-colors hover:bg-blue-50/60 dark:hover:bg-blue-950/20 sm:p-9">
+    <section class="mt-14 grid gap-px overflow-hidden rounded-2xl border border-ink-300 bg-ink-300 dark:border-ink-700 dark:bg-ink-700/70 sm:grid-cols-2" aria-label="{{ __('services.scope_title') }}">
+        @foreach ([['web', 'home.services.web', 'home.services.web_text'], ['operations', 'home.services.saas', 'home.services.saas_text'], ['apis', 'home.services.apis', 'home.services.apis_text'], ['evolution', 'home.services.perf', 'home.services.perf_text']] as [$key, $title, $text])
+            <article class="group bg-card p-7 transition-colors hover:bg-blue-50/60 dark:hover:bg-blue-950/20 sm:p-9">
+                <span class="font-mono text-xs tabular-nums text-blue-600 dark:text-blue-300">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                 <h2 class="font-display text-2xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __($title) }}</h2>
                 <p class="mt-3 max-w-md leading-relaxed text-ink-600 dark:text-ink-300">{{ __($text) }}</p>
+                <div class="mt-6 grid gap-5 border-t border-ink-200 pt-5 dark:border-ink-700 sm:grid-cols-2">
+                    <div>
+                        <h3 class="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-ink-500 dark:text-ink-400">{{ __('services.deliverables') }}</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-ink-700 dark:text-ink-200">{{ __('services.'.$key.'_deliverables') }}</p>
+                    </div>
+                    <div>
+                        <h3 class="font-mono text-[0.66rem] uppercase tracking-[0.14em] text-ink-500 dark:text-ink-400">{{ __('services.best_when') }}</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-ink-700 dark:text-ink-200">{{ __('services.'.$key.'_fit') }}</p>
+                    </div>
+                </div>
+                @if (($this->proofProjects[$key] ?? collect())->isNotEmpty())
+                    <div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
+                        <span class="text-ink-500 dark:text-ink-400">{{ __('services.related_work') }}</span>
+                        @foreach ($this->proofProjects[$key] as $proof)
+                            <a href="{{ localized_route('projects.show', $proof->slug) }}" wire:navigate class="font-medium text-blue-700 underline decoration-blue-300/60 underline-offset-4 transition-colors hover:text-blue-900 dark:text-blue-300 dark:hover:text-blue-100">{{ $proof->name }}</a>
+                        @endforeach
+                    </div>
+                @endif
             </article>
         @endforeach
     </section>

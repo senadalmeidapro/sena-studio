@@ -66,6 +66,30 @@
     </div>
 
     {{-- Principes d'ingénierie --}}
+    @if ($this->proofProjects->isNotEmpty())
+        <section class="mt-16 rounded-3xl border border-ink-300 bg-gradient-to-br from-blue-50/80 via-card to-card p-6 dark:border-ink-700 dark:from-blue-950/30 dark:via-card dark:to-card sm:p-9">
+            <div class="grid gap-7 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+                <div>
+                    <p class="eyebrow">{{ __('about.proof_eyebrow') }}</p>
+                    <h2 class="mt-3 font-display text-2xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('about.proof_title') }}</h2>
+                    <p class="mt-3 text-sm leading-relaxed text-ink-600 dark:text-ink-300">{{ __('about.proof_text') }}</p>
+                </div>
+                <div class="grid gap-3 sm:grid-cols-2">
+                    @foreach ($this->proofProjects as $proof)
+                        <a href="{{ localized_route('projects.show', $proof->slug) }}" wire:navigate class="group rounded-2xl border border-ink-200 bg-card/80 p-5 transition-all hover:-translate-y-0.5 hover:border-blue-400/70 hover:shadow-card dark:border-ink-700 dark:bg-elevated/70">
+                            <span class="font-mono text-[0.65rem] uppercase tracking-[0.12em] text-blue-700 dark:text-blue-300">{{ $proof->role ?: $proof->type->label() }}</span>
+                            <h3 class="mt-2 font-display text-lg font-semibold text-ink-900 transition-colors group-hover:text-blue-700 dark:text-ink-50 dark:group-hover:text-blue-300">{{ $proof->name }}</h3>
+                            <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-600 dark:text-ink-300">{{ $proof->problem }}</p>
+                            @if ($proof->result)
+                                <p class="mt-4 border-t border-ink-200 pt-3 text-sm leading-relaxed text-ink-600 dark:border-ink-700 dark:text-ink-300">{{ $proof->result }}</p>
+                            @endif
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
+
     <section class="mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">
         <div class="max-w-2xl">
             <p class="eyebrow">{{ __('about.principles_eyebrow') }}</p>

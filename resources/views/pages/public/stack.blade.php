@@ -47,6 +47,20 @@
                     <p class="mb-6 max-w-2xl text-pretty text-ink-600 dark:text-ink-400">{{ $stack->description }}</p>
                 @endif
 
+                @if ($stack->projects->isNotEmpty())
+                    <div class="mb-6 rounded-xl bg-blue-50/70 px-5 py-4 dark:bg-blue-950/20">
+                        <p class="font-mono text-[0.64rem] uppercase tracking-[0.14em] text-blue-700 dark:text-blue-300">{{ __('stack.applied_in') }}</p>
+                        <div class="mt-2 flex flex-wrap gap-x-5 gap-y-2">
+                            @foreach ($stack->projects as $project)
+                                <a href="{{ localized_route('projects.show', $project->slug) }}" wire:navigate class="group inline-flex flex-wrap items-baseline gap-x-2 text-sm font-medium text-ink-800 transition-colors hover:text-blue-700 dark:text-ink-100 dark:hover:text-blue-300">
+                                    <span>{{ $project->name }}</span>
+                                    @if ($project->role)<span class="text-xs font-normal text-ink-500 dark:text-ink-400">{{ $project->role }}</span>@endif
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
                 @if ($stack->stackItems->isNotEmpty())
                     <div class="grid gap-6 sm:grid-cols-2">
                         @foreach ($stack->stackItems->groupBy('category') as $category => $items)

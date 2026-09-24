@@ -107,9 +107,28 @@
                         <h2 class="font-display text-xl font-medium tracking-tight text-ink-900 transition-colors group-hover:text-blue-700 dark:text-ink-50 dark:group-hover:text-blue-300">
                             {{ $project->name }}
                         </h2>
-                        <p class="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-ink-500 dark:text-ink-400">
+                        @if ($project->role)
+                            <p class="mt-1 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-blue-700 dark:text-blue-300">{{ $project->role }}</p>
+                        @endif
+                        <p class="mt-3 line-clamp-3 text-sm leading-relaxed text-ink-500 dark:text-ink-400">
                             {{ $project->description }}
                         </p>
+                        @if ($project->problem || $project->result)
+                            <dl class="mt-4 grid gap-3 border-t border-ink-200 pt-4 text-sm leading-relaxed dark:border-ink-700">
+                                @if ($project->problem)
+                                    <div>
+                                        <dt class="font-mono text-[0.62rem] uppercase tracking-[0.12em] text-ink-500 dark:text-ink-400">{{ __('project.case_study_problem') }}</dt>
+                                        <dd class="mt-1 line-clamp-2 text-ink-700 dark:text-ink-200">{{ $project->problem }}</dd>
+                                    </div>
+                                @endif
+                                @if ($project->result)
+                                    <div>
+                                        <dt class="font-mono text-[0.62rem] uppercase tracking-[0.12em] text-ink-500 dark:text-ink-400">{{ __('project.case_study_result') }}</dt>
+                                        <dd class="mt-1 line-clamp-2 text-ink-700 dark:text-ink-200">{{ $project->result }}</dd>
+                                    </div>
+                                @endif
+                            </dl>
+                        @endif
                         <div class="mt-4 flex flex-wrap gap-1.5">
                             @foreach ($project->skills->take(3) as $skill)
                                 <span class="rounded bg-ink-100/80 px-2 py-0.5 font-mono text-[0.68rem] uppercase tracking-[0.08em] text-ink-600 dark:bg-ink-800/70 dark:text-ink-300">{{ $skill->name }}</span>

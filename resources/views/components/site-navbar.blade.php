@@ -134,6 +134,8 @@
                 type="button"
                 class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg text-ink-600 transition-colors hover:bg-ink-100 xl:hidden dark:text-ink-200 dark:hover:bg-ink-800/60"
                 :aria-label="__('nav.menu')"
+                aria-controls="site-mobile-menu"
+                aria-expanded="false"
                 data-site-mobile-toggle
             >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-5">
@@ -144,7 +146,7 @@
     </div>
 
     {{-- Mobile menu --}}
-    <div class="hidden border-t border-ink-300 bg-canvas xl:hidden dark:border-ink-700" data-site-mobile-menu>
+    <div id="site-mobile-menu" class="hidden border-t border-ink-300 bg-canvas xl:hidden dark:border-ink-700" data-site-mobile-menu>
         <nav class="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4">
             @foreach ($links as $key => [$label, $url])
                 <a
