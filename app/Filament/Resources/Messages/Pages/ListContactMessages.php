@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Messages\Pages;
 
 use App\Filament\Resources\Messages\ContactMessageResource;
 use App\Filament\Widgets\ContactMessageStatsWidget;
-use App\Filament\Widgets\MessagesVolumeChartWidget;
+use App\Filament\Widgets\ContactPipelineWidget;
 use App\Models\ContactMessage;
 use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
@@ -71,7 +71,7 @@ class ListContactMessages extends ListRecords
     {
         return [
             ContactMessageStatsWidget::class,
-            MessagesVolumeChartWidget::class,
+            ContactPipelineWidget::class,
         ];
     }
 

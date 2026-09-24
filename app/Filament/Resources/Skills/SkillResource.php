@@ -23,9 +23,9 @@ class SkillResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static UnitEnum|string|null $navigationGroup = 'Contenu';
+    protected static UnitEnum|string|null $navigationGroup = 'Référentiels';
 
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {

@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\AuditLogs\Pages;
 
 use App\Filament\Resources\AuditLogs\AuditLogResource;
-use App\Filament\Widgets\AdminActivityChartWidget;
 use App\Filament\Widgets\AuditLogStatsWidget;
 use Filament\Resources\Pages\ListRecords;
 
@@ -15,7 +14,6 @@ class ListAuditLogs extends ListRecords
     {
         return [
             AuditLogStatsWidget::class,
-            AdminActivityChartWidget::class,
         ];
     }
 

@@ -2,23 +2,18 @@
 
 namespace App\Filament\Pages;
 
-use App\Filament\Widgets\ContactPipelineWidget;
-use App\Filament\Widgets\InfrastructureStatusOverviewWidget;
-use App\Filament\Widgets\MediaHealthWidget;
 use App\Filament\Widgets\MessagesWidget;
 use App\Filament\Widgets\OverviewStatsWidget;
 use App\Filament\Widgets\ProjectsMissingMediaWidget;
-use App\Filament\Widgets\ProjectStatusChartWidget;
 use App\Filament\Widgets\QuickActionsWidget;
-use App\Filament\Widgets\RecentActivityWidget;
 use App\Filament\Widgets\RecentProjectsWidget;
 use App\Filament\Widgets\SystemHealthWidget;
-use App\Filament\Widgets\TopPagesChartWidget;
 use App\Filament\Widgets\TrafficStatsWidget;
 use App\Filament\Widgets\VisitsChartWidget;
 use BackedEnum;
 use Filament\Pages\Dashboard as BaseDashboard;
 use Filament\Support\Icons\Heroicon;
+use UnitEnum;
 
 class Dashboard extends BaseDashboard
 {
@@ -26,22 +21,20 @@ class Dashboard extends BaseDashboard
 
     protected static ?string $title = 'Tableau de bord';
 
+    protected static UnitEnum|string|null $navigationGroup = 'Pilotage';
+
+    protected static ?int $navigationSort = 1;
+
     public function getWidgets(): array
     {
         return [
             OverviewStatsWidget::class,
-            SystemHealthWidget::class,
-            ContactPipelineWidget::class,
             MessagesWidget::class,
-            MediaHealthWidget::class,
             ProjectsMissingMediaWidget::class,
+            RecentProjectsWidget::class,
             TrafficStatsWidget::class,
             VisitsChartWidget::class,
-            TopPagesChartWidget::class,
-            ProjectStatusChartWidget::class,
-            RecentProjectsWidget::class,
-            InfrastructureStatusOverviewWidget::class,
-            RecentActivityWidget::class,
+            SystemHealthWidget::class,
             QuickActionsWidget::class,
         ];
     }

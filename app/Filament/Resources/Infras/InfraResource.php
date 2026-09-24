@@ -23,9 +23,9 @@ class InfraResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static UnitEnum|string|null $navigationGroup = 'Contenu';
+    protected static UnitEnum|string|null $navigationGroup = 'Référentiels';
 
-    protected static ?int $navigationSort = 6;
+    protected static ?int $navigationSort = 3;
 
     public static function form(Schema $schema): Schema
     {

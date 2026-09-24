@@ -24,9 +24,9 @@ class PageViewResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'path';
 
-    protected static UnitEnum|string|null $navigationGroup = 'Observabilité';
+    protected static UnitEnum|string|null $navigationGroup = 'Mesure';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $modelLabel = 'Visite';
 

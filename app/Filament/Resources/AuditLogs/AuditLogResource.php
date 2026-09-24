@@ -27,9 +27,9 @@ class AuditLogResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'action';
 
-    protected static UnitEnum|string|null $navigationGroup = 'Système';
+    protected static UnitEnum|string|null $navigationGroup = 'Administration';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 4;
 
     protected static ?string $modelLabel = 'Événement';
 

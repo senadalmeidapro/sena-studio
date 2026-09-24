@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Posts\Pages;
 
 use App\Filament\Resources\Posts\PostResource;
-use App\Filament\Widgets\PostsPublicationChartWidget;
 use App\Filament\Widgets\PostStatsWidget;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
@@ -24,7 +23,6 @@ class ListPosts extends ListRecords
     {
         return [
             PostStatsWidget::class,
-            PostsPublicationChartWidget::class,
         ];
     }
 

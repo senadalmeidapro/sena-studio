@@ -23,9 +23,9 @@ class CvResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'version_label';
 
-    protected static UnitEnum|string|null $navigationGroup = 'Canvas';
+    protected static UnitEnum|string|null $navigationGroup = 'Portfolio';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 3;
 
     protected static ?string $modelLabel = 'CV';
 

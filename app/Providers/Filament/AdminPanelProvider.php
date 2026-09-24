@@ -44,6 +44,18 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('Sena Studio')
             ->brandLogo(fn (): string => asset('images/brand/sena-mark.svg'))
             ->brandLogoHeight('2rem')
+            ->navigationGroups([
+                'Pilotage',
+                'Relation client',
+                'Portfolio',
+                'Contenu éditorial',
+                'Référentiels',
+                'Mesure',
+                'Administration',
+                'Compte',
+            ])
+            ->sidebarCollapsibleOnDesktop()
+            ->maxContentWidth('full')
             ->colors([
                 'primary' => Color::hex('#2563eb'),
                 'danger' => Color::Rose,

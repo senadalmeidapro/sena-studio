@@ -23,9 +23,9 @@ class PostResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'title';
 
-    protected static UnitEnum|string|null $navigationGroup = 'Canvas';
+    protected static UnitEnum|string|null $navigationGroup = 'Contenu éditorial';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
 
     protected static ?string $modelLabel = 'Article';
 

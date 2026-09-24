@@ -23,7 +23,7 @@ class CategoryResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static UnitEnum|string|null $navigationGroup = 'Contenu';
+    protected static UnitEnum|string|null $navigationGroup = 'Contenu éditorial';
 
     protected static ?int $navigationSort = 3;
 
