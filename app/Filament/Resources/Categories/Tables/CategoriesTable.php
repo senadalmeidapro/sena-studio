@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Categories\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
@@ -57,25 +56,6 @@ class CategoriesTable
                             );
                     }),
 
-                Filter::make('creation_date')
-                    ->label('Created Date Range')
-                    ->form([
-                        DatePicker::make('created_from')
-                            ->label('From'),
-                        DatePicker::make('created_until')
-                            ->label('Until'),
-                    ])
-                    ->query(function (Builder $query, array $data): Builder {
-                        return $query
-                            ->when(
-                                $data['created_from'] ?? null,
-                                fn (Builder $query, $date) => $query->whereDate('created_at', '>=', $date)
-                            )
-                            ->when(
-                                $data['created_until'] ?? null,
-                                fn (Builder $query, $date) => $query->whereDate('created_at', '<=', $date)
-                            );
-                    }),
             ])
             ->recordActions([
                 EditAction::make(),
