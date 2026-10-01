@@ -9,9 +9,11 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('skills', function (Blueprint $table): void {
-            $table->string('category', 80)->nullable()->after('description');
-        });
+        if (! Schema::hasColumn('skills', 'category')) {
+            Schema::table('skills', function (Blueprint $table): void {
+                $table->string('category', 80)->nullable()->after('description');
+            });
+        }
 
         Schema::table('projects', function (Blueprint $table): void {
             $table->text('deployment')->nullable()->after('description');

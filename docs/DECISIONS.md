@@ -13,4 +13,5 @@
 - 2026-10-01: Availability and booking URL live in one singleton site settings row, while each project links to at most one testimonial and may show one manually entered headline metric.
 - 2026-10-01: The tracked README contained a documented default admin password; it has been removed, and the admin password should be rotated if that value was ever used.
 - 2026-10-01: Admin privilege is excluded from mass assignment and granted only through explicit seeder or factory admin paths.
+- 2026-10-01: Migration 000002 intentionally deletes skill categorizable rows because skills now store a category string; legacy skill-to-category links are not migrated.
 - 2026-10-01: Protected project links remain non-expiring, and a persisted per-project token lets the admin revoke all previous links without rotating APP_KEY.

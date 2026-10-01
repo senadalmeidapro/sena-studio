@@ -54,6 +54,10 @@ In production, the seeder stops with an error if `ADMIN_EMAIL` or `ADMIN_PASSWOR
 
 Start local development with `composer dev`, or run `php artisan serve` and `npm run dev` separately.
 
+## Upgrading
+
+Back up the production database before running `php artisan migrate`. Migration `2026_10_01_000002_merge_stack_into_skills_and_simplify_projects` removes legacy portfolio data and cannot be rolled back; restore a pre-migration backup if rollback is required.
+
 ## Routes
 
 Localized public pages use `/fr/...` and `/en/...`; the bare root redirects to the default locale. Route slugs are shared across locales. Examples:
