@@ -1,7 +1,7 @@
 <x-filament-widgets::widget>
     <x-filament::section
-        heading="Messages"
-        description="Dernières demandes reçues via le formulaire de contact."
+        heading="Nouveaux leads"
+        description="Demandes non lues reçues via le formulaire de contact."
     >
         <x-slot name="footer">
             <x-filament::button
@@ -12,7 +12,7 @@
                 size="sm"
                 color="primary"
             >
-                Tous les messages
+                Tous les leads
             </x-filament::button>
         </x-slot>
 
@@ -20,9 +20,7 @@
             <ul style="display:flex;flex-direction:column;">
                 @foreach ($messages as $message)
                     <li style="display:flex;align-items:center;gap:.75rem;padding:.6rem 0;border-top:1px solid var(--gray-200);">
-                        <span
-                            style="display:inline-flex;align-items:center;justify-content:center;width:2.25rem;height:2.25rem;border-radius:9999px;font-size:.8rem;font-weight:600;color:{{ $message->isRead() ? 'var(--gray-400)' : 'var(--primary-700)' }};background:{{ $message->isRead() ? 'var(--gray-100)' : 'var(--primary-100)' }};"
-                        >
+                        <span style="display:inline-flex;align-items:center;justify-content:center;width:2.25rem;height:2.25rem;border-radius:9999px;font-size:.8rem;font-weight:600;color:var(--primary-700);background:var(--primary-100);">
                             {{ strtoupper(mb_substr($message->name, 0, 1)) }}
                         </span>
 
@@ -33,28 +31,24 @@
                             >
                                 {{ $message->name }} — {{ $message->subject }}
                             </a>
-                            <span style="font-size:.75rem;color:var(--gray-400);">
-                                {{ $message->created_at->diffForHumans() }}
-                            </span>
+                            <span style="font-size:.75rem;color:var(--gray-400);">{{ $message->created_at->diffForHumans() }}</span>
                         </div>
 
-                        @if (! $message->isRead())
-                            <x-filament::icon-button
-                                wire:click="markAsRead({{ $message->id }})"
-                                icon="heroicon-o-check"
-                                color="primary"
-                                size="sm"
-                                tooltip="Marquer comme lu"
-                            />
-                        @endif
+                        <x-filament::icon-button
+                            wire:click="markAsRead({{ $message->id }})"
+                            icon="heroicon-o-check"
+                            color="primary"
+                            size="sm"
+                            tooltip="Mark as read"
+                        />
                     </li>
                 @endforeach
             </ul>
         @else
             <x-filament::empty-state
                 icon="heroicon-m-envelope"
-                heading="Aucun message"
-                description="Les demandes envoyées via le formulaire de contact apparaîtront ici."
+                heading="Aucun nouveau lead"
+                description="Les demandes non lues apparaîtront ici."
             />
         @endif
     </x-filament::section>

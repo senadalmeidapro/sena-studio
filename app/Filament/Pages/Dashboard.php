@@ -2,12 +2,9 @@
 
 namespace App\Filament\Pages;
 
-use App\Filament\Widgets\MessagesWidget;
-use App\Filament\Widgets\OverviewStatsWidget;
+use App\Filament\Widgets\ContactPipelineWidget;
+use App\Filament\Widgets\NewLeadsWidget;
 use App\Filament\Widgets\ProjectsMissingMediaWidget;
-use App\Filament\Widgets\QuickActionsWidget;
-use App\Filament\Widgets\RecentProjectsWidget;
-use App\Filament\Widgets\SystemHealthWidget;
 use BackedEnum;
 use Filament\Pages\Dashboard as BaseDashboard;
 use Filament\Support\Icons\Heroicon;
@@ -19,19 +16,16 @@ class Dashboard extends BaseDashboard
 
     protected static ?string $title = 'Tableau de bord';
 
-    protected static UnitEnum|string|null $navigationGroup = 'Pilotage';
+    protected static UnitEnum|string|null $navigationGroup = 'Leads';
 
     protected static ?int $navigationSort = 1;
 
     public function getWidgets(): array
     {
         return [
-            OverviewStatsWidget::class,
-            MessagesWidget::class,
+            NewLeadsWidget::class,
+            ContactPipelineWidget::class,
             ProjectsMissingMediaWidget::class,
-            RecentProjectsWidget::class,
-            SystemHealthWidget::class,
-            QuickActionsWidget::class,
         ];
     }
 

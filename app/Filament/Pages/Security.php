@@ -11,7 +11,7 @@ class Security extends Page
 {
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedLockClosed;
 
-    protected static UnitEnum|string|null $navigationGroup = 'Compte';
+    protected static UnitEnum|string|null $navigationGroup = 'Settings';
 
     protected static ?int $navigationSort = 1;
 

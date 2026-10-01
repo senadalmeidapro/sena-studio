@@ -6,9 +6,9 @@ use App\Filament\Resources\Messages\ContactMessageResource;
 use App\Models\ContactMessage;
 use Filament\Widgets\Widget;
 
-class MessagesWidget extends Widget
+class NewLeadsWidget extends Widget
 {
-    protected string $view = 'filament.widgets.messages-widget';
+    protected string $view = 'filament.widgets.new-leads-widget';
 
     protected int|string|array $columnSpan = [
         'md' => 1,
@@ -18,9 +18,7 @@ class MessagesWidget extends Widget
     public function getViewData(): array
     {
         return [
-            'messages' => ContactMessage::latest()
-                ->take(6)
-                ->get(),
+            'messages' => ContactMessage::unread()->latest()->take(6)->get(),
             'resourceUrl' => ContactMessageResource::getUrl('index'),
         ];
     }

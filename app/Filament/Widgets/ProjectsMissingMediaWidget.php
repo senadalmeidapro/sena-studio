@@ -24,7 +24,7 @@ class ProjectsMissingMediaWidget extends Widget
                 ->where('slug', '!=', 'portfolio-sena-studio')
                 ->where(function ($query): void {
                     $query->whereNull('image')
-                        ->orWhereDoesntHave('projectImages');
+                        ->whereDoesntHave('projectImages');
                 })
                 ->latest()
                 ->take(8)

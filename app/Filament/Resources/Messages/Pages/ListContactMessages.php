@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Messages\Pages;
 
 use App\Filament\Resources\Messages\ContactMessageResource;
-use App\Filament\Widgets\ContactMessageStatsWidget;
 use App\Filament\Widgets\ContactPipelineWidget;
 use App\Models\ContactMessage;
 use Filament\Actions\Action;
@@ -70,7 +69,6 @@ class ListContactMessages extends ListRecords
     protected function getHeaderWidgets(): array
     {
         return [
-            ContactMessageStatsWidget::class,
             ContactPipelineWidget::class,
         ];
     }
