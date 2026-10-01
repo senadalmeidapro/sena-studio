@@ -12,19 +12,19 @@
     <div @class(['flex w-full items-center gap-3', $align === 'center' ? 'justify-center' : ''])>
         <span class="eyebrow">{{ $label }}</span>
         @if ($align !== 'center')
-            <span aria-hidden="true" class="section-heading-line h-px min-w-8 flex-1 bg-ink-300 dark:bg-ink-700"></span>
+            <span aria-hidden="true" class="section-heading-line h-px min-w-8 flex-1 bg-border "></span>
         @endif
     </div>
 
     <div @class(['flex w-full flex-col gap-6', $align === 'between' ? 'sm:flex-row sm:items-end sm:justify-between' : '', $align === 'center' ? 'items-center' : ''])>
         <div @class(['max-w-2xl', $align === 'center' ? 'mx-auto' : ''])>
             @if ($title)
-                <h2 class="font-display text-3xl font-bold tracking-[-0.035em] text-ink-900 dark:text-ink-50 sm:text-4xl">
+                <h2 class="font-display text-3xl font-bold tracking-[-0.035em] text-text  sm:text-4xl">
                     {{ $title }}
                 </h2>
             @endif
             @if ($subtitle)
-                <p class="mt-3 text-pretty text-ink-600 dark:text-ink-400">
+                <p class="mt-3 text-pretty text-text-muted ">
                     {{ $subtitle }}
                 </p>
             @endif

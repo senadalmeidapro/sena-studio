@@ -25,3 +25,7 @@
 - 2026-10-05: Billing PDFs use BILLING_* values for issuer and payment details; missing issuer values show TODOs locally and block production generation, while quote validity and payment terms remain configurable placeholders.
 - 2026-10-06: Overdue invoice digests are sent only to the admin as database notifications; per-invoice/day receipts make daily reruns idempotent, and client emails are never sent.
 - 2026-10-06: Report periods use paid date for revenue, issue date for open receivables, and first message date for lead metrics; revenue is always kept separate by currency, with unlinked engagements grouped as Unlinked project.
+- 2026-10-01: Browser pages use the new semantic palette tokens while the CV PDF keeps its separate Blade template and literal PDF palette unchanged.
+- 2026-10-01: Flux primary colors use Flux's supported accent variables; app CSS overrides Flux control neutrals and danger states because Flux has no token hook for those semantics.
+- 2026-10-01: Filament keeps its existing neutral and status styling; only its primary palette and focus rings follow the requested light-theme accent.
+- 2026-10-01: Light accent changed minimally from #3B6FD4 to #3A6ED4 because its 4.475:1 contrast on the page background missed the required 4.5:1; the hue and dark palette stay unchanged.

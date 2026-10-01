@@ -41,11 +41,11 @@
     ];
 @endphp
 
-<header class="sticky top-0 z-40 border-b border-ink-200/90 bg-canvas/90 backdrop-blur-md dark:border-ink-800 dark:bg-canvas/90">
+<header class="sticky top-0 z-40 border-b border-border bg-bg/90 backdrop-blur-md  ">
     <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="{{ localized_route('home') }}" class="group flex items-center gap-2.5" wire:navigate>
             <x-logo class="size-7 transition-transform duration-300 group-hover:scale-105" />
-            <span class="font-display text-[1.05rem] font-semibold tracking-[-0.02em] text-ink-900 dark:text-ink-100">Sena Studio</span>
+            <span class="font-display text-[1.05rem] font-semibold tracking-[-0.02em] text-text ">Sena Studio</span>
         </a>
 
         <nav class="hidden items-center gap-6 xl:flex 2xl:gap-8">
@@ -65,7 +65,7 @@
         </nav>
 
         <div class="flex items-center gap-3">
-            <a href="{{ localized_route('contact') }}" wire:navigate class="group hidden items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-white shadow-soft transition-all duration-200 hover:-translate-y-px hover:bg-blue-700 xl:inline-flex dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
+            <a href="{{ localized_route('contact') }}" wire:navigate class="group hidden items-center gap-1.5 rounded-lg bg-accent px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-on-accent shadow-soft transition-all duration-200 hover:-translate-y-px hover:bg-accent-hover xl:inline-flex   ">
                 {{ __('nav.discuss') }}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -75,8 +75,8 @@
             @if ($cvUrl)
                 <a href="{{ $cvUrl }}" wire:navigate @class([
                     'hidden rounded-lg px-3.5 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] transition-colors xl:inline-flex',
-                    'border border-blue-500 bg-blue-50 text-blue-700 dark:border-blue-500 dark:bg-blue-500/15 dark:text-blue-300' => request()->routeIs('cv.show'),
-                    'border border-ink-300 text-ink-700 hover:border-blue-400 hover:text-blue-700 dark:border-ink-700 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300' => ! request()->routeIs('cv.show'),
+                    'border border-border bg-accent-soft text-accent   ' => request()->routeIs('cv.show'),
+                    'border border-border text-text hover:border-border hover:text-accent    ' => ! request()->routeIs('cv.show'),
                 ])>
                     {{ __('nav.cv') }}
                 </a>
@@ -84,18 +84,18 @@
 
             {{-- Switcher de langue --}}
             <div x-data="{ open: false }" @click.outside="open = false" @keydown.escape.window="open = false" class="relative hidden lg:block">
-                <button type="button" @click="open = ! open" :aria-expanded="open" aria-haspopup="listbox" aria-label="{{ __('nav.language') }}" class="inline-flex h-8 items-center gap-1.5 rounded-lg border border-ink-300/80 bg-ink-100/60 px-2.5 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-ink-600 transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-ink-700/80 dark:bg-ink-800/60 dark:text-ink-300 dark:hover:border-blue-500/60 dark:hover:text-blue-300">
+                <button type="button" @click="open = ! open" :aria-expanded="open" aria-haspopup="listbox" aria-label="{{ __('nav.language') }}" class="inline-flex h-8 items-center gap-1.5 rounded-lg border border-border bg-surface-muted px-2.5 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-text-muted transition-colors hover:border-border hover:text-accent     ">
                     {{ strtoupper($locale) }}
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-3.5 transition-transform" :class="open ? 'rotate-180' : ''" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m6.75 9 5.25 5.25L17.25 9" />
                     </svg>
                 </button>
-                <div x-cloak x-show="open" x-transition role="listbox" class="absolute right-0 top-10 z-50 w-[220px] min-w-[220px] rounded-xl border border-ink-200 bg-card p-1.5 shadow-card dark:border-ink-700 dark:bg-elevated">
+                <div x-cloak x-show="open" x-transition role="listbox" class="absolute right-0 top-10 z-50 w-[220px] min-w-[220px] rounded-xl border border-border bg-surface p-1.5 shadow-card  ">
                         @foreach ($localeOptions as $code => $option)
                         <a href="{{ $option['url'] }}" wire:navigate @class([
                             'block rounded-lg px-3 py-2 text-sm transition-colors whitespace-nowrap',
-                            'bg-blue-50 font-semibold text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' => $locale === $code,
-                            'text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-800/50' => $locale !== $code,
+                            'bg-accent-soft font-semibold text-accent  ' => $locale === $code,
+                            'text-text-muted hover:bg-surface-muted  ' => $locale !== $code,
                         ]) role="option" aria-selected="{{ $locale === $code ? 'true' : 'false' }}">
                             {{ strtoupper($code) }} - {{ $option['label'] }}
                         </a>
@@ -107,7 +107,7 @@
             <div
                 x-data="{ active: window.Flux.appearance }"
                 x-init="$watch(() => window.Flux.appearance, value => active = value)"
-                class="flex items-center gap-0.5 rounded-full border border-ink-300/80 bg-ink-100/60 p-0.5 dark:border-ink-700/80 dark:bg-ink-800/60"
+                class="flex items-center gap-0.5 rounded-full border border-border bg-surface-muted p-0.5  "
                 role="group"
                 aria-label="Bascule de thème"
             >
@@ -120,7 +120,7 @@
                         type="button"
                         @click="window.Flux.appearance = @js($theme)"
                         :aria-pressed="active === @js($theme)"
-                        :class="active === @js($theme) ? 'bg-white text-ink-900 shadow-sm dark:bg-ink-700 dark:text-ink-50' : 'text-ink-500 hover:bg-white hover:text-ink-800 dark:text-ink-400 dark:hover:bg-ink-700/60 dark:hover:text-ink-100'"
+                        :class="active === @js($theme) ? 'bg-surface text-text shadow-sm  ' : 'text-text-muted hover:bg-surface hover:text-text   '"
                         class="flex size-7 items-center justify-center rounded-full transition-all duration-200"
                         :aria-label="'{{ $label }}'"
                     >
@@ -134,7 +134,7 @@
             {{-- Mobile toggle --}}
             <button
                 type="button"
-                class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg text-ink-600 transition-colors hover:bg-ink-100 xl:hidden dark:text-ink-200 dark:hover:bg-ink-800/60"
+                class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg text-text-muted transition-colors hover:bg-surface-muted xl:hidden  "
                 :aria-label="__('nav.menu')"
                 aria-controls="site-mobile-menu"
                 aria-expanded="false"
@@ -148,7 +148,7 @@
     </div>
 
     {{-- Mobile menu --}}
-    <div id="site-mobile-menu" class="hidden border-t border-ink-300 bg-canvas xl:hidden dark:border-ink-700" data-site-mobile-menu>
+    <div id="site-mobile-menu" class="hidden border-t border-border bg-bg xl:hidden " data-site-mobile-menu>
         <nav class="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4">
             @foreach ($links as $key => [$label, $url])
                 <a
@@ -156,31 +156,31 @@
                     wire:navigate
                     @class([
                         'rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
-                        'bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' => $activeKey === $key,
-                        'text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-800/50' => $activeKey !== $key,
+                        'bg-accent-soft text-accent  ' => $activeKey === $key,
+                        'text-text-muted hover:bg-surface-muted  ' => $activeKey !== $key,
                         'pointer-events-none opacity-40' => ($key === 'cv' && ! $cvUrl),
                     ])
                 >
                     {{ $label }}
                 </a>
             @endforeach
-            <div class="mt-2 border-t border-ink-300 pt-3 dark:border-ink-700">
-                <a href="{{ localized_route('contact') }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-blue-600 hover:bg-blue-100 dark:text-blue-300 dark:hover:bg-blue-500/15">
+            <div class="mt-2 border-t border-border pt-3 ">
+                <a href="{{ localized_route('contact') }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-accent hover:bg-accent-soft  ">
                     {{ __('nav.discuss') }} →
                 </a>
-                <div x-data="{ open: false }" class="rounded-lg border border-ink-200 dark:border-ink-700">
-                    <button type="button" @click="open = ! open" :aria-expanded="open" aria-haspopup="listbox" class="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-800/50">
+                <div x-data="{ open: false }" class="rounded-lg border border-border ">
+                    <button type="button" @click="open = ! open" :aria-expanded="open" aria-haspopup="listbox" class="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-text-muted hover:bg-surface-muted  ">
                         <span>{{ __('nav.language') }}: {{ strtoupper($locale) }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-4 transition-transform" :class="open ? 'rotate-180' : ''" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m6.75 9 5.25 5.25L17.25 9" />
                         </svg>
                     </button>
-                    <div x-cloak x-show="open" x-transition role="listbox" class="border-t border-ink-200 p-1.5 dark:border-ink-700">
+                    <div x-cloak x-show="open" x-transition role="listbox" class="border-t border-border p-1.5 ">
                         @foreach ($localeOptions as $code => $option)
                             <a href="{{ $option['url'] }}" wire:navigate @class([
                                 'block rounded-lg px-3 py-2 text-sm transition-colors',
-                                'bg-blue-50 font-semibold text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' => $locale === $code,
-                                'text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-800/50' => $locale !== $code,
+                                'bg-accent-soft font-semibold text-accent  ' => $locale === $code,
+                                'text-text-muted hover:bg-surface-muted  ' => $locale !== $code,
                             ]) role="option" aria-selected="{{ $locale === $code ? 'true' : 'false' }}">
                                 {{ strtoupper($code) }} - {{ $option['label'] }}
                             </a>
@@ -188,7 +188,7 @@
                     </div>
                 </div>
                 @if ($cvUrl)
-                    <a href="{{ $cvUrl }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-ink-500 hover:bg-ink-100 dark:text-ink-400 dark:hover:bg-ink-800/50">
+                    <a href="{{ $cvUrl }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-text-muted hover:bg-surface-muted  ">
                         {{ __('nav.cv') }}
                     </a>
                 @endif

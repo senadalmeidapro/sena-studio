@@ -1,7 +1,7 @@
 @props(['class' => null])
 
 <a
-    {{ $attributes->merge(['class' => 'group inline-flex items-center gap-1.5 font-medium text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-300 dark:hover:text-blue-200 '.$class]) }}
+    {{ $attributes->merge(['class' => 'group inline-flex items-center gap-1.5 font-medium text-accent transition-colors hover:text-accent   '.$class]) }}
 >
     <span class="ink-link">{{ $slot }}</span>
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor"
