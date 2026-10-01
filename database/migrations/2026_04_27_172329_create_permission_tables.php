@@ -11,14 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        $teams = config('permission.teams');
-        $tableNames = config('permission.table_names');
-        $columnNames = config('permission.column_names');
-        $pivotRole = $columnNames['role_pivot_key'] ?? 'role_id';
-        $pivotPermission = $columnNames['permission_pivot_key'] ?? 'permission_id';
-
-        throw_if(empty($tableNames), 'Error: config/permission.php not loaded. Run [php artisan config:clear] and try again.');
-        throw_if($teams && empty($columnNames['team_foreign_key'] ?? null), 'Error: team_foreign_key on config/permission.php not loaded. Run [php artisan config:clear] and try again.');
+        // Keep the original Spatie table names here so fresh installs can run
+        // this historical migration after the package itself has been removed.
+        $teams = false;
+        $tableNames = [
+            'permissions' => 'permissions',
+            'roles' => 'roles',
+            'model_has_permissions' => 'model_has_permissions',
+            'model_has_roles' => 'model_has_roles',
+            'role_has_permissions' => 'role_has_permissions',
+        ];
+        $columnNames = ['model_morph_key' => 'model_id'];
+        $pivotRole = 'role_id';
+        $pivotPermission = 'permission_id';
 
         /**
          * See `docs/prerequisites.md` for suggested lengths on 'name' and 'guard_name' if "1071 Specified key was too long" errors are encountered.
@@ -114,9 +119,6 @@ return new class extends Migration
             $table->primary([$pivotPermission, $pivotRole], 'role_has_permissions_permission_id_role_id_primary');
         });
 
-        app('cache')
-            ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
-            ->forget(config('permission.cache.key'));
     }
 
     /**
@@ -124,9 +126,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        $tableNames = config('permission.table_names');
-
-        throw_if(empty($tableNames), 'Error: config/permission.php not found and defaults could not be merged. Please publish the package configuration before proceeding, or drop the tables manually.');
+        $tableNames = [
+            'permissions' => 'permissions',
+            'roles' => 'roles',
+            'model_has_permissions' => 'model_has_permissions',
+            'model_has_roles' => 'model_has_roles',
+            'role_has_permissions' => 'role_has_permissions',
+        ];
 
         Schema::dropIfExists($tableNames['role_has_permissions']);
         Schema::dropIfExists($tableNames['model_has_roles']);

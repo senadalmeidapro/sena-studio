@@ -9,7 +9,6 @@ namespace App\Models;
 use Carbon\Carbon;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -45,39 +44,14 @@ class User extends Authenticatable implements FilamentUser
 
     public function isAdmin(): bool
     {
-        return ModelHasRole::query()
-            ->where('model_type', self::class)
-            ->where('model_id', $this->getKey())
-            ->whereHas('role', function (Builder $query): void {
-                $query
-                    ->where('name', 'admin')
-                    ->where('guard_name', 'web');
-            })
-            ->exists();
-    }
-
-    public function isSuperAdmin(): bool
-    {
-        if (! $this->isAdmin()) {
-            return false;
-        }
-
-        return ModelHasRole::query()
-            ->where('model_type', self::class)
-            ->where('model_id', $this->getKey())
-            ->whereHas('role', function (Builder $query): void {
-                $query
-                    ->where('name', 'super-admin')
-                    ->where('guard_name', 'web');
-            })
-            ->exists()
-            || ($this->email !== '' && hash_equals((string) env('ADMIN_EMAIL'), $this->email));
+        return (bool) $this->is_admin;
     }
 
     protected $fillable = [
         'name',
         'email',
         'email_verified_at',
+        'is_admin',
         'password',
         'remember_token',
         'two_factor_secret',
@@ -94,6 +68,7 @@ class User extends Authenticatable implements FilamentUser
     protected $casts = [
         'password' => 'hashed',
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
         'two_factor_confirmed_at' => 'datetime',
     ];
 

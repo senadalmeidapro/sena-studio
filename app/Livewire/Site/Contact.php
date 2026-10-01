@@ -3,7 +3,6 @@
 namespace App\Livewire\Site;
 
 use App\Models\ContactMessage;
-use App\Models\ModelHasRole;
 use App\Models\User;
 use App\Notifications\NewContactMessage;
 use App\Services\Seo;
@@ -125,19 +124,7 @@ class Contact extends Component
 
     protected function notifyAdmins(ContactMessage $message): void
     {
-        $adminIds = ModelHasRole::query()
-            ->where('model_type', User::class)
-            ->whereHas('role', fn ($query) => $query->where('name', 'admin')->where('guard_name', 'web'))
-            ->pluck('model_id')
-            ->filter()
-            ->unique()
-            ->all();
-
-        if ($adminIds === []) {
-            return;
-        }
-
-        User::query()->whereIn('id', $adminIds)->get()->each->notify(new NewContactMessage($message));
+        User::query()->where('is_admin', true)->get()->each->notify(new NewContactMessage($message));
     }
 
     protected function sendMail(array $data): void

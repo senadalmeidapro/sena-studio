@@ -45,14 +45,11 @@ class AdminPanelProvider extends PanelProvider
             ->brandLogo(fn (): string => asset('images/brand/sena-mark.svg'))
             ->brandLogoHeight('2rem')
             ->navigationGroups([
-                'Pilotage',
-                'Relation client',
+                'Leads',
+                'Clients',
                 'Portfolio',
-                'Contenu éditorial',
-                'Référentiels',
-                'Mesure',
-                'Administration',
-                'Compte',
+                'Content',
+                'Settings',
             ])
             ->sidebarCollapsibleOnDesktop()
             ->maxContentWidth('full')

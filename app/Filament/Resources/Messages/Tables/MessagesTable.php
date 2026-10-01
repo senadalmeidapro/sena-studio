@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Messages\Tables;
 
-use App\Models\AdminActivityLog;
 use App\Models\ContactMessage;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
@@ -124,14 +123,7 @@ class MessagesTable
                             ->rows(4),
                     ])
                     ->action(function (ContactMessage $record, array $data): void {
-                        $previousStatus = $record->status;
                         $record->update($data);
-
-                        AdminActivityLog::record(
-                            'messages.pipeline_update',
-                            "Demande de {$record->name} : {$previousStatus} → {$record->status}.",
-                            $record,
-                        );
                     }),
                 Action::make('markAsRead')
                     ->label('Marquer comme lu')

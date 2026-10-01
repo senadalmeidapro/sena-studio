@@ -8,8 +8,6 @@ use App\Filament\Widgets\ProjectsMissingMediaWidget;
 use App\Filament\Widgets\QuickActionsWidget;
 use App\Filament\Widgets\RecentProjectsWidget;
 use App\Filament\Widgets\SystemHealthWidget;
-use App\Filament\Widgets\TrafficStatsWidget;
-use App\Filament\Widgets\VisitsChartWidget;
 use BackedEnum;
 use Filament\Pages\Dashboard as BaseDashboard;
 use Filament\Support\Icons\Heroicon;
@@ -32,8 +30,6 @@ class Dashboard extends BaseDashboard
             MessagesWidget::class,
             ProjectsMissingMediaWidget::class,
             RecentProjectsWidget::class,
-            TrafficStatsWidget::class,
-            VisitsChartWidget::class,
             SystemHealthWidget::class,
             QuickActionsWidget::class,
         ];

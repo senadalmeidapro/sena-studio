@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Posts\Tables;
 
-use App\Models\AdminActivityLog;
 use App\Models\Post;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
@@ -64,7 +63,6 @@ class PostsTable
                     ->requiresConfirmation()
                     ->action(function (Post $record): void {
                         $record->update(['status' => Post::STATUS_PUBLISHED]);
-                        AdminActivityLog::record('posts.publish', "Article « {$record->title} » publié.", $record);
                     }),
 
                 Action::make('unpublish')
@@ -75,7 +73,6 @@ class PostsTable
                     ->requiresConfirmation()
                     ->action(function (Post $record): void {
                         $record->update(['status' => Post::STATUS_DRAFT]);
-                        AdminActivityLog::record('posts.unpublish', "Article « {$record->title} » remis en brouillon.", $record);
                     }),
 
                 Action::make('preview')
