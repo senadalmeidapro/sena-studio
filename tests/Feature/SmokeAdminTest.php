@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 it('renders admin dashboard and resources', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
     $message = ContactMessage::create([
         'name' => 'Test',
         'email' => 'test@example.com',
@@ -46,14 +46,14 @@ it('renders admin dashboard and resources', function () {
 });
 
 it('does not expose removed stack or infrastructure admin resources', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
 
     $this->actingAs($user)->get('/admin/stacks')->assertNotFound();
     $this->actingAs($user)->get('/admin/infras')->assertNotFound();
 });
 
 it('marks the admin panel as private for search engines', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
 
     $this->actingAs($user)
         ->get('/admin')
@@ -62,7 +62,7 @@ it('marks the admin panel as private for search engines', function () {
 });
 
 it('marks contact message as read when viewed', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
     $message = ContactMessage::create([
         'name' => 'Test',
         'email' => 'test@example.com',

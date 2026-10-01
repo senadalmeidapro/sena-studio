@@ -9,7 +9,7 @@ use Livewire\Livewire;
 uses(RefreshDatabase::class);
 
 it('updates a contact pipeline from the messages table', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
     $message = ContactMessage::create([
         'name' => 'Client test',
         'email' => 'client@example.com',

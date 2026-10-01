@@ -52,7 +52,7 @@ it('stores engagement and invoice amounts as integer minor units and supports bo
 });
 
 it('exposes all client tracker resources to an admin', function () {
-    $user = User::factory()->create(['is_admin' => true]);
+    $user = User::factory()->admin()->create();
 
     foreach ([ClientResource::getUrl('index'), EngagementResource::getUrl('index'), DeliverableResource::getUrl('index'), InvoiceResource::getUrl('index')] as $url) {
         $this->actingAs($user)->get($url)->assertSuccessful();
@@ -60,7 +60,7 @@ it('exposes all client tracker resources to an admin', function () {
 });
 
 it('offers the contact conversion as a one-click admin table action', function () {
-    $user = User::factory()->create(['is_admin' => true]);
+    $user = User::factory()->admin()->create();
     $message = ContactMessage::create([
         'name' => 'Kofi Mensah', 'email' => 'kofi@example.test', 'company' => 'Fintech Ltd',
         'subject' => 'API build', 'project_type' => 'fintech_api', 'goal' => 'Need an API.', 'timeline' => '1_3_months', 'budget_range' => '1k-5k', 'message' => 'Connect to the ledger.',

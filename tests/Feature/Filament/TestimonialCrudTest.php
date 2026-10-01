@@ -11,7 +11,7 @@ use Livewire\Livewire;
 uses(RefreshDatabase::class);
 
 it('lists testimonials', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
     $testimonial = Testimonial::factory()->create(['name' => 'Marie Dupont']);
 
     Livewire::actingAs($user)
@@ -21,7 +21,7 @@ it('lists testimonials', function () {
 });
 
 it('creates a testimonial visible by default', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
 
     Livewire::actingAs($user)
         ->test(CreateTestimonial::class)
@@ -45,7 +45,7 @@ it('creates a testimonial visible by default', function () {
 });
 
 it('validates required fields', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
 
     Livewire::actingAs($user)
         ->test(CreateTestimonial::class)
@@ -55,7 +55,7 @@ it('validates required fields', function () {
 });
 
 it('updates a testimonial and can hide it', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
     $testimonial = Testimonial::factory()->create(['name' => 'Paul Renard']);
 
     Livewire::actingAs($user)
@@ -79,7 +79,7 @@ it('updates a testimonial and can hide it', function () {
 });
 
 it('deletes a testimonial', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
     $testimonial = Testimonial::factory()->create();
 
     Livewire::actingAs($user)

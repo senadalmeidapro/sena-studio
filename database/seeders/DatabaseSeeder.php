@@ -23,15 +23,15 @@ class DatabaseSeeder extends Seeder
 
             $this->command?->warn('ADMIN_EMAIL and ADMIN_PASSWORD are required to seed the admin account.');
         } else {
-            User::query()->updateOrCreate(
+            $user = User::query()->updateOrCreate(
                 ['email' => $email],
                 [
                     'name' => config('admin.name') ?: "Sèna Gédéon D'ALMEIDA",
                     'password' => Hash::make($password),
                     'email_verified_at' => now(),
-                    'is_admin' => true,
                 ],
             );
+            $user->forceFill(['is_admin' => true])->save();
         }
 
         $this->call(PortfolioSeeder::class);

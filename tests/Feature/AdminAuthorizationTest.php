@@ -12,13 +12,28 @@ function userWithoutAdminRole(): User
 }
 
 it('uses the admin flag for panel access', function () {
-    $admin = User::factory()->create();
+    $admin = User::factory()->admin()->create();
     $nonAdmin = User::factory()->nonAdmin()->create();
 
     expect($admin->isAdmin())->toBeTrue()
         ->and($nonAdmin->isAdmin())->toBeFalse();
 
     $this->actingAs($admin)->get('/admin')->assertSuccessful();
+});
+
+it('does not allow mass assignment to grant admin access', function () {
+    $user = User::create([
+        'name' => 'Unprivileged User',
+        'email' => 'unprivileged@example.test',
+        'password' => 'password',
+        'is_admin' => true,
+    ]);
+
+    expect($user->fresh()->isAdmin())->toBeFalse();
+
+    $user->update(['is_admin' => true]);
+
+    expect($user->fresh()->isAdmin())->toBeFalse();
 });
 
 it('blocks users without the admin flag from the Filament panel', function () {

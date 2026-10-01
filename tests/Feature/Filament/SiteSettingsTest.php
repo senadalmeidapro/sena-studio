@@ -6,7 +6,7 @@ use App\Models\User;
 use Livewire\Livewire;
 
 it('lets the admin edit availability and an optional booking URL', function () {
-    $admin = User::factory()->create(['is_admin' => true]);
+    $admin = User::factory()->admin()->create();
 
     Livewire::actingAs($admin)
         ->test(SiteSettings::class)

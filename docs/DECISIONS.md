@@ -12,3 +12,4 @@
 - 2026-10-01: Contact scoping answers are stored as project type, goal, timeline, budget range, and optional context; existing budget values are copied before the old field is dropped.
 - 2026-10-01: Availability and booking URL live in one singleton site settings row, while each project links to at most one testimonial and may show one manually entered headline metric.
 - 2026-10-01: The tracked README contained a documented default admin password; it has been removed, and the admin password should be rotated if that value was ever used.
+- 2026-10-01: Admin privilege is excluded from mass assignment and granted only through explicit seeder or factory admin paths.

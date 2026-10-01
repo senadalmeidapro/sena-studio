@@ -11,7 +11,7 @@ use Livewire\Livewire;
 uses(RefreshDatabase::class);
 
 it('updates the password with the current password', function () {
-    $user = User::factory()->create(['password' => bcrypt('old-password')]);
+    $user = User::factory()->admin()->create(['password' => bcrypt('old-password')]);
 
     Livewire::actingAs($user)
         ->test(AccountSecurity::class)
@@ -26,7 +26,7 @@ it('updates the password with the current password', function () {
 });
 
 it('rejects an incorrect current password', function () {
-    $user = User::factory()->create(['password' => bcrypt('old-password')]);
+    $user = User::factory()->admin()->create(['password' => bcrypt('old-password')]);
 
     Livewire::actingAs($user)
         ->test(AccountSecurity::class)
@@ -44,7 +44,7 @@ it('rejects an incorrect current password', function () {
 });
 
 it('validates the new password and its confirmation', function () {
-    $user = User::factory()->create(['password' => bcrypt('old-password')]);
+    $user = User::factory()->admin()->create(['password' => bcrypt('old-password')]);
 
     Livewire::actingAs($user)
         ->test(AccountSecurity::class)
@@ -59,7 +59,7 @@ it('validates the new password and its confirmation', function () {
     expect(Hash::check('old-password', $user->fresh()->password))->toBeTrue();
 });
 it('enables two-factor and confirms with a recovery code', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
     Livewire::actingAs($user)->test(AccountSecurity::class)->call('enableTwoFactor');
 
     $user->refresh();
@@ -81,7 +81,7 @@ it('enables two-factor and confirms with a recovery code', function () {
 });
 
 it('disables two-factor authentication', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
     Livewire::actingAs($user)->test(AccountSecurity::class)->call('enableTwoFactor');
 
     $user->refresh();
@@ -93,7 +93,7 @@ it('disables two-factor authentication', function () {
 });
 
 it('renders the QR code SVG after enabling two-factor', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
 
     Livewire::actingAs($user)
         ->test(AccountSecurity::class)

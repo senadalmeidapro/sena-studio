@@ -43,7 +43,6 @@ class UserFactory extends Factory
             'name' => $names[static::$sequence % count($names)],
             'email' => 'user'.static::$sequence.'@senastudio.test',
             'email_verified_at' => now(),
-            'is_admin' => true,
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'two_factor_secret' => null,
@@ -67,6 +66,11 @@ class UserFactory extends Factory
         return $this->state(fn (array $attributes) => [
             'is_admin' => false,
         ]);
+    }
+
+    public function admin(): static
+    {
+        return $this->afterMaking(fn (User $user) => $user->forceFill(['is_admin' => true]));
     }
 
     /**

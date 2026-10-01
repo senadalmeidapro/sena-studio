@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 it('downloads the CV as a PDF for an authenticated user', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
     $cv = Cv::create([
         'title' => 'Curriculum vitae',
         'version_label' => 'V1 - Fullstack',

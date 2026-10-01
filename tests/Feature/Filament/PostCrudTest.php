@@ -11,7 +11,7 @@ use Livewire\Livewire;
 uses(RefreshDatabase::class);
 
 it('lists posts', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
     $post = Post::factory()->create(['title' => 'Article visible']);
 
     Livewire::actingAs($user)
@@ -21,7 +21,7 @@ it('lists posts', function () {
 });
 
 it('creates a draft post', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
 
     Livewire::actingAs($user)
         ->test(CreatePost::class)
@@ -45,7 +45,7 @@ it('creates a draft post', function () {
 });
 
 it('publishes a post and sets the published date automatically', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
 
     Livewire::actingAs($user)
         ->test(CreatePost::class)
@@ -66,7 +66,7 @@ it('publishes a post and sets the published date automatically', function () {
 });
 
 it('rejects a duplicate slug', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
     Post::factory()->create(['slug' => 'slug-utilise']);
 
     Livewire::actingAs($user)
@@ -81,7 +81,7 @@ it('rejects a duplicate slug', function () {
 });
 
 it('updates a post and republishes it', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
     $post = Post::factory()->draft()->create(['title' => 'Ancien titre']);
 
     Livewire::actingAs($user)
@@ -106,7 +106,7 @@ it('updates a post and republishes it', function () {
 });
 
 it('publishes a draft from the posts table workflow', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
     $post = Post::factory()->draft()->create();
 
     Livewire::actingAs($user)
@@ -120,7 +120,7 @@ it('publishes a draft from the posts table workflow', function () {
 });
 
 it('returns a published post to draft from the posts table workflow', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
     $post = Post::factory()->create([
         'status' => Post::STATUS_PUBLISHED,
         'published_at' => now()->subDay(),
@@ -137,7 +137,7 @@ it('returns a published post to draft from the posts table workflow', function (
 });
 
 it('deletes a post', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->admin()->create();
     $post = Post::factory()->create();
 
     Livewire::actingAs($user)

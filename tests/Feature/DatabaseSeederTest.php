@@ -1,6 +1,10 @@
 <?php
 
+use App\Models\User;
 use Database\Seeders\DatabaseSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(RefreshDatabase::class);
 
 it('fails clearly when production seeding lacks admin credentials', function () {
     $previousEnvironment = config('app.env');
@@ -16,4 +20,16 @@ it('fails clearly when production seeding lacks admin credentials', function () 
         config(['app.env' => $previousEnvironment]);
         config(['admin.email' => $previousAdminEmail, 'admin.password' => $previousAdminPassword]);
     }
+});
+
+it('explicitly grants admin status to the configured seeder account', function () {
+    config([
+        'admin.email' => 'admin@example.test',
+        'admin.password' => 'secure-password',
+        'admin.name' => 'Site Admin',
+    ]);
+
+    (new DatabaseSeeder)->run();
+
+    expect(User::where('email', 'admin@example.test')->first()->isAdmin())->toBeTrue();
 });
