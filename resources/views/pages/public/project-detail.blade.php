@@ -267,7 +267,7 @@
                         @if ($project->{$field})
                             <article class="relative">
                                 <span aria-hidden="true" class="absolute -left-[1.72rem] top-1.5 size-2 rounded-full bg-border ring-4 ring-bg"></span>
-                                <h3 class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-accent ">
+                                <h3 class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-text-muted">
                                     {{ __($label) }}
                                 </h3>
                                 <p class="mt-3 text-sm leading-7 text-text-muted ">
@@ -280,7 +280,7 @@
                     @if ($project->outcome_type)
                         <article class="relative">
                             <span aria-hidden="true" class="absolute -left-[1.72rem] top-1.5 size-2 rounded-full bg-border ring-4 ring-bg"></span>
-                            <h3 class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-accent ">{{ __('project.case_study_outcome_type') }}</h3>
+                            <h3 class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-text-muted">{{ __('project.case_study_outcome_type') }}</h3>
                             <p class="mt-3 text-sm leading-7 text-text-muted ">{{ __('project.outcome_'.$project->outcome_type->value) }}</p>
                         </article>
                     @endif

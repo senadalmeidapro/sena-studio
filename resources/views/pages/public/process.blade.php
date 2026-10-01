@@ -8,7 +8,7 @@
     <div class="mt-12 divide-y divide-border ">
         @foreach (['scoping', 'fixed_scope', 'timeline', 'client_inputs', 'payment', 'communication'] as $index => $section)
             <section class="grid gap-4 py-8 sm:grid-cols-[5rem_1fr] sm:gap-8">
-                <span class="font-mono text-sm tabular-nums text-accent ">{{ str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) }}</span>
+                <span class="font-mono text-sm tabular-nums text-text-muted">{{ str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) }}</span>
                 <div>
                     <h2 class="font-display text-2xl font-semibold tracking-tight text-text ">{{ __('process.'.$section.'.title') }}</h2>
                     <p class="mt-3 max-w-3xl whitespace-pre-line text-sm leading-7 text-text-muted ">{{ __('process.'.$section.'.text') }}</p>

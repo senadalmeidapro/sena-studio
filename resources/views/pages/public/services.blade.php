@@ -9,7 +9,7 @@
     <section class="mt-14 grid gap-px overflow-hidden rounded-2xl border border-border bg-border   md:grid-cols-3" aria-label="{{ __('services.scope_title') }}">
         @foreach (['api', 'learning', 'product'] as $capability)
             <article class="bg-surface p-7 sm:p-9">
-                <span class="font-mono text-xs tabular-nums text-accent ">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                <span class="font-mono text-xs tabular-nums text-text-muted">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                 <h2 class="mt-3 font-display text-2xl font-semibold tracking-tight text-text ">{{ __('services.capability_'.$capability) }}</h2>
                 <p class="mt-3 leading-relaxed text-text-muted ">{{ __('services.capability_'.$capability.'_text') }}</p>
             </article>

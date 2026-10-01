@@ -65,7 +65,7 @@ it('marks the admin panel as private for search engines', function () {
 
 it('uses the design accent as the Filament primary color', function () {
     expect(Filament::getPanel('admin')->getColors()['primary'])
-        ->toBe(Color::hex('#3B6FD4'));
+        ->toBe(Color::hex('#3A6ED4'));
 });
 
 it('marks contact message as read when viewed', function () {

@@ -101,7 +101,7 @@
         <ol class="mt-8 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2  ">
             @foreach (range(1, 4) as $number)
                 <li class="bg-surface p-6 transition-colors hover:bg-surface-muted ">
-                    <span class="block size-2 rounded-full bg-accent"></span>
+                    <span class="block size-2 rounded-full bg-border"></span>
                     <h3 class="mt-5 font-display text-lg font-semibold tracking-tight text-text ">{{ __('about.principle_'.$number) }}</h3>
                     <p class="mt-2 text-sm leading-relaxed text-text-muted ">{{ __('about.principle_'.$number.'_text') }}</p>
                 </li>

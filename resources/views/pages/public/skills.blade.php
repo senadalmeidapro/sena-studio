@@ -20,7 +20,7 @@
         </div>
         @foreach ([__('skills.signal_backend'), __('skills.signal_data'), __('skills.signal_infra')] as $label)
             <div class="border-l border-border pl-4 ">
-                <span class="block size-2 rounded-full bg-accent"></span>
+                <span class="block size-2 rounded-full bg-border"></span>
                 <p class="mt-3 text-sm font-medium text-text ">{{ $label }}</p>
             </div>
         @endforeach

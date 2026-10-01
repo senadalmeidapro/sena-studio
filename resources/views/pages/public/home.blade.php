@@ -349,7 +349,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                         </svg>
                     </a>
-                    <a href="{{ localized_route('skills.index') }}" wire:navigate class="font-medium text-accent underline-offset-4 transition-colors hover:text-on-accent hover:underline">
+                    <a href="{{ localized_route('skills.index') }}" wire:navigate class="font-medium text-on-accent underline-offset-4 transition-colors hover:text-on-accent/80 hover:underline">
                         {{ __('home.cta_banner.secondary') }}
                     </a>
                 </div>

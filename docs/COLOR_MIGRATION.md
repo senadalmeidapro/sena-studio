@@ -12,7 +12,7 @@ The public site and Flux forms use Flux's existing `@fluxAppearance` integration
 - `app/Providers/Filament/AdminPanelProvider.php`: Filament primary is `#2563eb`, with Rose, Sky, Emerald, Amber, and Slate semantic palettes.
 - Public and shared browser views with color classes: `resources/views/errors/404.blade.php`; `resources/views/layouts/public.blade.php`; `resources/views/layouts/auth/simple.blade.php`; `resources/views/components/{app-logo,app-logo-icon,logo,project-media,site-footer,site-navbar}.blade.php`; `resources/views/components/front/{arrow-link,section-heading}.blade.php`; `resources/views/pages/auth/*.blade.php`; `resources/views/pages/public/{about,blog/index,blog/show,contact,cv-show,data-handling,home,process,project-detail,projects,services,skills}.blade.php`; and `resources/views/pages/public/cv-show/_engineering.blade.php`.
 - App-owned Flux overrides: `resources/views/flux/navlist/group.blade.php` uses zinc and white variants. The Flux icon overrides use `currentColor`/`fill="none"` and contain no fixed color values.
-- App-owned Filament view colors: `resources/views/filament/messages/reply-draft.blade.php`, `resources/views/filament/pages/reports.blade.php`, and `resources/views/filament/widgets/{active-engagements-and-overdue-invoices-widget,new-leads-widget,projects-missing-media-widget}.blade.php`. The widgets' inline styles use Filament gray variables; other inline styles in `resources/views/filament/tables/columns/site-icon.blade.php` are layout-only.
+- App-owned Filament view colors: `resources/views/filament/messages/reply-draft.blade.php`, `resources/views/filament/pages/reports.blade.php`, `resources/views/filament/widgets/{active-engagements-and-overdue-invoices-widget,new-leads-widget,projects-missing-media-widget}.blade.php`, and `resources/views/livewire/filament/account-security.blade.php`. The widgets and account security view use Filament gray variables; other inline styles in `resources/views/filament/tables/columns/site-icon.blade.php` are layout-only.
 - No Livewire PHP component returns a hardcoded color class. The project filter's selected-state classes are in `resources/views/pages/public/projects.blade.php`.
 - SVGs in browser views primarily use `currentColor`; logo SVG colors come from their surrounding text utilities. Preserve `fill="none"`, `stroke="currentColor"`, and other geometry/paint semantics while moving foreground colors to tokens.
 
@@ -43,8 +43,14 @@ No Blade partial is shared between a browser page and a PDF. `resources/views/pd
 | CSS `#hex`, named colors, or old semantic aliases | Corresponding `var(--...)` token | App CSS only; do not place token references in PDF views |
 | `dark:*` color variants that duplicate a semantic token | Remove the color variant | Keep `dark:` only for a true non-color difference |
 
+### Contrast adjustment
+
+The light accent is `#3A6ED4` rather than the supplied `#3B6FD4`: the original measured 4.475:1 against the light background, below the requested 4.5:1 for text links. All other palette values remain as supplied.
+
 ### Intentional exceptions
 
 - Filament-owned neutral grays and its default success/info/warning/danger treatment remain owned by Filament. The requested panel primary color is set through Filament's color API; do not impose the public-site palette on unrelated Filament internals.
 - `currentColor`, `fill="none"`, and `stroke="currentColor"` are SVG drawing instructions, not hardcoded palette colors.
 - CSS hex literals that define the requested tokens themselves are intentional. No color literals or `var(--...)` token references are allowed in PDF files.
+- `resources/views/filament/**` and `resources/views/livewire/filament/account-security.blade.php` retain Filament gray classes and variables as native admin styling, as requested. The small `#fff` background behind the two-factor QR code and secret keeps those security details legible.
+- The `black` stop in the Home page's `[mask-image:radial-gradient(...)]` is the CSS mask shape keyword, not a painted background or text color.
