@@ -32,8 +32,8 @@ class BillingPdfController
             'money' => $money,
             'validUntil' => is_numeric($days) && (int) $days > 0
                 ? today()->addDays((int) $days)->format('Y-m-d')
-                : 'TODO: configure quote validity period',
-            'paymentTerms' => filled($paymentTerms) ? $paymentTerms : 'TODO: replace with agreed payment terms',
+                : 'TODO: FIX ME — configure quote validity period',
+            'paymentTerms' => filled($paymentTerms) ? $paymentTerms : 'TODO: FIX ME — replace with agreed payment terms',
         ])->setPaper('a4')->setOptions(['isRemoteEnabled' => false, 'isHtml5ParserEnabled' => true]);
 
         return $pdf->download('Quote-'.$engagement->id.'.pdf');

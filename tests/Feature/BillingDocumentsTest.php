@@ -73,9 +73,9 @@ it('shows TODO values for a local PDF when issuer details are missing', function
 
     expect(app(BillingIssuer::class)->details())
         ->toMatchArray([
-            'legal_name' => 'TODO: configure billing issuer legal name',
-            'tax_id' => 'TODO: configure billing issuer tax id',
-            'payment_details' => 'TODO: configure billing issuer payment details',
+            'legal_name' => 'TODO: FIX ME — configure billing issuer legal name',
+            'tax_id' => 'TODO: FIX ME — configure billing issuer tax id',
+            'payment_details' => 'TODO: FIX ME — configure billing issuer payment details',
         ]);
 });
 

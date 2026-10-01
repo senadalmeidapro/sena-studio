@@ -33,7 +33,7 @@ class PortfolioSeeder extends Seeder
             Category::updateOrCreate(['slug' => $category['slug']], $category);
         }
 
-        // TODO: replace or confirm this sample catalog and descriptions against the current service offering.
+        // TODO: FIX ME — replace or confirm this sample skills catalog and descriptions against your actual experience.
         $skillsData = [
             ['TypeScript', 'Typed superset of JavaScript used to build scalable and maintainable web applications and backend services.', $buildIcon('typescript')],
             ['JavaScript', 'Core programming language for building interactive web applications and modern backend services.', $buildIcon('javascript')],
@@ -73,7 +73,7 @@ class PortfolioSeeder extends Seeder
             ['Railway', 'Application hosting and deployment.', $buildIcon('railway')],
             ['Cloudinary', 'Image and media delivery.', $buildIcon('cloudinary')],
             ['Markdown', 'Lightweight documentation format.', $buildIcon('markdown')],
-            // TODO: replace the unverified placeholder skill or remove it.
+            // TODO: FIX ME — confirm Tailwind UI is a real skill you offer or remove this placeholder.
             ['Tailwind UI', 'Reusable UI components.', null],
         ];
 
@@ -102,7 +102,7 @@ class PortfolioSeeder extends Seeder
 
         $categoryIdsBySlug = Category::pluck('id', 'slug');
 
-        // TODO: verify sample project summaries and stack claims before treating them as approved portfolio copy.
+        // TODO: FIX ME — verify every seeded project summary and stack claim against real project history before publishing.
         $projectsData = [
             [
                 'name' => 'Mini Shop API',
@@ -179,7 +179,7 @@ class PortfolioSeeder extends Seeder
             ],
         ];
 
-        // TODO: replace generated SVG gallery placeholders with approved project media.
+        // TODO: FIX ME — replace generated SVG gallery placeholders with media you own and approve for each project.
         $projectGalleries = [
             'mini-shop-api' => ['images/screenshots/project-2.svg', 'images/screenshots/project-3.svg'],
             'api-orientation' => ['images/screenshots/project-5.svg', 'images/screenshots/project-1.svg'],
@@ -216,7 +216,7 @@ class PortfolioSeeder extends Seeder
                 'result' => 'Un outil interne construit autour des processus réels plutôt qu’une simple liste de tickets.',
                 'sort_order' => 3,
             ],
-            // TODO: replace this unverified sample case study with confirmed project details.
+            // TODO: FIX ME — replace this sample case study with confirmed project details or remove the project.
             'mini-shop' => [
                 'role' => 'Développement frontend et intégration API',
                 'problem' => 'Proposer une expérience storefront légère au-dessus d’un backend e-commerce indépendant.',
@@ -225,7 +225,7 @@ class PortfolioSeeder extends Seeder
                 'result' => 'Une interface prête à évoluer sans coupler le frontend aux détails internes du backend.',
                 'sort_order' => 4,
             ],
-            // TODO: replace this unverified sample case study with confirmed project details.
+            // TODO: FIX ME — replace this sample case study with confirmed project details or remove the project.
             'express-js-onboarding-api' => [
                 'role' => 'Conception d’API et implémentation TypeScript',
                 'problem' => 'Structurer un parcours d’inscription en plusieurs étapes sans perdre la cohérence des données utilisateur.',
@@ -234,7 +234,7 @@ class PortfolioSeeder extends Seeder
                 'result' => 'Une base claire pour les produits qui doivent accompagner un utilisateur pendant son inscription.',
                 'sort_order' => 5,
             ],
-            // TODO: replace this unverified sample case study with confirmed project details.
+            // TODO: FIX ME — replace this sample case study with confirmed project details or remove the project.
             'portfolio-sena-studio' => [
                 'role' => 'Architecture, développement et déploiement',
                 'problem' => 'Gérer le contenu d’un portfolio technique tout en gardant une expérience publique rapide et éditoriale.',
@@ -332,7 +332,7 @@ class PortfolioSeeder extends Seeder
 
     private function seedPosts(): void
     {
-        // TODO: replace seeded example articles with approved editorial content.
+        // TODO: FIX ME — replace seeded example articles with content you wrote and approve, or remove them.
         $posts = [
             [
                 'key' => 'riasec-scoring-engine',
@@ -419,14 +419,14 @@ class PortfolioSeeder extends Seeder
             'phone' => '(+229) 01 45 74 08 16',
             'location' => 'Cotonou, Benin',
             'website' => 'https://senadalmeidapro.github.io/CV/',
-            // TODO: replace with the approved personal profile summary.
+            // TODO: FIX ME — replace with your approved personal profile summary; do not publish the sample text.
             'summary' => 'Backend Engineer focused on building secure, reliable, and maintainable APIs and business applications across the full development lifecycle, from architecture and database design to implementation, testing and deployment. Based in Cotonou, Benin, and open to remote international collaborations.',
             'links' => [
                 ['label' => 'GitHub', 'url' => 'https://github.com/senadalmeidapro'],
                 ['label' => 'LinkedIn', 'url' => 'https://www.linkedin.com/in/senadalmeida'],
                 ['label' => 'Portfolio', 'url' => 'https://senadalmeidapro.github.io/CV/'],
             ],
-            // TODO: replace with verified employment and freelance history.
+            // TODO: FIX ME — replace with verified employment and freelance history, or remove unconfirmed entries.
             'experience' => [
                 [
                     'title' => 'Full-Stack Developer and DevOps (Freelance)',
@@ -436,7 +436,7 @@ class PortfolioSeeder extends Seeder
                     'description' => 'Built and deployed REST APIs with NestJS, Prisma, PostgreSQL and Docker; modeled relational data, integrated transactional services, automated operations with self-hosted n8n, and owned the workflow from requirements to delivery.',
                 ],
             ],
-            // TODO: replace or confirm contribution descriptions and project claims.
+            // TODO: FIX ME — verify each contribution description and project claim against your actual work.
             'projects' => [
                 [
                     'title' => 'Orientation-BJ API',
@@ -467,7 +467,7 @@ class PortfolioSeeder extends Seeder
                     'description' => 'Built a maintainable public portfolio and administration system for projects, case studies, media, CV versions, editorial content and freelance leads.',
                 ],
             ],
-            // TODO: replace with verified education details and dates.
+            // TODO: FIX ME — replace with verified education details and dates, or remove unconfirmed entries.
             'education' => [
                 [
                     'title' => "Bachelor's Degree - Computer Science and Software Engineering",
@@ -484,7 +484,7 @@ class PortfolioSeeder extends Seeder
                     'description' => null,
                 ],
             ],
-            // TODO: replace with a confirmed skills list; self-assessed levels are intentionally omitted.
+            // TODO: FIX ME — replace with skills you confirm; self-assessed levels are intentionally omitted.
             'skills' => [
                 ['name' => 'TypeScript', 'group' => 'Languages'],
                 ['name' => 'JavaScript', 'group' => 'Languages'],
@@ -505,14 +505,14 @@ class PortfolioSeeder extends Seeder
                 ['name' => 'CI/CD', 'group' => 'DevOps'],
                 ['name' => 'GitHub Actions', 'group' => 'DevOps'],
             ],
-            // TODO: verify language names and CEFR levels before publishing.
+            // TODO: FIX ME — verify each language and CEFR level before publishing your CV.
             'languages' => [
                 ['name' => 'Fon'],
                 ['name' => 'French', 'level' => 'C1'],
                 ['name' => 'English', 'level' => 'B1'],
             ],
             'certifications' => [],
-            // TODO: replace with confirmed personal interests or remove.
+            // TODO: FIX ME — add interests you confirm or remove this section.
             'hobbies' => [
                 ['name' => 'Self-hosting'],
                 ['name' => 'Problem solving'],

@@ -9,7 +9,7 @@
     <div class="row"><span class="label">Client:</span> {{ $engagement->client->name }}@if($engagement->client->company) · {{ $engagement->client->company }}@endif</div>
     <div class="row"><span class="label">Pricing model:</span> {{ $engagement->pricing_model->label() }}</div>
     <h2>Scope</h2><div class="box">{{ $engagement->scope }}</div>
-    <div class="row"><span class="label">Amount:</span> {{ $engagement->amount === null ? 'TODO: set quote amount' : $money->format($engagement->amount, $engagement->currency) }}</div>
+    <div class="row"><span class="label">Amount:</span> {{ $engagement->amount === null ? 'TODO: FIX ME — set quote amount' : $money->format($engagement->amount, $engagement->currency) }}</div>
     <h2>Payment terms</h2><div class="box">{{ $paymentTerms }}</div>
     <div class="box">Payment details: {{ $issuer['payment_details'] }}</div>
 </body>

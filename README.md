@@ -106,3 +106,5 @@ The daily invoice reminder command marks past-due sent invoices as overdue and s
 Admin users can generate quote and invoice PDFs on demand. Configure BILLING_LEGAL_NAME, BILLING_ADDRESS, BILLING_TAX_ID, BILLING_BANK_DETAILS, BILLING_PAYMENT_DETAILS, BILLING_QUOTE_VALIDITY_DAYS, and BILLING_PAYMENT_TERMS before production use. Missing issuer details appear as TODO markers locally; production generation is blocked until they are configured.
 
 The admin Reports page groups paid revenue and open receivables by currency. Its date ranges are this month, last three months (including the current month), this year, and all time.
+
+Before deployment, complete the French launch checklist at docs/LAUNCH_TODO.md. It lists personal content, commercial and legal details, production configuration, migration checks, and security review items that still need your input.

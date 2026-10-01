@@ -191,11 +191,11 @@ test('the data handling page is localized, linked, and avoids compliance guarant
     $this->get('/fr/data-handling')
         ->assertOk()
         ->assertSee('Gestion des données')
-        ->assertSee('TODO: legal review');
+        ->assertSee('TODO: FIX ME');
     $this->get('/en/data-handling')
         ->assertOk()
         ->assertSee('Data handling')
-        ->assertSee('TODO: legal review');
+        ->assertSee('TODO: FIX ME');
 
     $this->get('/fr/services')->assertOk()->assertSee('/fr/data-handling');
     $this->get('/en/services')->assertOk()->assertSee('/en/data-handling');

@@ -11,7 +11,7 @@ class BillingIssuer
         $configured = (array) config('services.billing.issuer', []);
 
         return collect(self::REQUIRED)->mapWithKeys(fn (string $key): array => [
-            $key => filled($configured[$key] ?? null) ? $configured[$key] : 'TODO: configure billing issuer '.str_replace('_', ' ', $key),
+            $key => filled($configured[$key] ?? null) ? $configured[$key] : 'TODO: FIX ME — configure billing issuer '.str_replace('_', ' ', $key),
         ])->all();
     }
 
