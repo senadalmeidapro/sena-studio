@@ -27,7 +27,7 @@ class ProjectDetail extends Component
             404,
         );
 
-        $this->project = $project->load(['skills', 'categories', 'projectImages']);
+        $this->project = $project->load(['skills', 'categories', 'projectImages', 'testimonial']);
 
         $seo = app(Seo::class)->set(
             title: $project->name,

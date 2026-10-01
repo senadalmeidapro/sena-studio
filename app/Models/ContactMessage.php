@@ -32,7 +32,10 @@ class ContactMessage extends Model
         'phone',
         'company',
         'subject',
-        'budget',
+        'project_type',
+        'goal',
+        'timeline',
+        'budget_range',
         'message',
         'status',
         'priority',
@@ -107,6 +110,6 @@ class ContactMessage extends Model
             'a-definir' => 'À définir ensemble',
         ];
 
-        return $this->budget !== null ? ($labels[$this->budget] ?? $this->budget) : null;
+        return $this->budget_range !== null ? ($labels[$this->budget_range] ?? $this->budget_range) : null;
     }
 }

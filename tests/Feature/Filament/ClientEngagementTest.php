@@ -19,7 +19,7 @@ use Livewire\Livewire;
 it('converts a contact message into one client and an initial proposal', function () {
     $message = ContactMessage::create([
         'name' => 'Awa Diallo', 'email' => 'awa@example.test', 'company' => 'Learning Co',
-        'subject' => 'Learning platform', 'budget' => '5k-15k', 'message' => 'Build a platform.',
+        'subject' => 'Learning platform', 'project_type' => 'edtech_platform', 'goal' => 'Build a learning platform.', 'timeline' => '3_6_months', 'budget_range' => '5k-15k', 'message' => 'Integrate the existing course catalogue.',
     ]);
 
     $client = app(ConvertContactMessageToClient::class)->handle($message, [
@@ -63,7 +63,7 @@ it('offers the contact conversion as a one-click admin table action', function (
     $user = User::factory()->create(['is_admin' => true]);
     $message = ContactMessage::create([
         'name' => 'Kofi Mensah', 'email' => 'kofi@example.test', 'company' => 'Fintech Ltd',
-        'subject' => 'API build', 'budget' => '1k-5k', 'message' => 'Need an API.',
+        'subject' => 'API build', 'project_type' => 'fintech_api', 'goal' => 'Need an API.', 'timeline' => '1_3_months', 'budget_range' => '1k-5k', 'message' => 'Connect to the ledger.',
     ]);
 
     Livewire::actingAs($user)

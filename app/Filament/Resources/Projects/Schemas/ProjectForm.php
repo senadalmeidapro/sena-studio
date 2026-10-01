@@ -43,6 +43,18 @@ class ProjectForm
                             ->placeholder('Ex. Conception backend et architecture API')
                             ->maxLength(255),
 
+                        TextInput::make('result_metric')
+                            ->label('Headline metric')
+                            ->placeholder('Ex. 40 % de temps de traitement en moins')
+                            ->maxLength(255),
+
+                        Select::make('testimonial_id')
+                            ->label('Témoignage lié')
+                            ->relationship('testimonial', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->nullable(),
+
                         Toggle::make('featured')
                             ->label('Projet mis en avant')
                             ->default(false),

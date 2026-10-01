@@ -44,7 +44,7 @@ class MessagesTable
                     ->limit(40)
                     ->toggleable(),
 
-                TextColumn::make('budget')
+                TextColumn::make('budget_range')
                     ->label('Budget')
                     ->formatStateUsing(fn (?string $state, ContactMessage $record): string => $record->budgetLabel() ?? '—')
                     ->icon('heroicon-o-banknotes'),
@@ -139,7 +139,7 @@ class MessagesTable
                         'email' => $record->email,
                         'company' => $record->company,
                         'title' => $record->subject ?: 'Premier engagement',
-                        'scope' => $record->message,
+                        'scope' => $record->goal ?: $record->message,
                         'budget_reference' => $record->budgetLabel(),
                         'pricing_model' => EngagementPricingModel::Fixed->value,
                         'currency' => Currency::EUR->value,

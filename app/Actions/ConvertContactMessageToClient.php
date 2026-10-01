@@ -25,10 +25,16 @@ class ConvertContactMessageToClient
                 'email' => $data['email'] ?? $message->email,
                 'phone' => $message->phone,
                 'source' => 'Contact form message #'.$message->getKey(),
-                'notes' => 'Converted from contact message #'.$message->getKey()."\n\n".$message->message,
+                'notes' => 'Converted from contact message #'.$message->getKey(),
             ]);
 
-            $scope = trim((string) ($data['scope'] ?? $message->message));
+            $scope = trim((string) ($data['scope'] ?? $message->goal ?? $message->message));
+            if ($message->project_type || $message->timeline) {
+                $scope .= "\n\nScoping: ".implode(' · ', array_filter([$message->project_type, $message->timeline]));
+            }
+            if (filled($message->message)) {
+                $scope .= "\n\nAdditional context: ".$message->message;
+            }
             if ($message->budgetLabel()) {
                 $scope .= "\n\nBudget indicated: ".$message->budgetLabel();
             }

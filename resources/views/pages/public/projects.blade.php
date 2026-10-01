@@ -110,6 +110,9 @@
                         @if ($project->role)
                             <p class="mt-1 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-blue-700 dark:text-blue-300">{{ $project->role }}</p>
                         @endif
+                        @if ($project->result_metric)
+                            <p class="mt-2 font-semibold text-blue-700 dark:text-blue-300">{{ $project->result_metric }}</p>
+                        @endif
                         <p class="mt-3 line-clamp-3 text-sm leading-relaxed text-ink-500 dark:text-ink-400">
                             {{ $project->description }}
                         </p>

@@ -8,6 +8,7 @@ use App\Enums\ProjectVisibility;
 use App\Services\CloudinaryService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -38,6 +39,8 @@ class Project extends Model
         'architecture',
         'technical_decisions',
         'result',
+        'result_metric',
+        'testimonial_id',
         'featured',
         'sort_order',
         'deployment',
@@ -68,6 +71,11 @@ class Project extends Model
     public function projectImages(): HasMany
     {
         return $this->hasMany(ProjectImage::class)->orderBy('sort_order');
+    }
+
+    public function testimonial(): BelongsTo
+    {
+        return $this->belongsTo(Testimonial::class);
     }
 
     protected static function booted(): void

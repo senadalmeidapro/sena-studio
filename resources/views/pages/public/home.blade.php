@@ -83,7 +83,7 @@
                 <div class="mt-5 flex items-center justify-between gap-4">
                     <span class="flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">
                         <span class="size-1.5 rounded-full bg-blue-500"></span>
-                        {{ __('home.available') }}
+                        {{ __('availability.'.$availability) }}
                     </span>
                 </div>
 

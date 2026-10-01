@@ -27,6 +27,7 @@
             <p class="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">
                 {{ __('contact.subtitle') }}
             </p>
+            <p class="mt-4 inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-800 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-200">{{ __('availability.'.$availability) }}</p>
         </header>
 
         <div class="mt-12 grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
@@ -67,8 +68,8 @@
                 </dl>
 
                 <div class="mt-10 border-t border-ink-300 pt-8 dark:border-ink-700">
-                    @if (filled(config('services.booking.url')))
-                        <a href="{{ config('services.booking.url') }}" target="_blank" rel="noopener noreferrer" class="mb-8 inline-flex items-center gap-2 rounded-lg border border-blue-300 bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-800 transition-colors hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-200 dark:hover:bg-blue-950/60">
+                    @if (filled($bookingUrl))
+                        <a href="{{ $bookingUrl }}" target="_blank" rel="noopener noreferrer" class="mb-8 inline-flex items-center gap-2 rounded-lg border border-blue-300 bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-800 transition-colors hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-200 dark:hover:bg-blue-950/60">
                             {{ __('contact.booking_label') }}
                             <span aria-hidden="true">↗</span>
                         </a>
@@ -164,41 +165,53 @@
 
                     <div class="grid gap-6 sm:grid-cols-2">
                         <div class="grid gap-2">
-                            <label for="contact-subject" class="{{ $label }}">{{ __('contact.form_subject_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
-                            <input
-                                id="contact-subject"
-                                type="text"
-                                wire:model="subject"
-                                class="{{ $input }}"
-                                placeholder="{{ __('contact.form_subject_placeholder') }}"
-                            />
-                            @error('subject') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
+                            <label for="contact-project-type" class="{{ $label }}">{{ __('contact.project_type_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
+                            <select id="contact-project-type" wire:model="project_type" class="{{ $input }} bg-card">
+                                <option value="">{{ __('contact.project_type_placeholder') }}</option>
+                                @foreach ($this->projectTypeOptions() as $key => $projectTypeLabel)
+                                    <option value="{{ $key }}" class="text-ink-900 dark:text-ink-100">{{ $projectTypeLabel }}</option>
+                                @endforeach
+                            </select>
+                            @error('project_type') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="grid gap-2">
-                            <label for="contact-budget" class="{{ $label }}">{{ __('contact.form_budget_label') }} <span class="font-normal text-ink-400 dark:text-ink-500">({{ __('contact.form_optional') }})</span></label>
-                            <select
-                                id="contact-budget"
-                                wire:model="budget"
-                                class="{{ $input }} bg-card"
-                            >
-                                <option value="">{{ __('contact.form_budget_placeholder') }}</option>
-                                @foreach ($this->budgetOptions() as $key => $budgetLabel)
-                                    <option value="{{ $key }}" class="text-ink-900 dark:text-ink-100">{{ $budgetLabel }}</option>
+                            <label for="contact-timeline" class="{{ $label }}">{{ __('contact.timeline_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
+                            <select id="contact-timeline" wire:model="timeline" class="{{ $input }} bg-card">
+                                <option value="">{{ __('contact.timeline_placeholder') }}</option>
+                                @foreach ($this->timelineOptions() as $key => $timelineLabel)
+                                    <option value="{{ $key }}" class="text-ink-900 dark:text-ink-100">{{ $timelineLabel }}</option>
                                 @endforeach
                             </select>
-                            @error('budget') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
+                            @error('timeline') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
                     <div class="grid gap-2">
-                        <label for="contact-message" class="{{ $label }}">{{ __('contact.form_message_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
+                        <label for="contact-budget" class="{{ $label }}">{{ __('contact.budget_range_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
+                        <select id="contact-budget" wire:model="budget_range" class="{{ $input }} bg-card">
+                            <option value="">{{ __('contact.form_budget_placeholder') }}</option>
+                            @foreach ($this->budgetOptions() as $key => $budgetLabel)
+                                <option value="{{ $key }}" class="text-ink-900 dark:text-ink-100">{{ $budgetLabel }}</option>
+                            @endforeach
+                        </select>
+                        @error('budget_range') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="grid gap-2">
+                        <label for="contact-goal" class="{{ $label }}">{{ __('contact.goal_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
+                        <textarea id="contact-goal" wire:model="goal" rows="3" class="resize-none {{ $input }}"></textarea>
+                        @error('goal') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="grid gap-2">
+                        <label for="contact-message" class="{{ $label }}">{{ __('contact.context_label') }} <span class="font-normal text-ink-400 dark:text-ink-500">({{ __('contact.form_optional') }})</span></label>
                         <textarea
                             id="contact-message"
                             wire:model="message"
                             rows="6"
                             class="resize-none {{ $input }}"
-                            placeholder="{{ __('contact.form_message_placeholder') }}"
+                            placeholder="{{ __('contact.context_placeholder') }}"
                         ></textarea>
                         @error('message') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                     </div>

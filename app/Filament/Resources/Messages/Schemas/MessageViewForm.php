@@ -38,7 +38,7 @@ class MessageViewForm
                             ->label('Sujet')
                             ->columnSpanFull()
                             ->disabled(),
-                        TextInput::make('budget')
+                        TextInput::make('budget_range')
                             ->label('Budget estimé')
                             ->formatStateUsing(fn (?string $state, ?ContactMessage $record): string => $record?->budgetLabel() ?? '—')
                             ->disabled(),
@@ -52,6 +52,9 @@ class MessageViewForm
 
                 Section::make('Message')
                     ->schema([
+                        TextInput::make('project_type')->label('Type de projet')->disabled(),
+                        TextInput::make('timeline')->label('Délai')->disabled(),
+                        Textarea::make('goal')->label('Objectif')->rows(3)->disabled()->columnSpanFull(),
                         Textarea::make('message')
                             ->rows(8)
                             ->disabled()

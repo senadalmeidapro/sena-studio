@@ -227,6 +227,23 @@
     </header>
 
     {{-- Compétences mobilisées --}}
+    @if ($project->result_metric || ($project->testimonial && $project->testimonial->is_visible))
+        <section class="mt-10 grid gap-6 border-y border-ink-300 py-8 dark:border-ink-700 md:grid-cols-2">
+            @if ($project->result_metric)
+                <div>
+                    <p class="eyebrow">{{ __('project.case_study_result') }}</p>
+                    <p class="mt-3 font-display text-2xl font-semibold tracking-tight text-blue-700 dark:text-blue-300">{{ $project->result_metric }}</p>
+                </div>
+            @endif
+            @if ($project->testimonial && $project->testimonial->is_visible)
+                <blockquote class="border-l-2 border-blue-500 pl-5">
+                    <p class="text-lg leading-relaxed text-ink-700 dark:text-ink-200">“{{ $project->testimonial->content }}”</p>
+                    <footer class="mt-3 text-sm font-medium text-ink-500 dark:text-ink-400">{{ $project->testimonial->name }}@if ($project->testimonial->role || $project->testimonial->company), {{ collect([$project->testimonial->role, $project->testimonial->company])->filter()->join(' · ') }}@endif</footer>
+                </blockquote>
+            @endif
+        </section>
+    @endif
+
     @if ($project->problem || $project->architecture || $project->technical_decisions || $project->result)
         <section class="mt-14 border-y border-ink-300 py-12 dark:border-ink-700" aria-labelledby="project-case-study-title">
             <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">

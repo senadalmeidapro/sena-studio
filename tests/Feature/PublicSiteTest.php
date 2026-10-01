@@ -5,9 +5,12 @@ use App\Enums\ProjectVisibility;
 use App\Livewire\Site\Contact;
 use App\Livewire\Site\Projects;
 use App\Models\Category;
+use App\Models\ContactMessage;
 use App\Models\Post;
 use App\Models\Project;
+use App\Models\SiteSetting;
 use App\Models\Skill;
+use App\Models\Testimonial;
 use Livewire\Livewire;
 
 test('the home page is accessible and shows featured content', function () {
@@ -133,11 +136,65 @@ test('the contact form submits and shows a success message', function () {
     Livewire::test(Contact::class)
         ->set('name', 'Jean Dupont')
         ->set('email', 'jean@exemple.com')
-        ->set('subject', 'Demande de projet')
-        ->set('message', 'Bonjour, j’aimerais discuter d’un projet avec vous.')
+        ->set('project_type', 'fintech_api')
+        ->set('goal', 'Automatiser le rapprochement des paiements.')
+        ->set('timeline', '1_3_months')
+        ->set('budget_range', '1k-5k')
+        ->set('message', 'Le système doit s’intégrer à notre banque partenaire.')
         ->call('submit')
         ->assertHasNoErrors()
         ->assertSet('sent', true);
+
+    $message = ContactMessage::latest()->first();
+    expect($message->project_type)->toBe('fintech_api')
+        ->and($message->goal)->toBe('Automatiser le rapprochement des paiements.')
+        ->and($message->timeline)->toBe('1_3_months')
+        ->and($message->budget_range)->toBe('1k-5k');
+});
+
+test('site availability and booking settings appear on public contact and services pages', function () {
+    SiteSetting::current()->update(['availability' => 'limited', 'booking_url' => 'https://cal.example.test/sena']);
+
+    $this->get('/en')
+        ->assertOk()
+        ->assertSee(__('availability.limited'));
+    $this->get('/en/contact')
+        ->assertOk()
+        ->assertSee(__('availability.limited'))
+        ->assertSee('https://cal.example.test/sena');
+    $this->get('/en/services')
+        ->assertOk()
+        ->assertSee('fintech and ed-tech')
+        ->assertSee('3–6 weeks')
+        ->assertSee('https://cal.example.test/sena');
+});
+
+test('a public project can show its headline metric and linked visible testimonial', function () {
+    $testimonial = Testimonial::factory()->create(['content' => 'Clear delivery and excellent communication.']);
+    $project = Project::factory()->create([
+        'slug' => 'measured-fintech-project',
+        'visibility' => ProjectVisibility::Public->value,
+        'status' => ProjectStatus::Production->value,
+        'result_metric' => '40% faster reconciliation',
+        'testimonial_id' => $testimonial->id,
+    ]);
+
+    $this->get(localized_route('projects.show', $project->slug))
+        ->assertOk()
+        ->assertSee('40% faster reconciliation')
+        ->assertSee('Clear delivery and excellent communication.');
+});
+
+test('the contact honeypot accepts bots silently without storing a lead', function () {
+    $before = ContactMessage::count();
+
+    Livewire::test(Contact::class)
+        ->set('website', 'https://spam.example.test')
+        ->call('submit')
+        ->assertSet('sent', true)
+        ->assertHasNoErrors();
+
+    expect(ContactMessage::count())->toBe($before);
 });
 
 test('the categories relation is used to tag public projects', function () {

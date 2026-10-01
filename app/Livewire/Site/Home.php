@@ -3,6 +3,7 @@
 namespace App\Livewire\Site;
 
 use App\Models\Project;
+use App\Models\SiteSetting;
 use App\Models\Skill;
 use App\Services\Seo;
 use Livewire\Attributes\Computed;
@@ -14,8 +15,11 @@ use Livewire\Component;
 #[Layout('layouts.public')]
 class Home extends Component
 {
+    public string $availability = 'available';
+
     public function mount(): void
     {
+        $this->availability = SiteSetting::current()->availability;
         app(Seo::class)->set(
             description: 'Sena Studio conçoit des APIs, des systèmes backend et des produits web métier pour la fintech, l’ed-tech et les outils internes.',
             canonical: localized_route('home'),
