@@ -6,7 +6,7 @@
             {!! config('services.analytics.script') !!}
         @endif
     </head>
-    <body class="engineering-shell min-h-screen bg-canvas text-ink-900 antialiased selection:bg-blue-500 selection:text-white dark:bg-canvas dark:text-ink-100">
+    <body class="engineering-shell min-h-screen bg-bg text-text antialiased selection:bg-accent selection:text-on-accent  ">
         <div class="relative flex min-h-screen flex-col overflow-x-clip">
 
             <x-site-navbar />
