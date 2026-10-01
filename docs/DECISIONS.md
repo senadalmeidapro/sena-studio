@@ -23,3 +23,4 @@
 - 2026-10-05: Lead reminders include due follow-ups for active pipeline statuses and stale new leads; a per-lead/day receipt prevents duplicate digest entries, and reply drafts are copied manually without sending.
 - 2026-10-05: Billing PDFs use BILLING_* values for issuer and payment details; missing issuer values show TODOs locally and block production generation, while quote validity and payment terms remain configurable placeholders.
 - 2026-10-06: Overdue invoice digests are sent only to the admin as database notifications; per-invoice/day receipts make daily reruns idempotent, and client emails are never sent.
+- 2026-10-06: Report periods use paid date for revenue, issue date for open receivables, and first message date for lead metrics; revenue is always kept separate by currency, with unlinked engagements grouped as Unlinked project.
