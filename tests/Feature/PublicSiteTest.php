@@ -154,7 +154,7 @@ test('services and legal pages are publicly accessible in both locales', functio
 
 test('all localized public landing routes remain available in French and English', function () {
     $paths = [
-        'projets', 'competences', 'services', 'process', 'a-propos', 'blog', 'contact',
+        'projets', 'competences', 'services', 'process', 'data-handling', 'a-propos', 'blog', 'contact',
         'mentions-legales', 'confidentialite',
     ];
 
@@ -172,7 +172,9 @@ test('all localized public landing routes remain available in French and English
         ->assertOk()
         ->assertHeader('Content-Type', 'application/xml')
         ->assertSee(url('/fr/process'))
-        ->assertSee(url('/en/process'));
+        ->assertSee(url('/en/process'))
+        ->assertSee(url('/fr/data-handling'))
+        ->assertSee(url('/en/data-handling'));
 });
 
 test('the working process page is localized and linked from services and contact', function () {
@@ -183,6 +185,22 @@ test('the working process page is localized and linked from services and contact
         $this->get($localePrefix.'/services')->assertOk()->assertSee($localePrefix.'/process');
         $this->get($localePrefix.'/contact')->assertOk()->assertSee($localePrefix.'/process');
     }
+});
+
+test('the data handling page is localized, linked, and avoids compliance guarantees', function () {
+    $this->get('/fr/data-handling')
+        ->assertOk()
+        ->assertSee('Gestion des données')
+        ->assertSee('TODO: legal review');
+    $this->get('/en/data-handling')
+        ->assertOk()
+        ->assertSee('Data handling')
+        ->assertSee('TODO: legal review');
+
+    $this->get('/fr/services')->assertOk()->assertSee('/fr/data-handling');
+    $this->get('/en/services')->assertOk()->assertSee('/en/data-handling');
+    $this->get('/fr/data-handling')->assertSee('/fr/contact');
+    $this->get('/sitemap.xml')->assertSee(url('/fr/data-handling'))->assertSee(url('/en/data-handling'));
 });
 
 test('published project, post, and CV detail URLs remain available in both locales', function () {

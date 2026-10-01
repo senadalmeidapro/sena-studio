@@ -19,3 +19,4 @@
 - 2026-10-01: Protected project links remain non-expiring, and a persisted per-project token lets the admin revoke all previous links without rotating APP_KEY.
 - 2026-10-04: Case-study completeness measures the five core narrative fields; optional client context, constraints, outcome type, metric, and testimonial never prevent an anonymous project from being complete.
 - 2026-10-04: The bilingual working-process page uses one stable localized route slug, /process, and commercial terms remain explicit replaceable placeholders until confirmed.
+- 2026-10-04: The bilingual data-handling page makes no compliance guarantee; data categories, retention, subprocessors, and contact wording are marked for legal review before publication.

@@ -18,7 +18,7 @@
 <link rel="canonical" href="{{ $canonical }}" />
 
 @php
-    $publicRouteNames = ['home', 'projects.index', 'projects.show', 'skills.index', 'services', 'process', 'about', 'posts.index', 'posts.show', 'contact', 'legal.notice', 'legal.privacy', 'cv.show'];
+    $publicRouteNames = ['home', 'projects.index', 'projects.show', 'skills.index', 'services', 'process', 'data-handling', 'about', 'posts.index', 'posts.show', 'contact', 'legal.notice', 'legal.privacy', 'cv.show'];
     $currentRouteName = request()->route()?->getName();
     $publicPath = collect(explode('/', trim(request()->path(), '/')))->filter()->values();
     if (in_array($publicPath->first(), ['fr', 'en'], true)) {

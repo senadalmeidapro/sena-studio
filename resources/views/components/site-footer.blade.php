@@ -55,6 +55,7 @@
                 <span>{!! __('footer.built', ['laravel' => '<span class="text-blue-600 dark:text-blue-400">Laravel</span>', 'livewire' => '<span class="text-blue-600 dark:text-blue-400">Livewire</span>']) !!}</span>
                 <a href="{{ localized_route('legal.notice') }}" wire:navigate class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('footer.legal_notice') }}</a>
                 <a href="{{ localized_route('legal.privacy') }}" wire:navigate class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('footer.privacy') }}</a>
+                <a href="{{ localized_route('data-handling') }}" wire:navigate class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('data_handling.title') }}</a>
             </p>
         </div>
     </div>
