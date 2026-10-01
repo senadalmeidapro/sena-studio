@@ -2,6 +2,9 @@
 
 namespace App\Filament\Resources\Messages\Tables;
 
+use App\Actions\ConvertContactMessageToClient;
+use App\Enums\Currency;
+use App\Enums\EngagementPricingModel;
 use App\Models\ContactMessage;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
@@ -10,6 +13,7 @@ use Filament\Actions\ViewAction;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -124,6 +128,35 @@ class MessagesTable
                     ])
                     ->action(function (ContactMessage $record, array $data): void {
                         $record->update($data);
+                    }),
+                Action::make('convertToClient')
+                    ->label('Convertir en client + engagement')
+                    ->icon('heroicon-o-user-plus')
+                    ->color('success')
+                    ->visible(fn (ContactMessage $record): bool => $record->client_id === null)
+                    ->fillForm(fn (ContactMessage $record): array => [
+                        'name' => $record->name,
+                        'email' => $record->email,
+                        'company' => $record->company,
+                        'title' => $record->subject ?: 'Premier engagement',
+                        'scope' => $record->message,
+                        'budget_reference' => $record->budgetLabel(),
+                        'pricing_model' => EngagementPricingModel::Fixed->value,
+                        'currency' => Currency::EUR->value,
+                    ])
+                    ->form([
+                        TextInput::make('name')->label('Nom')->required()->maxLength(255),
+                        TextInput::make('email')->label('Email')->email()->maxLength(255),
+                        TextInput::make('company')->label('Entreprise')->maxLength(255),
+                        TextInput::make('title')->label('Engagement')->required()->maxLength(255),
+                        Textarea::make('scope')->label('Périmètre')->rows(4)->required(),
+                        TextInput::make('budget_reference')->label('Budget indiqué')->disabled()->dehydrated(false),
+                        Select::make('pricing_model')->label('Modèle tarifaire')->options(EngagementPricingModel::options())->required(),
+                        TextInput::make('amount')->label('Montant en unités mineures')->numeric()->minValue(0)->helperText('EUR en centimes; XOF en unités entières.'),
+                        Select::make('currency')->label('Devise')->options(Currency::options())->required(),
+                    ])
+                    ->action(function (ContactMessage $record, array $data): void {
+                        app(ConvertContactMessageToClient::class)->handle($record, $data);
                     }),
                 Action::make('markAsRead')
                     ->label('Marquer comme lu')

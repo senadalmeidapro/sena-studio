@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Widgets\ActiveEngagementsAndOverdueInvoicesWidget;
 use App\Filament\Widgets\ContactPipelineWidget;
 use App\Filament\Widgets\NewLeadsWidget;
 use App\Filament\Widgets\ProjectsMissingMediaWidget;
@@ -26,6 +27,7 @@ class Dashboard extends BaseDashboard
             NewLeadsWidget::class,
             ContactPipelineWidget::class,
             ProjectsMissingMediaWidget::class,
+            ActiveEngagementsAndOverdueInvoicesWidget::class,
         ];
     }
 

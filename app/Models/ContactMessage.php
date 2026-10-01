@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ContactMessage extends Model
 {
@@ -38,6 +39,7 @@ class ContactMessage extends Model
         'follow_up_at',
         'internal_notes',
         'read_at',
+        'client_id',
     ];
 
     protected $casts = [
@@ -48,6 +50,11 @@ class ContactMessage extends Model
     public function scopeUnread(Builder $query): Builder
     {
         return $query->whereNull('read_at');
+    }
+
+    public function client(): BelongsTo
+    {
+        return $this->belongsTo(Client::class);
     }
 
     public function markAsRead(): void
