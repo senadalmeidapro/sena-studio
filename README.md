@@ -77,7 +77,7 @@ The admin also provides a protected CV PDF export route. Public route aliases an
 
 See `.env.example` for database, mail, Cloudinary, queue, and optional analytics settings. Availability and the optional booking URL are edited from **Admin → Settings → Site availability**.
 
-The seeded portfolio content is sample content. Review it before publishing. The services page currently positions the studio around backend and product engineering for fintech and ed-tech, including EU regulatory context; validate that positioning before launch.
+The seeded portfolio content is sample content. Review it before publishing. Sena Studio operates from Cotonou, Benin. The services page positions the studio around backend and product engineering for fintech and ed-tech; EU regulatory references apply only where relevant to a specific EU-facing project and do not imply that the studio is based in Europe or provide legal advice.
 
 ## Quality checks
 

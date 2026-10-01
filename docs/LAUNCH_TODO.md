@@ -18,6 +18,7 @@ Cette liste recense les décisions et informations que Sena Studio ne peut pas i
 
 ## Données et juridique
 
+- [ ] Garder la localisation professionnelle exacte : Cotonou, Bénin. Faire confirmer par un conseil juridique les règles applicables selon l’activité, les projets et les personnes concernées; ne pas présenter l’activité comme basée en Europe.
 - [ ] Faire relire en français et en anglais les catégories de données traitées et leurs finalités.
 - [ ] Faire confirmer les délais de conservation et le processus de suppression.
 - [ ] Lister les sous-traitants réellement utilisés, leurs finalités et leurs lieux de traitement.

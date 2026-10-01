@@ -191,11 +191,16 @@ test('the data handling page is localized, linked, and avoids compliance guarant
     $this->get('/fr/data-handling')
         ->assertOk()
         ->assertSee('Gestion des données')
+        ->assertSee('Cotonou, au Bénin')
         ->assertSee('TODO: FIX ME');
     $this->get('/en/data-handling')
         ->assertOk()
         ->assertSee('Data handling')
+        ->assertSee('Cotonou, Benin')
         ->assertSee('TODO: FIX ME');
+
+    $this->get('/fr/services')->assertSee('Depuis Cotonou, au Bénin');
+    $this->get('/en/services')->assertSee('Based in Cotonou, Benin');
 
     $this->get('/fr/services')->assertOk()->assertSee('/fr/data-handling');
     $this->get('/en/services')->assertOk()->assertSee('/en/data-handling');
