@@ -2,7 +2,7 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "sena/sena-studio",
     "type": "project",
-    "description": "Sena Studio — personal freelance tracker and public portfolio backend (Laravel + Filament).",
+    "description": "Sena Studio — single-admin portfolio, lead inbox, and minimal client engagement tracker.",
     "keywords": ["laravel", "filament", "portfolio", "freelance"],
     "license": "MIT",
     "require": {
@@ -15,17 +15,14 @@
         "laravel/framework": "^13.0",
         "laravel/tinker": "^3.0",
         "livewire/flux": "^2.13.1",
-        "livewire/livewire": "^4.1",
-        "spatie/laravel-medialibrary": "^11.21"
+        "livewire/livewire": "^4.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24",
         "laravel/pail": "^1.2.5",
         "laravel/pint": "^1.29",
-        "laravel/sail": "^1.53",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.9.3",
-        "nunomaduro/pao": "^1.0.3",
         "pestphp/pest": "^4.6",
         "pestphp/pest-plugin-laravel": "^4.1"
     },

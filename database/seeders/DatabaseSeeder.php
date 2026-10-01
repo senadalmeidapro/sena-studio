@@ -13,16 +13,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $email = env('ADMIN_EMAIL');
-        $password = env('ADMIN_PASSWORD');
+        $email = config('admin.email');
+        $password = config('admin.password');
 
         if (blank($email) || blank($password)) {
+            if (config('app.env') === 'production') {
+                throw new \RuntimeException('ADMIN_EMAIL and ADMIN_PASSWORD must be set before running the production seeder.');
+            }
+
             $this->command?->warn('ADMIN_EMAIL and ADMIN_PASSWORD are required to seed the admin account.');
         } else {
             User::query()->updateOrCreate(
                 ['email' => $email],
                 [
-                    'name' => env('ADMIN_NAME', "Sèna Gédéon D'ALMEIDA"),
+                    'name' => config('admin.name') ?: "Sèna Gédéon D'ALMEIDA",
                     'password' => Hash::make($password),
                     'email_verified_at' => now(),
                     'is_admin' => true,

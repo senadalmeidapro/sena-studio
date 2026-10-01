@@ -6,6 +6,7 @@ use App\Livewire\Site\Contact;
 use App\Livewire\Site\Projects;
 use App\Models\Category;
 use App\Models\ContactMessage;
+use App\Models\Cv;
 use App\Models\Post;
 use App\Models\Project;
 use App\Models\SiteSetting;
@@ -109,6 +110,47 @@ test('services and legal pages are publicly accessible in both locales', functio
     $this->get('/en/services')->assertOk()->assertSee('Services');
     $this->get('/fr/mentions-legales')->assertOk()->assertSee('Mentions');
     $this->get('/en/confidentialite')->assertOk()->assertSee('Privacy');
+});
+
+test('all localized public landing routes remain available in French and English', function () {
+    $paths = [
+        'projets', 'competences', 'services', 'a-propos', 'blog', 'contact',
+        'mentions-legales', 'confidentialite',
+    ];
+
+    foreach (['fr', 'en'] as $locale) {
+        $this->get('/'.$locale)->assertOk();
+        foreach ($paths as $path) {
+            $this->get('/'.$locale.'/'.$path)->assertOk();
+        }
+    }
+
+    $this->get('/')->assertRedirect('/en');
+    $this->get('/fr/stack')->assertStatus(301)->assertRedirect('/fr/competences');
+    $this->get('/en/stack')->assertStatus(301)->assertRedirect('/en/competences');
+    $this->get('/sitemap.xml')->assertOk()->assertHeader('Content-Type', 'application/xml');
+});
+
+test('published project, post, and CV detail URLs remain available in both locales', function () {
+    $project = Project::factory()->create([
+        'slug' => 'route-smoke-project',
+        'visibility' => ProjectVisibility::Public->value,
+        'status' => ProjectStatus::Production->value,
+    ]);
+    $posts = [
+        'fr' => Post::factory()->create(['slug' => 'route-smoke-post-fr', 'locale' => 'fr']),
+        'en' => Post::factory()->create(['slug' => 'route-smoke-post-en', 'locale' => 'en']),
+    ];
+    $cv = Cv::create([
+        'title' => 'Engineering CV', 'version_label' => 'Engineering', 'slug' => 'engineering',
+        'status' => 'published', 'is_primary' => true, 'headline' => 'Backend engineer',
+    ]);
+
+    foreach (['fr', 'en'] as $locale) {
+        $this->get('/'.$locale.'/projets/'.$project->slug)->assertOk();
+        $this->get('/'.$locale.'/blog/'.$posts[$locale]->slug)->assertOk();
+        $this->get('/'.$locale.'/cv/'.$cv->slug)->assertOk();
+    }
 });
 
 test('blog content is isolated by locale', function () {
