@@ -5,10 +5,12 @@ namespace App\Filament\Resources\Engagements;
 use App\Enums\Currency;
 use App\Enums\EngagementPricingModel;
 use App\Enums\EngagementStatus;
+use App\Enums\InvoiceStatus;
 use App\Filament\Resources\Engagements\Pages\CreateEngagement;
 use App\Filament\Resources\Engagements\Pages\EditEngagement;
 use App\Filament\Resources\Engagements\Pages\ListEngagements;
 use App\Models\Engagement;
+use App\Support\InvoiceNumberGenerator;
 use App\Support\MoneyFormatter;
 use BackedEnum;
 use Filament\Actions\Action;
@@ -17,6 +19,7 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -46,6 +49,27 @@ class EngagementResource extends Resource
         return $table->columns([TextColumn::make('title')->searchable()->sortable(), TextColumn::make('client.name')->label('Client')->searchable(), TextColumn::make('status')->badge()->formatStateUsing(fn ($state): string => $state?->label() ?? ''), TextColumn::make('amount')->label('Amount')->formatStateUsing(fn ($state, Engagement $record): string => $state === null ? 'To be defined' : app(MoneyFormatter::class)->format((int) $state, $record->currency))])->recordActions([
             EditAction::make(),
             Action::make('downloadQuote')->label('Download quote PDF')->icon('heroicon-o-document-arrow-down')->url(fn (Engagement $record): string => route('admin.billing.engagements.quote', $record)),
+            Action::make('createNextMonthlyInvoice')
+                ->label('Create next monthly invoice')
+                ->icon('heroicon-o-plus-circle')
+                ->visible(fn (Engagement $record): bool => $record->pricing_model === EngagementPricingModel::Retainer && $record->invoices()->exists())
+                ->requiresConfirmation()
+                ->action(function (Engagement $record): void {
+                    $lastInvoice = $record->invoices()->orderByDesc('issued_at')->orderByDesc('id')->firstOrFail();
+                    $nextIssuedAt = $lastInvoice->issued_at?->copy()->addMonthNoOverflow() ?? today();
+                    $nextDueAt = $lastInvoice->due_at?->copy()->addMonthNoOverflow();
+
+                    $record->invoices()->create([
+                        'number' => app(InvoiceNumberGenerator::class)->next(),
+                        'amount' => $lastInvoice->amount,
+                        'currency' => $lastInvoice->currency,
+                        'issued_at' => $nextIssuedAt,
+                        'due_at' => $nextDueAt,
+                        'status' => InvoiceStatus::Draft,
+                    ]);
+
+                    Notification::make()->title('Next monthly invoice created')->success()->send();
+                }),
         ]);
     }
 

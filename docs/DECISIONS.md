@@ -22,3 +22,4 @@
 - 2026-10-04: The bilingual data-handling page makes no compliance guarantee; data categories, retention, subprocessors, and contact wording are marked for legal review before publication.
 - 2026-10-05: Lead reminders include due follow-ups for active pipeline statuses and stale new leads; a per-lead/day receipt prevents duplicate digest entries, and reply drafts are copied manually without sending.
 - 2026-10-05: Billing PDFs use BILLING_* values for issuer and payment details; missing issuer values show TODOs locally and block production generation, while quote validity and payment terms remain configurable placeholders.
+- 2026-10-06: Overdue invoice digests are sent only to the admin as database notifications; per-invoice/day receipts make daily reruns idempotent, and client emails are never sent.

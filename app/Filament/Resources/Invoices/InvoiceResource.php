@@ -45,6 +45,16 @@ class InvoiceResource extends Resource
         return $table->columns([TextColumn::make('number')->searchable(), TextColumn::make('engagement.title')->label('Engagement')->searchable(), TextColumn::make('amount')->label('Amount')->formatStateUsing(fn ($state, Invoice $record): string => app(MoneyFormatter::class)->format((int) $state, $record->currency)), TextColumn::make('due_at')->date(), TextColumn::make('status')->badge()->formatStateUsing(fn ($state): string => $state?->label() ?? '')])->recordActions([
             EditAction::make(),
             Action::make('downloadInvoice')->label('Download invoice PDF')->icon('heroicon-o-document-arrow-down')->url(fn (Invoice $record): string => route('admin.billing.invoices.pdf', $record)),
+            Action::make('markAsPaid')
+                ->label('Mark as paid')
+                ->icon('heroicon-o-check-circle')
+                ->color('success')
+                ->visible(fn (Invoice $record): bool => $record->status !== InvoiceStatus::Paid)
+                ->requiresConfirmation()
+                ->action(fn (Invoice $record) => $record->update([
+                    'status' => InvoiceStatus::Paid,
+                    'paid_at' => today(),
+                ])),
         ]);
     }
 

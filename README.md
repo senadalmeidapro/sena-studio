@@ -91,9 +91,11 @@ The test suite uses Pest with an in-memory SQLite database and `RefreshDatabase`
 
 ## Scheduled tasks
 
-The scheduler runs contact-message pruning daily at 03:30 and lead follow-up reminders daily. Set `LEAD_NO_REPLY_DAYS` to change the age threshold for new leads without a reply (default: 3 days). Configure a non-log mailer to receive the email digest; otherwise reminders are stored as admin database notifications.
+The scheduler runs contact-message pruning daily at 03:30, lead follow-up reminders daily, and overdue invoice reminders daily. Set `LEAD_NO_REPLY_DAYS` to change the age threshold for new leads without a reply (default: 3 days). Configure a non-log mailer to receive the lead email digest; otherwise lead reminders are stored as admin database notifications. Invoice reminders are database notifications only and are never emailed to clients.
 
 Add this cron entry on the application host to run Laravel's scheduler every minute:
+
+The daily invoice reminder command marks past-due sent invoices as overdue and stores one overdue-invoice digest per admin per day. It never emails clients. The invoice table also supports manual paid marking, and retainer engagements can create the next monthly draft invoice from the last invoice.
 
 ```cron
 * * * * * cd /path/to/sena-studio && php artisan schedule:run >> /dev/null 2>&1
