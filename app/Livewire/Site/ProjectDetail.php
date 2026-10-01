@@ -18,12 +18,18 @@ class ProjectDetail extends Component
 
     public function mount(Project $project): void
     {
-        $isSharedProtectedProject = request()->routeIs('projects.protected')
-            && $project->visibility === ProjectVisibility::Protected;
+        $isProtectedShareRoute = request()->routeIs('projects.protected');
+        $isSharedProtectedProject = $isProtectedShareRoute
+            && $project->visibility === ProjectVisibility::Protected
+            && filled($project->share_token)
+            && is_string(request()->query('token'))
+            && hash_equals($project->share_token, request()->query('token'));
         $isPublished = $project->status !== ProjectStatus::Cancelled;
+        $isPublicProject = ! $isProtectedShareRoute
+            && $project->visibility === ProjectVisibility::Public;
 
         abort_unless(
-            $isPublished && ($project->visibility === ProjectVisibility::Public || $isSharedProtectedProject),
+            $isPublished && ($isPublicProject || $isSharedProtectedProject),
             404,
         );
 

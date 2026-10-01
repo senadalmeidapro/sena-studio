@@ -16,6 +16,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 class ProjectsTable
 {
@@ -86,11 +87,26 @@ class ProjectsTable
                     ->label('Signed share link')
                     ->icon('heroicon-o-link')
                     ->visible(fn ($record): bool => $record->visibility === ProjectVisibility::Protected)
-                    ->url(fn ($record): string => URL::signedRoute(
-                        'projects.protected',
-                        ['locale' => app()->getLocale(), 'project' => $record->slug],
-                    ))
+                    ->url(function ($record): string {
+                        if (blank($record->share_token)) {
+                            $record->forceFill(['share_token' => Str::random(64)])->save();
+                        }
+
+                        return URL::signedRoute('projects.protected', [
+                            'locale' => app()->getLocale(),
+                            'project' => $record->slug,
+                            'token' => $record->share_token,
+                        ]);
+                    })
                     ->openUrlInNewTab(),
+                Action::make('regenerateShareLink')
+                    ->label('Regenerate share link')
+                    ->icon('heroicon-o-arrow-path')
+                    ->visible(fn ($record): bool => $record->visibility === ProjectVisibility::Protected)
+                    ->requiresConfirmation()
+                    ->action(fn ($record) => $record->forceFill([
+                        'share_token' => Str::random(64),
+                    ])->save()),
                 EditAction::make(),
             ])
             ->toolbarActions([

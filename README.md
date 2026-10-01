@@ -12,7 +12,7 @@ The public site is available in French and English. It presents projects and cas
 - Contact submissions store project type, goal, timeline, budget range, and optional context. A lead can be converted into a client and proposal engagement from the inbox.
 - Engagement and invoice amounts are integers: EUR values use cents; XOF values use whole units.
 - Public projects can include case-study details, a headline result metric, and one linked testimonial.
-- Protected projects use signed share links generated in the admin. Those links do not expire.
+- Protected projects use non-expiring signed share links generated in the admin. Regenerating a link revokes previously generated links.
 - Analytics script injection is optional and configured with `ANALYTICS_SCRIPT`.
 
 ## Stack
