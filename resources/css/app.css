@@ -99,7 +99,9 @@
     --success: #2F7D5B;
     --warning: #A15C07;
     --danger: #B42318;
-
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--on-accent);
+    --color-accent-content: var(--accent);
 }
 
 .dark {
@@ -116,15 +118,9 @@
     --success: #5CC49A;
     --warning: #E5B85C;
     --danger: #F08A7E;
-
-}
-
-@layer theme {
-    .dark {
-        --color-accent: var(--accent);
-        --color-accent-foreground: var(--on-accent);
-        --color-accent-content: var(--accent);
-    }
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--on-accent);
+    --color-accent-content: var(--accent);
 }
 
 @layer base {
@@ -449,6 +445,13 @@
 
 [data-flux-control] {
     border-radius: var(--radius-soft);
+    border-color: var(--border);
+    background-color: var(--surface);
+    color: var(--text);
+}
+
+[data-flux-control]::placeholder {
+    color: var(--text-muted);
 }
 
 input:focus[data-flux-control],
@@ -570,6 +573,17 @@ select:focus[data-flux-control] {
 
 [data-flux-toast-dialog] {
     @apply rounded-2xl shadow-card;
+}
+
+[data-flux-error],
+[data-flux-text][data-color='red'] {
+    color: var(--danger) !important;
+}
+
+[data-flux-button].bg-red-500,
+[data-flux-button].bg-red-600 {
+    background-color: var(--danger) !important;
+    color: var(--on-accent) !important;
 }
 
 .prose-blog {
