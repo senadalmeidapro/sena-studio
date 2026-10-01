@@ -27,3 +27,4 @@
 - 2026-10-06: Report periods use paid date for revenue, issue date for open receivables, and first message date for lead metrics; revenue is always kept separate by currency, with unlinked engagements grouped as Unlinked project.
 - 2026-10-06: Browser pages use the new semantic palette tokens while the CV PDF keeps its separate Blade template and literal PDF palette unchanged.
 - 2026-10-06: Flux primary colors use Flux's supported accent variables; app CSS overrides Flux control neutrals and danger states because Flux has no token hook for those semantics.
+- 2026-10-06: Filament keeps its existing neutral and status styling; only its primary palette and matching input focus ring follow the requested light-theme accent.

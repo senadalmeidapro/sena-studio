@@ -85,7 +85,7 @@ body {
 .fi-input:focus,
 .fi-textarea:focus,
 .fi-select-input:focus {
-    box-shadow: 0 0 0 2px rgb(37 99 235 / 0.22);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary-600) 22%, transparent);
 }
 
 .fi-ta-ctn,
