@@ -27,6 +27,7 @@
             <p>{{ __('services.offer_scoping') }}</p>
             <div class="flex flex-wrap gap-3 pt-3">
                 <a href="{{ localized_route('contact') }}" wire:navigate class="inline-flex rounded-lg bg-blue-600 px-5 py-3 font-medium text-white transition-colors hover:bg-blue-700 dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">{{ __('common.start_project') }}</a>
+                <a href="{{ localized_route('process') }}" wire:navigate class="inline-flex rounded-lg border border-blue-300 px-5 py-3 font-medium text-blue-800 transition-colors hover:bg-blue-100 dark:border-blue-700 dark:text-blue-200 dark:hover:bg-blue-950/60">{{ __('process.link_label') }}</a>
                 @if (filled($bookingUrl))
                     <a href="{{ $bookingUrl }}" target="_blank" rel="noopener noreferrer" class="inline-flex rounded-lg border border-blue-300 px-5 py-3 font-medium text-blue-800 transition-colors hover:bg-blue-100 dark:border-blue-700 dark:text-blue-200 dark:hover:bg-blue-950/60">{{ __('services.book_call') }}</a>
                 @endif

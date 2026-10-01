@@ -24,6 +24,7 @@
             <ul class="space-y-2.5 text-sm text-ink-500 dark:text-ink-400">
                 <li><a href="{{ localized_route('projects.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.projects') }}</a></li>
                 <li><a href="{{ localized_route('services') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.services') }}</a></li>
+                <li><a href="{{ localized_route('process') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.process') }}</a></li>
                 <li><a href="{{ localized_route('skills.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.skills') }}</a></li>
                 <li><a href="{{ localized_route('about') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.about') }}</a></li>
                 @if ($showBlog)

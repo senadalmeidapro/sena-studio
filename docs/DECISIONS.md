@@ -18,3 +18,4 @@
 - 2026-10-01: CV skill ratings and duration inputs are removed because neither public CV layout displays them; CEFR language levels remain editable and visible.
 - 2026-10-01: Protected project links remain non-expiring, and a persisted per-project token lets the admin revoke all previous links without rotating APP_KEY.
 - 2026-10-04: Case-study completeness measures the five core narrative fields; optional client context, constraints, outcome type, metric, and testimonial never prevent an anonymous project from being complete.
+- 2026-10-04: The bilingual working-process page uses one stable localized route slug, /process, and commercial terms remain explicit replaceable placeholders until confirmed.

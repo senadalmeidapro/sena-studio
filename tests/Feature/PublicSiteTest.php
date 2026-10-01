@@ -154,7 +154,7 @@ test('services and legal pages are publicly accessible in both locales', functio
 
 test('all localized public landing routes remain available in French and English', function () {
     $paths = [
-        'projets', 'competences', 'services', 'a-propos', 'blog', 'contact',
+        'projets', 'competences', 'services', 'process', 'a-propos', 'blog', 'contact',
         'mentions-legales', 'confidentialite',
     ];
 
@@ -168,7 +168,21 @@ test('all localized public landing routes remain available in French and English
     $this->get('/')->assertRedirect('/en');
     $this->get('/fr/stack')->assertStatus(301)->assertRedirect('/fr/competences');
     $this->get('/en/stack')->assertStatus(301)->assertRedirect('/en/competences');
-    $this->get('/sitemap.xml')->assertOk()->assertHeader('Content-Type', 'application/xml');
+    $this->get('/sitemap.xml')
+        ->assertOk()
+        ->assertHeader('Content-Type', 'application/xml')
+        ->assertSee(url('/fr/process'))
+        ->assertSee(url('/en/process'));
+});
+
+test('the working process page is localized and linked from services and contact', function () {
+    $this->get('/fr/process')->assertOk()->assertSee('Comment je travaille')->assertSee('Cadrage');
+    $this->get('/en/process')->assertOk()->assertSee('How I work')->assertSee('Scoping');
+
+    foreach (['/fr', '/en'] as $localePrefix) {
+        $this->get($localePrefix.'/services')->assertOk()->assertSee($localePrefix.'/process');
+        $this->get($localePrefix.'/contact')->assertOk()->assertSee($localePrefix.'/process');
+    }
 });
 
 test('published project, post, and CV detail URLs remain available in both locales', function () {

@@ -86,6 +86,7 @@
                             </li>
                         @endforeach
                     </ol>
+                    <a href="{{ localized_route('process') }}" wire:navigate class="mt-6 inline-flex font-medium text-blue-700 underline decoration-blue-300 underline-offset-4 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200">{{ __('process.link_label') }}</a>
                 </div>
             </aside>
 

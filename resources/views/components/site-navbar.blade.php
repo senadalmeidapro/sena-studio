@@ -7,6 +7,7 @@
     $links = [
         'projects' => [__('nav.projects'), localized_route('projects.index')],
         'services' => [__('nav.services'), localized_route('services')],
+        'process' => [__('nav.process'), localized_route('process')],
         'skills' => [__('nav.skills'), localized_route('skills.index')],
         'about' => [__('nav.about'), localized_route('about')],
         'blog' => [__('nav.blog'), localized_route('posts.index')],
@@ -20,6 +21,7 @@
     $activeKey = $current ?: match (true) {
         request()->routeIs('projects.*') => 'projects',
         request()->routeIs('services') => 'services',
+        request()->routeIs('process') => 'process',
         request()->routeIs('skills.*', 'stack.*') => 'skills',
         request()->routeIs('about') => 'about',
         request()->routeIs('posts.*') => 'blog',
