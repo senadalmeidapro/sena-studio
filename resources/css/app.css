@@ -68,9 +68,20 @@
     --color-fuchsia-400: #e879f9;
     --color-fuchsia-500: #d946ef;
 
-    --color-accent: var(--color-blue-600);
-    --color-accent-foreground: var(--color-white);
-    --color-accent-content: var(--color-blue-950);
+    --color-accent: var(--accent);
+    --color-accent-hover: var(--accent-hover);
+    --color-accent-soft: var(--accent-soft);
+    --color-accent-foreground: var(--on-accent);
+    --color-accent-content: var(--accent);
+    --color-bg: var(--bg);
+    --color-surface-muted: var(--surface-muted);
+    --color-border: var(--border);
+    --color-text: var(--text);
+    --color-text-muted: var(--text-muted);
+    --color-on-accent: var(--on-accent);
+    --color-success: var(--success);
+    --color-warning: var(--warning);
+    --color-danger: var(--danger);
 
     --radius-soft: 0.625rem;
     --radius-card: 0.875rem;
@@ -128,40 +139,82 @@
 }
 
 @theme inline {
-    --color-canvas: var(--canvas);
+    --color-bg: var(--bg);
     --color-surface: var(--surface);
+    --color-surface-muted: var(--surface-muted);
+    --color-border: var(--border);
+    --color-text: var(--text);
+    --color-text-muted: var(--text-muted);
+    --color-accent: var(--accent);
+    --color-accent-hover: var(--accent-hover);
+    --color-accent-soft: var(--accent-soft);
+    --color-on-accent: var(--on-accent);
+    --color-success: var(--success);
+    --color-warning: var(--warning);
+    --color-danger: var(--danger);
+
+    /* Legacy aliases kept temporarily while browser classes are migrated. */
+    --color-canvas: var(--bg);
     --color-card: var(--card);
     --color-elevated: var(--elevated);
     --color-soft: var(--soft);
-    --color-line: var(--line);
-    --color-line-strong: var(--line-strong);
+    --color-line: var(--border);
+    --color-line-strong: var(--border);
 }
 
 :root {
-    --canvas: #f8fafc;
-    --surface: #f1f5f9;
-    --card: #ffffff;
-    --elevated: #ffffff;
-    --soft: #eff6ff;
-    --line: #e2e8f0;
-    --line-strong: #cbd5e1;
+    --bg: #F6F8FB;
+    --surface: #FFFFFF;
+    --surface-muted: #EEF2F7;
+    --border: #DDE4EE;
+    --text: #172033;
+    --text-muted: #5B6779;
+    --accent: #3B6FD4;
+    --accent-hover: #2F5AB5;
+    --accent-soft: #E6EEFB;
+    --on-accent: #FFFFFF;
+    --success: #2F7D5B;
+    --warning: #A15C07;
+    --danger: #B42318;
+
+    /* Legacy aliases kept temporarily while browser classes are migrated. */
+    --canvas: var(--bg);
+    --card: var(--surface);
+    --elevated: var(--surface);
+    --soft: var(--accent-soft);
+    --line: var(--border);
+    --line-strong: var(--border);
 }
 
 .dark {
-    --canvas: #07111f;
-    --surface: #0b1728;
-    --card: #101d30;
-    --elevated: #15253b;
-    --soft: #16263d;
-    --line: #1e293b;
-    --line-strong: #334155;
+    --bg: #0F1420;
+    --surface: #161C2B;
+    --surface-muted: #1D2536;
+    --border: #2A3449;
+    --text: #E6EAF2;
+    --text-muted: #9AA6BA;
+    --accent: #7FA6F0;
+    --accent-hover: #A0BEF6;
+    --accent-soft: #1C2A47;
+    --on-accent: #0F1420;
+    --success: #5CC49A;
+    --warning: #E5B85C;
+    --danger: #F08A7E;
+
+    /* Legacy aliases kept temporarily while browser classes are migrated. */
+    --canvas: var(--bg);
+    --card: var(--surface);
+    --elevated: var(--surface);
+    --soft: var(--accent-soft);
+    --line: var(--border);
+    --line-strong: var(--border);
 }
 
 @layer theme {
     .dark {
-        --color-accent: var(--color-blue-400);
-        --color-accent-foreground: var(--color-blue-950);
-        --color-accent-content: var(--color-blue-950);
+        --color-accent: var(--accent);
+        --color-accent-foreground: var(--on-accent);
+        --color-accent-content: var(--accent);
     }
 }
 
@@ -183,7 +236,8 @@
         font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
         text-rendering: optimizeLegibility;
         -webkit-font-smoothing: antialiased;
-        background: var(--canvas);
+        background: var(--bg);
+        color: var(--text);
     }
 
     .font-display {
