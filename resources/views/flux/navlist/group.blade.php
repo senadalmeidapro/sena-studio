@@ -13,6 +13,7 @@
 >
     <button
         type="button"
+
         class="group/disclosure-button mb-[2px] flex h-10 w-full items-center rounded-lg text-text-muted hover:bg-surface-muted hover:text-text lg:h-8"
     >
         <div class="ps-3 pe-4">
