@@ -39,6 +39,68 @@ it('converts a contact message into one client and an initial proposal', functio
         ->and(Engagement::count())->toBe(1);
 });
 
+it('reuses a client for a second message with the same email and preserves notes', function () {
+    $existingClient = Client::factory()->create([
+        'email' => 'same@example.test',
+        'notes' => 'Original client note',
+    ]);
+    $first = ContactMessage::create([
+        'name' => 'First Contact', 'email' => 'same@example.test', 'subject' => 'First request', 'message' => 'First message.',
+    ]);
+    $second = ContactMessage::create([
+        'name' => 'Second Contact', 'email' => 'same@example.test', 'subject' => 'Second request', 'message' => 'Second message.',
+    ]);
+    $convert = app(ConvertContactMessageToClient::class);
+
+    $convert->handle($first, []);
+    $reusedClient = $convert->handle($second, []);
+
+    expect(Client::count())->toBe(1)
+        ->and(Engagement::count())->toBe(2)
+        ->and($reusedClient->is($existingClient))->toBeTrue()
+        ->and($second->fresh()->client_id)->toBe($existingClient->id)
+        ->and($existingClient->fresh()->notes)->toContain('Original client note')
+        ->and($existingClient->fresh()->notes)->toContain('Additional contact message #'.$second->id.' converted on '.now()->toDateString());
+});
+
+it('creates separate clients for different or missing emails', function () {
+    $convert = app(ConvertContactMessageToClient::class);
+    $messages = collect([
+        ContactMessage::create(['name' => 'One', 'email' => 'one@example.test', 'subject' => 'One', 'message' => 'Message one.']),
+        ContactMessage::create(['name' => 'Two', 'email' => 'two@example.test', 'subject' => 'Two', 'message' => 'Message two.']),
+        ContactMessage::create(['name' => 'No email one', 'email' => '', 'subject' => 'No email one', 'message' => 'Message three.']),
+        ContactMessage::create(['name' => 'No email two', 'email' => '   ', 'subject' => 'No email two', 'message' => 'Message four.']),
+    ]);
+
+    $clients = $messages->map(fn (ContactMessage $message) => $convert->handle($message, []));
+
+    expect(Client::count())->toBe(4)
+        ->and(Engagement::count())->toBe(4)
+        ->and($clients->pluck('id')->unique())->toHaveCount(4)
+        ->and($clients[2]->email)->toBeNull()
+        ->and($clients[3]->email)->toBeNull();
+});
+
+it('matches existing clients after trimming and ignoring email case', function () {
+    $client = Client::factory()->create([
+        'email' => '  Existing@Example.Test  ',
+        'notes' => 'Keep this note',
+    ]);
+    $message = ContactMessage::create([
+        'name' => 'Returning Contact', 'email' => 'existing@example.test', 'subject' => 'Follow up', 'message' => 'Another message.',
+    ]);
+
+    $reusedClient = app(ConvertContactMessageToClient::class)->handle($message, [
+        'email' => ' EXISTING@example.test ',
+    ]);
+
+    expect(Client::count())->toBe(1)
+        ->and(Engagement::count())->toBe(1)
+        ->and($reusedClient->is($client))->toBeTrue()
+        ->and($client->fresh()->notes)->toContain('Keep this note')
+        ->and($client->fresh()->notes)->toContain('Additional contact message #'.$message->id);
+});
+
 it('stores engagement and invoice amounts as integer minor units and supports both currencies', function () {
     $engagement = Engagement::factory()->create(['amount' => 12345, 'currency' => Currency::EUR]);
     $invoice = Invoice::factory()->create(['engagement_id' => $engagement->id, 'amount' => 5000, 'currency' => Currency::XOF]);

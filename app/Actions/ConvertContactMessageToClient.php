@@ -19,14 +19,29 @@ class ConvertContactMessageToClient
                 return $message->client;
             }
 
-            $client = Client::create([
-                'name' => $data['name'] ?? $message->name,
-                'company' => $data['company'] ?? $message->company,
-                'email' => $data['email'] ?? $message->email,
-                'phone' => $message->phone,
-                'source' => 'Contact form message #'.$message->getKey(),
-                'notes' => 'Converted from contact message #'.$message->getKey(),
-            ]);
+            $email = trim((string) ($data['email'] ?? $message->email ?? ''));
+            $email = $email === '' ? null : $email;
+            $client = $email === null
+                ? null
+                : Client::query()
+                    ->whereRaw('LOWER(TRIM(email)) = ?', [mb_strtolower($email)])
+                    ->first();
+
+            if ($client) {
+                $note = 'Additional contact message #'.$message->getKey().' converted on '.now()->toDateString();
+                $client->update([
+                    'notes' => trim(implode("\n", array_filter([$client->notes, $note]))),
+                ]);
+            } else {
+                $client = Client::create([
+                    'name' => $data['name'] ?? $message->name,
+                    'company' => $data['company'] ?? $message->company,
+                    'email' => $email,
+                    'phone' => $message->phone,
+                    'source' => 'Contact form message #'.$message->getKey(),
+                    'notes' => 'Converted from contact message #'.$message->getKey(),
+                ]);
+            }
 
             $scope = trim((string) ($data['scope'] ?? $message->goal ?? $message->message));
             if ($message->project_type || $message->timeline) {
