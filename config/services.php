@@ -39,4 +39,16 @@ return [
         'script' => env('ANALYTICS_SCRIPT'),
     ],
 
+    'billing' => [
+        'issuer' => [
+            'legal_name' => env('BILLING_LEGAL_NAME'),
+            'address' => env('BILLING_ADDRESS'),
+            'tax_id' => env('BILLING_TAX_ID'),
+            'bank_details' => env('BILLING_BANK_DETAILS'),
+            'payment_details' => env('BILLING_PAYMENT_DETAILS'),
+        ],
+        'quote_validity_days' => env('BILLING_QUOTE_VALIDITY_DAYS'),
+        'payment_terms' => env('BILLING_PAYMENT_TERMS'),
+    ],
+
 ];

@@ -9,7 +9,9 @@ use App\Filament\Resources\Engagements\Pages\CreateEngagement;
 use App\Filament\Resources\Engagements\Pages\EditEngagement;
 use App\Filament\Resources\Engagements\Pages\ListEngagements;
 use App\Models\Engagement;
+use App\Support\MoneyFormatter;
 use BackedEnum;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -41,7 +43,10 @@ class EngagementResource extends Resource
 
     public static function table(Table $table): Table
     {
-        return $table->columns([TextColumn::make('title')->searchable()->sortable(), TextColumn::make('client.name')->label('Client')->searchable(), TextColumn::make('status')->badge()->formatStateUsing(fn ($state): string => $state?->label() ?? ''), TextColumn::make('amount')->numeric()->placeholder('À définir'), TextColumn::make('currency')->formatStateUsing(fn ($state): string => $state?->value ?? '')])->recordActions([EditAction::make()]);
+        return $table->columns([TextColumn::make('title')->searchable()->sortable(), TextColumn::make('client.name')->label('Client')->searchable(), TextColumn::make('status')->badge()->formatStateUsing(fn ($state): string => $state?->label() ?? ''), TextColumn::make('amount')->label('Amount')->formatStateUsing(fn ($state, Engagement $record): string => $state === null ? 'To be defined' : app(MoneyFormatter::class)->format((int) $state, $record->currency))])->recordActions([
+            EditAction::make(),
+            Action::make('downloadQuote')->label('Download quote PDF')->icon('heroicon-o-document-arrow-down')->url(fn (Engagement $record): string => route('admin.billing.engagements.quote', $record)),
+        ]);
     }
 
     public static function getPages(): array

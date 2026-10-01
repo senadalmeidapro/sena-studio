@@ -8,7 +8,10 @@ use App\Filament\Resources\Invoices\Pages\CreateInvoice;
 use App\Filament\Resources\Invoices\Pages\EditInvoice;
 use App\Filament\Resources\Invoices\Pages\ListInvoices;
 use App\Models\Invoice;
+use App\Support\InvoiceNumberGenerator;
+use App\Support\MoneyFormatter;
 use BackedEnum;
+use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -34,12 +37,15 @@ class InvoiceResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema->components([Select::make('engagement_id')->relationship('engagement', 'title')->searchable()->preload()->required(), TextInput::make('number')->required()->unique(ignoreRecord: true)->maxLength(255), TextInput::make('amount')->numeric()->minValue(0)->required()->helperText('Integer minor units: EUR cents; XOF whole units.'), Select::make('currency')->options(Currency::options())->required()->default('EUR'), DatePicker::make('issued_at'), DatePicker::make('due_at'), DatePicker::make('paid_at'), Select::make('status')->options(InvoiceStatus::options())->required()->default('draft')]);
+        return $schema->components([Select::make('engagement_id')->relationship('engagement', 'title')->searchable()->preload()->required(), TextInput::make('number')->default(fn (): string => app(InvoiceNumberGenerator::class)->next())->unique(ignoreRecord: true)->maxLength(255), TextInput::make('amount')->numeric()->minValue(0)->required()->helperText('Integer minor units: EUR cents; XOF whole units.'), Select::make('currency')->options(Currency::options())->required()->default('EUR'), DatePicker::make('issued_at'), DatePicker::make('due_at'), DatePicker::make('paid_at'), Select::make('status')->options(InvoiceStatus::options())->required()->default('draft')]);
     }
 
     public static function table(Table $table): Table
     {
-        return $table->columns([TextColumn::make('number')->searchable(), TextColumn::make('engagement.title')->label('Engagement')->searchable(), TextColumn::make('amount')->numeric(), TextColumn::make('currency')->formatStateUsing(fn ($state): string => $state?->value ?? ''), TextColumn::make('due_at')->date(), TextColumn::make('status')->badge()->formatStateUsing(fn ($state): string => $state?->label() ?? '')])->recordActions([EditAction::make()]);
+        return $table->columns([TextColumn::make('number')->searchable(), TextColumn::make('engagement.title')->label('Engagement')->searchable(), TextColumn::make('amount')->label('Amount')->formatStateUsing(fn ($state, Invoice $record): string => app(MoneyFormatter::class)->format((int) $state, $record->currency)), TextColumn::make('due_at')->date(), TextColumn::make('status')->badge()->formatStateUsing(fn ($state): string => $state?->label() ?? '')])->recordActions([
+            EditAction::make(),
+            Action::make('downloadInvoice')->label('Download invoice PDF')->icon('heroicon-o-document-arrow-down')->url(fn (Invoice $record): string => route('admin.billing.invoices.pdf', $record)),
+        ]);
     }
 
     public static function getPages(): array

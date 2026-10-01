@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BillingPdfController;
 use App\Livewire\Site\About;
 use App\Livewire\Site\BlogIndex;
 use App\Livewire\Site\BlogShow;
@@ -127,5 +128,10 @@ Route::middleware(['auth', 'verified'])->get('/admin/cvs/{cv}/pdf', function (Re
 
     return $file->download($name);
 })->name('admin.cvs.pdf');
+
+Route::middleware(['auth', 'verified'])->prefix('/admin/billing')->name('admin.billing.')->group(function (): void {
+    Route::get('/engagements/{engagement}/quote.pdf', [BillingPdfController::class, 'quote'])->name('engagements.quote');
+    Route::get('/invoices/{invoice}.pdf', [BillingPdfController::class, 'invoice'])->name('invoices.pdf');
+});
 
 require __DIR__.'/settings.php';

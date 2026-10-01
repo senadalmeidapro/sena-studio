@@ -98,3 +98,7 @@ Add this cron entry on the application host to run Laravel's scheduler every min
 ```cron
 * * * * * cd /path/to/sena-studio && php artisan schedule:run >> /dev/null 2>&1
 ```
+
+## Billing PDFs
+
+Admin users can generate quote and invoice PDFs on demand. Configure BILLING_LEGAL_NAME, BILLING_ADDRESS, BILLING_TAX_ID, BILLING_BANK_DETAILS, BILLING_PAYMENT_DETAILS, BILLING_QUOTE_VALIDITY_DAYS, and BILLING_PAYMENT_TERMS before production use. Missing issuer details appear as TODO markers locally; production generation is blocked until they are configured.
