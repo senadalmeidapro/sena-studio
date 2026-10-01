@@ -419,6 +419,15 @@
     "data_handling.gdpr_contact.text": "Utilisez la page de contact pour poser une question relative aux données. TODO: legal review — confirmer le contact responsable, la formulation juridique et le processus de réponse.",
     "data_handling.contact_link": "Contact",
 
+    "leads.reply_draft.action": "Copier un brouillon de réponse",
+    "leads.reply_draft.heading": "Brouillon de réponse",
+    "leads.reply_draft.copy": "Copier le brouillon",
+    "leads.reply_draft.copied": "Copié",
+    "leads.reply_draft.close": "Fermer",
+    "leads.reply_draft.first_reply": "Bonjour :name,\n\nMerci pour ces précisions sur :subject. Je vais examiner l’objectif, le calendrier et les contraintes partagés, puis revenir vers vous avec d’éventuelles questions de cadrage.\n\nBien à vous,\nSena",
+    "leads.reply_draft.proposal_sent": "Bonjour :name,\n\nJe reviens vers vous au sujet de la proposition pour :subject. Dites-moi si vous souhaitez échanger sur son périmètre ou ses hypothèses.\n\nBien à vous,\nSena",
+    "leads.reply_draft.follow_up": "Bonjour :name,\n\nJe prends des nouvelles au sujet de :subject. Est-ce toujours une priorité ? Nous pouvons revoir la prochaine étape si cela vous est utile.\n\nBien à vous,\nSena",
+
     "errors.404.code": "404",
     "errors.404.title": "Page introuvable",
     "errors.404.text": "La page que vous cherchez n’existe pas ou a été déplacée.",

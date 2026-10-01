@@ -88,3 +88,13 @@ composer ci:check
 ```
 
 The test suite uses Pest with an in-memory SQLite database and `RefreshDatabase`.
+
+## Scheduled tasks
+
+The scheduler runs contact-message pruning daily at 03:30 and lead follow-up reminders daily. Set `LEAD_NO_REPLY_DAYS` to change the age threshold for new leads without a reply (default: 3 days). Configure a non-log mailer to receive the email digest; otherwise reminders are stored as admin database notifications.
+
+Add this cron entry on the application host to run Laravel's scheduler every minute:
+
+```cron
+* * * * * cd /path/to/sena-studio && php artisan schedule:run >> /dev/null 2>&1
+```

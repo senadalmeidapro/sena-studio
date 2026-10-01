@@ -6,6 +6,7 @@ use App\Actions\ConvertContactMessageToClient;
 use App\Enums\Currency;
 use App\Enums\EngagementPricingModel;
 use App\Models\ContactMessage;
+use App\Support\ContactMessageReplyDraft;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -163,6 +164,15 @@ class MessagesTable
                     ->icon('heroicon-o-check-circle')
                     ->visible(fn (ContactMessage $record): bool => ! $record->isRead())
                     ->action(fn (ContactMessage $record) => $record->markAsRead()),
+                Action::make('copyReplyDraft')
+                    ->label(__('leads.reply_draft.action'))
+                    ->icon('heroicon-o-clipboard-document')
+                    ->modalHeading(__('leads.reply_draft.heading'))
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel(__('leads.reply_draft.close'))
+                    ->modalContent(fn (ContactMessage $record) => view('filament.messages.reply-draft', [
+                        'draft' => app(ContactMessageReplyDraft::class)->for($record),
+                    ])),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

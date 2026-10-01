@@ -418,6 +418,15 @@
     "data_handling.gdpr_contact.text": "Use the contact page to raise a data protection question. TODO: legal review — confirm the responsible contact, legal wording, and response process.",
     "data_handling.contact_link": "Contact",
 
+    "leads.reply_draft.action": "Copy reply draft",
+    "leads.reply_draft.heading": "Reply draft",
+    "leads.reply_draft.copy": "Copy draft",
+    "leads.reply_draft.copied": "Copied",
+    "leads.reply_draft.close": "Close",
+    "leads.reply_draft.first_reply": "Hi :name,\n\nThanks for sharing :subject. I’ll review the goal, timeline, and constraints you provided and follow up with any scoping questions.\n\nBest,\nSena",
+    "leads.reply_draft.proposal_sent": "Hi :name,\n\nI’m following up on the proposal for :subject. Let me know if you’d like to discuss its scope or assumptions.\n\nBest,\nSena",
+    "leads.reply_draft.follow_up": "Hi :name,\n\nI’m checking in about :subject. Is this still a priority? I’m happy to revisit the next step if useful.\n\nBest,\nSena",
+
     "errors.404.code": "404",
     "errors.404.title": "Page not found",
     "errors.404.text": "The page you are looking for does not exist or has moved.",
