@@ -1,14 +1,14 @@
 <div class="public-page mx-auto max-w-6xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
 
     {{-- En-tête --}}
-    <header class="border-b border-border pb-10 motion-safe:animate-fade-up ">
+    <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">
         <div class="flex items-center gap-3">
             <span class="eyebrow">{{ __('about.eyebrow') }}</span>
         </div>
-        <h1 class="mt-5 font-display text-4xl font-medium tracking-tight text-text  sm:text-5xl">
+        <h1 class="mt-5 font-display text-4xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-5xl">
             {{ __('about.title') }}
         </h1>
-        <p class="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-text-muted ">
+        <p class="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">
             {{ __('about.subtitle') }}
         </p>
     </header>
@@ -37,7 +37,7 @@
 
         {{-- Chiffres --}}
         <aside class="grid content-start gap-6 motion-safe:animate-fade-up [animation-delay:120ms]">
-            <div class="rounded-2xl border border-border bg-surface p-8 shadow-soft ">
+            <div class="rounded-2xl border border-ink-300 bg-card p-8 shadow-soft dark:border-ink-700">
                 <p class="eyebrow">{{ __('about.stats_eyebrow') }}</p>
                 <dl class="mt-6 grid grid-cols-3 gap-6">
                     @foreach ([
@@ -46,16 +46,16 @@
                         ['value' => $this->stats['testimonials'], 'label' => __('about.stats_reviews')],
                     ] as $stat)
                         <div>
-                            <dd class="font-display text-3xl font-medium tabular-nums text-text ">{{ $stat['value'] }}</dd>
-                            <dt class="mt-1 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-text-muted ">{{ $stat['label'] }}</dt>
+                            <dd class="font-display text-3xl font-medium tabular-nums text-ink-900 dark:text-ink-50">{{ $stat['value'] }}</dd>
+                            <dt class="mt-1 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-ink-500 dark:text-ink-400">{{ $stat['label'] }}</dt>
                         </div>
                     @endforeach
                 </dl>
             </div>
 
-            <div class="rounded-2xl border border-border bg-surface-muted p-8 shadow-soft  ">
+            <div class="rounded-2xl border border-ink-300 bg-blue-50/50 p-8 shadow-soft dark:border-ink-700 dark:bg-blue-950/20">
                 <p class="eyebrow">{{ __('about.availability_eyebrow') }}</p>
-                <p class="mt-4 text-pretty leading-relaxed text-text-muted ">
+                <p class="mt-4 text-pretty leading-relaxed text-ink-600 dark:text-ink-300">
                     {{ __('about.availability_text') }}
                 </p>
                 <x-front.arrow-link :href="localized_route('contact')" wire:navigate class="mt-5">
@@ -67,21 +67,21 @@
 
     {{-- Principes d'ingénierie --}}
     @if ($this->proofProjects->isNotEmpty())
-        <section class="mt-16 rounded-3xl border border-border bg-gradient-to-br from-surface-muted via-surface to-surface p-6   sm:p-9">
+        <section class="mt-16 rounded-3xl border border-ink-300 bg-gradient-to-br from-blue-50/80 via-card to-card p-6 dark:border-ink-700 dark:from-blue-950/30 dark:via-card dark:to-card sm:p-9">
             <div class="grid gap-7 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
                 <div>
                     <p class="eyebrow">{{ __('about.proof_eyebrow') }}</p>
-                    <h2 class="mt-3 font-display text-2xl font-semibold tracking-tight text-text ">{{ __('about.proof_title') }}</h2>
-                    <p class="mt-3 text-sm leading-relaxed text-text-muted ">{{ __('about.proof_text') }}</p>
+                    <h2 class="mt-3 font-display text-2xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('about.proof_title') }}</h2>
+                    <p class="mt-3 text-sm leading-relaxed text-ink-600 dark:text-ink-300">{{ __('about.proof_text') }}</p>
                 </div>
                 <div class="grid gap-3 sm:grid-cols-2">
                     @foreach ($this->proofProjects as $proof)
-                        <a href="{{ localized_route('projects.show', $proof->slug) }}" wire:navigate class="group rounded-2xl border border-border bg-surface/80 p-5 transition-all hover:-translate-y-0.5 hover:border-border hover:shadow-card  ">
-                            <span class="font-mono text-[0.65rem] uppercase tracking-[0.12em] text-text-muted">{{ $proof->role ?: $proof->type->label() }}</span>
-                            <h3 class="mt-2 font-display text-lg font-semibold text-text transition-colors group-hover:text-accent  ">{{ $proof->name }}</h3>
-                            <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-text-muted ">{{ $proof->problem }}</p>
+                        <a href="{{ localized_route('projects.show', $proof->slug) }}" wire:navigate class="group rounded-2xl border border-ink-200 bg-card/80 p-5 transition-all hover:-translate-y-0.5 hover:border-blue-400/70 hover:shadow-card dark:border-ink-700 dark:bg-elevated/70">
+                            <span class="font-mono text-[0.65rem] uppercase tracking-[0.12em] text-blue-700 dark:text-blue-300">{{ $proof->role ?: $proof->type->label() }}</span>
+                            <h3 class="mt-2 font-display text-lg font-semibold text-ink-900 transition-colors group-hover:text-blue-700 dark:text-ink-50 dark:group-hover:text-blue-300">{{ $proof->name }}</h3>
+                            <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-600 dark:text-ink-300">{{ $proof->problem }}</p>
                             @if ($proof->result)
-                                <p class="mt-4 border-t border-border pt-3 text-sm leading-relaxed text-text-muted  ">{{ $proof->result }}</p>
+                                <p class="mt-4 border-t border-ink-200 pt-3 text-sm leading-relaxed text-ink-600 dark:border-ink-700 dark:text-ink-300">{{ $proof->result }}</p>
                             @endif
                         </a>
                     @endforeach
@@ -90,20 +90,20 @@
         </section>
     @endif
 
-    <section class="mt-20 border-t border-border pt-14 ">
+    <section class="mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">
         <div class="max-w-2xl">
             <p class="eyebrow">{{ __('about.principles_eyebrow') }}</p>
-            <h2 class="mt-4 font-display text-3xl font-bold tracking-[-0.035em] text-text  sm:text-4xl">
+            <h2 class="mt-4 font-display text-3xl font-bold tracking-[-0.035em] text-ink-900 dark:text-ink-50 sm:text-4xl">
                 {{ __('about.principles_title') }}
             </h2>
         </div>
 
-        <ol class="mt-8 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2  ">
+        <ol class="mt-8 grid gap-px overflow-hidden rounded-xl border border-ink-300 bg-ink-300/80 sm:grid-cols-2 dark:border-ink-700 dark:bg-ink-700/60">
             @foreach (range(1, 4) as $number)
-                <li class="bg-surface p-6 transition-colors hover:bg-surface-muted ">
-                    <span class="block size-2 rounded-full bg-border"></span>
-                    <h3 class="mt-5 font-display text-lg font-semibold tracking-tight text-text ">{{ __('about.principle_'.$number) }}</h3>
-                    <p class="mt-2 text-sm leading-relaxed text-text-muted ">{{ __('about.principle_'.$number.'_text') }}</p>
+                <li class="bg-card p-6 transition-colors hover:bg-blue-50/60 dark:hover:bg-blue-950/20">
+                    <span class="block size-2 rounded-full bg-blue-500"></span>
+                    <h3 class="mt-5 font-display text-lg font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('about.principle_'.$number) }}</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-ink-500 dark:text-ink-400">{{ __('about.principle_'.$number.'_text') }}</p>
                 </li>
             @endforeach
         </ol>
@@ -111,27 +111,27 @@
 
     {{-- Témoignages --}}
     @if ($this->testimonials->isNotEmpty())
-        <section class="mt-20 border-t border-border pt-14 ">
+        <section class="mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">
             <div>
                 <h2 class="eyebrow">{{ __('about.testimonials_eyebrow') }}</h2>
             </div>
 
             <div class="mt-8 grid gap-6 md:grid-cols-3">
                 @foreach ($this->testimonials as $testimonial)
-                    <figure class="flex flex-col rounded-2xl border border-border bg-surface p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-card ">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-text-muted">
+                    <figure class="flex flex-col rounded-2xl border border-ink-300 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-card dark:border-ink-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-blue-600 dark:text-blue-400">
                             <path fill-rule="evenodd" d="M4.804 21.644A6.707 6.707 0 0 0 6 21.75a6.721 6.721 0 0 0 3.583-1.029c.774.182 1.584.279 2.417.279 5.322 0 9.75-3.97 9.75-9 0-5.03-4.428-9-9.75-9s-9.75 3.97-9.75 9c0 3.01 1.693 5.192 4.554 6.15.163 1.363.947 2.353 2.081 2.904Z" clip-rule="evenodd" />
                         </svg>
-                        <blockquote class="mt-4 flex-1 text-sm leading-relaxed text-text-muted ">
+                        <blockquote class="mt-4 flex-1 text-sm leading-relaxed text-ink-600 dark:text-ink-300">
                             {{ $testimonial->content }}
                         </blockquote>
-                        <figcaption class="mt-5 flex items-center gap-3 border-t border-border pt-4 ">
-                            <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-surface-muted font-display text-sm font-semibold text-text-muted  ">
+                        <figcaption class="mt-5 flex items-center gap-3 border-t border-ink-200 pt-4 dark:border-ink-700/70">
+                            <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-blue-600 font-display text-sm font-semibold text-white dark:bg-blue-500 dark:text-blue-950">
                                 {{ mb_substr($testimonial->name, 0, 1) }}
                             </span>
                             <span>
-                                <span class="block text-sm font-medium text-text ">{{ $testimonial->name }}</span>
-                                <span class="block font-mono text-[0.66rem] uppercase tracking-[0.1em] text-text-muted ">
+                                <span class="block text-sm font-medium text-ink-900 dark:text-ink-50">{{ $testimonial->name }}</span>
+                                <span class="block font-mono text-[0.66rem] uppercase tracking-[0.1em] text-ink-500 dark:text-ink-400">
                                     {{ collect([$testimonial->role, $testimonial->company])->filter()->implode(' · ') }}
                                 </span>
                             </span>

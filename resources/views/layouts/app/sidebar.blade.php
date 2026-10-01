@@ -3,8 +3,8 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-bg ">
-        <flux:sidebar sticky collapsible="mobile" class="border-e border-border bg-surface  ">
+    <body class="min-h-screen bg-canvas dark:bg-ink-900">
+        <flux:sidebar sticky collapsible="mobile" class="border-e border-ink-200 bg-surface dark:border-ink-700 dark:bg-surface">
             <flux:sidebar.header>
                 <x-app-logo :sidebar="true" href="{{ route('filament.admin.pages.dashboard') }}" wire:navigate />
                 <flux:sidebar.collapse class="lg:hidden" />

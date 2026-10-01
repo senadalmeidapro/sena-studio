@@ -1,75 +1,75 @@
 <div class="public-page contact-page mx-auto max-w-6xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
 
     @if ($sent)
-        <div class="mx-auto max-w-2xl rounded-3xl border border-border bg-surface-muted p-10 text-center shadow-soft motion-safe:animate-fade-up  ">
-            <div class="mx-auto flex size-12 items-center justify-center rounded-full bg-surface-muted">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6 text-success ">
+        <div class="mx-auto max-w-2xl rounded-3xl border border-emerald-200 bg-emerald-50 p-10 text-center shadow-soft motion-safe:animate-fade-up dark:border-emerald-700/40 dark:bg-emerald-950/40">
+            <div class="mx-auto flex size-12 items-center justify-center rounded-full bg-emerald-500/15">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6 text-emerald-600 dark:text-emerald-300">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                 </svg>
             </div>
-            <h2 class="mt-5 font-display text-3xl font-medium tracking-tight text-text ">{{ __('contact.success_title') }}</h2>
-            <p class="mt-3 text-text-muted ">
+            <h2 class="mt-5 font-display text-3xl font-medium tracking-tight text-ink-900 dark:text-ink-50">{{ __('contact.success_title') }}</h2>
+            <p class="mt-3 text-ink-600 dark:text-ink-300">
                 {{ __('contact.success_text') }}
             </p>
-            <button wire:click="$set('sent', false)" class="mt-7 font-medium text-success underline-offset-4 transition-colors hover:text-success hover:underline  ">
+            <button wire:click="$set('sent', false)" class="mt-7 font-medium text-emerald-600 underline-offset-4 transition-colors hover:text-emerald-700 hover:underline dark:text-emerald-300 dark:hover:text-emerald-200">
                 {{ __('contact.success_again') }}
             </button>
         </div>
     @else
         {{-- En-tête éditorial --}}
-        <header class="border-b border-border pb-10 motion-safe:animate-fade-up ">
+        <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">
             <div class="flex items-center gap-3">
                 <span class="eyebrow">{{ __('contact.eyebrow') }}</span>
             </div>
-            <h1 class="mt-5 font-display text-4xl font-medium tracking-tight text-text  sm:text-5xl">
+            <h1 class="mt-5 font-display text-4xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-5xl">
                 {{ __('contact.title') }}
             </h1>
-            <p class="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-text-muted ">
+            <p class="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">
                 {{ __('contact.subtitle') }}
             </p>
-            <p class="mt-4 inline-flex rounded-full border border-border bg-accent-soft px-3 py-1.5 text-sm font-medium text-accent   ">{{ __('availability.'.$availability) }}</p>
+            <p class="mt-4 inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-800 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-200">{{ __('availability.'.$availability) }}</p>
         </header>
 
         <div class="mt-12 grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
             {{-- Colonne infos --}}
             <aside class="motion-safe:animate-fade-up">
-                <h2 class="font-display text-2xl font-medium tracking-tight text-text ">
+                <h2 class="font-display text-2xl font-medium tracking-tight text-ink-900 dark:text-ink-50">
                     {{ __('contact.aside_title') }}
                 </h2>
-                <p class="mt-3 text-pretty leading-relaxed text-text-muted ">
+                <p class="mt-3 text-pretty leading-relaxed text-ink-600 dark:text-ink-400">
                     {{ __('contact.aside_text') }}
                 </p>
 
-                <dl class="mt-10 space-y-6 border-t border-border pt-8 ">
+                <dl class="mt-10 space-y-6 border-t border-ink-300 pt-8 dark:border-ink-700">
                     <div class="grid grid-cols-[auto_1fr] gap-4">
-                        <dt class="pt-0.5 text-text-muted">
+                        <dt class="pt-0.5 text-blue-600 dark:text-blue-400">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
                             </svg>
                         </dt>
-                        <dd><a href="mailto:senadalmeidapro@gmail.com" class="break-all font-mono text-sm uppercase tracking-[0.1em] text-text underline decoration-border underline-offset-4 transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent   ">senadalmeidapro@gmail.com</a></dd>
+                        <dd><a href="mailto:senadalmeidapro@gmail.com" class="break-all font-mono text-sm uppercase tracking-[0.1em] text-ink-700 underline decoration-ink-300 underline-offset-4 transition-colors hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:text-ink-200 dark:decoration-ink-600 dark:hover:text-blue-300">senadalmeidapro@gmail.com</a></dd>
                     </div>
                     <div class="grid grid-cols-[auto_1fr] gap-4">
-                        <dt class="pt-0.5 text-text-muted">
+                        <dt class="pt-0.5 text-blue-600 dark:text-blue-400">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                             </svg>
                         </dt>
-                        <dd class="font-mono text-sm uppercase tracking-[0.1em] text-text ">{{ __('contact.location') }}</dd>
+                        <dd class="font-mono text-sm uppercase tracking-[0.1em] text-ink-700 dark:text-ink-200">{{ __('contact.location') }}</dd>
                     </div>
                     <div class="grid grid-cols-[auto_1fr] gap-4">
-                        <dt class="pt-0.5 text-text-muted">
+                        <dt class="pt-0.5 text-blue-600 dark:text-blue-400">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
                             </svg>
                         </dt>
-                        <dd class="font-mono text-sm uppercase tracking-[0.1em] text-text ">{{ __('contact.response_delay') }}</dd>
+                        <dd class="font-mono text-sm uppercase tracking-[0.1em] text-ink-700 dark:text-ink-200">{{ __('contact.response_delay') }}</dd>
                     </div>
                 </dl>
 
-                <div class="mt-10 border-t border-border pt-8 ">
+                <div class="mt-10 border-t border-ink-300 pt-8 dark:border-ink-700">
                     @if (filled($bookingUrl))
-                        <a href="{{ $bookingUrl }}" target="_blank" rel="noopener noreferrer" class="mb-8 inline-flex items-center gap-2 rounded-lg border border-border bg-accent-soft px-4 py-3 text-sm font-semibold text-accent transition-colors hover:bg-surface-muted    ">
+                        <a href="{{ $bookingUrl }}" target="_blank" rel="noopener noreferrer" class="mb-8 inline-flex items-center gap-2 rounded-lg border border-blue-300 bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-800 transition-colors hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-200 dark:hover:bg-blue-950/60">
                             {{ __('contact.booking_label') }}
                             <span aria-hidden="true">↗</span>
                         </a>
@@ -78,22 +78,22 @@
                     <ol class="mt-5 space-y-5">
                         @foreach (['discussion', 'clarification', 'next_step'] as $index => $step)
                             <li class="flex gap-4">
-                                <span class="font-mono text-xs font-semibold text-text-muted">0{{ $index + 1 }}</span>
+                                <span class="font-mono text-xs font-semibold text-blue-600 dark:text-blue-300">0{{ $index + 1 }}</span>
                                 <div>
-                                    <h3 class="font-display text-sm font-semibold text-text ">{{ __('contact.process_'.$step.'_title') }}</h3>
-                                    <p class="mt-1 text-sm leading-relaxed text-text-muted ">{{ __('contact.process_'.$step.'_text') }}</p>
+                                    <h3 class="font-display text-sm font-semibold text-ink-900 dark:text-ink-50">{{ __('contact.process_'.$step.'_title') }}</h3>
+                                    <p class="mt-1 text-sm leading-relaxed text-ink-500 dark:text-ink-400">{{ __('contact.process_'.$step.'_text') }}</p>
                                 </div>
                             </li>
                         @endforeach
                     </ol>
-                    <a href="{{ localized_route('process') }}" wire:navigate class="mt-6 inline-flex font-medium text-accent underline decoration-border underline-offset-4 hover:text-accent  ">{{ __('process.link_label') }}</a>
+                    <a href="{{ localized_route('process') }}" wire:navigate class="mt-6 inline-flex font-medium text-blue-700 underline decoration-blue-300 underline-offset-4 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200">{{ __('process.link_label') }}</a>
                 </div>
             </aside>
 
             {{-- Formulaire --}}
             @php
-                $input = 'rounded-lg border border-border bg-surface px-4 py-2.5 text-text placeholder-text-muted shadow-soft outline-none transition-all duration-200 focus:border-border focus:ring-2 focus:ring-accent/30     ';
-                $label = 'text-sm font-medium text-text ';
+                $input = 'rounded-lg border border-ink-300 bg-card px-4 py-2.5 text-ink-900 placeholder-ink-400 shadow-soft outline-none transition-all duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-ink-700 dark:text-ink-100 dark:placeholder-ink-500 dark:focus:border-blue-400 dark:focus:ring-blue-400/20';
+                $label = 'text-sm font-medium text-ink-700 dark:text-ink-200';
             @endphp
 
             <form wire:submit="submit" wire:loading.attr="aria-busy" wire:target="submit" class="motion-safe:animate-fade-up [animation-delay:120ms]">
@@ -101,7 +101,7 @@
                     <span class="eyebrow">{{ __('contact.form_eyebrow') }}</span>
                 </div>
 
-                <p class="mb-6 text-sm text-text-muted ">
+                <p class="mb-6 text-sm text-ink-500 dark:text-ink-400">
                     {!! __('contact.form_legend') !!}
                 </p>
 
@@ -114,7 +114,7 @@
 
                     <div class="grid gap-6 sm:grid-cols-2">
                         <div class="grid gap-2">
-                            <label for="contact-name" class="{{ $label }}">{{ __('contact.form_name_label') }} <span class="text-danger">*</span></label>
+                            <label for="contact-name" class="{{ $label }}">{{ __('contact.form_name_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
                             <input
                                 id="contact-name"
                                 type="text"
@@ -122,11 +122,11 @@
                                 class="{{ $input }}"
                                 placeholder="{{ __('contact.form_name_placeholder') }}"
                             />
-                            @error('name') <span class="text-sm text-danger">{{ $message }}</span> @enderror
+                            @error('name') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="grid gap-2">
-                            <label for="contact-email" class="{{ $label }}">{{ __('contact.form_email_label') }} <span class="text-danger">*</span></label>
+                            <label for="contact-email" class="{{ $label }}">{{ __('contact.form_email_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
                             <input
                                 id="contact-email"
                                 type="email"
@@ -134,13 +134,13 @@
                                 class="{{ $input }}"
                                 placeholder="{{ __('contact.form_email_placeholder') }}"
                             />
-                            @error('email') <span class="text-sm text-danger">{{ $message }}</span> @enderror
+                            @error('email') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
                     <div class="grid gap-6 sm:grid-cols-2">
                         <div class="grid gap-2">
-                            <label for="contact-phone" class="{{ $label }}">{{ __('contact.form_phone_label') }} <span class="font-normal text-text-muted">({{ __('contact.form_optional') }})</span></label>
+                            <label for="contact-phone" class="{{ $label }}">{{ __('contact.form_phone_label') }} <span class="font-normal text-ink-400 dark:text-ink-500">({{ __('contact.form_optional') }})</span></label>
                             <input
                                 id="contact-phone"
                                 type="tel"
@@ -148,11 +148,11 @@
                                 class="{{ $input }}"
                                 placeholder="{{ __('contact.form_phone_placeholder') }}"
                             />
-                            @error('phone') <span class="text-sm text-danger">{{ $message }}</span> @enderror
+                            @error('phone') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="grid gap-2">
-                            <label for="contact-company" class="{{ $label }}">{{ __('contact.form_company_label') }} <span class="font-normal text-text-muted">({{ __('contact.form_optional') }})</span></label>
+                            <label for="contact-company" class="{{ $label }}">{{ __('contact.form_company_label') }} <span class="font-normal text-ink-400 dark:text-ink-500">({{ __('contact.form_optional') }})</span></label>
                             <input
                                 id="contact-company"
                                 type="text"
@@ -160,53 +160,53 @@
                                 class="{{ $input }}"
                                 placeholder="{{ __('contact.form_company_placeholder') }}"
                             />
-                            @error('company') <span class="text-sm text-danger">{{ $message }}</span> @enderror
+                            @error('company') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
                     <div class="grid gap-6 sm:grid-cols-2">
                         <div class="grid gap-2">
-                            <label for="contact-project-type" class="{{ $label }}">{{ __('contact.project_type_label') }} <span class="text-danger">*</span></label>
-                            <select id="contact-project-type" wire:model="project_type" class="{{ $input }} bg-surface">
+                            <label for="contact-project-type" class="{{ $label }}">{{ __('contact.project_type_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
+                            <select id="contact-project-type" wire:model="project_type" class="{{ $input }} bg-card">
                                 <option value="">{{ __('contact.project_type_placeholder') }}</option>
                                 @foreach ($this->projectTypeOptions() as $key => $projectTypeLabel)
-                                    <option value="{{ $key }}" class="text-text ">{{ $projectTypeLabel }}</option>
+                                    <option value="{{ $key }}" class="text-ink-900 dark:text-ink-100">{{ $projectTypeLabel }}</option>
                                 @endforeach
                             </select>
-                            @error('project_type') <span class="text-sm text-danger">{{ $message }}</span> @enderror
+                            @error('project_type') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="grid gap-2">
-                            <label for="contact-timeline" class="{{ $label }}">{{ __('contact.timeline_label') }} <span class="text-danger">*</span></label>
-                            <select id="contact-timeline" wire:model="timeline" class="{{ $input }} bg-surface">
+                            <label for="contact-timeline" class="{{ $label }}">{{ __('contact.timeline_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
+                            <select id="contact-timeline" wire:model="timeline" class="{{ $input }} bg-card">
                                 <option value="">{{ __('contact.timeline_placeholder') }}</option>
                                 @foreach ($this->timelineOptions() as $key => $timelineLabel)
-                                    <option value="{{ $key }}" class="text-text ">{{ $timelineLabel }}</option>
+                                    <option value="{{ $key }}" class="text-ink-900 dark:text-ink-100">{{ $timelineLabel }}</option>
                                 @endforeach
                             </select>
-                            @error('timeline') <span class="text-sm text-danger">{{ $message }}</span> @enderror
+                            @error('timeline') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
                     <div class="grid gap-2">
-                        <label for="contact-budget" class="{{ $label }}">{{ __('contact.budget_range_label') }} <span class="text-danger">*</span></label>
-                        <select id="contact-budget" wire:model="budget_range" class="{{ $input }} bg-surface">
+                        <label for="contact-budget" class="{{ $label }}">{{ __('contact.budget_range_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
+                        <select id="contact-budget" wire:model="budget_range" class="{{ $input }} bg-card">
                             <option value="">{{ __('contact.form_budget_placeholder') }}</option>
                             @foreach ($this->budgetOptions() as $key => $budgetLabel)
-                                <option value="{{ $key }}" class="text-text ">{{ $budgetLabel }}</option>
+                                <option value="{{ $key }}" class="text-ink-900 dark:text-ink-100">{{ $budgetLabel }}</option>
                             @endforeach
                         </select>
-                        @error('budget_range') <span class="text-sm text-danger">{{ $message }}</span> @enderror
+                        @error('budget_range') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="grid gap-2">
-                        <label for="contact-goal" class="{{ $label }}">{{ __('contact.goal_label') }} <span class="text-danger">*</span></label>
+                        <label for="contact-goal" class="{{ $label }}">{{ __('contact.goal_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
                         <textarea id="contact-goal" wire:model="goal" rows="3" class="resize-none {{ $input }}"></textarea>
-                        @error('goal') <span class="text-sm text-danger">{{ $message }}</span> @enderror
+                        @error('goal') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="grid gap-2">
-                        <label for="contact-message" class="{{ $label }}">{{ __('contact.context_label') }} <span class="font-normal text-text-muted">({{ __('contact.form_optional') }})</span></label>
+                        <label for="contact-message" class="{{ $label }}">{{ __('contact.context_label') }} <span class="font-normal text-ink-400 dark:text-ink-500">({{ __('contact.form_optional') }})</span></label>
                         <textarea
                             id="contact-message"
                             wire:model="message"
@@ -214,12 +214,12 @@
                             class="resize-none {{ $input }}"
                             placeholder="{{ __('contact.context_placeholder') }}"
                         ></textarea>
-                        @error('message') <span class="text-sm text-danger">{{ $message }}</span> @enderror
+                        @error('message') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="flex flex-wrap items-center gap-6">
                         <button type="submit" wire:loading.attr="disabled" wire:target="submit"
-                                class="group inline-flex items-center gap-2.5 rounded-xl bg-accent px-6 py-3.5 font-display text-base font-medium text-on-accent shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-card   ">
+                                class="group inline-flex items-center gap-2.5 rounded-xl bg-blue-600 px-6 py-3.5 font-display text-base font-medium text-white shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-card dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
                             <span wire:loading.remove wire:target="submit">{{ __('contact.form_submit') }}</span>
                             <svg wire:loading.remove wire:target="submit" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                  class="size-4 transition-transform duration-300 group-hover:translate-x-0.5">
@@ -233,7 +233,7 @@
                                 {{ __('contact.form_sending') }}
                             </span>
                         </button>
-                        <span class="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-text-muted">{!! __('contact.form_secure') !!}</span>
+                        <span class="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500">{!! __('contact.form_secure') !!}</span>
                     </div>
                 </div>
             </form>

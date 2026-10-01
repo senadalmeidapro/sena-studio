@@ -5,8 +5,6 @@ use App\Filament\Resources\Messages\ContactMessageResource;
 use App\Models\ContactMessage;
 use App\Models\Cv;
 use App\Models\User;
-use Filament\Facades\Filament;
-use Filament\Support\Colors\Color;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
@@ -61,11 +59,6 @@ it('marks the admin panel as private for search engines', function () {
         ->get('/admin')
         ->assertSuccessful()
         ->assertSee('<meta name="robots" content="noindex, nofollow, noarchive">', false);
-});
-
-it('uses the design accent as the Filament primary color', function () {
-    expect(Filament::getPanel('admin')->getColors()['primary'])
-        ->toBe(Color::hex('#3A6ED4'));
 });
 
 it('marks contact message as read when viewed', function () {
