@@ -15,4 +15,5 @@
 - 2026-10-01: Admin privilege is excluded from mass assignment and granted only through explicit seeder or factory admin paths.
 - 2026-10-01: Migration 000002 intentionally deletes skill categorizable rows because skills now store a category string; legacy skill-to-category links are not migrated.
 - 2026-10-01: Seeded CV skill ratings and duration claims are removed; only CEFR-format language levels remain, and unverified portfolio/CV sample content is marked for replacement.
+- 2026-10-01: CV skill ratings and duration inputs are removed because neither public CV layout displays them; CEFR language levels remain editable and visible.
 - 2026-10-01: Protected project links remain non-expiring, and a persisted per-project token lets the admin revoke all previous links without rotating APP_KEY.

@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Cvs\Schemas;
 
 use App\Enums\CvLanguageLevel;
-use App\Enums\CvSkillLevel;
 use App\Enums\CvStatus;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Repeater;
@@ -203,15 +202,6 @@ class CvForm
                                         TextInput::make('name')->label('Nom')
                                             ->required()
                                             ->maxLength(255),
-                                        Select::make('level')->label('Niveau')
-                                            ->options(CvSkillLevel::options()),
-                                        Select::make('experience')->label('Expérience')
-                                            ->options([
-                                                '1-2 ans' => '1-2 ans',
-                                                '2-4 ans' => '2-4 ans',
-                                                '4-7 ans' => '4-7 ans',
-                                                '7+ ans' => '7+ ans',
-                                            ]),
                                     ])
                                     ->collapsible(),
                             ]),
