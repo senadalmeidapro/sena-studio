@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Cvs\Schemas;
 use App\Enums\CvLanguageLevel;
 use App\Enums\CvSkillLevel;
 use App\Enums\CvStatus;
-use App\Enums\CvTemplate;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
@@ -47,12 +46,6 @@ class CvForm
                             ->dehydrated()
                             ->maxLength(255),
 
-                        Select::make('template')
-                            ->label('Modèle de rendu')
-                            ->options(CvTemplate::options())
-                            ->default(CvTemplate::Classique)
-                            ->required(),
-
                         Select::make('status')
                             ->label('Statut')
                             ->options(CvStatus::options())
@@ -63,17 +56,6 @@ class CvForm
                             ->label('Version principale')
                             ->helperText('Cochez pour en faire la version mise en avant.'),
 
-                        Select::make('accent_color')
-                            ->label('Couleur d’accent')
-                            ->options([
-                                '#059669' => 'Émeraude',
-                                '#7c3aed' => 'Violet',
-                                '#2563eb' => 'Bleu',
-                                '#d97706' => 'Ambre',
-                                '#e11d48' => 'Rose',
-                                '#334155' => 'Ardoise',
-                            ])
-                            ->default('#059669'),
                     ]),
 
                 $section('Accroche', 'Votre situation professionnelle en quelques lignes.', [

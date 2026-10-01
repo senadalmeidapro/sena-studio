@@ -3,7 +3,6 @@
 namespace App\Livewire\Site;
 
 use App\Models\Skill;
-use App\Models\Stack as StackModel;
 use App\Services\Seo;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
@@ -64,7 +63,6 @@ class Skills extends Component
         $grouped = Skill::query()
             ->where('is_active', true)
             ->with([
-                'categories',
                 'projects' => fn ($q) => $q
                     ->where('visibility', 'public')
                     ->where('status', '!=', 'cancelled')
@@ -82,18 +80,6 @@ class Skills extends Component
             ->mapWithKeys(fn (string $role): array => [$role => $grouped->get($role)]);
 
         return $ordered->union($remaining);
-    }
-
-    #[Computed]
-    public function stacks()
-    {
-        return StackModel::query()
-            ->where('is_active', true)
-            ->with(['stackItems', 'projects' => fn ($q) => $q
-                ->where('visibility', 'public')
-                ->where('status', '!=', 'cancelled')
-                ->where('slug', '!=', 'portfolio-sena-studio')])
-            ->get();
     }
 
     public function render()

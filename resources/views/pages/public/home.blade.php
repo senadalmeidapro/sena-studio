@@ -266,7 +266,7 @@
                                 @endif
                                 <span class="font-display text-lg font-medium tracking-tight text-ink-900 transition-colors group-hover:text-blue-700 dark:text-ink-50 dark:group-hover:text-blue-300">{{ $skill->name }}</span>
                             </span>
-                            <span class="hidden font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 sm:block dark:text-ink-500">{{ $skill->level->label() }}</span>
+                            <span class="hidden font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 sm:block dark:text-ink-500">{{ $skill->category }}</span>
                         </a>
                     </li>
                 @endforeach
@@ -292,7 +292,7 @@
                             @foreach ($this->stackHighlights as $category => $items)
                                 @foreach ($items as $item)
                                     <span class="flex items-center gap-10 font-display text-2xl tracking-tight text-ink-800 dark:text-ink-100">
-                                        {{ $item->value }}
+                                        {{ $item->name }}
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-4 text-blue-500">
                                             <path d="M12 .5 14.6 9.4 23.5 12l-8.9 2.6L12 23.5 9.4 14.6.5 12l8.9-2.6Z" />
                                         </svg>
@@ -308,17 +308,13 @@
                 <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     @foreach ($this->stackHighlights as $category => $items)
                         <div>
-                            <h3 class="mb-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-blue-600 dark:text-blue-300">{{ \App\Enums\StackItemCategory::from($category)->label() }}</h3>
+                            <h3 class="mb-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-blue-600 dark:text-blue-300">{{ __('skills.role_'.$category) }}</h3>
                             <div class="flex flex-wrap gap-2">
                                 @foreach ($items->take(3) as $item)
-                                    @if (in_array($item->value, $this->skillNames, true))
-                                        <a href="{{ skill_url($item->value) }}" class="inline-flex items-center gap-1.5 rounded-md bg-card px-2.5 py-1 font-mono text-[0.7rem] uppercase tracking-[0.08em] text-ink-700 shadow-soft transition-colors hover:text-blue-700 dark:text-ink-200 dark:hover:text-blue-300">
-                                    @else
-                                        <span class="inline-flex items-center gap-1.5 rounded-md bg-card px-2.5 py-1 font-mono text-[0.7rem] uppercase tracking-[0.08em] text-ink-700 shadow-soft dark:text-ink-200">
-                                    @endif
+                                    <a href="{{ skill_url($item->name) }}" class="inline-flex items-center gap-1.5 rounded-md bg-card px-2.5 py-1 font-mono text-[0.7rem] uppercase tracking-[0.08em] text-ink-700 shadow-soft transition-colors hover:text-blue-700 dark:text-ink-200 dark:hover:text-blue-300">
                                         @if ($item->icon) <x-site-icon :icon="$item->icon" class="size-3.5" /> @endif
-                                        {{ $item->value }}
-                                    @if (in_array($item->value, $this->skillNames, true))</a>@else</span>@endif
+                                        {{ $item->name }}
+                                    </a>
                                 @endforeach
                             </div>
                         </div>

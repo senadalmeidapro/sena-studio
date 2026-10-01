@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use App\Enums\ProjectComplexity;
 use App\Enums\ProjectStatus;
 use App\Enums\ProjectType;
 use App\Enums\ProjectVisibility;
 use App\Services\CloudinaryService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
@@ -22,14 +20,10 @@ class Project extends Model
     protected $table = 'projects';
 
     protected $casts = [
-        'price' => 'float',
         'started_at' => 'datetime',
         'ended_at' => 'datetime',
-        'stack_id' => 'int',
-        'infra_id' => 'int',
         'status' => ProjectStatus::class,
         'type' => ProjectType::class,
-        'complexity' => ProjectComplexity::class,
         'visibility' => ProjectVisibility::class,
         'featured' => 'boolean',
         'sort_order' => 'integer',
@@ -46,36 +40,22 @@ class Project extends Model
         'result',
         'featured',
         'sort_order',
-        'version',
-        'price',
+        'deployment',
         'url',
         'repository_url',
         'image',
         'cloudinary_public_id',
         'status',
         'type',
-        'complexity',
         'visibility',
         'started_at',
         'ended_at',
-        'stack_id',
-        'infra_id',
     ];
-
-    public function stack(): BelongsTo
-    {
-        return $this->belongsTo(Stack::class);
-    }
-
-    public function infra(): BelongsTo
-    {
-        return $this->belongsTo(Infra::class);
-    }
 
     public function skills(): BelongsToMany
     {
         return $this->belongsToMany(Skill::class)
-            ->withPivot('id', 'proficiency')
+            ->withPivot('id')
             ->withTimestamps();
     }
 

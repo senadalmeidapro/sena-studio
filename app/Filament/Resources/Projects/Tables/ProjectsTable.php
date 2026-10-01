@@ -2,22 +2,20 @@
 
 namespace App\Filament\Resources\Projects\Tables;
 
-use App\Enums\ProjectComplexity;
 use App\Enums\ProjectStatus;
 use App\Enums\ProjectType;
 use App\Enums\ProjectVisibility;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\URL;
 
 class ProjectsTable
 {
@@ -53,25 +51,6 @@ class ProjectsTable
                     ->formatStateUsing(fn ($state): string => $state?->label() ?? (string) $state)
                     ->sortable(),
 
-                TextColumn::make('complexity')
-                    ->badge()
-                    ->formatStateUsing(fn ($state): string => $state?->label() ?? (string) $state)
-                    ->colors([
-                        'gray' => 'simple',
-                        'warning' => 'medium',
-                        'danger' => 'complex',
-                    ])
-                    ->sortable(),
-
-                TextColumn::make('stack.name')
-                    ->label('Stack')
-                    ->searchable()
-                    ->sortable(),
-
-                TextColumn::make('price')
-                    ->money('USD')
-                    ->sortable(),
-
                 TextColumn::make('started_at')
                     ->date()
                     ->sortable()
@@ -94,48 +73,24 @@ class ProjectsTable
                 SelectFilter::make('type')
                     ->options(ProjectType::options()),
 
-                SelectFilter::make('complexity')
-                    ->options(ProjectComplexity::options()),
-
                 SelectFilter::make('visibility')
                     ->label('Visibility')
                     ->options(ProjectVisibility::options()),
 
-                SelectFilter::make('stack')
-                    ->relationship('stack', 'name'),
-
-                SelectFilter::make('infra')
-                    ->relationship('infra', 'name'),
-
                 TernaryFilter::make('featured')
                     ->label('Projets mis en avant'),
 
-                Filter::make('price_range')
-                    ->label('Price Range')
-                    ->form([
-                        TextInput::make('min_price')
-                            ->label('Minimum Price')
-                            ->numeric()
-                            ->prefix('$'),
-                        TextInput::make('max_price')
-                            ->label('Maximum Price')
-                            ->numeric()
-                            ->prefix('$'),
-                    ])
-                    ->query(function (Builder $query, array $data): Builder {
-                        return $query
-                            ->when(
-                                $data['min_price'] ?? null,
-                                fn (Builder $query, $min_price) => $query->where('price', '>=', $min_price)
-                            )
-                            ->when(
-                                $data['max_price'] ?? null,
-                                fn (Builder $query, $max_price) => $query->where('price', '<=', $max_price)
-                            );
-                    }),
-
             ])
             ->recordActions([
+                Action::make('protectedShareLink')
+                    ->label('Signed share link')
+                    ->icon('heroicon-o-link')
+                    ->visible(fn ($record): bool => $record->visibility === ProjectVisibility::Protected)
+                    ->url(fn ($record): string => URL::signedRoute(
+                        'projects.protected',
+                        ['locale' => app()->getLocale(), 'project' => $record->slug],
+                    ))
+                    ->openUrlInNewTab(),
                 EditAction::make(),
             ])
             ->toolbarActions([

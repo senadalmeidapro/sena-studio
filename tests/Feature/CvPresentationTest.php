@@ -1,7 +1,6 @@
 <?php
 
 use App\Enums\CvStatus;
-use App\Enums\CvTemplate;
 use App\Models\Cv;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -12,7 +11,6 @@ it('renders the engineering CV layout with selected projects and grouped skills'
         'title' => 'Engineering CV',
         'version_label' => 'Full-Stack Developer',
         'slug' => 'engineering-cv',
-        'template' => CvTemplate::Engineering,
         'status' => CvStatus::Published,
         'headline' => 'Full-Stack Developer',
         'summary' => 'Builds reliable backend systems.',

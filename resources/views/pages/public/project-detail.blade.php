@@ -171,7 +171,6 @@
                     };
                 @endphp
                 <span class="rounded-md px-2 py-1 {{ $statusTone[0] }}">{{ $project->status->label() }}</span>
-                <span class="rounded-md bg-ink-100 px-2 py-1 text-ink-600 dark:bg-ink-800 dark:text-ink-300">{{ $project->complexity->label() }}</span>
             </div>
 
             @if ($project->description)
@@ -278,61 +277,12 @@
         </section>
     @endif
 
-    {{-- Stack du projet --}}
-    @if ($project->stack && $project->stack->stackItems->isNotEmpty())
+    @if ($project->deployment)
         <section class="mt-14">
-            <div class="flex flex-wrap items-baseline justify-between gap-3">
-                <div>
-                    <h2 class="eyebrow">{{ __('project.stack_title') }}</h2>
-                </div>
-                <p class="font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">{{ $project->stack->name }}</p>
-            </div>
-
-            <div class="mt-6 grid gap-6 sm:grid-cols-2">
-                @foreach ($project->stack->stackItems->groupBy('category') as $category => $items)
-                    <div class="rounded-2xl border border-ink-300 bg-card p-6 shadow-soft dark:border-ink-700">
-                        <h3 class="mb-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-blue-600 dark:text-blue-300">{{ \App\Enums\StackItemCategory::from($category)->label() }}</h3>
-                        <div class="flex flex-wrap gap-2">
-                            @foreach ($items as $item)
-                                @if ($project->skills->contains('name', $item->value))
-                                    <a href="{{ skill_url($item->value) }}" class="inline-flex items-center gap-1.5 rounded bg-ink-100 px-2 py-1 font-mono text-[0.72rem] text-ink-700 transition-colors hover:text-blue-700 dark:bg-ink-800 dark:text-ink-200 dark:hover:text-blue-300">
-                                @else
-                                    <span class="inline-flex items-center gap-1.5 rounded bg-ink-100 px-2 py-1 font-mono text-[0.72rem] text-ink-700 dark:bg-ink-800 dark:text-ink-200">
-                                @endif
-                                    @if ($item->icon) <x-site-icon :icon="$item->icon" class="size-3.5" /> @endif
-                                    {{ $item->value }}@if ($item->version) <span class="text-ink-500 dark:text-ink-500">{{ $item->version }}</span>@endif
-                                @if ($project->skills->contains('name', $item->value))</a>@else</span>@endif
-                            @endforeach
-                        </div>
-                    </div>
-                @endforeach
-            </div>
+            <h2 class="eyebrow">{{ __('project.infra_title') }}</h2>
+            <p class="mt-4 max-w-3xl whitespace-pre-line text-sm leading-7 text-ink-600 dark:text-ink-300">{{ $project->deployment }}</p>
         </section>
     @endif
-
-    {{-- Infrastructure --}}
-    @if ($project->infra)
-        <section class="mt-14">
-            <div>
-                <h2 class="eyebrow">{{ __('project.infra_title') }}</h2>
-            </div>
-            <dl class="mt-6 grid gap-px overflow-hidden rounded-2xl border border-ink-300 bg-ink-300/80 sm:grid-cols-3 dark:border-ink-700 dark:bg-ink-700/60">
-                <div class="group bg-card p-6 shadow-soft transition-colors hover:bg-blue-50/50 dark:hover:bg-blue-950/20">
-                    <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">{{ __('project.environment') }}</dt>
-                    <dd class="mt-1.5 font-display text-lg font-medium text-ink-900 dark:text-ink-50">{{ $project->infra->environment->label() }}</dd>
-                </div>
-                <div class="bg-card p-6 shadow-soft transition-colors hover:bg-blue-50/50 dark:hover:bg-blue-950/20">
-                    <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">CPU / RAM</dt>
-                    <dd class="mt-1.5 font-display text-lg font-medium text-ink-900 dark:text-ink-50">{{ __('project.cores', ['count' => $project->infra->cpu_cores, 'memory' => $project->infra->memory_mb]) }}</dd>
-                </div>
-                <div class="bg-card p-6 shadow-soft transition-colors hover:bg-blue-50/50 dark:hover:bg-blue-950/20">
-                    <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">{{ __('project.storage') }}</dt>
-                    <dd class="mt-1.5 font-display text-lg font-medium text-ink-900 dark:text-ink-50">{{ $project->infra->storage_gb }} Go</dd>
-                </div>
-            </dl>
-        </section>
-    @endif
-
     {{-- CTA suivant --}}
     <div class="mt-20 flex flex-wrap items-center justify-between gap-6 rounded-2xl border border-ink-300 bg-blue-50/50 px-8 py-7 shadow-soft dark:border-ink-700 dark:bg-blue-950/20">
         <p class="font-display text-xl font-medium tracking-tight text-ink-900 dark:text-ink-50">

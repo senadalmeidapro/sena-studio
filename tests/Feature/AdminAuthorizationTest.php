@@ -36,7 +36,6 @@ it('blocks users without the admin flag from downloading CV files', function () 
         'title' => 'Curriculum vitae',
         'version_label' => 'V1',
         'slug' => 'protected-cv',
-        'template' => 'moderne',
         'status' => 'published',
         'headline' => 'Software Engineer',
     ]);

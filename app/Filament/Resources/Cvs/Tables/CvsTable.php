@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Cvs\Tables;
 
 use App\Enums\CvStatus;
-use App\Enums\CvTemplate;
 use App\Models\Cv;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
@@ -35,10 +34,6 @@ class CvsTable
                     ->limit(40)
                     ->toggleable(),
 
-                TextColumn::make('template')
-                    ->badge()
-                    ->color('primary'),
-
                 TextColumn::make('status')
                     ->badge()
                     ->color(fn (Cv $record): string => $record->status === CvStatus::Published ? 'success' : 'gray'),
@@ -54,9 +49,6 @@ class CvsTable
                     ->sortable(),
             ])
             ->filters([
-                SelectFilter::make('template')
-                    ->options(CvTemplate::options()),
-
                 SelectFilter::make('status')
                     ->options(CvStatus::options()),
             ])

@@ -26,6 +26,9 @@ Route::prefix('{locale?}')
     ->group(function () {
         Route::get('/', Home::class)->name('home');
         Route::get('projets', Projects::class)->name('projects.index');
+        Route::get('projets/{project:slug}/partage', ProjectDetail::class)
+            ->middleware('signed')
+            ->name('projects.protected');
         Route::get('projets/{project:slug}', ProjectDetail::class)->name('projects.show');
         Route::get('competences', Skills::class)->name('skills.index');
         Route::get('services', Services::class)->name('services');

@@ -12,7 +12,6 @@ it('downloads the CV as a PDF for an authenticated user', function () {
         'title' => 'Curriculum vitae',
         'version_label' => 'V1 - Fullstack',
         'slug' => 'test-cv',
-        'template' => 'moderne',
         'status' => 'published',
         'headline' => 'Développeur',
     ]);
@@ -29,7 +28,6 @@ it('redirects guests to the login page', function () {
     $cv = Cv::create([
         'title' => 'Curriculum vitae',
         'slug' => 'test-cv',
-        'template' => 'moderne',
         'status' => 'draft',
         'headline' => 'Développeur',
     ]);

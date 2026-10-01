@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Enums\SkillLevel;
 use App\Models\Skill;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -15,7 +14,7 @@ class SkillFactory extends Factory
         return [
             'name' => ucfirst($this->faker->unique()->word()),
             'description' => $this->faker->optional()->sentence(),
-            'level' => $this->faker->randomElement(SkillLevel::cases())->value,
+            'category' => $this->faker->randomElement(['backend', 'frontend', 'database', 'devops', 'tools']),
             'is_active' => true,
             'icon' => $this->faker->randomElement(['🐘', '⚡', '🎨', '🗄️', '☁️', '🧪', '🛠️', '🌿', '🔷', '🚀']),
         ];

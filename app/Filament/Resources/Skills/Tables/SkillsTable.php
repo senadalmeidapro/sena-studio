@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Skills\Tables;
 
-use App\Enums\SkillLevel;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -26,15 +25,9 @@ class SkillsTable
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('level')
+                TextColumn::make('category')
                     ->badge()
-                    ->formatStateUsing(fn ($state): string => $state?->label() ?? (string) $state)
-                    ->colors([
-                        'gray' => 'beginner',
-                        'info' => 'intermediate',
-                        'warning' => 'advanced',
-                        'success' => 'expert',
-                    ])
+                    ->placeholder('—')
                     ->sortable(),
 
                 IconColumn::make('is_active')
@@ -47,9 +40,6 @@ class SkillsTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                SelectFilter::make('level')
-                    ->options(SkillLevel::options()),
-
                 SelectFilter::make('is_active')
                     ->options([
                         1 => 'Active',

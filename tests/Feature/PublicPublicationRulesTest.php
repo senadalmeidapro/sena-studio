@@ -1,6 +1,8 @@
 <?php
 
+use App\Enums\ProjectVisibility;
 use App\Models\Post;
+use App\Models\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\URL;
 
@@ -38,4 +40,39 @@ it('allows a temporary signed preview for an unpublished post', function () {
         'locale' => 'fr',
         'post' => $post->slug,
     ]))->assertForbidden();
+});
+
+it('allows a signed link to show a protected project while blocking its public URL', function () {
+    $project = Project::factory()->create([
+        'slug' => 'protected-project',
+        'visibility' => ProjectVisibility::Protected,
+        'status' => 'production',
+    ]);
+
+    $this->get(localized_route('projects.show', $project))
+        ->assertNotFound();
+
+    $shareUrl = URL::signedRoute('projects.protected', [
+        'locale' => 'en',
+        'project' => $project->slug,
+    ]);
+
+    $this->get($shareUrl)
+        ->assertOk()
+        ->assertSee($project->name)
+        ->assertSee('noindex, nofollow');
+});
+
+it('does not expose private projects through signed share links', function () {
+    $project = Project::factory()->create([
+        'visibility' => ProjectVisibility::Private,
+        'status' => 'production',
+    ]);
+
+    $shareUrl = URL::signedRoute('projects.protected', [
+        'locale' => 'en',
+        'project' => $project->slug,
+    ]);
+
+    $this->get($shareUrl)->assertNotFound();
 });

@@ -22,7 +22,6 @@ it('renders admin dashboard and resources', function () {
         'title' => 'Curriculum vitae',
         'version_label' => 'V1',
         'slug' => 'test-cv',
-        'template' => 'moderne',
         'status' => 'published',
         'headline' => 'Développeur',
     ]);
@@ -32,8 +31,6 @@ it('renders admin dashboard and resources', function () {
         '/admin/projects',
         '/admin/projects/create',
         '/admin/skills',
-        '/admin/stacks',
-        '/admin/stacks/create',
         '/admin/security',
         CvResource::getUrl('index'),
         CvResource::getUrl('create'),
@@ -46,6 +43,13 @@ it('renders admin dashboard and resources', function () {
     foreach ($paths as $path) {
         $this->actingAs($user)->get($path)->assertSuccessful();
     }
+});
+
+it('does not expose removed stack or infrastructure admin resources', function () {
+    $user = User::factory()->create();
+
+    $this->actingAs($user)->get('/admin/stacks')->assertNotFound();
+    $this->actingAs($user)->get('/admin/infras')->assertNotFound();
 });
 
 it('marks the admin panel as private for search engines', function () {

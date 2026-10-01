@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Enums\ProjectComplexity;
 use App\Enums\ProjectStatus;
 use App\Enums\ProjectType;
 use App\Enums\ProjectVisibility;
@@ -21,8 +20,7 @@ class ProjectFactory extends Factory
             'name' => ucfirst($name),
             'slug' => str($name)->slug(),
             'description' => $this->faker->optional()->paragraph(),
-            'version' => '1.0.0',
-            'price' => $this->faker->randomFloat(2, 0, 5000),
+            'deployment' => $this->faker->optional()->sentence(),
             'url' => $this->faker->optional()->url(),
             'repository_url' => $this->faker->optional()->url(),
             'image' => $this->faker->randomElement([
@@ -34,12 +32,9 @@ class ProjectFactory extends Factory
             ]),
             'status' => $this->faker->randomElement(ProjectStatus::cases())->value,
             'type' => $this->faker->randomElement(ProjectType::cases())->value,
-            'complexity' => $this->faker->randomElement(ProjectComplexity::cases())->value,
             'visibility' => ProjectVisibility::Public->value,
             'started_at' => $this->faker->optional()->date(),
             'ended_at' => null,
-            'stack_id' => null,
-            'infra_id' => null,
         ];
     }
 }

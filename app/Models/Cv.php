@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Enums\CvStatus;
-use App\Enums\CvTemplate;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,9 +16,7 @@ class Cv extends Model
         'title',
         'version_label',
         'slug',
-        'template',
         'status',
-        'accent_color',
         'is_primary',
         'headline',
         'email',
@@ -38,7 +35,6 @@ class Cv extends Model
     ];
 
     protected $casts = [
-        'template' => CvTemplate::class,
         'status' => CvStatus::class,
         'is_primary' => 'boolean',
         'links' => 'array',
@@ -82,11 +78,6 @@ class Cv extends Model
             ->update(['is_primary' => false]);
 
         $this->forceFill(['is_primary' => true])->save();
-    }
-
-    public function accentStyle(): string
-    {
-        return $this->accent_color ?: '#059669';
     }
 
     public function contacts(): array

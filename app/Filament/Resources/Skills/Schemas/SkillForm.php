@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Skills\Schemas;
 
-use App\Enums\SkillLevel;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -28,9 +27,8 @@ class SkillForm
                     ->placeholder('Emoji ou URL officielle')
                     ->helperText('Emoji (ex : 🐘) ou icône officielle (ex : https://cdn.simpleicons.org/laravel) affichée sur le site public.'),
 
-                Select::make('level')
-                    ->options(SkillLevel::options())
-                    ->required(),
+                TextInput::make('category')
+                    ->maxLength(80),
 
                 Select::make('categories')
                     ->relationship('categories', 'name')

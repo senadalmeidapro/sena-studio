@@ -8,8 +8,6 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Project;
 use App\Models\Skill;
-use App\Models\Stack;
-use App\Models\StackItem;
 use Livewire\Livewire;
 
 test('the home page is accessible and shows featured content', function () {
@@ -67,18 +65,15 @@ test('the projects page filters by type', function () {
 });
 
 test('a project detail page shows its relationships', function () {
-    $stack = Stack::factory()->create(['is_active' => true]);
-    StackItem::factory()->create(['stack_id' => $stack->id, 'category' => 'backend', 'value' => 'Laravel']);
-    $skill = Skill::factory()->create(['level' => 'expert']);
+    $skill = Skill::factory()->create(['name' => 'Laravel', 'category' => 'backend']);
 
     $project = Project::factory()->create([
         'name' => 'Projet Détail',
         'slug' => 'projet-detail',
         'visibility' => ProjectVisibility::Public->value,
         'status' => ProjectStatus::Production->value,
-        'stack_id' => $stack->id,
     ]);
-    $project->skills()->attach($skill->id, ['proficiency' => 'primary']);
+    $project->skills()->attach($skill->id);
 
     $this->get(route('projects.show', ['locale' => 'fr', 'project' => 'projet-detail']))
         ->assertOk()
@@ -99,7 +94,7 @@ test('a cancelled project detail returns 404', function () {
 });
 
 test('the skills page shows active skills', function () {
-    Skill::factory()->create(['name' => 'PHP', 'is_active' => true, 'level' => 'expert']);
+    Skill::factory()->create(['name' => 'PHP', 'is_active' => true]);
 
     $this->get(localized_route('skills.index'))
         ->assertOk()
@@ -121,18 +116,10 @@ test('blog content is isolated by locale', function () {
     $this->get('/en/blog')->assertOk();
 });
 
-test('the stack page shows stack items grouped by category', function () {
-    $stack = Stack::factory()->create(['is_active' => true]);
-    StackItem::factory()->create(['stack_id' => $stack->id, 'category' => 'backend', 'value' => 'Laravel']);
-
-    $response = $this->get(localized_route('stack.index'));
-
-    $response
+test('the legacy stack URL redirects to the skills page', function () {
+    $this->get(localized_route('stack.index'))
+        ->assertStatus(301)
         ->assertRedirect(localized_route('skills.index'));
-
-    $this->get(localized_route('skills.index'))
-        ->assertOk()
-        ->assertSee('Laravel');
 });
 
 test('the contact form validates input', function () {

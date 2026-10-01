@@ -85,46 +85,4 @@
         </div>
     @endif
 
-    @if ($this->stacks->isNotEmpty())
-        <section class="mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">
-            <div class="max-w-2xl">
-                <p class="eyebrow">{{ __('stack.eyebrow') }}</p>
-                <h2 class="mt-4 font-display text-3xl font-bold tracking-[-0.035em] text-ink-900 dark:text-ink-50">{{ __('skills.stack_title') }}</h2>
-                <p class="mt-3 text-ink-600 dark:text-ink-400">{{ __('skills.stack_subtitle') }}</p>
-            </div>
-
-            <div class="mt-10 space-y-10">
-                @foreach ($this->stacks as $stack)
-                    <section>
-                        <div class="mb-5 flex flex-wrap items-baseline gap-4">
-                            <h3 class="font-display text-2xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ $stack->name }}</h3>
-                            <span aria-hidden="true" class="hidden h-px min-w-8 flex-1 bg-ink-300 sm:block dark:bg-ink-700"></span>
-                        </div>
-                        @if ($stack->description)
-                            <p class="mb-5 max-w-2xl text-sm leading-relaxed text-ink-600 dark:text-ink-400">{{ $stack->description }}</p>
-                        @endif
-                        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                            @foreach ($stack->stackItems->groupBy('category') as $category => $items)
-                                <div class="rounded-xl border border-ink-300 bg-card p-5 dark:border-ink-700">
-                                    <h4 class="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-blue-600 dark:text-blue-300">{{ \App\Enums\StackItemCategory::from($category)->label() }}</h4>
-                                    <div class="flex flex-wrap gap-2">
-                                        @foreach ($items as $item)
-                                            @if ($this->byRole->flatten()->contains('name', $item->value))
-                                                <a href="{{ skill_url($item->value) }}" class="inline-flex items-center gap-1.5 rounded-md border border-ink-200 bg-ink-50 px-2.5 py-1 text-xs text-ink-700 transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300">
-                                            @else
-                                                <span class="inline-flex items-center gap-1.5 rounded-md border border-ink-200 bg-ink-50 px-2.5 py-1 text-xs text-ink-700 dark:border-ink-700 dark:bg-ink-800 dark:text-ink-200">
-                                            @endif
-                                                @if ($item->icon) <x-site-icon :icon="$item->icon" class="size-3.5" /> @endif
-                                                {{ $item->value }}
-                                            @if ($this->byRole->flatten()->contains('name', $item->value))</a>@else</span>@endif
-                                        @endforeach
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    </section>
-                @endforeach
-            </div>
-        </section>
-    @endif
 </div>

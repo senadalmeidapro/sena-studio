@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Projects\Schemas;
 
-use App\Enums\ProjectComplexity;
 use App\Enums\ProjectStatus;
 use App\Enums\ProjectType;
 use App\Enums\ProjectVisibility;
@@ -78,14 +77,11 @@ class ProjectForm
                     ->columns(2)
                     ->columnSpanFull(),
 
-                TextInput::make('version')
-                    ->default('1.0.0')
-                    ->maxLength(50),
-
-                TextInput::make('price')
-                    ->numeric()
-                    ->default(0)
-                    ->minValue(0),
+                Textarea::make('deployment')
+                    ->label('Déploiement')
+                    ->rows(3)
+                    ->maxLength(2000)
+                    ->columnSpanFull(),
 
                 TextInput::make('url')
                     ->url()
@@ -134,11 +130,6 @@ class ProjectForm
                     ->default(ProjectType::Web->value)
                     ->required(),
 
-                Select::make('complexity')
-                    ->options(ProjectComplexity::options())
-                    ->default(ProjectComplexity::Simple->value)
-                    ->required(),
-
                 Select::make('visibility')
                     ->options(ProjectVisibility::options())
                     ->default(ProjectVisibility::Public->value)
@@ -148,23 +139,13 @@ class ProjectForm
 
                 DatePicker::make('ended_at'),
 
-                Select::make('stack_id')
-                    ->relationship('stack', 'name')
-                    ->searchable()
-                    ->preload(),
-
-                Select::make('infra_id')
-                    ->relationship('infra', 'name')
-                    ->searchable()
-                    ->preload(),
-
                 Select::make('skills')
                     ->relationship('skills', 'name')
                     ->multiple()
                     ->searchable()
                     ->preload()
                     ->columnSpanFull()
-                    ->helperText('Proficiency per skill is set in the Skills tab below after saving.'),
+                    ->helperText('Skills shown on the public project page.'),
 
                 Select::make('categories')
                     ->relationship('categories', 'name')

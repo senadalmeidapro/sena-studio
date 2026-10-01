@@ -4,7 +4,6 @@ namespace App\Livewire\Site;
 
 use App\Models\Project;
 use App\Models\Skill;
-use App\Models\StackItem;
 use App\Services\Seo;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
@@ -53,7 +52,7 @@ class Home extends Component
             ->where('visibility', 'public')
             ->where('status', '!=', 'cancelled')
             ->where('slug', '!=', 'portfolio-sena-studio')
-            ->with(['stack.stackItems', 'skills'])
+            ->with('skills')
             ->orderByDesc('featured')
             ->orderBy('sort_order')
             ->latest('started_at')
@@ -64,23 +63,13 @@ class Home extends Component
     #[Computed]
     public function topSkills()
     {
-        $order = ['expert' => 0, 'advanced' => 1, 'intermediate' => 2, 'beginner' => 3];
-
         return Skill::query()
             ->where('is_active', true)
+            ->orderBy('category')
+            ->orderBy('name')
             ->get()
-            ->sortBy(fn ($skill) => $order[$skill->level->value] ?? 9)
             ->take(8)
             ->values();
-    }
-
-    #[Computed]
-    public function skillNames(): array
-    {
-        return Skill::query()
-            ->where('is_active', true)
-            ->pluck('name')
-            ->all();
     }
 
     #[Computed]
@@ -105,9 +94,8 @@ class Home extends Component
     #[Computed]
     public function stackHighlights()
     {
-        return StackItem::query()
-            ->with('stack')
-            ->whereHas('stack', fn ($q) => $q->where('is_active', true))
+        return Skill::query()
+            ->where('is_active', true)
             ->whereIn('category', ['frontend', 'backend', 'database', 'devops'])
             ->get()
             ->groupBy('category');

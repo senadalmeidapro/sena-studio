@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Site;
 
+use App\Enums\ProjectStatus;
+use App\Enums\ProjectVisibility;
 use App\Models\Project;
 use App\Services\Seo;
 use Livewire\Attributes\Layout;
@@ -16,17 +18,23 @@ class ProjectDetail extends Component
 
     public function mount(Project $project): void
     {
-        abort_unless($project->visibility->value === 'public' && $project->status->value !== 'cancelled', 404);
+        $isSharedProtectedProject = request()->routeIs('projects.protected')
+            && $project->visibility === ProjectVisibility::Protected;
+        $isPublished = $project->status !== ProjectStatus::Cancelled;
 
-        $this->project = $project->load(['stack.stackItems', 'skills', 'categories', 'infra', 'projectImages']);
+        abort_unless(
+            $isPublished && ($project->visibility === ProjectVisibility::Public || $isSharedProtectedProject),
+            404,
+        );
 
-        app(Seo::class)->set(
+        $this->project = $project->load(['skills', 'categories', 'projectImages']);
+
+        $seo = app(Seo::class)->set(
             title: $project->name,
             description: $project->description ? str($project->description)->limit(160) : null,
-            canonical: localized_route('projects.show', $project),
             type: 'website',
             image: media_url($project->image),
-            structuredData: [
+            structuredData: $isSharedProtectedProject ? [] : [
                 '@context' => 'https://schema.org',
                 '@type' => 'SoftwareSourceCode',
                 'name' => $project->name,
@@ -37,6 +45,12 @@ class ProjectDetail extends Component
                 'programmingLanguage' => $project->skills->pluck('name')->values()->all(),
             ],
         );
+
+        if ($isSharedProtectedProject) {
+            $seo->set(robots: 'noindex, nofollow');
+        } else {
+            $seo->set(canonical: localized_route('projects.show', $project));
+        }
     }
 
     public function render()

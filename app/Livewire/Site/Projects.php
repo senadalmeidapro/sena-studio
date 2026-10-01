@@ -85,7 +85,7 @@ class Projects extends Component
             ->when($this->type, fn (Builder $q) => $q->where('type', $this->type))
             ->when($this->category, fn (Builder $q) => $q->whereHas('categories', fn (Builder $c) => $c->where('categories.slug', $this->category)))
             ->when($this->skill, fn (Builder $q) => $q->whereHas('skills', fn (Builder $s) => $s->where('skills.slug', $this->skill)))
-            ->with(['stack.stackItems', 'skills', 'categories'])
+            ->with(['skills', 'categories'])
             ->orderByDesc('featured')
             ->orderBy('sort_order')
             ->orderByDesc('ended_at')
