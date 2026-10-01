@@ -86,6 +86,46 @@ test('a project detail page shows its relationships', function () {
         ->assertSee('Laravel');
 });
 
+test('a project case study renders context constraints decisions and outcome while hiding absent fields', function () {
+    Project::factory()->create([
+        'name' => 'Case study project',
+        'slug' => 'case-study-project',
+        'visibility' => ProjectVisibility::Public->value,
+        'status' => ProjectStatus::Production->value,
+        'role' => 'Backend engineer',
+        'problem' => 'Manual reconciliation was slow.',
+        'client_context' => 'Anonymous European fintech',
+        'constraints' => 'PSD2 integration and strict deadlines.',
+        'architecture' => 'An event-driven API.',
+        'technical_decisions' => 'Idempotent processing.',
+        'result' => 'The workflow was delivered.',
+        'outcome_type' => 'delivered',
+    ]);
+
+    $this->get('/en/projets/case-study-project')
+        ->assertOk()
+        ->assertSee(__('project.case_study_context'))
+        ->assertSee(__('project.case_study_constraints'))
+        ->assertSee(__('project.case_study_decisions'))
+        ->assertSee(__('project.case_study_result'))
+        ->assertSee('Anonymous European fintech')
+        ->assertSee('Delivered');
+});
+
+test('an empty case study section is hidden from the public project page', function () {
+    Project::factory()->create([
+        'slug' => 'empty-case-study-project',
+        'visibility' => ProjectVisibility::Public->value,
+        'status' => ProjectStatus::Production->value,
+    ]);
+
+    $this->get('/fr/projets/empty-case-study-project')
+        ->assertOk()
+        ->assertDontSee(__('project.case_study_title'))
+        ->assertDontSee(__('project.case_study_constraints'))
+        ->assertDontSee(__('project.case_study_client_context'));
+});
+
 test('a cancelled project detail returns 404', function () {
     Project::factory()->create([
         'name' => 'Projet Annulé',

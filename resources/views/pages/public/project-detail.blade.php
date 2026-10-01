@@ -244,7 +244,7 @@
         </section>
     @endif
 
-    @if ($project->problem || $project->architecture || $project->technical_decisions || $project->result)
+    @if ($project->role || $project->client_context || $project->problem || $project->constraints || $project->architecture || $project->technical_decisions || $project->result || $project->outcome_type)
         <section class="mt-14 border-y border-ink-300 py-12 dark:border-ink-700" aria-labelledby="project-case-study-title">
             <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
                 <div>
@@ -256,7 +256,10 @@
 
                 <div class="relative grid gap-x-8 gap-y-9 border-l border-ink-200 pl-6 dark:border-ink-700 sm:grid-cols-2">
                     @foreach ([
-                        'problem' => 'project.case_study_problem',
+                        'role' => 'project.case_study_role',
+                        'problem' => 'project.case_study_context',
+                        'client_context' => 'project.case_study_client_context',
+                        'constraints' => 'project.case_study_constraints',
                         'architecture' => 'project.case_study_architecture',
                         'technical_decisions' => 'project.case_study_decisions',
                         'result' => 'project.case_study_result',
@@ -273,6 +276,14 @@
                             </article>
                         @endif
                     @endforeach
+
+                    @if ($project->outcome_type)
+                        <article class="relative">
+                            <span aria-hidden="true" class="absolute -left-[1.72rem] top-1.5 size-2 rounded-full bg-blue-500 ring-4 ring-canvas"></span>
+                            <h3 class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-blue-600 dark:text-blue-300">{{ __('project.case_study_outcome_type') }}</h3>
+                            <p class="mt-3 text-sm leading-7 text-ink-600 dark:text-ink-300">{{ __('project.outcome_'.$project->outcome_type->value) }}</p>
+                        </article>
+                    @endif
                 </div>
             </div>
         </section>

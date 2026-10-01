@@ -378,6 +378,15 @@
     "services.book_call": "Book a call",
     "services.availability": "Current availability",
 
+    "project.case_study_role": "Role",
+    "project.case_study_context": "Context and challenge",
+    "project.case_study_client_context": "Client context",
+    "project.case_study_constraints": "Constraints",
+    "project.case_study_outcome_type": "Outcome status",
+    "project.outcome_delivered": "Delivered",
+    "project.outcome_ongoing": "Ongoing",
+    "project.outcome_internal": "Internal project",
+
     "errors.404.code": "404",
     "errors.404.title": "Page not found",
     "errors.404.text": "The page you are looking for does not exist or has moved.",

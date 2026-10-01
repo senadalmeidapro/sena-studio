@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ProjectOutcomeType;
 use App\Enums\ProjectStatus;
 use App\Enums\ProjectType;
 use App\Enums\ProjectVisibility;
@@ -26,6 +27,7 @@ class Project extends Model
         'status' => ProjectStatus::class,
         'type' => ProjectType::class,
         'visibility' => ProjectVisibility::class,
+        'outcome_type' => ProjectOutcomeType::class,
         'featured' => 'boolean',
         'sort_order' => 'integer',
     ];
@@ -40,6 +42,9 @@ class Project extends Model
         'technical_decisions',
         'result',
         'result_metric',
+        'constraints',
+        'outcome_type',
+        'client_context',
         'testimonial_id',
         'featured',
         'sort_order',
@@ -76,6 +81,18 @@ class Project extends Model
     public function testimonial(): BelongsTo
     {
         return $this->belongsTo(Testimonial::class);
+    }
+
+    public function caseStudyCompletionCount(): int
+    {
+        return collect(['role', 'problem', 'architecture', 'technical_decisions', 'result'])
+            ->filter(fn (string $field): bool => filled($this->{$field}))
+            ->count();
+    }
+
+    public function hasCompleteCaseStudy(): bool
+    {
+        return $this->caseStudyCompletionCount() === 5;
     }
 
     protected static function booted(): void

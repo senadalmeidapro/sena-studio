@@ -379,6 +379,15 @@
     "services.book_call": "Réserver un échange",
     "services.availability": "Disponibilité actuelle",
 
+    "project.case_study_role": "Rôle",
+    "project.case_study_context": "Contexte et enjeu",
+    "project.case_study_client_context": "Contexte client",
+    "project.case_study_constraints": "Contraintes",
+    "project.case_study_outcome_type": "État du résultat",
+    "project.outcome_delivered": "Livré",
+    "project.outcome_ongoing": "En cours",
+    "project.outcome_internal": "Projet interne",
+
     "errors.404.code": "404",
     "errors.404.title": "Page introuvable",
     "errors.404.text": "La page que vous cherchez n’existe pas ou a été déplacée.",

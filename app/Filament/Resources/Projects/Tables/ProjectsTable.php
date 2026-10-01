@@ -12,9 +12,11 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
@@ -52,6 +54,12 @@ class ProjectsTable
                     ->formatStateUsing(fn ($state): string => $state?->label() ?? (string) $state)
                     ->sortable(),
 
+                TextColumn::make('case_study_completeness')
+                    ->label('Étude de cas')
+                    ->state(fn ($record): string => $record->caseStudyCompletionCount().'/5')
+                    ->badge()
+                    ->color(fn ($record): string => $record->hasCompleteCaseStudy() ? 'success' : 'warning'),
+
                 TextColumn::make('started_at')
                     ->date()
                     ->sortable()
@@ -80,6 +88,16 @@ class ProjectsTable
 
                 TernaryFilter::make('featured')
                     ->label('Projets mis en avant'),
+
+                Filter::make('public_projects_with_incomplete_case_study')
+                    ->label('Projets publics avec une étude de cas incomplète')
+                    ->query(fn (Builder $query): Builder => $query
+                        ->where('visibility', ProjectVisibility::Public->value)
+                        ->where(function (Builder $query): void {
+                            foreach (['role', 'problem', 'architecture', 'technical_decisions', 'result'] as $field) {
+                                $query->orWhereNull($field)->orWhere($field, '');
+                            }
+                        })),
 
             ])
             ->recordActions([

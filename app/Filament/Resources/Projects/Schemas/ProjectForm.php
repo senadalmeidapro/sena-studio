@@ -38,23 +38,6 @@ class ProjectForm
                             ->rows(4)
                             ->columnSpanFull(),
 
-                        TextInput::make('role')
-                            ->label('Rôle')
-                            ->placeholder('Ex. Conception backend et architecture API')
-                            ->maxLength(255),
-
-                        TextInput::make('result_metric')
-                            ->label('Headline metric')
-                            ->placeholder('Ex. 40 % de temps de traitement en moins')
-                            ->maxLength(255),
-
-                        Select::make('testimonial_id')
-                            ->label('Témoignage lié')
-                            ->relationship('testimonial', 'name')
-                            ->searchable()
-                            ->preload()
-                            ->nullable(),
-
                         Toggle::make('featured')
                             ->label('Projet mis en avant')
                             ->default(false),
@@ -68,11 +51,24 @@ class ProjectForm
                     ->columnSpanFull(),
 
                 Section::make('Étude de cas')
-                    ->description('Ces champs structurent la réflexion d’ingénierie présentée publiquement.')
+                    ->description('Un bon récit présente votre rôle, le problème, les décisions techniques et un résultat vérifiable. N’ajoutez aucun fait confidentiel ou non confirmé. Les informations client sont facultatives pour préserver l’anonymat.')
                     ->schema([
+                        TextInput::make('role')
+                            ->label('Rôle')
+                            ->maxLength(255),
+
+                        TextInput::make('client_context')
+                            ->label('Contexte client (facultatif)')
+                            ->maxLength(255),
+
                         Textarea::make('problem')
-                            ->label('Problème ou contexte')
+                            ->label('Contexte et problème')
                             ->rows(4),
+
+                        Textarea::make('constraints')
+                            ->label('Contraintes')
+                            ->placeholder('Conformité, paiements, connectivité, délais…')
+                            ->rows(3),
 
                         Textarea::make('architecture')
                             ->label('Architecture')
@@ -85,6 +81,27 @@ class ProjectForm
                         Textarea::make('result')
                             ->label('Résultat ou apprentissage')
                             ->rows(4),
+
+                        Select::make('outcome_type')
+                            ->label('Type de résultat')
+                            ->options([
+                                'delivered' => __('project.outcome_delivered'),
+                                'ongoing' => __('project.outcome_ongoing'),
+                                'internal' => __('project.outcome_internal'),
+                            ])
+                            ->rules(['nullable', 'in:delivered,ongoing,internal'])
+                            ->nullable(),
+
+                        TextInput::make('result_metric')
+                            ->label('Métrique principale')
+                            ->maxLength(255),
+
+                        Select::make('testimonial_id')
+                            ->label('Témoignage lié')
+                            ->relationship('testimonial', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->nullable(),
                     ])
                     ->columns(2)
                     ->columnSpanFull(),

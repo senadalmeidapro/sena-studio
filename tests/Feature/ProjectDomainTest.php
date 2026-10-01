@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\ProjectOutcomeType;
 use App\Enums\ProjectStatus;
 use App\Enums\ProjectVisibility;
 use App\Models\Category;
@@ -17,6 +18,20 @@ it('casts project enum columns to their backed enum classes', function () {
     expect($project->status)->toBeInstanceOf(ProjectStatus::class)
         ->and($project->status)->toBe(ProjectStatus::Production)
         ->and($project->visibility)->toBe(ProjectVisibility::Public);
+});
+
+it('casts the optional case study outcome and counts only its core narrative fields', function () {
+    $project = Project::factory()->create([
+        'outcome_type' => ProjectOutcomeType::Ongoing,
+        'role' => 'Backend engineer',
+        'problem' => 'A fragmented workflow',
+        'constraints' => 'Regulatory review',
+        'client_context' => null,
+    ]);
+
+    expect($project->outcome_type)->toBe(ProjectOutcomeType::Ongoing)
+        ->and($project->caseStudyCompletionCount())->toBe(2)
+        ->and($project->hasCompleteCaseStudy())->toBeFalse();
 });
 
 it('attaches skills without a proficiency pivot', function () {
