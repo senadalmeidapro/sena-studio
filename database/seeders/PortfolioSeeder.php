@@ -33,6 +33,7 @@ class PortfolioSeeder extends Seeder
             Category::updateOrCreate(['slug' => $category['slug']], $category);
         }
 
+        // TODO: replace or confirm this sample catalog and descriptions against the current service offering.
         $skillsData = [
             ['TypeScript', 'Typed superset of JavaScript used to build scalable and maintainable web applications and backend services.', $buildIcon('typescript')],
             ['JavaScript', 'Core programming language for building interactive web applications and modern backend services.', $buildIcon('javascript')],
@@ -72,6 +73,7 @@ class PortfolioSeeder extends Seeder
             ['Railway', 'Application hosting and deployment.', $buildIcon('railway')],
             ['Cloudinary', 'Image and media delivery.', $buildIcon('cloudinary')],
             ['Markdown', 'Lightweight documentation format.', $buildIcon('markdown')],
+            // TODO: replace the unverified placeholder skill or remove it.
             ['Tailwind UI', 'Reusable UI components.', null],
         ];
 
@@ -100,6 +102,7 @@ class PortfolioSeeder extends Seeder
 
         $categoryIdsBySlug = Category::pluck('id', 'slug');
 
+        // TODO: verify sample project summaries and stack claims before treating them as approved portfolio copy.
         $projectsData = [
             [
                 'name' => 'Mini Shop API',
@@ -176,6 +179,7 @@ class PortfolioSeeder extends Seeder
             ],
         ];
 
+        // TODO: replace generated SVG gallery placeholders with approved project media.
         $projectGalleries = [
             'mini-shop-api' => ['images/screenshots/project-2.svg', 'images/screenshots/project-3.svg'],
             'api-orientation' => ['images/screenshots/project-5.svg', 'images/screenshots/project-1.svg'],
@@ -212,6 +216,7 @@ class PortfolioSeeder extends Seeder
                 'result' => 'Un outil interne construit autour des processus réels plutôt qu’une simple liste de tickets.',
                 'sort_order' => 3,
             ],
+            // TODO: replace this unverified sample case study with confirmed project details.
             'mini-shop' => [
                 'role' => 'Développement frontend et intégration API',
                 'problem' => 'Proposer une expérience storefront légère au-dessus d’un backend e-commerce indépendant.',
@@ -220,6 +225,7 @@ class PortfolioSeeder extends Seeder
                 'result' => 'Une interface prête à évoluer sans coupler le frontend aux détails internes du backend.',
                 'sort_order' => 4,
             ],
+            // TODO: replace this unverified sample case study with confirmed project details.
             'express-js-onboarding-api' => [
                 'role' => 'Conception d’API et implémentation TypeScript',
                 'problem' => 'Structurer un parcours d’inscription en plusieurs étapes sans perdre la cohérence des données utilisateur.',
@@ -228,6 +234,7 @@ class PortfolioSeeder extends Seeder
                 'result' => 'Une base claire pour les produits qui doivent accompagner un utilisateur pendant son inscription.',
                 'sort_order' => 5,
             ],
+            // TODO: replace this unverified sample case study with confirmed project details.
             'portfolio-sena-studio' => [
                 'role' => 'Architecture, développement et déploiement',
                 'problem' => 'Gérer le contenu d’un portfolio technique tout en gardant une expérience publique rapide et éditoriale.',
@@ -319,58 +326,13 @@ class PortfolioSeeder extends Seeder
             'sonia@meunier-studio.com',
         ])->delete();
 
-        /* Demo leads removed: seed only verified portfolio data.
-        $demoMessages = [
-            [
-                'name' => 'Claire Fontaine',
-                'email' => 'claire@atelier-fontaine.fr',
-                'phone' => '06 45 78 12 90',
-                'company' => 'Atelier Fontaine',
-                'subject' => 'Refonte de notre site vitrine',
-                'budget_range' => '5k-15k',
-                'message' => 'Bonjour, nous cherchons un développeur Laravel pour moderniser notre site vitrine et y ajouter un espace de réservation. Seriez-vous disponible pour un premier échange ?',
-                'read_at' => null,
-            ],
-            [
-                'name' => 'Marc Dubois',
-                'email' => 'marc@indepmarc.fr',
-                'phone' => null,
-                'company' => null,
-                'subject' => 'Question sur un dashboard SaaS',
-                'budget_range' => '1k-5k',
-                'message' => 'Salut, je développe une petite appli SaaS de gestion et je me demande si Livewire est adapté pour les tableaux de bord temps réel. Des retours concrets ?',
-                'read_at' => now()->subDays(2),
-            ],
-            [
-                'name' => 'Sonia Meunier',
-                'email' => 'sonia@meunier-studio.com',
-                'phone' => '07 12 34 56 78',
-                'company' => 'Meunier Studio',
-                'subject' => 'Maintenance et évolutions court terme',
-                'budget_range' => 'a-definir',
-                'message' => 'Nous utilisons une application Laravel en production et cherchons un profil pour des interventions ponctuelles et des évolutions. Pouvez-vous nous dire comment vous fonctionnez ?',
-                'read_at' => null,
-            ],
-        ];
-
-        foreach ($demoMessages as $message) {
-            ContactMessage::updateOrCreate(
-                [
-                    'email' => $message['email'],
-                    'subject' => $message['subject'],
-                ],
-                $message,
-            );
-        }
-
-        */
-
         $this->seedPosts();
         $this->seedCvs();
     }
 
     private function seedPosts(): void
     {
+        // TODO: replace seeded example articles with approved editorial content.
         $posts = [
             [
                 'key' => 'riasec-scoring-engine',
@@ -450,68 +412,6 @@ class PortfolioSeeder extends Seeder
 
     private function seedCvs(): void
     {
-        /* Legacy CV fixture replaced by the verified profile below.
-        $base = [
-            'title' => 'Curriculum vitae — Développeur Fullstack',
-            'headline' => 'Développeur Fullstack Laravel & Vue.js',
-            'email' => 'hello@senastudio.dev',
-            'phone' => '+33 6 12 34 56 78',
-            'location' => 'Lyon, France',
-            'website' => env('SITE_URL', 'http://localhost'),
-            'summary' => 'Développeur passionné, 8 ans d’expérience du prototypage à la mise en production : applications Laravel massives, interfaces Vue.js soignées et infrastructures cloud résilientes.',
-            'links' => [
-                ['label' => 'GitHub', 'url' => 'https://github.com/senastudio'],
-                ['label' => 'LinkedIn', 'url' => 'https://linkedin.com/in/senastudio'],
-            ],
-            'experience' => [
-                [
-                    'title' => 'Développeur Fullstack Senior',
-                    'subtitle' => 'Sena Studio',
-                    'period_start' => '2019-01',
-                    'period_end' => null,
-                    'description' => 'Conception et maintenance d’applications Laravel en production, optimisation des performances et mentoring d’une équipe de 3 développeurs.',
-                ],
-                [
-                    'title' => 'Développeur Backend',
-                    'subtitle' => 'Agence Web Ouest',
-                    'period_start' => '2015-06',
-                    'period_end' => '2018-12',
-                    'description' => 'Développement d’API REST, intégration de paiements en ligne et architecture de bases de données pour des clients e-commerce.',
-                ],
-            ],
-            'education' => [
-                [
-                    'title' => 'Master Informatique — Génie Logiciel',
-                    'subtitle' => 'Université de Lyon',
-                    'period_start' => '2013-09',
-                    'period_end' => '2015-06',
-                    'description' => 'Spécialisation architecture logicielle et systèmes distribués.',
-                ],
-            ],
-            'skills' => [
-                ['name' => 'PHP / Laravel', 'level' => 'expert', 'experience' => '8 ans'],
-                ['name' => 'Vue.js', 'level' => 'avance', 'experience' => '5 ans'],
-                ['name' => 'Tailwind CSS', 'level' => 'avance', 'experience' => '5 ans'],
-                ['name' => 'MySQL / PostgreSQL', 'level' => 'avance', 'experience' => '6 ans'],
-                ['name' => 'Docker', 'level' => 'intermediaire', 'experience' => '4 ans'],
-                ['name' => 'AWS', 'level' => 'intermediaire', 'experience' => '3 ans'],
-            ],
-            'languages' => [
-                ['name' => 'Français', 'level' => 'natif'],
-                ['name' => 'Anglais', 'level' => 'courant'],
-                ['name' => 'Espagnol', 'level' => 'intermediaire'],
-            ],
-            'certifications' => [
-                ['title' => 'AWS Certified Developer', 'subtitle' => 'Amazon Web Services', 'year' => '2023'],
-                ['title' => 'Laravel Certification', 'subtitle' => 'Laravel', 'year' => '2021'],
-            ],
-            'hobbies' => [
-                ['name' => 'Self-hosting'],
-                ['name' => 'Cyclisme'],
-                ['name' => 'Café de spécialité'],
-            ],
-        ]; */
-
         $base = [
             'title' => 'Curriculum vitae - Sèna Gédéon D\'ALMEIDA',
             'headline' => 'Sèna Gédéon D\'ALMEIDA - Backend Engineer',
@@ -519,12 +419,14 @@ class PortfolioSeeder extends Seeder
             'phone' => '(+229) 01 45 74 08 16',
             'location' => 'Cotonou, Benin',
             'website' => 'https://senadalmeidapro.github.io/CV/',
+            // TODO: replace with the approved personal profile summary.
             'summary' => 'Backend Engineer focused on building secure, reliable, and maintainable APIs and business applications across the full development lifecycle, from architecture and database design to implementation, testing and deployment. Based in Cotonou, Benin, and open to remote international collaborations.',
             'links' => [
                 ['label' => 'GitHub', 'url' => 'https://github.com/senadalmeidapro'],
                 ['label' => 'LinkedIn', 'url' => 'https://www.linkedin.com/in/senadalmeida'],
                 ['label' => 'Portfolio', 'url' => 'https://senadalmeidapro.github.io/CV/'],
             ],
+            // TODO: replace with verified employment and freelance history.
             'experience' => [
                 [
                     'title' => 'Full-Stack Developer and DevOps (Freelance)',
@@ -534,6 +436,7 @@ class PortfolioSeeder extends Seeder
                     'description' => 'Built and deployed REST APIs with NestJS, Prisma, PostgreSQL and Docker; modeled relational data, integrated transactional services, automated operations with self-hosted n8n, and owned the workflow from requirements to delivery.',
                 ],
             ],
+            // TODO: replace or confirm contribution descriptions and project claims.
             'projects' => [
                 [
                     'title' => 'Orientation-BJ API',
@@ -558,12 +461,13 @@ class PortfolioSeeder extends Seeder
                 ],
                 [
                     'title' => 'Sena Studio',
-                    'subtitle' => 'Engineering portfolio and freelance command center',
+                    'subtitle' => 'Public portfolio and client tracker',
                     'stack' => 'Laravel - Filament - Livewire - PostgreSQL - Redis - Cloudinary',
                     'url' => 'https://github.com/senadalmeidapro/sena-studio',
                     'description' => 'Built a maintainable public portfolio and administration system for projects, case studies, media, CV versions, editorial content and freelance leads.',
                 ],
             ],
+            // TODO: replace with verified education details and dates.
             'education' => [
                 [
                     'title' => "Bachelor's Degree - Computer Science and Software Engineering",
@@ -580,32 +484,35 @@ class PortfolioSeeder extends Seeder
                     'description' => null,
                 ],
             ],
+            // TODO: replace with a confirmed skills list; self-assessed levels are intentionally omitted.
             'skills' => [
-                ['name' => 'TypeScript', 'group' => 'Languages', 'level' => 'avance'],
-                ['name' => 'JavaScript', 'group' => 'Languages', 'level' => 'avance'],
-                ['name' => 'Python', 'group' => 'Languages', 'level' => 'intermediaire'],
-                ['name' => 'SQL', 'group' => 'Languages', 'level' => 'avance'],
-                ['name' => 'NestJS', 'group' => 'Backend', 'level' => 'avance'],
-                ['name' => 'Node.js', 'group' => 'Backend', 'level' => 'avance'],
-                ['name' => 'Laravel', 'group' => 'Backend', 'level' => 'intermediaire'],
-                ['name' => 'REST API', 'group' => 'Backend', 'level' => 'avance'],
-                ['name' => 'JWT / OAuth2', 'group' => 'Backend', 'level' => 'intermediaire'],
-                ['name' => 'React', 'group' => 'Frontend', 'level' => 'intermediaire'],
-                ['name' => 'Responsive UI', 'group' => 'Frontend', 'level' => 'intermediaire'],
-                ['name' => 'PostgreSQL', 'group' => 'Database', 'level' => 'avance'],
-                ['name' => 'Prisma', 'group' => 'Database', 'level' => 'avance'],
-                ['name' => 'MySQL', 'group' => 'Database', 'level' => 'avance'],
-                ['name' => 'Linux', 'group' => 'DevOps', 'level' => 'intermediaire'],
-                ['name' => 'Docker', 'group' => 'DevOps', 'level' => 'avance'],
-                ['name' => 'CI/CD', 'group' => 'DevOps', 'level' => 'intermediaire'],
-                ['name' => 'GitHub Actions', 'group' => 'DevOps', 'level' => 'intermediaire'],
+                ['name' => 'TypeScript', 'group' => 'Languages'],
+                ['name' => 'JavaScript', 'group' => 'Languages'],
+                ['name' => 'Python', 'group' => 'Languages'],
+                ['name' => 'SQL', 'group' => 'Languages'],
+                ['name' => 'NestJS', 'group' => 'Backend'],
+                ['name' => 'Node.js', 'group' => 'Backend'],
+                ['name' => 'Laravel', 'group' => 'Backend'],
+                ['name' => 'REST API', 'group' => 'Backend'],
+                ['name' => 'JWT / OAuth2', 'group' => 'Backend'],
+                ['name' => 'React', 'group' => 'Frontend'],
+                ['name' => 'Responsive UI', 'group' => 'Frontend'],
+                ['name' => 'PostgreSQL', 'group' => 'Database'],
+                ['name' => 'Prisma', 'group' => 'Database'],
+                ['name' => 'MySQL', 'group' => 'Database'],
+                ['name' => 'Linux', 'group' => 'DevOps'],
+                ['name' => 'Docker', 'group' => 'DevOps'],
+                ['name' => 'CI/CD', 'group' => 'DevOps'],
+                ['name' => 'GitHub Actions', 'group' => 'DevOps'],
             ],
+            // TODO: verify language names and CEFR levels before publishing.
             'languages' => [
-                ['name' => 'Fon', 'level' => 'Native'],
+                ['name' => 'Fon'],
                 ['name' => 'French', 'level' => 'C1'],
                 ['name' => 'English', 'level' => 'B1'],
             ],
             'certifications' => [],
+            // TODO: replace with confirmed personal interests or remove.
             'hobbies' => [
                 ['name' => 'Self-hosting'],
                 ['name' => 'Problem solving'],

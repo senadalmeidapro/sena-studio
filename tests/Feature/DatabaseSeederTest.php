@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Cv;
 use App\Models\User;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -32,4 +33,8 @@ it('explicitly grants admin status to the configured seeder account', function (
     (new DatabaseSeeder)->run();
 
     expect(User::where('email', 'admin@example.test')->first()->isAdmin())->toBeTrue();
+
+    $cv = Cv::where('slug', 'senastudio-cv')->firstOrFail();
+    expect(collect($cv->skills)->every(fn (array $skill): bool => ! array_key_exists('level', $skill) && ! array_key_exists('experience', $skill)))->toBeTrue()
+        ->and(collect($cv->languages)->pluck('level')->filter()->values()->all())->toBe(['C1', 'B1']);
 });
