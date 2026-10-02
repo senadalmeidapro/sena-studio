@@ -12,76 +12,65 @@
         </p>
     </header>
 
-    <section class="mt-10 grid gap-8 border-y border-ink-300 py-8 dark:border-ink-700 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+    <section class="mt-10 grid gap-7 rounded-2xl border border-ink-200 bg-card p-6 shadow-soft dark:border-ink-700 sm:p-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-center">
         <div>
             <p class="eyebrow">{{ __('projects.signal_title') }}</p>
-            <p class="mt-2 max-w-xl text-sm leading-relaxed text-ink-500 dark:text-ink-400">{{ __('projects.signal_text') }}</p>
+            <p class="mt-2 max-w-xl text-sm leading-relaxed text-ink-600 dark:text-ink-300">{{ __('projects.signal_text') }}</p>
         </div>
-        <dl class="grid grid-cols-3 gap-4 border-t border-ink-200 pt-5 dark:border-ink-700 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+        <dl class="grid grid-cols-3 divide-x divide-ink-200 border-t border-ink-200 pt-5 dark:divide-ink-700 dark:border-ink-700 lg:border-l lg:border-t-0 lg:pl-7 lg:pt-0">
             <div>
-                <dd class="font-display text-3xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ $this->counts['all'] }}</dd>
-                <dt class="mt-1 text-xs leading-snug text-ink-500 dark:text-ink-400">{{ __('projects.signal_total') }}</dt>
+                <dd class="font-display text-2xl font-semibold tabular-nums tracking-tight text-ink-900 dark:text-ink-50 sm:text-3xl">{{ $this->counts['all'] }}</dd>
+                <dt class="mt-1 pr-2 text-[0.7rem] leading-snug text-ink-500 dark:text-ink-400 sm:text-xs">{{ __('projects.signal_total') }}</dt>
             </div>
-            <div>
-                <dd class="font-display text-3xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ $this->categories->count() }}</dd>
-                <dt class="mt-1 text-xs leading-snug text-ink-500 dark:text-ink-400">{{ __('projects.signal_domains') }}</dt>
+            <div class="pl-3 sm:pl-5">
+                <dd class="font-display text-2xl font-semibold tabular-nums tracking-tight text-ink-900 dark:text-ink-50 sm:text-3xl">{{ $this->categories->count() }}</dd>
+                <dt class="mt-1 pr-2 text-[0.7rem] leading-snug text-ink-500 dark:text-ink-400 sm:text-xs">{{ __('projects.signal_domains') }}</dt>
             </div>
-            <div>
-                <dd class="font-display text-3xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ $this->skills->count() }}</dd>
-                <dt class="mt-1 text-xs leading-snug text-ink-500 dark:text-ink-400">{{ __('projects.signal_skills') }}</dt>
+            <div class="pl-3 sm:pl-5">
+                <dd class="font-display text-2xl font-semibold tabular-nums tracking-tight text-ink-900 dark:text-ink-50 sm:text-3xl">{{ $this->skills->count() }}</dd>
+                <dt class="mt-1 pr-1 text-[0.7rem] leading-snug text-ink-500 dark:text-ink-400 sm:text-xs">{{ __('projects.signal_skills') }}</dt>
             </div>
         </dl>
     </section>
 
     {{-- Filtres --}}
-    <section class="sticky top-16 z-20 -mx-4 mt-8 border-b border-ink-300 bg-canvas/95 px-4 backdrop-blur-sm sm:mx-0 sm:px-0 dark:border-ink-700 dark:bg-canvas/95" aria-labelledby="project-filters-title">
-        <div class="flex flex-col gap-4 py-4 lg:flex-row lg:items-center lg:justify-between">
+    <section class="mt-6 rounded-2xl border border-ink-200 bg-surface p-5 dark:border-ink-700 sm:p-6" aria-labelledby="project-filters-title">
+        <div class="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
             <div>
-                <h2 id="project-filters-title" class="font-display text-sm font-semibold text-ink-900 dark:text-ink-50">{{ __('projects.filters_title') }}</h2>
-                <p class="mt-1 text-xs text-ink-500 dark:text-ink-400">{{ __('projects.signal_text') }}</p>
+                <h2 id="project-filters-title" class="font-display text-base font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('projects.filters_title') }}</h2>
+                <p class="mt-1 text-sm text-ink-500 dark:text-ink-400">{{ __('projects.filters_help') }}</p>
             </div>
-            <div class="flex flex-wrap gap-1 rounded-lg border border-ink-300 bg-card p-1 dark:border-ink-700">
-                @foreach (['all' => ['label' => __('projects.filter_all'), 'count' => $this->counts['all']], 'web' => ['label' => __('projects.filter_web'), 'count' => $this->counts['web']], 'app' => ['label' => __('projects.filter_apps'), 'count' => $this->counts['app']], 'software' => ['label' => __('projects.filter_software'), 'count' => $this->counts['software']]] as $key => $filter)
-                    <button
-                        type="button"
-                        wire:click="filterBy(@js($key === 'all' ? null : $key))"
-                        aria-pressed="{{ ($this->type ?? 'all') === $key ? 'true' : 'false' }}"
-                        class="rounded-md px-3 py-2 text-sm transition-colors"
-                        @class([
-                            'bg-blue-600 font-semibold text-white dark:bg-blue-500 dark:text-blue-950' => ($this->type ?? 'all') === $key,
-                            'text-ink-600 hover:bg-ink-100 hover:text-ink-900 dark:text-ink-300 dark:hover:bg-ink-800 dark:hover:text-ink-50' => ($this->type ?? 'all') !== $key,
-                        ])
-                    >
-                        {{ $filter['label'] }} <span class="ml-1 text-xs opacity-70">{{ $filter['count'] }}</span>
+            <div class="flex flex-wrap items-center gap-3">
+                <div x-data="{ selected: @js($this->type ?? 'all') }" role="group" aria-label="{{ __('projects.type_filter') }}" class="flex flex-wrap gap-2">
+                    @foreach (['all' => ['label' => __('projects.filter_all'), 'count' => $this->counts['all']], 'web' => ['label' => __('projects.filter_web'), 'count' => $this->counts['web']], 'app' => ['label' => __('projects.filter_apps'), 'count' => $this->counts['app']], 'software' => ['label' => __('projects.filter_software'), 'count' => $this->counts['software']]] as $key => $filter)
+                        <button
+                            type="button"
+                            wire:click="filterBy(@js($key === 'all' ? null : $key))"
+                            x-on:click="selected = @js($key)"
+                            :aria-pressed="selected === @js($key) ? 'true' : 'false'"
+                            wire:loading.attr="disabled"
+                            wire:target="filterBy"
+                            class="inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-lg border px-3.5 py-2 text-sm font-medium transition-all hover:-translate-y-px hover:shadow-soft active:scale-[0.98] disabled:cursor-wait disabled:opacity-60"
+                            :class="selected === @js($key) ? 'border-blue-600 bg-blue-600 font-semibold text-white shadow-soft dark:border-blue-500 dark:bg-blue-500 dark:text-blue-950' : 'border-ink-200 bg-card text-ink-600 hover:border-blue-300 hover:bg-white hover:text-ink-900 dark:border-ink-700 dark:bg-card dark:text-ink-300 dark:hover:border-blue-500/60 dark:hover:bg-ink-800 dark:hover:text-ink-50'"
+                        >
+                            {{ $filter['label'] }} <span class="rounded-full bg-black/5 px-1.5 py-0.5 font-mono text-[0.65rem] tabular-nums opacity-80 dark:bg-white/10">{{ $filter['count'] }}</span>
+                        </button>
+                    @endforeach
+                </div>
+                <span wire:loading.flex wire:target="filterBy" role="status" aria-live="polite" class="items-center gap-2 text-sm text-ink-500 dark:text-ink-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="size-4 animate-spin" aria-hidden="true">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 8-8v4a4 4 0 0 0-4 4H4Z" />
+                    </svg>
+                    {{ __('projects.filter_loading') }}
+                </span>
+                @if (filled($type) || filled($category) || filled($skill))
+                    <button type="button" wire:click="clearFilters" class="inline-flex min-h-10 cursor-pointer items-center justify-center rounded-lg px-3 text-sm font-medium text-blue-700 underline decoration-blue-300 underline-offset-4 transition-colors hover:bg-blue-50 hover:text-blue-900 dark:text-blue-300 dark:decoration-blue-700 dark:hover:bg-blue-950/40 dark:hover:text-blue-100">
+                        {{ __('projects.reset') }}
                     </button>
-                @endforeach
+                @endif
             </div>
         </div>
-        <div class="grid gap-3 border-t border-ink-200 py-4 dark:border-ink-700 sm:grid-cols-2">
-            <label class="grid gap-1.5 text-sm font-medium text-ink-700 dark:text-ink-200">
-                {{ __('projects.domains') }}
-                <select wire:change="filterByCategory($event.target.value || null)" class="rounded-lg border border-ink-300 bg-card px-3 py-2.5 text-sm text-ink-800 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-ink-700 dark:text-ink-100">
-                    <option value="">{{ __('projects.all_domains') }}</option>
-                    @foreach ($this->categories as $cat)
-                        <option value="{{ $cat->slug }}" @selected($category === $cat->slug)>{{ $cat->name }} ({{ $cat->projects_count }})</option>
-                    @endforeach
-                </select>
-            </label>
-            <label class="grid gap-1.5 text-sm font-medium text-ink-700 dark:text-ink-200">
-                {{ __('projects.skills_filter') }}
-                <select wire:change="filterBySkill($event.target.value || null)" class="rounded-lg border border-ink-300 bg-card px-3 py-2.5 text-sm text-ink-800 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-ink-700 dark:text-ink-100">
-                    <option value="">{{ __('projects.all_skills') }}</option>
-                    @foreach ($this->skills as $skillItem)
-                        <option value="{{ $skillItem->slug }}" @selected($skill === $skillItem->slug)>{{ $skillItem->name }}</option>
-                    @endforeach
-                </select>
-            </label>
-        </div>
-        @if (filled($type) || filled($category) || filled($skill))
-            <button type="button" wire:click="clearFilters" class="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-blue-700 transition-colors hover:text-blue-900 dark:text-blue-300 dark:hover:text-blue-100">
-                {{ __('projects.reset') }}
-            </button>
-        @endif
     </section>
 
     {{-- Grille --}}

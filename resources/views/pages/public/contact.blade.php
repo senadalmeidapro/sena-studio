@@ -118,11 +118,13 @@
                             <input
                                 id="contact-name"
                                 type="text"
+                                aria-invalid="{{ $errors->has('name') ? 'true' : 'false' }}"
+                                @if ($errors->has('name')) aria-describedby="contact-name-error" @endif
                                 wire:model="name"
                                 class="{{ $input }}"
                                 placeholder="{{ __('contact.form_name_placeholder') }}"
                             />
-                            @error('name') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
+                            @error('name') <span id="contact-name-error" role="alert" class="text-sm font-medium text-red-400">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="grid gap-2">
@@ -130,11 +132,13 @@
                             <input
                                 id="contact-email"
                                 type="email"
+                                aria-invalid="{{ $errors->has('email') ? 'true' : 'false' }}"
+                                @if ($errors->has('email')) aria-describedby="contact-email-error" @endif
                                 wire:model="email"
                                 class="{{ $input }}"
                                 placeholder="{{ __('contact.form_email_placeholder') }}"
                             />
-                            @error('email') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
+                            @error('email') <span id="contact-email-error" role="alert" class="text-sm font-medium text-red-400">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
@@ -144,11 +148,13 @@
                             <input
                                 id="contact-phone"
                                 type="tel"
+                                aria-invalid="{{ $errors->has('phone') ? 'true' : 'false' }}"
+                                @if ($errors->has('phone')) aria-describedby="contact-phone-error" @endif
                                 wire:model="phone"
                                 class="{{ $input }}"
                                 placeholder="{{ __('contact.form_phone_placeholder') }}"
                             />
-                            @error('phone') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
+                            @error('phone') <span id="contact-phone-error" role="alert" class="text-sm font-medium text-red-400">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="grid gap-2">
@@ -156,65 +162,69 @@
                             <input
                                 id="contact-company"
                                 type="text"
+                                aria-invalid="{{ $errors->has('company') ? 'true' : 'false' }}"
+                                @if ($errors->has('company')) aria-describedby="contact-company-error" @endif
                                 wire:model="company"
                                 class="{{ $input }}"
                                 placeholder="{{ __('contact.form_company_placeholder') }}"
                             />
-                            @error('company') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
+                            @error('company') <span id="contact-company-error" role="alert" class="text-sm font-medium text-red-400">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
                     <div class="grid gap-6 sm:grid-cols-2">
                         <div class="grid gap-2">
                             <label for="contact-project-type" class="{{ $label }}">{{ __('contact.project_type_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
-                            <select id="contact-project-type" wire:model="project_type" class="{{ $input }} bg-card">
+                            <select id="contact-project-type" aria-invalid="{{ $errors->has('project_type') ? 'true' : 'false' }}" @if ($errors->has('project_type')) aria-describedby="contact-project-type-error" @endif wire:model="project_type" class="{{ $input }} bg-card">
                                 <option value="">{{ __('contact.project_type_placeholder') }}</option>
                                 @foreach ($this->projectTypeOptions() as $key => $projectTypeLabel)
                                     <option value="{{ $key }}" class="text-ink-900 dark:text-ink-100">{{ $projectTypeLabel }}</option>
                                 @endforeach
                             </select>
-                            @error('project_type') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
+                            @error('project_type') <span id="contact-project-type-error" role="alert" class="text-sm font-medium text-red-400">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="grid gap-2">
                             <label for="contact-timeline" class="{{ $label }}">{{ __('contact.timeline_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
-                            <select id="contact-timeline" wire:model="timeline" class="{{ $input }} bg-card">
+                            <select id="contact-timeline" aria-invalid="{{ $errors->has('timeline') ? 'true' : 'false' }}" @if ($errors->has('timeline')) aria-describedby="contact-timeline-error" @endif wire:model="timeline" class="{{ $input }} bg-card">
                                 <option value="">{{ __('contact.timeline_placeholder') }}</option>
                                 @foreach ($this->timelineOptions() as $key => $timelineLabel)
                                     <option value="{{ $key }}" class="text-ink-900 dark:text-ink-100">{{ $timelineLabel }}</option>
                                 @endforeach
                             </select>
-                            @error('timeline') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
+                            @error('timeline') <span id="contact-timeline-error" role="alert" class="text-sm font-medium text-red-400">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
                     <div class="grid gap-2">
                         <label for="contact-budget" class="{{ $label }}">{{ __('contact.budget_range_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
-                        <select id="contact-budget" wire:model="budget_range" class="{{ $input }} bg-card">
+                        <select id="contact-budget" aria-invalid="{{ $errors->has('budget_range') ? 'true' : 'false' }}" @if ($errors->has('budget_range')) aria-describedby="contact-budget-error" @endif wire:model="budget_range" class="{{ $input }} bg-card">
                             <option value="">{{ __('contact.form_budget_placeholder') }}</option>
                             @foreach ($this->budgetOptions() as $key => $budgetLabel)
                                 <option value="{{ $key }}" class="text-ink-900 dark:text-ink-100">{{ $budgetLabel }}</option>
                             @endforeach
                         </select>
-                        @error('budget_range') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
+                        @error('budget_range') <span id="contact-budget-error" role="alert" class="text-sm font-medium text-red-400">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="grid gap-2">
                         <label for="contact-goal" class="{{ $label }}">{{ __('contact.goal_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
-                        <textarea id="contact-goal" wire:model="goal" rows="3" class="resize-none {{ $input }}"></textarea>
-                        @error('goal') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
+                        <textarea id="contact-goal" aria-invalid="{{ $errors->has('goal') ? 'true' : 'false' }}" @if ($errors->has('goal')) aria-describedby="contact-goal-error" @endif wire:model="goal" rows="3" class="resize-none {{ $input }}"></textarea>
+                        @error('goal') <span id="contact-goal-error" role="alert" class="text-sm font-medium text-red-400">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="grid gap-2">
                         <label for="contact-message" class="{{ $label }}">{{ __('contact.context_label') }} <span class="font-normal text-ink-400 dark:text-ink-500">({{ __('contact.form_optional') }})</span></label>
                         <textarea
                             id="contact-message"
+                            aria-invalid="{{ $errors->has('message') ? 'true' : 'false' }}"
+                            @if ($errors->has('message')) aria-describedby="contact-message-error" @endif
                             wire:model="message"
                             rows="6"
                             class="resize-none {{ $input }}"
                             placeholder="{{ __('contact.context_placeholder') }}"
                         ></textarea>
-                        @error('message') <span class="text-sm text-red-400">{{ $message }}</span> @enderror
+                        @error('message') <span id="contact-message-error" role="alert" class="text-sm font-medium text-red-400">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="flex flex-wrap items-center gap-6">

@@ -45,6 +45,7 @@ class AdminPanelProvider extends PanelProvider
             ->favicon(fn (): string => asset('favicon.svg'))
             ->brandName('Sena Studio')
             ->brandLogo(fn (): string => asset('images/brand/sena-mark.svg'))
+            ->darkModeBrandLogo(fn (): string => asset('images/brand/sena-mark.svg'))
             ->brandLogoHeight('2rem')
             ->navigationGroups([
                 'Leads',

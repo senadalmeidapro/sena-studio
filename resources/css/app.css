@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @import '../../vendor/livewire/flux/dist/flux.css';
+@import './design-tokens.css';
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
@@ -68,7 +69,6 @@
     --color-fuchsia-400: #e879f9;
     --color-fuchsia-500: #d946ef;
 
-    --color-accent: var(--color-blue-600);
     --color-accent-foreground: var(--color-white);
     --color-accent-content: var(--color-blue-950);
 
@@ -135,34 +135,25 @@
     --color-soft: var(--soft);
     --color-line: var(--line);
     --color-line-strong: var(--line-strong);
-}
-
-:root {
-    --canvas: #f8fafc;
-    --surface: #f1f5f9;
-    --card: #ffffff;
-    --elevated: #ffffff;
-    --soft: #eff6ff;
-    --line: #e2e8f0;
-    --line-strong: #cbd5e1;
-}
-
-.dark {
-    --canvas: #07111f;
-    --surface: #0b1728;
-    --card: #101d30;
-    --elevated: #15253b;
-    --soft: #16263d;
-    --line: #1e293b;
-    --line-strong: #334155;
-}
-
-@layer theme {
-    .dark {
-        --color-accent: var(--color-blue-400);
-        --color-accent-foreground: var(--color-blue-950);
-        --color-accent-content: var(--color-blue-950);
-    }
+    --color-primary: var(--ds-primary);
+    --color-primary-hover: var(--ds-primary-hover);
+    --color-primary-light: var(--ds-primary-light);
+    --color-secondary: var(--ds-secondary);
+    --color-accent: var(--ds-accent);
+    --color-success: var(--ds-success);
+    --color-warning: var(--ds-warning);
+    --color-danger: var(--ds-danger);
+    --color-info: var(--ds-info);
+    --color-background: var(--ds-background);
+    --color-surface-secondary: var(--ds-surface-secondary);
+    --color-text-primary: var(--ds-text-primary);
+    --color-text-secondary: var(--ds-text-secondary);
+    --color-text-muted: var(--ds-text-muted);
+    --color-border: var(--ds-border);
+    --color-divider: var(--ds-divider);
+    --color-hover: var(--ds-hover);
+    --color-focus-ring: var(--ds-focus-ring);
+    --color-disabled: var(--ds-disabled);
 }
 
 @layer base {
@@ -192,12 +183,12 @@
     }
 
     ::selection {
-        background-color: var(--color-blue-500);
-        color: var(--color-white);
+        background-color: var(--ds-primary);
+        color: var(--ds-text-on-primary);
     }
 
     :focus-visible {
-        outline: 2px solid var(--color-blue-500);
+        outline: 2px solid var(--ds-focus-ring);
         outline-offset: 2px;
     }
 
@@ -230,7 +221,7 @@
     }
 
     .engineering-number {
-        color: var(--color-blue-600);
+        color: var(--ds-primary);
         font-family: var(--font-mono);
         font-size: 0.68rem;
         letter-spacing: 0.16em;
@@ -327,7 +318,91 @@
     }
 
     .public-page .prose-blog {
-        max-width: 46rem;
+        max-width: var(--reading-width);
+    }
+
+    .prose-legal {
+        max-width: var(--reading-width);
+        color: var(--ds-text-secondary);
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    .prose-legal h2 {
+        margin: 2.75rem 0 0.75rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--ds-divider);
+        color: var(--ds-text-primary);
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 600;
+        letter-spacing: -0.025em;
+        scroll-margin-top: 6rem;
+    }
+
+    .prose-legal h2:first-child {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+    }
+
+    .prose-legal p {
+        margin: 0 0 1.25rem;
+        text-wrap: pretty;
+    }
+
+    .prose-legal a {
+        color: var(--ds-primary);
+        text-decoration: underline;
+        text-decoration-color: color-mix(in srgb, var(--ds-primary) 45%, transparent);
+        text-underline-offset: 3px;
+    }
+
+    .prose-legal a:hover {
+        color: var(--ds-primary-hover);
+    }
+
+    .prose-sections > section {
+        position: relative;
+        padding-block: 1.75rem;
+        padding-left: 1.25rem;
+    }
+
+    .prose-sections > section::before {
+        position: absolute;
+        inset-block: 2rem;
+        left: 0;
+        width: 2px;
+        border-radius: 99px;
+        background: var(--ds-primary);
+        content: '';
+        opacity: 0.65;
+    }
+
+    .process-steps > section > span {
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+    }
+
+    .contact-page .text-red-400 {
+        color: #b91c1c;
+    }
+
+    .dark .contact-page .text-red-400 {
+        color: #f87171;
+    }
+
+    .contact-page input[aria-invalid='true'],
+    .contact-page select[aria-invalid='true'],
+    .contact-page textarea[aria-invalid='true'] {
+        border-color: var(--ds-danger);
+    }
+
+    .contact-page input[aria-invalid='true']:focus,
+    .contact-page select[aria-invalid='true']:focus,
+    .contact-page textarea[aria-invalid='true']:focus {
+        outline-color: var(--ds-danger);
+        --tw-ring-color: color-mix(in srgb, var(--ds-danger) 25%, transparent);
     }
 
     .public-page input,
@@ -338,11 +413,7 @@
     }
 
     .public-page .bg-blue-50\/50 {
-        background-color: rgb(239 246 255 / 0.7);
-    }
-
-    .dark .public-page .bg-blue-50\/50 {
-        background-color: rgb(11 31 58 / 0.42);
+        background-color: color-mix(in srgb, var(--ds-primary-light) 48%, transparent);
     }
 
     .public-page .font-display {
@@ -364,7 +435,7 @@
     }
 
     .contact-page form:focus-within {
-        border-color: rgb(37 99 235 / 0.55);
+        border-color: color-mix(in srgb, var(--ds-primary) 55%, transparent);
     }
 
     .project-detail-page .project-media-image {
@@ -407,6 +478,14 @@
     .cv-page article:hover {
         box-shadow: 0 18px 50px rgb(15 23 42 / 0.13);
         transform: translateY(-2px);
+    }
+
+    .cv-engineering {
+        overflow: hidden;
+        border: 1px solid var(--ds-border);
+        border-radius: 1rem;
+        background: var(--ds-surface-card);
+        box-shadow: 0 12px 32px rgb(15 23 42 / 0.08);
     }
 
     .public-page {
@@ -500,7 +579,7 @@
 input:focus[data-flux-control],
 textarea:focus[data-flux-control],
 select:focus[data-flux-control] {
-    @apply outline-hidden ring-2 ring-blue-500/30 ring-offset-1 ring-offset-white dark:ring-offset-[#070b14];
+    @apply outline-hidden ring-2 ring-blue-500/30 ring-offset-1 ring-offset-white dark:ring-offset-[#0b1220];
 }
 
 .bg-grid {
@@ -876,5 +955,17 @@ select:focus[data-flux-control] {
 
     body:has(.cv-page) .cv-page article:not(:has(.cv-engineering)) :is(h1, h2, h3, h4, p, span, dt, dd, li) {
         color: #1f2937 !important;
+    }
+
+    body:has(.cv-page) .cv-engineering {
+        --ds-text-primary: #0f172a;
+        --ds-text-secondary: #475569;
+        --ds-surface: #f8fafc;
+        --ds-surface-card: #ffffff;
+        --ds-primary: #2563eb;
+        --ds-primary-hover: #1d4ed8;
+        --ds-primary-light: #dbeafe;
+        --ds-accent: #0ea5e9;
+        --ds-border: #e2e8f0;
     }
 }

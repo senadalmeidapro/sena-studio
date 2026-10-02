@@ -3,12 +3,12 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-canvas text-ink-900 antialiased selection:bg-blue-500 selection:text-white dark:bg-canvas dark:text-ink-100">
+    <body class="engineering-shell min-h-screen bg-canvas text-ink-900 antialiased selection:bg-blue-500 selection:text-white dark:bg-canvas dark:text-ink-100">
         <div class="relative flex min-h-screen flex-col overflow-x-clip">
 
             <x-site-navbar />
 
-            <main class="relative z-10 flex flex-1 items-center justify-center px-4 py-24">
+            <main class="public-page error-page relative z-10 flex flex-1 items-center justify-center px-4 py-24">
                 <div class="text-center motion-safe:animate-fade-up">
                     <p class="font-mono text-[0.7rem] uppercase tracking-[0.3em] text-blue-600 dark:text-blue-400">{{ __('errors.404.code') }}</p>
                     <h1 class="mt-6 font-display text-4xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-6xl">

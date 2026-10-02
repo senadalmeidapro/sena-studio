@@ -5,7 +5,7 @@
         <p class="mt-5 text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">{{ __('data_handling.subtitle') }}</p>
     </header>
 
-    <div class="mt-12 divide-y divide-ink-200 dark:divide-ink-700">
+    <div class="prose-sections mt-12 divide-y divide-ink-200 dark:divide-ink-700">
         @foreach (['client_data', 'retention', 'subprocessors', 'gdpr_contact'] as $section)
             <section class="py-8">
                 <h2 class="font-display text-2xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('data_handling.'.$section.'.title') }}</h2>

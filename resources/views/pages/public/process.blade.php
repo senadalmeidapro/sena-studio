@@ -5,7 +5,7 @@
         <p class="mt-5 text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">{{ __('process.subtitle') }}</p>
     </header>
 
-    <div class="mt-12 divide-y divide-ink-200 dark:divide-ink-700">
+    <div class="prose-sections process-steps mt-12 divide-y divide-ink-200 dark:divide-ink-700">
         @foreach (['scoping', 'fixed_scope', 'timeline', 'client_inputs', 'payment', 'communication'] as $index => $section)
             <section class="grid gap-4 py-8 sm:grid-cols-[5rem_1fr] sm:gap-8">
                 <span class="font-mono text-sm tabular-nums text-blue-600 dark:text-blue-300">{{ str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) }}</span>
