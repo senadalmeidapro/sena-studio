@@ -57,45 +57,39 @@
                 </dl>
             </div>
 
-            {{-- Colonne architecture --}}
+            {{-- Portrait --}}
             <div class="relative mx-auto w-full max-w-sm motion-safe:animate-fade-up [animation-delay:160ms] lg:max-w-none">
-                <div class="technical-visual p-5 sm:p-7">
-                    <div class="mb-6 flex items-center justify-between font-mono text-[0.62rem] uppercase tracking-[0.16em] text-blue-200/70">
-                        <span>system.map</span>
-                        <span>v1.0 / online</span>
-                    </div>
-                    <div class="grid gap-3">
-                        <div class="technical-node px-4 py-3">{{ __('home.diagram_interface') }}</div>
-                        <div class="mx-auto h-5 w-px bg-blue-300/40"></div>
-                        <div class="technical-node border-blue-300/60 bg-blue-400/15 px-4 py-3 text-center">{{ __('home.diagram_api') }}</div>
-                        <div class="mx-auto h-5 w-px bg-blue-300/40"></div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="technical-node px-3 py-3 text-center">{{ __('home.diagram_database') }}</div>
-                            <div class="technical-node px-3 py-3 text-center">{{ __('home.diagram_jobs') }}</div>
-                        </div>
-                    </div>
-                    <div class="mt-7 flex items-center gap-2 font-mono text-[0.62rem] uppercase tracking-[0.14em] text-blue-100/60">
-                        <span class="size-1.5 rounded-full bg-blue-300"></span>
-                        {{ __('home.diagram_caption') }}
-                    </div>
-                </div>
+                <div class="pointer-events-none absolute -inset-4 rounded-[2.25rem] border border-blue-500/15" aria-hidden="true"></div>
+                <div class="pointer-events-none absolute -right-8 top-14 size-32 rounded-full bg-blue-500/20 blur-3xl" aria-hidden="true"></div>
 
-                <div class="mt-5 flex items-center justify-between gap-4">
-                    <span class="flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">
-                        <span class="size-1.5 rounded-full bg-blue-500"></span>
+                <figure class="group relative isolate aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-ink-300 bg-ink-900 shadow-2xl shadow-blue-950/20 dark:border-ink-700">
+                    <img
+                        src="{{ asset('images/portrait.png') }}"
+                        alt="{{ __('home.portrait_alt') }}"
+                        fetchpriority="high"
+                        decoding="async"
+                        class="absolute inset-0 z-0 size-full object-cover object-[center_35%] saturate-[0.82] transition duration-700 group-hover:scale-[1.02] group-hover:saturate-100"
+                    />
+                    <div class="absolute inset-0 z-10 bg-gradient-to-t from-slate-950 via-slate-950/10 to-slate-950/5" aria-hidden="true"></div>
+                    <div class="absolute inset-0 z-10 bg-blue-950/10 mix-blend-color" aria-hidden="true"></div>
+
+                    <div class="absolute left-5 top-5 z-20 inline-flex items-center gap-2 rounded-full border border-white/20 bg-slate-950/55 px-3 py-2 font-mono text-[0.62rem] uppercase tracking-[0.12em] text-white shadow-lg backdrop-blur-md sm:left-6 sm:top-6">
+                        <span @class([
+                            'size-2 rounded-full ring-4' => true,
+                            'bg-emerald-400 ring-emerald-400/15' => $availability === 'available',
+                            'bg-amber-400 ring-amber-400/15' => $availability === 'limited',
+                            'bg-slate-400 ring-slate-400/15' => $availability === 'unavailable',
+                        ]) aria-hidden="true"></span>
                         {{ __('availability.'.$availability) }}
-                    </span>
-                </div>
-
-                <div class="engineering-panel mt-6 px-5 py-4">
-                    <div class="flex items-center gap-2 text-sm font-medium text-ink-800 dark:text-ink-100">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4 text-blue-600 dark:text-blue-400">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-                        {!! __('home.badge') !!}
                     </div>
-                    <div class="mt-1 pl-6 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-ink-500 dark:text-ink-400">{{ __('home.badge_sub') }}</div>
-                </div>
+
+                    <div class="pointer-events-none absolute right-5 top-5 z-20 size-10 border-r border-t border-blue-200/80 sm:right-6 sm:top-6" aria-hidden="true"></div>
+
+                    <figcaption class="absolute inset-x-0 bottom-0 z-20 p-5 text-white sm:p-7">
+                        <p class="font-display text-2xl font-semibold tracking-tight sm:text-3xl">D’ALMEIDA Sèna Gédéon</p>
+                        <p class="mt-2 font-mono text-[0.65rem] uppercase tracking-[0.14em] text-blue-100/80 sm:text-xs">{{ __('home.badge_sub') }}</p>
+                    </figcaption>
+                </figure>
             </div>
         </div>
     </section>
