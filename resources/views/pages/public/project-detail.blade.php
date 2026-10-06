@@ -1,4 +1,4 @@
-<div class="public-page project-detail-page mx-auto max-w-6xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
+<div class="public-page project-detail-page">
 
     <a href="{{ localized_route('projects.index') }}" wire:navigate class="group inline-flex items-center gap-1.5 font-mono text-[0.7rem] uppercase tracking-[0.16em] text-ink-500 transition-colors hover:text-blue-600 dark:text-ink-400 dark:hover:text-blue-300">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-3.5 transition-transform duration-300 group-hover:-translate-x-0.5">
@@ -8,14 +8,14 @@
     </a>
 
     {{-- Titre du projet (première position) --}}
-    <header class="mt-10 max-w-3xl motion-safe:animate-fade-up">
+    <header class="case-study-title mt-10 max-w-3xl motion-safe:animate-fade-up">
         <h1 class="font-display text-4xl font-bold tracking-[-0.04em] text-ink-900 dark:text-ink-50 sm:text-5xl">
             {{ $project->name }}
         </h1>
     </header>
 
     {{-- Galerie --}}
-    <div class="mt-8 motion-safe:animate-fade-up [animation-delay:80ms]">
+    <div class="case-study-cover mt-8 motion-safe:animate-fade-up [animation-delay:80ms]">
         @php
             $galleryUrls = collect([$project->image])
                 ->merge($project->projectImages->pluck('path'))
@@ -158,7 +158,7 @@
     </div>
 
     {{-- En-tête --}}
-    <header class="mt-12 grid gap-8 border-b border-ink-300 pb-12 motion-safe:animate-fade-up [animation-delay:160ms] lg:grid-cols-[1fr_auto] lg:items-end dark:border-ink-700">
+    <header class="case-study-facts mt-12 grid gap-8 border-b border-ink-300 pb-12 motion-safe:animate-fade-up [animation-delay:160ms] lg:grid-cols-[1fr_auto] lg:items-end dark:border-ink-700">
         <div>
             <div class="flex flex-wrap items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.12em]">
                 <span class="rounded-md bg-ink-100 px-2 py-1 text-ink-600 dark:bg-ink-800 dark:text-ink-300">{{ $project->type->label() }}</span>

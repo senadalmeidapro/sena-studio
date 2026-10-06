@@ -1,4 +1,4 @@
-<div class="public-page contact-page mx-auto max-w-6xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
+<div class="public-page contact-page">
 
     @if ($sent)
         <div class="mx-auto max-w-2xl rounded-3xl border border-emerald-200 bg-emerald-50 p-10 text-center shadow-soft motion-safe:animate-fade-up dark:border-emerald-700/40 dark:bg-emerald-950/40">
@@ -30,9 +30,9 @@
             <p class="mt-4 inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-800 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-200">{{ __('availability.'.$availability) }}</p>
         </header>
 
-        <div class="mt-12 grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+        <div class="contact-layout mt-12">
             {{-- Colonne infos --}}
-            <aside class="motion-safe:animate-fade-up">
+            <aside class="contact-aside motion-safe:animate-fade-up">
                 <h2 class="font-display text-2xl font-medium tracking-tight text-ink-900 dark:text-ink-50">
                     {{ __('contact.aside_title') }}
                 </h2>
@@ -96,7 +96,7 @@
                 $label = 'text-sm font-medium text-ink-700 dark:text-ink-200';
             @endphp
 
-            <form wire:submit="submit" wire:loading.attr="aria-busy" wire:target="submit" class="motion-safe:animate-fade-up [animation-delay:120ms]">
+            <form wire:submit="submit" wire:loading.attr="aria-busy" wire:target="submit" class="contact-form motion-safe:animate-fade-up [animation-delay:120ms]">
                 <div class="mb-6">
                     <span class="eyebrow">{{ __('contact.form_eyebrow') }}</span>
                 </div>

@@ -1,4 +1,4 @@
-<div class="public-page article-page mx-auto max-w-3xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
+<div class="public-page article-page">
 
     @if ($preview ?? false)
         <div class="mb-8 flex items-center gap-3 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 font-mono text-xs uppercase tracking-[0.12em] text-amber-800 dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-200">

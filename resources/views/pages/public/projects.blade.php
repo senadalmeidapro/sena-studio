@@ -1,4 +1,4 @@
-<div class="public-page mx-auto max-w-7xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
+<div class="public-page projects-page">
 
     <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">
         <div>
@@ -12,7 +12,7 @@
         </p>
     </header>
 
-    <section class="mt-10 grid gap-7 rounded-2xl border border-ink-200 bg-card p-6 shadow-soft dark:border-ink-700 sm:p-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-center">
+    <section class="project-index-intro">
         <div>
             <p class="eyebrow">{{ __('projects.signal_title') }}</p>
             <p class="mt-2 max-w-xl text-sm leading-relaxed text-ink-600 dark:text-ink-300">{{ __('projects.signal_text') }}</p>
@@ -34,7 +34,7 @@
     </section>
 
     {{-- Filtres --}}
-    <section class="mt-6 rounded-2xl border border-ink-200 bg-surface p-5 dark:border-ink-700 sm:p-6" aria-labelledby="project-filters-title">
+    <section class="project-filters" aria-labelledby="project-filters-title">
         <div class="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
             <div>
                 <h2 id="project-filters-title" class="font-display text-base font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('projects.filters_title') }}</h2>
@@ -75,64 +75,27 @@
 
     {{-- Grille --}}
     @if ($this->projects->isNotEmpty())
-        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="project-index-grid">
             @foreach ($this->projects as $project)
                 <a href="{{ localized_route('projects.show', $project->slug) }}" wire:navigate
-                   class="group flex flex-col overflow-hidden rounded-xl border border-ink-300 bg-card transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/70 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/50">
-                    <x-project-media :image="$project->image" :label="$project->name" />
-                    <div class="flex flex-1 flex-col p-6">
-                        <div class="mb-4 flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.12em]">
-                            <span class="rounded-md bg-ink-100 px-2 py-1 text-ink-600 dark:bg-ink-800 dark:text-ink-300">{{ $project->type->label() }}</span>
-                            @php
-                                $statusTone = match ($project->status) {
-                                    \App\Enums\ProjectStatus::Production => ['bg-emerald-100 text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300'],
-                                    \App\Enums\ProjectStatus::Testing => ['bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300'],
-                                    \App\Enums\ProjectStatus::Development => ['bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300'],
-                                    \App\Enums\ProjectStatus::Cancelled => ['bg-ink-100 text-ink-500 dark:bg-ink-800/70 dark:text-ink-400'],
-                                };
-                            @endphp
-                            <span class="rounded-md px-2 py-1 {{ $statusTone[0] }}">{{ $project->status->label() }}</span>
-                        </div>
-                        <h2 class="font-display text-xl font-medium tracking-tight text-ink-900 transition-colors group-hover:text-blue-700 dark:text-ink-50 dark:group-hover:text-blue-300">
-                            {{ $project->name }}
-                        </h2>
+                   class="project-index-item group">
+                    <x-project-media :image="$project->image" :label="$project->name" class="project-index-media" />
+                    <div class="project-index-caption">
+                        <span class="project-index-number">{{ str_pad((string) (($this->projects->currentPage() - 1) * $this->projects->perPage() + $loop->iteration), 2, '0', STR_PAD_LEFT) }}</span>
+                        <h2>{{ $project->name }}</h2>
+                        <span class="studio-meta">{{ $project->type->label() }}</span>
                         @if ($project->role)
-                            <p class="mt-1 font-mono text-[0.66rem] uppercase tracking-[0.1em] text-blue-700 dark:text-blue-300">{{ $project->role }}</p>
+                            <p class="project-index-meta">{{ $project->role }}</p>
                         @endif
                         @if ($project->result_metric)
-                            <p class="mt-2 font-semibold text-blue-700 dark:text-blue-300">{{ $project->result_metric }}</p>
+                            <p class="project-index-meta"><strong>{{ $project->result_metric }}</strong></p>
+                        @elseif ($project->result)
+                            <p class="project-index-meta">{{ str($project->result)->limit(180) }}</p>
+                        @else
+                            <p class="project-index-meta">{{ str($project->description)->limit(180) }}</p>
                         @endif
-                        <p class="mt-3 line-clamp-3 text-sm leading-relaxed text-ink-500 dark:text-ink-400">
-                            {{ $project->description }}
-                        </p>
-                        @if ($project->problem || $project->result)
-                            <dl class="mt-4 grid gap-3 border-t border-ink-200 pt-4 text-sm leading-relaxed dark:border-ink-700">
-                                @if ($project->problem)
-                                    <div>
-                                        <dt class="font-mono text-[0.62rem] uppercase tracking-[0.12em] text-ink-500 dark:text-ink-400">{{ __('project.case_study_problem') }}</dt>
-                                        <dd class="mt-1 line-clamp-2 text-ink-700 dark:text-ink-200">{{ $project->problem }}</dd>
-                                    </div>
-                                @endif
-                                @if ($project->result)
-                                    <div>
-                                        <dt class="font-mono text-[0.62rem] uppercase tracking-[0.12em] text-ink-500 dark:text-ink-400">{{ __('project.case_study_result') }}</dt>
-                                        <dd class="mt-1 line-clamp-2 text-ink-700 dark:text-ink-200">{{ $project->result }}</dd>
-                                    </div>
-                                @endif
-                            </dl>
-                        @endif
-                        <div class="mt-4 flex flex-wrap gap-1.5">
-                            @foreach ($project->skills->take(3) as $skill)
-                                <span class="rounded bg-ink-100/80 px-2 py-0.5 font-mono text-[0.68rem] uppercase tracking-[0.08em] text-ink-600 dark:bg-ink-800/70 dark:text-ink-300">{{ $skill->name }}</span>
-                            @endforeach
-                        </div>
-                        @if ($project->url)
-                            <span class="mt-4 inline-flex items-center gap-1.5 font-medium text-blue-600 transition-colors group-hover:text-blue-700 dark:text-blue-300 dark:group-hover:text-blue-200">
-                                {{ __('common.view_project') }}
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                                </svg>
-                            </span>
+                        @if ($project->skills->isNotEmpty())
+                            <p class="project-index-meta">{{ $project->skills->take(3)->pluck('name')->implode(' · ') }}</p>
                         @endif
                     </div>
                 </a>

@@ -1,62 +1,48 @@
-<footer class="relative z-10 border-t border-ink-300 bg-canvas dark:border-ink-700 dark:bg-canvas">
+<footer class="studio-footer">
     @php
         $cvPrimarySlug = \App\Models\Cv::primary()->value('slug');
         $cvUrl = $cvPrimarySlug ? localized_route('cv.show', $cvPrimarySlug) : null;
         $showBlog = \App\Models\Post::published()->where('locale', app()->getLocale())->count() >= 2;
     @endphp
-    <div class="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-[1.4fr_0.8fr_0.8fr] lg:px-8">
-        <div class="space-y-4">
-            <a href="{{ localized_route('home') }}" wire:navigate class="group inline-flex items-center gap-3">
-                <x-logo class="size-8" />
-                <span class="font-display text-2xl font-medium tracking-tight text-ink-900 dark:text-ink-50">Sena Studio</span>
-            </a>
-            <p class="max-w-sm text-sm leading-relaxed text-ink-500 dark:text-ink-400">
-                {{ __('footer.tagline') }}
-            </p>
-            <p class="flex items-center gap-2 text-[0.72rem] uppercase tracking-[0.18em] text-ink-400 dark:text-ink-500">
-                <span class="size-1.5 rounded-full bg-blue-500"></span>
-                {{ __('footer.available') }}
-            </p>
-        </div>
 
-        <div class="sm:pt-2">
-            <h3 class="eyebrow mb-4">{{ __('footer.navigation') }}</h3>
-            <ul class="space-y-2.5 text-sm text-ink-500 dark:text-ink-400">
-                <li><a href="{{ localized_route('projects.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.projects') }}</a></li>
-                <li><a href="{{ localized_route('services') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.services') }}</a></li>
-                <li><a href="{{ localized_route('process') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.process') }}</a></li>
-                <li><a href="{{ localized_route('skills.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.skills') }}</a></li>
-                <li><a href="{{ localized_route('about') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.about') }}</a></li>
-                @if ($showBlog)
-                    <li><a href="{{ localized_route('posts.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.blog') }}</a></li>
-                @endif
-                <li>
-                    <a href="{{ $cvUrl ?: '#' }}" wire:navigate @class(['ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300' => $cvUrl, 'pointer-events-none opacity-40' => ! $cvUrl])>{{ __('nav.cv') }}</a>
-                </li>
-                <li><a href="{{ localized_route('contact') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.contact') }}</a></li>
-            </ul>
+    <div class="studio-footer-main">
+        <div>
+            <span class="studio-kicker">{{ __('footer.available') }}</span>
+            <h2 class="studio-footer-title">{{ __('home.cta_banner.title') }}</h2>
+            <p class="max-w-2xl text-base leading-relaxed text-[#c5d0c3]">{{ __('home.cta_banner.text') }}</p>
         </div>
-
-        <div class="sm:pt-2">
-            <h3 class="eyebrow mb-4">{{ __('footer.availability.title') }}</h3>
-            <p class="text-sm leading-relaxed text-ink-500 dark:text-ink-400">
-                {{ __('footer.availability.text') }}
-            </p>
-            <x-front.arrow-link :href="localized_route('contact')" wire:navigate class="mt-4">
-                {{ __('footer.project_cta') }}
-            </x-front.arrow-link>
-        </div>
+        <a href="{{ localized_route('contact') }}" wire:navigate class="studio-button">
+            {{ __('home.cta_banner.action') }} <span aria-hidden="true">↗</span>
+        </a>
     </div>
 
-    <div class="border-t border-ink-300 dark:border-ink-700">
-        <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-[0.7rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500 sm:flex-row sm:px-6 lg:px-8">
-            <p>© {{ date('Y') }} Sena Studio. {{ __('footer.rights') }}</p>
-            <p class="flex flex-wrap items-center gap-5">
-                <span>{!! __('footer.built', ['laravel' => '<span class="text-blue-600 dark:text-blue-400">Laravel</span>', 'livewire' => '<span class="text-blue-600 dark:text-blue-400">Livewire</span>']) !!}</span>
-                <a href="{{ localized_route('legal.notice') }}" wire:navigate class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('footer.legal_notice') }}</a>
-                <a href="{{ localized_route('legal.privacy') }}" wire:navigate class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('footer.privacy') }}</a>
-                <a href="{{ localized_route('data-handling') }}" wire:navigate class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('data_handling.title') }}</a>
-            </p>
+    <a href="{{ localized_route('home') }}" wire:navigate class="studio-footer-wordmark" aria-label="Sena Studio — {{ __('nav.home') }}">
+        Sena Studio<span>.</span>
+    </a>
+
+    <nav class="studio-footer-links" aria-label="{{ __('footer.navigation') }}">
+        <a href="{{ localized_route('projects.index') }}" wire:navigate>{{ __('nav.projects') }}</a>
+        <a href="{{ localized_route('services') }}" wire:navigate>{{ __('nav.services') }}</a>
+        <a href="{{ localized_route('process') }}" wire:navigate>{{ __('nav.process') }}</a>
+        <a href="{{ localized_route('skills.index') }}" wire:navigate>{{ __('nav.skills') }}</a>
+        <a href="{{ localized_route('about') }}" wire:navigate>{{ __('nav.about') }}</a>
+        @if ($showBlog)
+            <a href="{{ localized_route('posts.index') }}" wire:navigate>{{ __('nav.blog') }}</a>
+        @endif
+        @if ($cvUrl)
+            <a href="{{ $cvUrl }}" wire:navigate>{{ __('nav.cv') }}</a>
+        @endif
+        <a href="{{ localized_route('contact') }}" wire:navigate>{{ __('nav.contact') }}</a>
+    </nav>
+
+    <div class="studio-footer-bottom">
+        <span>© {{ date('Y') }} Sena Studio · {{ __('footer.rights') }}</span>
+        <span>{{ __('home.stats_location') }}</span>
+        <span>{!! __('footer.built', ['laravel' => '<span class="text-[#f07a5c]">Laravel</span>', 'livewire' => '<span class="text-[#f07a5c]">Livewire</span>']) !!}</span>
+        <div class="flex flex-wrap gap-4">
+            <a href="{{ localized_route('legal.notice') }}" wire:navigate>{{ __('footer.legal_notice') }}</a>
+            <a href="{{ localized_route('legal.privacy') }}" wire:navigate>{{ __('footer.privacy') }}</a>
+            <a href="{{ localized_route('data-handling') }}" wire:navigate>{{ __('data_handling.title') }}</a>
         </div>
     </div>
 </footer>

@@ -1,4 +1,4 @@
-<div class="public-page mx-auto max-w-6xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
+<div class="public-page about-page">
 
     {{-- En-tête --}}
     <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">
@@ -13,9 +13,17 @@
         </p>
     </header>
 
-    <div class="mt-14 grid gap-16 lg:grid-cols-[1.1fr_0.9fr]">
-        {{-- Récit --}}
-        <div class="prose-blog motion-safe:animate-fade-up">
+    <div class="about-opening">
+        <figure class="about-portrait">
+            <img src="{{ asset('images/portrait1.png') }}" alt="{{ __('home.portrait_alt') }}" loading="lazy" decoding="async" />
+            <figcaption class="home-portrait-caption">
+                <strong>D’ALMEIDA Sèna Gédéon</strong>
+                <span>{{ __('home.stats_location') }}</span>
+            </figcaption>
+        </figure>
+
+        <div class="about-opening-copy">
+            <blockquote>{{ __('about.quote') }}</blockquote>
             <h2>{{ __('about.narrative_h2') }}</h2>
             <p>
                 {{ __('about.narrative_p1') }}
@@ -30,44 +38,30 @@
                 <li>{{ __('about.work_3') }}</li>
                 <li>{{ __('about.work_4') }}</li>
             </ul>
-            <blockquote>
-                {{ __('about.quote') }}
-            </blockquote>
         </div>
-
-        {{-- Chiffres --}}
-        <aside class="grid content-start gap-6 motion-safe:animate-fade-up [animation-delay:120ms]">
-            <div class="rounded-2xl border border-ink-300 bg-card p-8 shadow-soft dark:border-ink-700">
-                <p class="eyebrow">{{ __('about.stats_eyebrow') }}</p>
-                <dl class="mt-6 grid grid-cols-3 gap-6">
-                    @foreach ([
-                        ['value' => $this->stats['projects'], 'label' => __('about.stats_projects')],
-                        ['value' => $this->stats['skills'], 'label' => __('about.stats_skills')],
-                        ['value' => $this->stats['testimonials'], 'label' => __('about.stats_reviews')],
-                    ] as $stat)
-                        <div>
-                            <dd class="font-display text-3xl font-medium tabular-nums text-ink-900 dark:text-ink-50">{{ $stat['value'] }}</dd>
-                            <dt class="mt-1 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-ink-500 dark:text-ink-400">{{ $stat['label'] }}</dt>
-                        </div>
-                    @endforeach
-                </dl>
-            </div>
-
-            <div class="rounded-2xl border border-ink-300 bg-blue-50/50 p-8 shadow-soft dark:border-ink-700 dark:bg-blue-950/20">
-                <p class="eyebrow">{{ __('about.availability_eyebrow') }}</p>
-                <p class="mt-4 text-pretty leading-relaxed text-ink-600 dark:text-ink-300">
-                    {{ __('about.availability_text') }}
-                </p>
-                <x-front.arrow-link :href="localized_route('contact')" wire:navigate class="mt-5">
-                    {{ __('common.start_project') }}
-                </x-front.arrow-link>
-            </div>
-        </aside>
     </div>
+
+    <aside class="about-stats-strip">
+        <p class="studio-kicker">{{ __('about.stats_eyebrow') }}</p>
+        <dl>
+            @foreach ([
+                ['value' => $this->stats['projects'], 'label' => __('about.stats_projects')],
+                ['value' => $this->stats['skills'], 'label' => __('about.stats_skills')],
+                ['value' => $this->stats['testimonials'], 'label' => __('about.stats_reviews')],
+            ] as $stat)
+                <div><dd>{{ $stat['value'] }}</dd><dt>{{ $stat['label'] }}</dt></div>
+            @endforeach
+        </dl>
+        <div class="about-availability-note">
+            <span class="studio-kicker">{{ __('about.availability_eyebrow') }}</span>
+            <p>{{ __('about.availability_text') }}</p>
+            <a href="{{ localized_route('contact') }}" wire:navigate class="studio-button">{{ __('common.start_project') }} ↗</a>
+        </div>
+    </aside>
 
     {{-- Principes d'ingénierie --}}
     @if ($this->proofProjects->isNotEmpty())
-        <section class="mt-16 rounded-3xl border border-ink-300 bg-gradient-to-br from-blue-50/80 via-card to-card p-6 dark:border-ink-700 dark:from-blue-950/30 dark:via-card dark:to-card sm:p-9">
+        <section class="about-section about-proof">
             <div class="grid gap-7 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
                 <div>
                     <p class="eyebrow">{{ __('about.proof_eyebrow') }}</p>
@@ -80,9 +74,9 @@
                             <span class="font-mono text-[0.65rem] uppercase tracking-[0.12em] text-blue-700 dark:text-blue-300">{{ $proof->role ?: $proof->type->label() }}</span>
                             <h3 class="mt-2 font-display text-lg font-semibold text-ink-900 transition-colors group-hover:text-blue-700 dark:text-ink-50 dark:group-hover:text-blue-300">{{ $proof->name }}</h3>
                             <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-600 dark:text-ink-300">{{ $proof->problem }}</p>
-                            @if ($proof->result)
-                                <p class="mt-4 border-t border-ink-200 pt-3 text-sm leading-relaxed text-ink-600 dark:border-ink-700 dark:text-ink-300">{{ $proof->result }}</p>
-                            @endif
+{{--                            @if ($proof->result)--}}
+{{--                                <p class="mt-4 border-t border-ink-200 pt-3 text-sm leading-relaxed text-ink-600 dark:border-ink-700 dark:text-ink-300">{{ $proof->result }}</p>--}}
+{{--                            @endif--}}
                         </a>
                     @endforeach
                 </div>
@@ -90,7 +84,7 @@
         </section>
     @endif
 
-    <section class="mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">
+    <section class="about-section about-principles">
         <div class="max-w-2xl">
             <p class="eyebrow">{{ __('about.principles_eyebrow') }}</p>
             <h2 class="mt-4 font-display text-3xl font-bold tracking-[-0.035em] text-ink-900 dark:text-ink-50 sm:text-4xl">
@@ -111,7 +105,7 @@
 
     {{-- Témoignages --}}
     @if ($this->testimonials->isNotEmpty())
-        <section class="mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">
+        <section class="about-section about-testimonials">
             <div>
                 <h2 class="eyebrow">{{ __('about.testimonials_eyebrow') }}</h2>
             </div>

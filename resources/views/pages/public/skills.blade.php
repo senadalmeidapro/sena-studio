@@ -1,4 +1,4 @@
-<div class="public-page mx-auto max-w-7xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
+<div class="public-page skills-page">
 
     {{-- En-tête éditorial --}}
     <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">
@@ -13,7 +13,7 @@
         </p>
     </header>
 
-    <section class="mt-10 grid gap-4 border-y border-ink-300 py-6 dark:border-ink-700 sm:grid-cols-[1.2fr_repeat(3,1fr)] sm:items-center">
+    <section class="skills-overview">
         <div>
             <p class="eyebrow">{{ __('skills.signal_title') }}</p>
             <p class="mt-2 max-w-md text-sm leading-relaxed text-ink-500 dark:text-ink-400">{{ __('skills.signal_text') }}</p>
@@ -26,11 +26,11 @@
         @endforeach
     </section>
 
-    <div class="mt-12 space-y-16">
+    <div class="skills-role-list">
         @foreach ($this->byRole as $roleKey => $skills)
-            <section>
-                <div class="mb-6 flex items-baseline gap-4">
-                    <h2 class="font-display text-2xl font-medium tracking-tight text-ink-900 dark:text-ink-50">
+            <section class="skill-group">
+                <div class="skill-group-heading">
+                    <h2>
                         {{ __('skills.role_'.$roleKey) }}
                     </h2>
                     <span class="hidden font-mono text-[0.7rem] uppercase tracking-[0.14em] text-ink-400 sm:block dark:text-ink-500">
@@ -39,40 +39,37 @@
                     <span aria-hidden="true" class="hidden h-px min-w-8 flex-1 bg-ink-300 sm:block dark:bg-ink-700"></span>
                 </div>
 
-                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="skill-group-content">
                     @foreach ($skills as $skill)
-                        <div id="{{ skill_anchor($skill->name) }}" class="group scroll-mt-28 flex flex-col rounded-2xl border border-ink-300 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-400/60 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/40">
-                            <div class="flex items-start justify-between gap-3">
-                                <div class="flex items-start gap-3">
+                        <article id="{{ skill_anchor($skill->name) }}" class="skill-entry scroll-mt-28">
+                            <div class="skill-entry-heading">
+                                <div class="flex items-center gap-3">
                                     @if ($skill->icon)
-                                        <span class="flex size-11 shrink-0 items-center justify-center rounded-lg bg-ink-100 text-ink-700 transition-colors group-hover:bg-blue-600 group-hover:text-white dark:bg-ink-800 dark:text-blue-300 dark:group-hover:bg-blue-500 dark:group-hover:text-white">
-                                            <x-site-icon :icon="$skill->icon" class="size-6" />
-                                        </span>
+                                        <x-site-icon :icon="$skill->icon" class="size-5 text-primary" />
                                     @endif
-                                    <h3 class="font-display text-lg font-medium tracking-tight text-ink-900 dark:text-ink-50">{{ $skill->name }}</h3>
+                                    <h3>{{ $skill->name }}</h3>
                                 </div>
                                 @if ($skill->projects->isNotEmpty())
-                                    <span class="shrink-0 font-mono text-[0.68rem] uppercase tracking-[0.1em] text-ink-500 dark:text-ink-400">
+                                    <span class="studio-meta">
                                         {{ $skill->projects->count() }} {{ $skill->projects->count() > 1 ? __('common.projects_count_plural_unit') : __('common.projects_count_unit') }}
                                     </span>
                                 @endif
                             </div>
                             @if ($skill->description)
-                                <p class="mt-2 flex-1 text-sm leading-relaxed text-ink-500 dark:text-ink-400">{{ $skill->description }}</p>
+                                <p class="skill-entry-description">{{ $skill->description }}</p>
                             @endif
 
                             @if ($skill->projects->isNotEmpty())
-                                <p class="mt-5 font-mono text-[0.64rem] uppercase tracking-[0.12em] text-ink-500 dark:text-ink-400">{{ __('skills.applied_in') }}</p>
+                                <p class="skill-applied-label">{{ __('skills.applied_in') }}</p>
                             @endif
-                            <div class="mt-4 flex flex-wrap gap-1.5">
+                            <div class="skill-projects">
                                 @foreach ($skill->projects->take(3) as $project)
-                                    <a href="{{ localized_route('projects.show', $project->slug) }}" wire:navigate
-                                       class="rounded bg-ink-100/80 px-2 py-0.5 font-mono text-[0.68rem] uppercase tracking-[0.08em] text-ink-600 transition-colors hover:text-blue-700 dark:bg-ink-700/70 dark:text-ink-300 dark:hover:text-blue-300">
+                                    <a href="{{ localized_route('projects.show', $project->slug) }}" wire:navigate>
                                         {{ $project->name }}
                                     </a>
                                 @endforeach
                             </div>
-                        </div>
+                        </article>
                     @endforeach
                 </div>
             </section>
