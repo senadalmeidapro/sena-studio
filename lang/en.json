@@ -1,6 +1,5 @@
 {
     "nav.home": "Home",
-    "nav.main": "Main navigation",
     "nav.projects": "Projects",
     "nav.skills": "Skills",
     "nav.stack": "Stack",
@@ -35,7 +34,6 @@
     "nav.theme.light": "Light",
     "nav.theme.system": "System",
     "nav.theme.dark": "Dark",
-    "nav.theme.label": "Appearance",
 
     "footer.tagline": "Sena Studio builds reliable APIs, business applications and back-offices, from analysis to deployment.",
     "footer.available": "Cotonou · remote work",
