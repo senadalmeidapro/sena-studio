@@ -173,9 +173,9 @@
                     </div>
 
                     <div class="grid gap-6 sm:grid-cols-2">
-                        <div class="grid gap-2">
+                        <div class="grid min-w-0 gap-2">
                             <label for="contact-project-type" class="{{ $label }}">{{ __('contact.project_type_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
-                            <select id="contact-project-type" aria-invalid="{{ $errors->has('project_type') ? 'true' : 'false' }}" @if ($errors->has('project_type')) aria-describedby="contact-project-type-error" @endif wire:model="project_type" class="{{ $input }} bg-card">
+                            <select id="contact-project-type" aria-invalid="{{ $errors->has('project_type') ? 'true' : 'false' }}" @if ($errors->has('project_type')) aria-describedby="contact-project-type-error" @endif wire:model="project_type" class="{{ $input }} bg-card w-full min-w-0">
                                 <option value="">{{ __('contact.project_type_placeholder') }}</option>
                                 @foreach ($this->projectTypeOptions() as $key => $projectTypeLabel)
                                     <option value="{{ $key }}" class="text-ink-900 dark:text-ink-100">{{ $projectTypeLabel }}</option>
@@ -184,9 +184,9 @@
                             @error('project_type') <span id="contact-project-type-error" role="alert" class="text-sm font-medium text-red-400">{{ $message }}</span> @enderror
                         </div>
 
-                        <div class="grid gap-2">
+                        <div class="grid min-w-0 gap-2">
                             <label for="contact-timeline" class="{{ $label }}">{{ __('contact.timeline_label') }} <span class="text-blue-600 dark:text-blue-300">*</span></label>
-                            <select id="contact-timeline" aria-invalid="{{ $errors->has('timeline') ? 'true' : 'false' }}" @if ($errors->has('timeline')) aria-describedby="contact-timeline-error" @endif wire:model="timeline" class="{{ $input }} bg-card">
+                            <select id="contact-timeline" aria-invalid="{{ $errors->has('timeline') ? 'true' : 'false' }}" @if ($errors->has('timeline')) aria-describedby="contact-timeline-error" @endif wire:model="timeline" class="{{ $input }} bg-card w-full min-w-0">
                                 <option value="">{{ __('contact.timeline_placeholder') }}</option>
                                 @foreach ($this->timelineOptions() as $key => $timelineLabel)
                                     <option value="{{ $key }}" class="text-ink-900 dark:text-ink-100">{{ $timelineLabel }}</option>
