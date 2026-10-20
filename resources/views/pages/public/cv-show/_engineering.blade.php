@@ -15,119 +15,79 @@
     };
 @endphp
 
-<style>
-    .cv-engineering { --cv-ink: var(--ds-text-primary); --cv-muted: var(--ds-text-secondary); --cv-soft: var(--ds-surface); --cv-line: var(--ds-border); --cv-navy: var(--ds-primary); --cv-navy-2: var(--ds-primary-hover); --cv-navy-soft: color-mix(in srgb, var(--ds-primary-light) 34%, var(--ds-surface-card)); --cv-cyan: var(--ds-accent); --cv-cyan-soft: color-mix(in srgb, var(--ds-accent) 12%, var(--ds-surface-card)); color: var(--cv-ink); font-family: Inter, ui-sans-serif, system-ui, sans-serif; font-size: 12px; line-height: 1.55; }
-    .cv-engineering * { box-sizing: border-box; }
-    .cv-engineering a { color: inherit; text-decoration: none; }
-    .cv-engineering a:hover { color: var(--cv-navy-2); }
-    .cv-engineering-header a:hover { color: white; text-decoration: underline; text-underline-offset: 2px; }
-    .cv-engineering-header { display: flex; align-items: center; gap: 22px; padding: 28px 34px; color: white; background: linear-gradient(135deg, var(--cv-navy), var(--cv-navy-2)); }
-    .cv-engineering-mark { display: block; width: 84px; height: 84px; flex: 0 0 auto; border: 2px solid rgba(255,255,255,.55); border-radius: 50%; background: var(--cv-cyan); color: white; object-fit: cover; font: 700 22px/1 Inter, ui-sans-serif, sans-serif; }
-    .cv-engineering-headline { min-width: 0; flex: 1; }
-    .cv-engineering-name { font: 700 25px/1.12 Inter, ui-sans-serif, sans-serif; letter-spacing: -.035em; }
-    .cv-engineering-role { display: inline-block; margin-top: 9px; padding: 4px 11px; border-radius: 999px; background: white; color: var(--cv-navy); font: 700 10px/1.2 'JetBrains Mono', ui-monospace, monospace; }
-    .cv-engineering-contacts { display: grid; grid-template-columns: repeat(2, minmax(0, auto)); gap: 6px 18px; flex: 0 0 auto; }
-    .cv-engineering-contact { display: flex; gap: 7px; align-items: center; white-space: nowrap; font-size: 10px; }
-    .cv-engineering-contact::before { width: 5px; height: 5px; flex: 0 0 auto; border-radius: 50%; background: var(--cv-cyan); content: ''; }
-    .cv-engineering-body { display: grid; grid-template-columns: 190px minmax(0, 1fr); }
-    .cv-engineering-sidebar { display: flex; flex-direction: column; gap: 24px; padding: 24px 20px 30px; border-right: 1px solid var(--cv-line); background: var(--cv-soft); }
-    .cv-engineering-main { display: flex; flex-direction: column; gap: 22px; padding: 26px 30px; }
-    .cv-engineering-title { display: flex; gap: 10px; align-items: baseline; margin-bottom: 8px; color: var(--cv-navy); font: 700 13px/1.2 Inter, ui-sans-serif, sans-serif; letter-spacing: .08em; text-transform: uppercase; }
-    .cv-engineering-title::after { height: 1px; flex: 1; background: var(--cv-line); content: ''; }
-    .cv-engineering-side-title { display: flex; gap: 6px; align-items: center; margin-bottom: 11px; font: 700 10px/1.2 Inter, ui-sans-serif, sans-serif; letter-spacing: .09em; text-transform: uppercase; }
-    .cv-engineering-side-title::before { width: 7px; height: 7px; border-radius: 50%; background: var(--cv-cyan); content: ''; }
-    .cv-engineering-summary { color: var(--cv-muted); font-size: 12px; line-height: 1.68; text-align: justify; }
-    .cv-engineering-list { display: flex; flex-direction: column; gap: 15px; }
-    .cv-engineering-item { break-inside: avoid; }
-    .cv-engineering-item-top { display: flex; gap: 10px; align-items: baseline; justify-content: space-between; }
-    .cv-engineering-item-title { color: var(--cv-muted); font-size: 13px; font-weight: 700; }
-    .cv-engineering-period { padding: 2px 8px; border-radius: 999px; background: var(--cv-cyan-soft); color: var(--cv-ink); font: 600 9px/1.3 'JetBrains Mono', ui-monospace, monospace; white-space: nowrap; }
-    .cv-engineering-subtitle { margin-top: 2px; color: var(--cv-muted); font-size: 11px; }
-    .cv-engineering-description { margin-top: 6px; color: var(--cv-muted); font-size: 11.5px; line-height: 1.55; }
-    .cv-engineering-link { display: inline-block; margin-top: 5px; color: var(--cv-navy-2) !important; font: 500 10px/1.3 'JetBrains Mono', ui-monospace, monospace; }
-    .cv-engineering-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 7px; }
-    .cv-engineering-tag { padding: 3px 8px; border-radius: 999px; background: var(--cv-navy-soft); color: var(--cv-navy); font: 600 9px/1.3 'JetBrains Mono', ui-monospace, monospace; }
-    .cv-engineering-edu { padding-left: 10px; border-left: 2px solid var(--cv-navy); }
-    .cv-engineering-edu-title { font-size: 11px; font-weight: 600; line-height: 1.35; }
-    .cv-engineering-edu-sub { margin-top: 3px; color: var(--cv-muted); font: 9px/1.35 'JetBrains Mono', ui-monospace, monospace; }
-    .cv-engineering-skill-groups { display: flex; flex-direction: column; gap: 13px; }
-    .cv-engineering-skill-group-title { margin-bottom: 5px; font-size: 9px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; }
-    .cv-engineering-skill-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-    .cv-engineering-skill-tags span { padding: 3px 8px; border: 1px solid var(--cv-line); border-radius: 999px; background: var(--ds-surface-card); color: var(--cv-navy); font-size: 9px; font-weight: 500; }
-    .cv-engineering-languages { display: flex; flex-direction: column; gap: 6px; }
-    .cv-engineering-language { display: flex; justify-content: space-between; gap: 8px; font-size: 10.5px; }
-    .cv-engineering-language span:last-child { color: var(--cv-navy); font: 700 9px/1.3 'JetBrains Mono', ui-monospace, monospace; }
-    .cv-engineering-soft { display: flex; flex-direction: column; gap: 5px; padding: 0; list-style: none; }
-    .cv-engineering-soft li { padding-left: 12px; font-size: 10px; position: relative; }
-    .cv-engineering-soft li::before { position: absolute; top: 6px; left: 0; width: 5px; height: 5px; border-radius: 50%; background: var(--cv-cyan); content: ''; }
-    @media (max-width: 720px) {
-        .cv-engineering-header, .cv-engineering-body { display: block; }
-        .cv-engineering-header { padding: 24px 20px; }
-        .cv-engineering-contacts { grid-template-columns: 1fr; margin-top: 18px; }
-        .cv-engineering-sidebar { border-right: 0; border-bottom: 1px solid var(--cv-line); }
-        .cv-engineering-main { padding: 24px 20px; }
-    }
-    @media print { .cv-engineering { font-size: 10px; } .cv-engineering-header { padding: 22px 26px; } .cv-engineering-main { padding: 22px 26px; } }
-</style>
+<article class="cv-engineering" aria-labelledby="cv-name">
+    <header class="cv-profile">
+        <img
+            class="cv-profile-portrait"
+            src="{{ asset('images/portrait.jpeg') }}"
+            alt="Portrait de D'ALMEIDA Sèna Gédéon"
+        />
 
-<div class="cv-engineering">
-    <header class="cv-engineering-header">
-        <img class="cv-engineering-mark" src="{{ asset('images/portrait.jpeg') }}" alt="Portrait de D'ALMEIDA Sèna Gédéon" />
-        <div class="cv-engineering-headline">
-            <div class="cv-engineering-name">D'ALMEIDA<br>Sèna Gédéon O.</div>
-            <span class="cv-engineering-role">{{ $cv->headline }}</span>
+        <div class="cv-profile-heading">
+            <p class="cv-profile-context">Curriculum vitae</p>
+            <h1 class="cv-profile-name" id="cv-name">D'ALMEIDA Sèna Gédéon O.</h1>
+            <p class="cv-profile-role">{{ $cv->headline }}</p>
         </div>
+
         @if ($contacts || $cv->links)
-            <div class="cv-engineering-contacts">
+            <address class="cv-profile-contacts" aria-label="Contact information">
                 @foreach ($contacts as $value)
-                    <span class="cv-engineering-contact">{{ $value }}</span>
+                    <span class="cv-contact">{{ $value }}</span>
                 @endforeach
                 @foreach ($cv->links ?? [] as $link)
-                    <a class="cv-engineering-contact" href="{{ $link['url'] }}" target="_blank" rel="noopener noreferrer">{{ $link['label'] }}</a>
+                    <a class="cv-contact" href="{{ $link['url'] }}" target="_blank" rel="noopener noreferrer">{{ $link['label'] }}</a>
                 @endforeach
-            </div>
+            </address>
         @endif
     </header>
 
-    <div class="cv-engineering-body">
-        <aside class="cv-engineering-sidebar">
+    <div class="cv-layout">
+        <aside class="cv-sidebar" aria-label="Education and skills">
             @if ($education)
-                <section>
-                    <div class="cv-engineering-side-title">Education</div>
-                    <div class="cv-engineering-list">
+                <section class="cv-side-section" aria-labelledby="cv-education-title">
+                    <h2 class="cv-side-title" id="cv-education-title">Education</h2>
+                    <div class="cv-education-list">
                         @foreach ($education as $study)
-                            <div class="cv-engineering-edu">
-                                <div class="cv-engineering-edu-title">{{ $study['title'] }}</div>
-                                <div class="cv-engineering-edu-sub">{{ $study['subtitle'] ?? '' }}@if (($study['period_start'] ?? null) || ($study['period_end'] ?? null)) · {{ $period($study['period_start'] ?? null, $study['period_end'] ?? null) }}@endif</div>
-                            </div>
+                            <article class="cv-education-item">
+                                <h3 class="cv-education-name">{{ $study['title'] }}</h3>
+                                @if (filled($study['subtitle'] ?? null))
+                                    <p class="cv-education-school">{{ $study['subtitle'] }}</p>
+                                @endif
+                                @if (($study['period_start'] ?? null) || ($study['period_end'] ?? null))
+                                    <p class="cv-metadata">{{ $period($study['period_start'] ?? null, $study['period_end'] ?? null) }}</p>
+                                @endif
+                            </article>
                         @endforeach
                     </div>
                 </section>
             @endif
 
             @if ($languages)
-                <section>
-                    <div class="cv-engineering-side-title">Languages</div>
-                    <div class="cv-engineering-languages">
+                <section class="cv-side-section" aria-labelledby="cv-languages-title">
+                    <h2 class="cv-side-title" id="cv-languages-title">Languages</h2>
+                    <ul class="cv-language-list">
                         @foreach ($languages as $language)
-                            <div class="cv-engineering-language"><span>{{ $language['name'] }}</span><span>{{ $language['level'] ?? '' }}</span></div>
+                            <li class="cv-language-item">
+                                <span>{{ $language['name'] }}</span>
+                                <span class="cv-language-level">{{ $language['level'] ?? '' }}</span>
+                            </li>
                         @endforeach
-                    </div>
+                    </ul>
                 </section>
             @endif
 
             @if ($skills->isNotEmpty())
-                <section>
-                    <div class="cv-engineering-side-title">Skills</div>
-                    <div class="cv-engineering-skill-groups">
+                <section class="cv-side-section" aria-labelledby="cv-skills-title">
+                    <h2 class="cv-side-title" id="cv-skills-title">Skills</h2>
+                    <div class="cv-skill-groups">
                         @foreach ($skills as $group => $groupSkills)
-                            <div>
-                                <div class="cv-engineering-skill-group-title">{{ $group ?: 'Technical' }}</div>
-                                <div class="cv-engineering-skill-tags">
+                            <div class="cv-skill-group">
+                                <h3 class="cv-skill-group-title">{{ $group ?: 'Technical' }}</h3>
+                                <ul class="cv-skill-list">
                                     @foreach ($groupSkills as $skill)
-                                        <span>{{ $skill['name'] }}</span>
+                                        <li>{{ $skill['name'] }}</li>
                                     @endforeach
-                                </div>
+                                </ul>
                             </div>
                         @endforeach
                     </div>
@@ -135,9 +95,9 @@
             @endif
 
             @if ($hobbies)
-                <section>
-                    <div class="cv-engineering-side-title">Focus</div>
-                    <ul class="cv-engineering-soft">
+                <section class="cv-side-section" aria-labelledby="cv-focus-title">
+                    <h2 class="cv-side-title" id="cv-focus-title">Focus</h2>
+                    <ul class="cv-focus-list">
                         @foreach ($hobbies as $hobby)
                             <li>{{ $hobby['name'] }}</li>
                         @endforeach
@@ -146,28 +106,32 @@
             @endif
         </aside>
 
-        <main class="cv-engineering-main">
+        <main class="cv-main">
             @if ($cv->summary)
-                <section>
-                    <div class="cv-engineering-title">Professional Summary</div>
-                    <p class="cv-engineering-summary">{{ $cv->summary }}</p>
+                <section class="cv-main-section" aria-labelledby="cv-summary-title">
+                    <h2 class="cv-section-title" id="cv-summary-title">Professional Summary</h2>
+                    <p class="cv-summary">{{ $cv->summary }}</p>
                 </section>
             @endif
 
             @if ($experience)
-                <section>
-                    <div class="cv-engineering-title">Experience</div>
-                    <div class="cv-engineering-list">
+                <section class="cv-main-section" aria-labelledby="cv-experience-title">
+                    <h2 class="cv-section-title" id="cv-experience-title">Experience</h2>
+                    <div class="cv-timeline">
                         @foreach ($experience as $job)
-                            <article class="cv-engineering-item">
-                                <div class="cv-engineering-item-top">
-                                    <div class="cv-engineering-item-title">{{ $job['title'] }}</div>
+                            <article class="cv-timeline-entry">
+                                <div class="cv-entry-heading">
+                                    <h3 class="cv-entry-title">{{ $job['title'] }}</h3>
                                     @if (($job['period_start'] ?? null) || ($job['period_end'] ?? null))
-                                        <span class="cv-engineering-period">{{ $period($job['period_start'] ?? null, $job['period_end'] ?? null) }}</span>
+                                        <span class="cv-metadata">{{ $period($job['period_start'] ?? null, $job['period_end'] ?? null) }}</span>
                                     @endif
                                 </div>
-                                @if (! blank($job['subtitle'] ?? null)) <div class="cv-engineering-subtitle">{{ $job['subtitle'] }}</div> @endif
-                                @if (! blank($job['description'] ?? null)) <p class="cv-engineering-description">{{ $job['description'] }}</p> @endif
+                                @if (! blank($job['subtitle'] ?? null))
+                                    <p class="cv-entry-subtitle">{{ $job['subtitle'] }}</p>
+                                @endif
+                                @if (! blank($job['description'] ?? null))
+                                    <p class="cv-entry-description">{{ $job['description'] }}</p>
+                                @endif
                             </article>
                         @endforeach
                     </div>
@@ -175,16 +139,24 @@
             @endif
 
             @if ($projects)
-                <section>
-                    <div class="cv-engineering-title">Selected Projects</div>
-                    <div class="cv-engineering-list">
+                <section class="cv-main-section" aria-labelledby="cv-projects-title">
+                    <h2 class="cv-section-title" id="cv-projects-title">Selected Projects</h2>
+                    <div class="cv-project-list">
                         @foreach ($projects as $project)
-                            <article class="cv-engineering-item">
-                                <div class="cv-engineering-item-title">{{ $project['title'] }}</div>
-                                @if (! blank($project['subtitle'] ?? null)) <div class="cv-engineering-subtitle">{{ $project['subtitle'] }}</div> @endif
-                                @if (! blank($project['stack'] ?? null)) <div class="cv-engineering-tags"><span class="cv-engineering-tag">{{ $project['stack'] }}</span></div> @endif
-                                @if (! blank($project['description'] ?? null)) <p class="cv-engineering-description">{{ $project['description'] }}</p> @endif
-                                @if (! blank($project['url'] ?? null)) <a class="cv-engineering-link" href="{{ $project['url'] }}" target="_blank" rel="noopener noreferrer">{{ $project['url'] }}</a> @endif
+                            <article class="cv-project-entry">
+                                <h3 class="cv-entry-title">{{ $project['title'] }}</h3>
+                                @if (! blank($project['subtitle'] ?? null))
+                                    <p class="cv-entry-subtitle">{{ $project['subtitle'] }}</p>
+                                @endif
+                                @if (! blank($project['stack'] ?? null))
+                                    <p class="cv-project-stack">{{ $project['stack'] }}</p>
+                                @endif
+                                @if (! blank($project['description'] ?? null))
+                                    <p class="cv-entry-description">{{ $project['description'] }}</p>
+                                @endif
+                                @if (! blank($project['url'] ?? null))
+                                    <a class="cv-project-link" href="{{ $project['url'] }}" target="_blank" rel="noopener noreferrer">{{ $project['url'] }}</a>
+                                @endif
                             </article>
                         @endforeach
                     </div>
@@ -192,4 +164,4 @@
             @endif
         </main>
     </div>
-</div>
+</article>
