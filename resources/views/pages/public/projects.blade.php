@@ -75,10 +75,10 @@
 
     {{-- Grille --}}
     @if ($this->projects->isNotEmpty())
-        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="projects-grid mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             @foreach ($this->projects as $project)
                 <a href="{{ localized_route('projects.show', $project->slug) }}" wire:navigate
-                   class="group flex flex-col overflow-hidden rounded-xl border border-ink-300 bg-card transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/70 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/50">
+                   class="project-tile group flex flex-col overflow-hidden rounded-xl border border-ink-300 bg-card transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/70 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/50">
                     <x-project-media :image="$project->image" :label="$project->name" />
                     <div class="flex flex-1 flex-col p-6">
                         <div class="mb-4 flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.12em]">

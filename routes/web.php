@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BillingPdfController;
+use App\Http\Controllers\PrivacyConsentController;
 use App\Livewire\Site\About;
 use App\Livewire\Site\BlogIndex;
 use App\Livewire\Site\BlogShow;
@@ -23,6 +24,10 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
+
+Route::post('privacy/consent', [PrivacyConsentController::class, 'store'])
+    ->middleware('throttle:30,1')
+    ->name('privacy.consent.store');
 
 Route::prefix('{locale?}')
     ->whereIn('locale', ['fr', 'en'])

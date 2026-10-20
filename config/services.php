@@ -37,6 +37,7 @@ return [
 
     'analytics' => [
         'script' => env('ANALYTICS_SCRIPT'),
+        'provider' => env('ANALYTICS_PROVIDER_NAME'),
     ],
 
     'billing' => [

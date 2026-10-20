@@ -154,7 +154,7 @@ class Contact extends Component
             $this->sendMail($data);
         } catch (Throwable) {
             // L'envoi d'email reste best-effort : le message est déjà enregistré.
-            report(new \RuntimeException('Échec de l\'envoi du mail de contact pour '.$data['email']));
+            report(new \RuntimeException('Échec de l\'envoi du mail de contact.'));
         }
 
         $this->reset('name', 'email', 'phone', 'company', 'project_type', 'goal', 'timeline', 'budget_range', 'message');

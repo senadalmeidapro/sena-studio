@@ -13,9 +13,9 @@
         </p>
     </header>
 
-    <div class="mt-14 grid gap-16 lg:grid-cols-[1.1fr_0.9fr]">
+    <div class="about-overview mt-14 grid gap-16 lg:grid-cols-[1.1fr_0.9fr]">
         {{-- Récit --}}
-        <div class="prose-blog motion-safe:animate-fade-up">
+        <div class="about-story prose-blog motion-safe:animate-fade-up">
             <h2>{{ __('about.narrative_h2') }}</h2>
             <p>
                 {{ __('about.narrative_p1') }}
@@ -67,14 +67,14 @@
 
     {{-- Principes d'ingénierie --}}
     @if ($this->proofProjects->isNotEmpty())
-        <section class="mt-16 rounded-3xl border border-ink-300 bg-gradient-to-br from-blue-50/80 via-card to-card p-6 dark:border-ink-700 dark:from-blue-950/30 dark:via-card dark:to-card sm:p-9">
+        <section class="about-proof mt-16 rounded-3xl border border-ink-300 bg-gradient-to-br from-blue-50/80 via-card to-card p-6 dark:border-ink-700 dark:from-blue-950/30 dark:via-card dark:to-card sm:p-9">
             <div class="grid gap-7 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
                 <div>
                     <p class="eyebrow">{{ __('about.proof_eyebrow') }}</p>
                     <h2 class="mt-3 font-display text-2xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('about.proof_title') }}</h2>
                     <p class="mt-3 text-sm leading-relaxed text-ink-600 dark:text-ink-300">{{ __('about.proof_text') }}</p>
                 </div>
-                <div class="grid gap-3 sm:grid-cols-2">
+                <div class="about-proof-list grid gap-3 sm:grid-cols-2">
                     @foreach ($this->proofProjects as $proof)
                         <a href="{{ localized_route('projects.show', $proof->slug) }}" wire:navigate class="group rounded-2xl border border-ink-200 bg-card/80 p-5 transition-all hover:-translate-y-0.5 hover:border-blue-400/70 hover:shadow-card dark:border-ink-700 dark:bg-elevated/70">
                             <span class="font-mono text-[0.65rem] uppercase tracking-[0.12em] text-blue-700 dark:text-blue-300">{{ $proof->role ?: $proof->type->label() }}</span>
@@ -90,7 +90,7 @@
         </section>
     @endif
 
-    <section class="mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">
+    <section class="about-principles mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">
         <div class="max-w-2xl">
             <p class="eyebrow">{{ __('about.principles_eyebrow') }}</p>
             <h2 class="mt-4 font-display text-3xl font-bold tracking-[-0.035em] text-ink-900 dark:text-ink-50 sm:text-4xl">
@@ -111,7 +111,7 @@
 
     {{-- Témoignages --}}
     @if ($this->testimonials->isNotEmpty())
-        <section class="mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">
+        <section class="about-testimonials mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">
             <div>
                 <h2 class="eyebrow">{{ __('about.testimonials_eyebrow') }}</h2>
             </div>

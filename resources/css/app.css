@@ -204,58 +204,11 @@
     }
 }
 
-/* Public identity: premium technical / editorial. */
+/* Shared public components. */
 @layer components {
     .engineering-shell {
         background-color: var(--canvas);
         background-image: radial-gradient(circle at 80% 0%, rgb(37 99 235 / 0.055), transparent 28rem);
-    }
-
-    .engineering-rule {
-        border-color: var(--line);
-    }
-
-    .engineering-panel {
-        border: 1px solid var(--line);
-        background: var(--card);
-        border-radius: 0.875rem;
-    }
-
-    .engineering-number {
-        color: var(--ds-primary);
-        font-family: var(--font-mono);
-        font-size: 0.68rem;
-        letter-spacing: 0.16em;
-    }
-
-    .technical-visual {
-        position: relative;
-        isolation: isolate;
-        overflow: hidden;
-        border: 1px solid rgb(37 99 235 / 0.2);
-        border-radius: 1rem;
-        background: linear-gradient(145deg, #0b1f3a, #102b4d 62%, #0b1728);
-        box-shadow: 0 20px 50px rgb(11 31 58 / 0.16);
-    }
-
-    .technical-visual::before {
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        background-image: linear-gradient(rgb(147 197 253 / 0.11) 1px, transparent 1px), linear-gradient(90deg, rgb(147 197 253 / 0.11) 1px, transparent 1px);
-        background-size: 32px 32px;
-        content: '';
-        mask-image: linear-gradient(to bottom, black, transparent 90%);
-    }
-
-    .technical-node {
-        border: 1px solid rgb(147 197 253 / 0.35);
-        border-radius: 0.5rem;
-        background: rgb(255 255 255 / 0.06);
-        color: #dbeafe;
-        font-family: var(--font-mono);
-        font-size: 0.68rem;
-        letter-spacing: 0.08em;
     }
 
     .project-media-image {
@@ -292,19 +245,6 @@
 }
 
 @layer utilities {
-    /* Keep the entire public surface consistent without changing admin UI. */
-    .public-page .rounded-2xl {
-        border-radius: 0.875rem;
-    }
-
-    .public-page .rounded-3xl {
-        border-radius: 1rem;
-    }
-
-    .public-page .shadow-soft {
-        box-shadow: none;
-    }
-
     .public-page .shadow-card {
         box-shadow: 0 4px 20px rgb(15 23 42 / 0.07);
     }
@@ -421,15 +361,6 @@
         font-feature-settings: 'kern' 1, 'liga' 1;
     }
 
-    .home-page .technical-visual {
-        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
-    }
-
-    .home-page .technical-visual:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 26px 60px rgb(11 31 58 / 0.22);
-    }
-
     .contact-page form {
         border-left: 1px solid var(--line);
         padding-left: 2rem;
@@ -471,16 +402,6 @@
         content: '—';
     }
 
-    .cv-page article {
-        box-shadow: 0 12px 40px rgb(15 23 42 / 0.08);
-        transition: box-shadow 0.35s ease, transform 0.35s ease;
-    }
-
-    .cv-page article:hover {
-        box-shadow: 0 18px 50px rgb(15 23 42 / 0.13);
-        transform: translateY(-2px);
-    }
-
     .cv-engineering {
         overflow: hidden;
         border: 1px solid var(--ds-border);
@@ -489,40 +410,8 @@
         box-shadow: 0 12px 32px rgb(15 23 42 / 0.08);
     }
 
-    .public-page {
-        animation: public-page-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
-    }
-
-    .public-page .group.flex.flex-col {
-        transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .public-page .group.flex.flex-col:hover {
-        transform: translateY(-3px);
-    }
-
-    .public-page .bg-card.border:not(input):not(select):not(textarea) {
-        transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .public-page .bg-card.border:not(input):not(select):not(textarea):hover {
-        border-color: rgb(59 130 246 / 0.5);
-        transform: translateY(-2px);
-    }
-
     [data-site-mobile-menu]:not(.hidden) {
         animation: menu-enter 0.2s ease-out both;
-    }
-}
-
-@keyframes public-page-enter {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }
 
@@ -534,34 +423,6 @@
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-@keyframes technical-scan {
-    0%,
-    100% {
-        opacity: 0.15;
-        transform: translateY(-110%);
-    }
-    50% {
-        opacity: 0.45;
-    }
-    65% {
-        opacity: 0;
-        transform: translateY(110%);
-    }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    .technical-visual::after {
-        position: absolute;
-        inset-inline: 0;
-        top: 0;
-        height: 35%;
-        background: linear-gradient(to bottom, transparent, rgb(147 197 253 / 0.16), transparent);
-        content: '';
-        pointer-events: none;
-        animation: technical-scan 8s ease-in-out infinite;
     }
 }
 

@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withSchedule(function (Schedule $schedule): void {
         $schedule->command('contact-messages:prune')->dailyAt('03:30');
+        $schedule->command('privacy-consents:prune')->dailyAt('03:35');
         $schedule->command('leads:remind')->daily();
         $schedule->command('invoices:remind')->daily();
     })

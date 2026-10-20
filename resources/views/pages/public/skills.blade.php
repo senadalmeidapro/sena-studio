@@ -28,7 +28,7 @@
 
     <div class="mt-12 space-y-16">
         @foreach ($this->byRole as $roleKey => $skills)
-            <section>
+            <section class="skills-group">
                 <div class="mb-6 flex items-baseline gap-4">
                     <h2 class="font-display text-2xl font-medium tracking-tight text-ink-900 dark:text-ink-50">
                         {{ __('skills.role_'.$roleKey) }}
@@ -39,7 +39,7 @@
                     <span aria-hidden="true" class="hidden h-px min-w-8 flex-1 bg-ink-300 sm:block dark:bg-ink-700"></span>
                 </div>
 
-                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="skills-group-grid grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($skills as $skill)
                         <div id="{{ skill_anchor($skill->name) }}" class="group scroll-mt-28 flex flex-col rounded-2xl border border-ink-300 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-400/60 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/40">
                             <div class="flex items-start justify-between gap-3">

@@ -105,7 +105,7 @@
             <div
                 x-data="{ active: window.Flux.appearance }"
                 x-init="$watch(() => window.Flux.appearance, value => active = value)"
-                class="flex items-center gap-0.5 rounded-full border border-ink-300/80 bg-ink-100/60 p-0.5 dark:border-ink-700/80 dark:bg-ink-800/60"
+                class="theme-switcher flex items-center gap-0.5 rounded-full border border-ink-300/80 bg-ink-100/60 p-0.5 dark:border-ink-700/80 dark:bg-ink-800/60"
                 role="group"
                 aria-label="Bascule de thème"
             >
@@ -119,7 +119,7 @@
                         @click="window.Flux.appearance = @js($theme)"
                         :aria-pressed="active === @js($theme)"
                         :class="active === @js($theme) ? 'bg-white text-ink-900 shadow-sm dark:bg-ink-700 dark:text-ink-50' : 'text-ink-500 hover:bg-white hover:text-ink-800 dark:text-ink-400 dark:hover:bg-ink-700/60 dark:hover:text-ink-100'"
-                        class="flex size-7 items-center justify-center rounded-full transition-all duration-200"
+                        class="theme-switcher-option flex size-7 items-center justify-center rounded-full transition-all duration-200"
                         :aria-label="'{{ $label }}'"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" class="size-4">

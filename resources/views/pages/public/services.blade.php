@@ -6,9 +6,9 @@
         <p class="mt-5 inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-800 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-200">{{ __('services.availability') }}: {{ __('availability.'.$availability) }}</p>
     </header>
 
-    <section class="mt-14 grid gap-px overflow-hidden rounded-2xl border border-ink-300 bg-ink-300 dark:border-ink-700 dark:bg-ink-700/70 md:grid-cols-3" aria-label="{{ __('services.scope_title') }}">
+    <section class="service-capabilities mt-14 grid gap-px overflow-hidden rounded-2xl border border-ink-300 bg-ink-300 dark:border-ink-700 dark:bg-ink-700/70 md:grid-cols-3" aria-label="{{ __('services.scope_title') }}">
         @foreach (['api', 'learning', 'product'] as $capability)
-            <article class="bg-card p-7 sm:p-9">
+            <article class="service-capability bg-card p-7 sm:p-9">
                 <span class="font-mono text-xs tabular-nums text-blue-600 dark:text-blue-300">{{ str_pad((string) $loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
                 <h2 class="mt-3 font-display text-2xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('services.capability_'.$capability) }}</h2>
                 <p class="mt-3 leading-relaxed text-ink-600 dark:text-ink-300">{{ __('services.capability_'.$capability.'_text') }}</p>
@@ -16,7 +16,7 @@
         @endforeach
     </section>
 
-    <section class="mt-24 grid gap-10 rounded-2xl border border-blue-200 bg-blue-50/70 p-7 dark:border-blue-900 dark:bg-blue-950/20 sm:p-10 lg:grid-cols-[0.8fr_1.2fr]">
+    <section class="service-engagement mt-24 grid gap-10 rounded-2xl border border-blue-200 bg-blue-50/70 p-7 dark:border-blue-900 dark:bg-blue-950/20 sm:p-10 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
             <span class="eyebrow">{{ __('services.engagement_eyebrow') }}</span>
             <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-ink-900 dark:text-ink-50">{{ __('services.offer_title') }}</h2>

@@ -8,14 +8,14 @@
     </a>
 
     {{-- Titre du projet (première position) --}}
-    <header class="mt-10 max-w-3xl motion-safe:animate-fade-up">
+    <header class="project-detail-title mt-10 max-w-3xl motion-safe:animate-fade-up">
         <h1 class="font-display text-4xl font-bold tracking-[-0.04em] text-ink-900 dark:text-ink-50 sm:text-5xl">
             {{ $project->name }}
         </h1>
     </header>
 
     {{-- Galerie --}}
-    <div class="mt-8 motion-safe:animate-fade-up [animation-delay:80ms]">
+    <div class="project-detail-cover mt-8 motion-safe:animate-fade-up [animation-delay:80ms]">
         @php
             $galleryUrls = collect([$project->image])
                 ->merge($project->projectImages->pluck('path'))
@@ -158,7 +158,7 @@
     </div>
 
     {{-- En-tête --}}
-    <header class="mt-12 grid gap-8 border-b border-ink-300 pb-12 motion-safe:animate-fade-up [animation-delay:160ms] lg:grid-cols-[1fr_auto] lg:items-end dark:border-ink-700">
+    <header class="project-detail-summary mt-12 grid gap-8 border-b border-ink-300 pb-12 motion-safe:animate-fade-up [animation-delay:160ms] lg:grid-cols-[1fr_auto] lg:items-end dark:border-ink-700">
         <div>
             <div class="flex flex-wrap items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.12em]">
                 <span class="rounded-md bg-ink-100 px-2 py-1 text-ink-600 dark:bg-ink-800 dark:text-ink-300">{{ $project->type->label() }}</span>
@@ -245,7 +245,7 @@
     @endif
 
     @if ($project->role || $project->client_context || $project->problem || $project->constraints || $project->architecture || $project->technical_decisions || $project->result || $project->outcome_type)
-        <section class="mt-14 border-y border-ink-300 py-12 dark:border-ink-700" aria-labelledby="project-case-study-title">
+        <section class="project-case-study mt-14 border-y border-ink-300 py-12 dark:border-ink-700" aria-labelledby="project-case-study-title">
             <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
                 <div>
                     <p class="eyebrow">{{ __('project.case_study_eyebrow') }}</p>

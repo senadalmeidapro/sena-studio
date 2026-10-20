@@ -1,11 +1,11 @@
-<footer class="relative z-10 border-t border-ink-300 bg-canvas dark:border-ink-700 dark:bg-canvas">
+<footer class="site-footer relative z-10 border-t border-ink-300 bg-canvas dark:border-ink-700 dark:bg-canvas">
     @php
         $cvPrimarySlug = \App\Models\Cv::primary()->value('slug');
         $cvUrl = $cvPrimarySlug ? localized_route('cv.show', $cvPrimarySlug) : null;
         $showBlog = \App\Models\Post::published()->where('locale', app()->getLocale())->count() >= 2;
     @endphp
-    <div class="mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-[1.4fr_0.8fr_0.8fr] lg:px-8">
-        <div class="space-y-4">
+    <div class="footer-main mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-[1.4fr_0.8fr_0.8fr] lg:px-8">
+        <div class="footer-brand space-y-4">
             <a href="{{ localized_route('home') }}" wire:navigate class="group inline-flex items-center gap-3">
                 <x-logo class="size-8" />
                 <span class="font-display text-2xl font-medium tracking-tight text-ink-900 dark:text-ink-50">Sena Studio</span>
@@ -56,6 +56,9 @@
                 <a href="{{ localized_route('legal.notice') }}" wire:navigate class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('footer.legal_notice') }}</a>
                 <a href="{{ localized_route('legal.privacy') }}" wire:navigate class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('footer.privacy') }}</a>
                 <a href="{{ localized_route('data-handling') }}" wire:navigate class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('data_handling.title') }}</a>
+                @if (filled(config('services.analytics.script')) && filled(config('services.analytics.provider')))
+                    <button type="button" data-open-privacy-preferences class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('privacy_consent.manage') }}</button>
+                @endif
             </p>
         </div>
     </div>

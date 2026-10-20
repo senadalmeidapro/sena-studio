@@ -30,9 +30,9 @@
             <p class="mt-4 inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-800 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-200">{{ __('availability.'.$availability) }}</p>
         </header>
 
-        <div class="mt-12 grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+        <div class="contact-layout mt-12 grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
             {{-- Colonne infos --}}
-            <aside class="motion-safe:animate-fade-up">
+            <aside class="contact-aside motion-safe:animate-fade-up">
                 <h2 class="font-display text-2xl font-medium tracking-tight text-ink-900 dark:text-ink-50">
                     {{ __('contact.aside_title') }}
                 </h2>
@@ -245,6 +245,7 @@
                         </button>
                         <span class="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500">{!! __('contact.form_secure') !!}</span>
                     </div>
+                    <p class="max-w-2xl text-sm leading-6 text-ink-500 dark:text-ink-400">{{ __('contact.privacy_notice') }} <a href="{{ localized_route('legal.privacy') }}" wire:navigate class="underline decoration-ink-400 underline-offset-4 transition-colors hover:text-blue-600 dark:decoration-ink-600 dark:hover:text-blue-300">{{ __('footer.privacy') }}</a>.</p>
                 </div>
             </form>
         </div>
