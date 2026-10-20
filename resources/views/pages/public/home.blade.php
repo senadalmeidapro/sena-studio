@@ -1,21 +1,21 @@
-<div class="public-page home-page space-y-20 pb-20 sm:space-y-28">
+<div class="public-page home-page studio-home space-y-20 pb-20 sm:space-y-28">
 
     {{-- ===================== HERO ===================== --}}
-    <section class="relative overflow-hidden">
+    <section class="studio-home-hero relative overflow-hidden">
         <div class="pointer-events-none absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_at_top,black_30%,transparent_72%)]" aria-hidden="true"></div>
 
-        <div class="relative mx-auto grid max-w-7xl items-center gap-14 px-4 pt-16 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:gap-24 lg:px-8 lg:pt-28">
+        <div class="studio-home-hero-inner relative mx-auto grid max-w-7xl items-center gap-14 px-4 pt-16 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:gap-24 lg:px-8 lg:pt-28">
             {{-- Colonne texte --}}
             <div class="motion-safe:animate-fade-up">
                 <div class="flex items-center gap-3">
                     <span class="eyebrow">{{ __('home.hero_eyebrow') }}</span>
                 </div>
 
-                <h1 class="mt-7 max-w-3xl font-display text-5xl font-bold leading-[1.02] tracking-[-0.045em] text-ink-900 dark:text-ink-50 sm:text-6xl lg:text-[4.25rem]">
+                <h1 class="studio-home-title mt-7 max-w-3xl font-display text-5xl font-bold leading-[1.02] tracking-[-0.045em] text-ink-900 dark:text-ink-50 sm:text-6xl lg:text-[4.25rem]">
                     {{ __('home.tagline') }}
                 </h1>
 
-                <p class="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">
+                <p class="studio-home-intro mt-7 max-w-xl text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">
                     {{ __('home.intro') }}
                 </p>
 
@@ -41,7 +41,7 @@
                     </x-front.arrow-link>
                 </div>
 
-                <dl class="mt-14 grid max-w-xl grid-cols-2 gap-8 border-t border-ink-300 pt-6 dark:border-ink-700">
+                <dl class="studio-home-proof mt-14 grid max-w-xl grid-cols-2 gap-8 border-t border-ink-300 pt-6 dark:border-ink-700">
                     <div>
                         <dt class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-ink-500 dark:text-ink-400">{{ __('home.stats_projects') }}</dt>
                         <dd class="mt-1.5 font-display text-3xl font-medium tabular-nums text-ink-900 dark:text-ink-50">{{ $this->projectCount }}</dd>
@@ -58,11 +58,11 @@
             </div>
 
             {{-- Portrait --}}
-            <div class="relative mx-auto w-full max-w-sm motion-safe:animate-fade-up [animation-delay:160ms] lg:max-w-none">
+            <div class="studio-home-portrait relative mx-auto w-full max-w-sm motion-safe:animate-fade-up [animation-delay:160ms] lg:max-w-none">
                 <div class="pointer-events-none absolute -inset-4 rounded-[2.25rem] border border-blue-500/15" aria-hidden="true"></div>
                 <div class="pointer-events-none absolute -right-8 top-14 size-32 rounded-full bg-blue-500/20 blur-3xl" aria-hidden="true"></div>
 
-                <figure class="group relative isolate aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-ink-300 bg-ink-900 shadow-2xl shadow-blue-950/20 dark:border-ink-700">
+                <figure class="studio-home-portrait-frame group relative isolate aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-ink-300 bg-ink-900 shadow-2xl shadow-blue-950/20 dark:border-ink-700">
                     <img
                         src="{{ asset('images/portrait.png') }}"
                         alt="{{ __('home.portrait_alt') }}"
@@ -94,7 +94,7 @@
         </div>
     </section>
 
-    <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section class="studio-services-section mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <x-front.section-heading
             :label="__('home.services.label')"
             :title="__('home.services.title')"
@@ -130,7 +130,7 @@
         </ol>
     </section>
 
-    <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section class="studio-method-section mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <x-front.section-heading
             :label="__('home.method.label')"
             :title="__('home.method.title')"
@@ -138,7 +138,7 @@
             align="center"
         />
 
-        <ol class="grid gap-px overflow-hidden rounded-2xl border border-ink-300 bg-ink-300/80 sm:grid-cols-2 lg:grid-cols-4 dark:border-ink-700 dark:bg-ink-700/60">
+        <ol class="studio-method-grid grid gap-px overflow-hidden rounded-2xl border border-ink-300 bg-ink-300/80 sm:grid-cols-2 lg:grid-cols-4 dark:border-ink-700 dark:bg-ink-700/60">
             @foreach ([
                 [__('home.method.step1'), __('home.method.step1_text')],
                 [__('home.method.step2'), __('home.method.step2_text')],
@@ -153,7 +153,7 @@
         </ol>
     </section>
 
-    <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section class="studio-engagement-section mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <x-front.section-heading
             :label="__('home.engagement.label')"
             :title="__('home.engagement.title')"
@@ -175,7 +175,7 @@
     </section>
 
     @if ($this->featuredProjects->isNotEmpty())
-        <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <section class="studio-projects-section mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <x-front.section-heading
                 :label="__('home.portfolio.label')"
                 :title="__('home.portfolio.title')"
@@ -184,7 +184,7 @@
                 :actionLabel="__('common.see_all')"
             />
 
-            <div class="grid gap-6 md:grid-cols-3">
+            <div class="studio-home-project-grid grid gap-6 md:grid-cols-3">
                 @foreach ($this->featuredProjects as $project)
                     <a href="{{ localized_route('projects.show', $project->slug) }}" wire:navigate
                        class="group flex flex-col overflow-hidden rounded-xl border border-ink-300 bg-card transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/70 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/50">
@@ -240,7 +240,7 @@
     @endif
 
     @if ($this->topSkills->isNotEmpty())
-        <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <section class="studio-skills-section mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <x-front.section-heading
                 :label="__('home.expertise.label')"
                 :title="__('home.expertise.title')"
@@ -269,7 +269,7 @@
     @endif
 
     @if ($this->stackHighlights->isNotEmpty())
-        <section class="border-y border-ink-300 bg-blue-50/60 dark:border-ink-700 dark:bg-surface">
+        <section class="studio-stack-section border-y border-ink-300 bg-blue-50/60 dark:border-ink-700 dark:bg-surface">
             <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
                 <x-front.section-heading
                     :label="__('home.stack.label')"
@@ -322,7 +322,7 @@
         </section>
     @endif
 
-    <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section class="studio-cta-section mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="relative overflow-hidden rounded-3xl bg-blue-600 px-8 py-14 text-center shadow-lifted sm:px-14 sm:py-20">
             <div class="pointer-events-none absolute inset-0 bg-grid opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)] dark:opacity-25" aria-hidden="true"></div>
 
