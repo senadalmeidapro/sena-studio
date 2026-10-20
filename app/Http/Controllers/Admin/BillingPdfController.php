@@ -15,6 +15,11 @@ class BillingPdfController
     public function quote(Request $request, Engagement $engagement, BillingIssuer $issuer, MoneyFormatter $money): Response
     {
         $this->authorizeAdmin($request);
+
+        if (app()->isProduction() && $engagement->amount === null) {
+            return response('Quote PDF generation is unavailable. Enter the agreed amount first.', 422);
+        }
+
         if (app()->isProduction() && $issuer->missing() !== []) {
             return response('PDF generation is unavailable. Configure these billing issuer values first: '.implode(', ', $issuer->missing()).'.', 503);
         }
@@ -42,6 +47,11 @@ class BillingPdfController
     public function invoice(Request $request, Invoice $invoice, BillingIssuer $issuer, MoneyFormatter $money): Response
     {
         $this->authorizeAdmin($request);
+
+        if (app()->isProduction() && (! $invoice->issued_at || ! $invoice->due_at)) {
+            return response('Invoice PDF generation is unavailable. Set the issue and due dates first.', 422);
+        }
+
         if (app()->isProduction() && $issuer->missing() !== []) {
             return response('PDF generation is unavailable. Configure these billing issuer values first: '.implode(', ', $issuer->missing()).'.', 503);
         }

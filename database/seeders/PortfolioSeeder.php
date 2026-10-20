@@ -19,6 +19,10 @@ class PortfolioSeeder extends Seeder
 {
     public function run(): void
     {
+        if (app()->isProduction()) {
+            throw new \RuntimeException('PortfolioSeeder contains sample content and cannot run in production.');
+        }
+
         $buildIcon = fn (string $slug): string => 'https://cdn.simpleicons.org/'.$slug;
 
         $categories = [

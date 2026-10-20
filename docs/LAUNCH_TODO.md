@@ -21,7 +21,7 @@ Ce document regroupe les TODO trouvés dans le code et les vérifications néces
 - [ ] **Compétences du CV** — Garder uniquement les compétences que Sena Studio confirme maîtriser ; les niveaux autoévalués ont volontairement été omis. Emplacement : `database/seeders/PortfolioSeeder.php` (autour de la ligne 487).
 - [ ] **Langues du CV** — Vérifier les langues et les niveaux CECR avant publication. Emplacement : `database/seeders/PortfolioSeeder.php` (autour de la ligne 508).
 - [ ] **Centres d’intérêt** — Ajouter uniquement les centres d’intérêt approuvés, ou supprimer cette section si elle n’est pas souhaitée. Emplacement : `database/seeders/PortfolioSeeder.php` (autour de la ligne 515).
-- [ ] **Seeding en production** — Ne pas exécuter le seeder de portfolio en production tant que les exemples n’ont pas été remplacés ou explicitement approuvés.
+- [x] **Seeding en production** — `DatabaseSeeder` ignore les données portfolio d’exemple en production ; l’appel direct à `PortfolioSeeder` y est bloqué.
 
 ### Informations commerciales affichées sur le site
 

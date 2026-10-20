@@ -34,6 +34,12 @@ class DatabaseSeeder extends Seeder
             $user->forceFill(['is_admin' => true])->save();
         }
 
+        if (app()->isProduction()) {
+            $this->command?->warn('Portfolio sample data was skipped in production.');
+
+            return;
+        }
+
         $this->call(PortfolioSeeder::class);
     }
 }
