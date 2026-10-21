@@ -410,20 +410,6 @@
         box-shadow: 0 12px 32px rgb(15 23 42 / 0.08);
     }
 
-    [data-site-mobile-menu]:not(.hidden) {
-        animation: menu-enter 0.2s ease-out both;
-    }
-}
-
-@keyframes menu-enter {
-    from {
-        opacity: 0;
-        transform: translateY(-6px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 [data-flux-field]:not(ui-radio, ui-checkbox) {

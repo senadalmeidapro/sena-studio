@@ -1,65 +1,66 @@
-<footer class="site-footer relative z-10 border-t border-ink-300 bg-canvas dark:border-ink-700 dark:bg-canvas">
+<footer class="site-footer relative z-10">
     @php
         $cvPrimarySlug = \App\Models\Cv::primary()->value('slug');
         $cvUrl = $cvPrimarySlug ? localized_route('cv.show', $cvPrimarySlug) : null;
         $showBlog = \App\Models\Post::published()->where('locale', app()->getLocale())->count() >= 2;
     @endphp
-    <div class="footer-main mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 md:grid-cols-[1.4fr_0.8fr_0.8fr] lg:px-8">
-        <div class="footer-brand space-y-4">
-            <a href="{{ localized_route('home') }}" wire:navigate class="group inline-flex items-center gap-3">
+
+    <div class="footer-main footer-layout mx-auto grid max-w-7xl gap-12 px-4 py-16 sm:px-6 lg:px-8">
+        <div class="footer-brand">
+            <a href="{{ localized_route('home') }}" wire:navigate class="footer-wordmark group inline-flex items-center gap-3">
                 <x-logo class="size-8" />
-                <span class="font-display text-2xl font-medium tracking-tight text-ink-900 dark:text-ink-50">Sena Studio</span>
+                <span>Sena Studio</span>
             </a>
-            <p class="max-w-sm text-sm leading-relaxed text-ink-500 dark:text-ink-400">
-                {{ __('footer.tagline') }}
-            </p>
-            <p class="flex items-center gap-2 text-[0.72rem] uppercase tracking-[0.18em] text-ink-400 dark:text-ink-500">
-                <span class="size-1.5 rounded-full bg-blue-500"></span>
+            <p class="footer-tagline">{{ __('footer.tagline') }}</p>
+            <p class="footer-location">
+                <span class="footer-location-dot" aria-hidden="true"></span>
                 {{ __('footer.available') }}
             </p>
         </div>
 
-        <div class="sm:pt-2">
-            <h3 class="eyebrow mb-4">{{ __('footer.navigation') }}</h3>
-            <ul class="space-y-2.5 text-sm text-ink-500 dark:text-ink-400">
-                <li><a href="{{ localized_route('projects.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.projects') }}</a></li>
-                <li><a href="{{ localized_route('services') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.services') }}</a></li>
-                <li><a href="{{ localized_route('process') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.process') }}</a></li>
-                <li><a href="{{ localized_route('skills.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.skills') }}</a></li>
-                <li><a href="{{ localized_route('about') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.about') }}</a></li>
+        <nav class="footer-navigation" aria-label="{{ __('footer.navigation') }}">
+            <h2 class="footer-heading">{{ __('footer.navigation') }}</h2>
+            <ul class="footer-link-list">
+                <li><a href="{{ localized_route('projects.index') }}" wire:navigate>{{ __('nav.projects') }}</a></li>
+                <li><a href="{{ localized_route('services') }}" wire:navigate>{{ __('nav.services') }}</a></li>
+                <li><a href="{{ localized_route('process') }}" wire:navigate>{{ __('nav.process') }}</a></li>
+                <li><a href="{{ localized_route('skills.index') }}" wire:navigate>{{ __('nav.skills') }}</a></li>
+                <li><a href="{{ localized_route('about') }}" wire:navigate>{{ __('nav.about') }}</a></li>
                 @if ($showBlog)
-                    <li><a href="{{ localized_route('posts.index') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.blog') }}</a></li>
+                    <li><a href="{{ localized_route('posts.index') }}" wire:navigate>{{ __('nav.blog') }}</a></li>
                 @endif
                 <li>
-                    <a href="{{ $cvUrl ?: '#' }}" wire:navigate @class(['ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300' => $cvUrl, 'pointer-events-none opacity-40' => ! $cvUrl])>{{ __('nav.cv') }}</a>
+                    @if ($cvUrl)
+                        <a href="{{ $cvUrl }}" wire:navigate>{{ __('nav.cv') }}</a>
+                    @else
+                        <span class="footer-link-unavailable">{{ __('nav.cv') }}</span>
+                    @endif
                 </li>
-                <li><a href="{{ localized_route('contact') }}" wire:navigate class="ink-link transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('nav.contact') }}</a></li>
+                <li><a href="{{ localized_route('contact') }}" wire:navigate>{{ __('nav.contact') }}</a></li>
             </ul>
-        </div>
+        </nav>
 
-        <div class="sm:pt-2">
-            <h3 class="eyebrow mb-4">{{ __('footer.availability.title') }}</h3>
-            <p class="text-sm leading-relaxed text-ink-500 dark:text-ink-400">
-                {{ __('footer.availability.text') }}
-            </p>
-            <x-front.arrow-link :href="localized_route('contact')" wire:navigate class="mt-4">
+        <section class="footer-availability" aria-labelledby="footer-availability-title">
+            <h2 class="footer-availability-title" id="footer-availability-title">{{ __('footer.availability.title') }}</h2>
+            <p class="footer-availability-copy">{{ __('footer.availability.text') }}</p>
+            <x-front.arrow-link :href="localized_route('contact')" wire:navigate class="footer-project-cta mt-5">
                 {{ __('footer.project_cta') }}
             </x-front.arrow-link>
-        </div>
+        </section>
     </div>
 
-    <div class="border-t border-ink-300 dark:border-ink-700">
-        <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-[0.7rem] uppercase tracking-[0.14em] text-ink-400 dark:text-ink-500 sm:flex-row sm:px-6 lg:px-8">
-            <p>© {{ date('Y') }} Sena Studio. {{ __('footer.rights') }}</p>
-            <p class="flex flex-wrap items-center gap-5">
-                <span>{!! __('footer.built', ['laravel' => '<span class="text-blue-600 dark:text-blue-400">Laravel</span>', 'livewire' => '<span class="text-blue-600 dark:text-blue-400">Livewire</span>']) !!}</span>
-                <a href="{{ localized_route('legal.notice') }}" wire:navigate class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('footer.legal_notice') }}</a>
-                <a href="{{ localized_route('legal.privacy') }}" wire:navigate class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('footer.privacy') }}</a>
-                <a href="{{ localized_route('data-handling') }}" wire:navigate class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('data_handling.title') }}</a>
+    <div class="footer-bottom">
+        <div class="footer-bottom-inner mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 sm:flex-row sm:px-6 lg:px-8">
+            <p class="footer-copyright">&copy; {{ date('Y') }} Sena Studio. {{ __('footer.rights') }}</p>
+            <div class="footer-meta">
+                <span class="footer-built-with">{!! __('footer.built', ['laravel' => '<span>Laravel</span>', 'livewire' => '<span>Livewire</span>']) !!}</span>
+                <a href="{{ localized_route('legal.notice') }}" wire:navigate>{{ __('footer.legal_notice') }}</a>
+                <a href="{{ localized_route('legal.privacy') }}" wire:navigate>{{ __('footer.privacy') }}</a>
+                <a href="{{ localized_route('data-handling') }}" wire:navigate>{{ __('data_handling.title') }}</a>
                 @if (filled(config('services.analytics.script')) && filled(config('services.analytics.provider')))
-                    <button type="button" data-open-privacy-preferences class="transition-colors hover:text-blue-600 dark:hover:text-blue-300">{{ __('privacy_consent.manage') }}</button>
+                    <button type="button" data-open-privacy-preferences>{{ __('privacy_consent.manage') }}</button>
                 @endif
-            </p>
+            </div>
         </div>
     </div>
 </footer>

@@ -5,6 +5,7 @@ const closeMobileMenu = ({ restoreFocus = false } = {}) => {
     if (!menu || !toggle) return;
 
     menu.classList.add('hidden');
+    menu.setAttribute('aria-hidden', 'true');
     toggle.setAttribute('aria-expanded', 'false');
 
     if (restoreFocus) toggle.focus();
@@ -24,6 +25,7 @@ document.addEventListener('click', (event) => {
     if (toggle) {
         const isOpen = toggle.getAttribute('aria-expanded') === 'true';
         menu.classList.toggle('hidden', isOpen);
+        menu.setAttribute('aria-hidden', String(isOpen));
         toggle.setAttribute('aria-expanded', String(!isOpen));
         return;
     }

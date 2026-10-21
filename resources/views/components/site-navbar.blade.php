@@ -132,61 +132,71 @@
             {{-- Mobile toggle --}}
             <button
                 type="button"
-                class="inline-flex size-10 shrink-0 items-center justify-center rounded-lg text-ink-600 transition-colors hover:bg-ink-100 lg:hidden dark:text-ink-200 dark:hover:bg-ink-800/60"
+                class="mobile-menu-toggle inline-flex size-10 shrink-0 items-center justify-center rounded-xl border border-ink-300 bg-card text-ink-700 transition-colors hover:border-blue-400 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 lg:hidden dark:border-ink-700 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300"
                 :aria-label="__('nav.menu')"
                 aria-controls="site-mobile-menu"
                 aria-expanded="false"
                 data-site-mobile-toggle
             >
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="mobile-menu-toggle-icon size-5" aria-hidden="true">
+                    <path stroke-linecap="round" d="M4 7h16" />
+                    <path stroke-linecap="round" d="M4 12h16" />
+                    <path stroke-linecap="round" d="M4 17h16" />
                 </svg>
             </button>
         </div>
     </div>
 
     {{-- Mobile menu --}}
-    <div id="site-mobile-menu" class="hidden border-t border-ink-300 bg-canvas lg:hidden dark:border-ink-700" data-site-mobile-menu>
-        <nav class="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-4">
-            @foreach ($links as $key => [$label, $url])
-                <a
-                    href="{{ $url }}"
-                    wire:navigate
-                    @class([
-                        'rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
-                        'bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' => $activeKey === $key,
-                        'text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-800/50' => $activeKey !== $key,
-                        'pointer-events-none opacity-40' => ($key === 'cv' && ! $cvUrl),
-                    ])
-                >
-                    {{ $label }}
+    <div id="site-mobile-menu" class="mobile-menu-panel hidden lg:hidden" data-site-mobile-menu aria-hidden="true">
+        <nav class="mobile-menu-inner mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="{{ __('footer.navigation') }}">
+            <div class="mobile-menu-links">
+                @foreach ($links as $key => [$label, $url])
+                    <a href="{{ $url }}" wire:navigate @class([
+                        'mobile-menu-link',
+                        'mobile-menu-link-active' => $activeKey === $key,
+                    ]) @if ($activeKey === $key) aria-current="page" @endif>
+                        <span>{{ $label }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6" />
+                        </svg>
+                    </a>
+                @endforeach
+            </div>
+
+            <div class="mobile-menu-controls">
+                <a href="{{ localized_route('contact') }}" wire:navigate class="mobile-menu-contact">
+                    <span>{{ __('nav.discuss') }}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M7 7h10v10" />
+                    </svg>
                 </a>
-            @endforeach
-            <div class="mt-2 border-t border-ink-300 pt-3 dark:border-ink-700">
-                <a href="{{ localized_route('contact') }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-blue-600 hover:bg-blue-100 dark:text-blue-300 dark:hover:bg-blue-500/15">
-                    {{ __('nav.discuss') }} →
-                </a>
-                <div x-data="{ open: false }" class="rounded-lg border border-ink-200 dark:border-ink-700">
-                    <button type="button" @click="open = ! open" :aria-expanded="open" aria-haspopup="listbox" class="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-800/50">
-                        <span>{{ __('nav.language') }}: {{ strtoupper($locale) }}</span>
+
+                <div x-data="{ open: false }" @click.outside="open = false" @keydown.escape="open = false" class="mobile-menu-language">
+                    <button type="button" @click="open = ! open" :aria-expanded="open" aria-haspopup="listbox" class="mobile-menu-language-toggle">
+                        <span>{{ __('nav.language') }}</span>
+                        <span class="mobile-menu-language-current">{{ strtoupper($locale) }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-4 transition-transform" :class="open ? 'rotate-180' : ''" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m6.75 9 5.25 5.25L17.25 9" />
                         </svg>
                     </button>
-                    <div x-cloak x-show="open" x-transition role="listbox" class="border-t border-ink-200 p-1.5 dark:border-ink-700">
+                    <div x-cloak x-show="open" x-transition role="listbox" class="mobile-menu-language-options">
                         @foreach ($localeOptions as $code => $option)
                             <a href="{{ $option['url'] }}" wire:navigate @class([
-                                'block rounded-lg px-3 py-2 text-sm transition-colors',
-                                'bg-blue-50 font-semibold text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' => $locale === $code,
-                                'text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-ink-800/50' => $locale !== $code,
+                                'mobile-menu-language-option',
+                                'mobile-menu-language-option-active' => $locale === $code,
                             ]) role="option" aria-selected="{{ $locale === $code ? 'true' : 'false' }}">
-                                {{ strtoupper($code) }} - {{ $option['label'] }}
+                                {{ $option['label'] }}
                             </a>
                         @endforeach
                     </div>
                 </div>
+
                 @if ($cvUrl)
-                    <a href="{{ $cvUrl }}" wire:navigate class="block rounded-lg px-3 py-2.5 text-sm font-medium text-ink-500 hover:bg-ink-100 dark:text-ink-400 dark:hover:bg-ink-800/50">
+                    <a href="{{ $cvUrl }}" wire:navigate @class([
+                        'mobile-menu-cv',
+                        'mobile-menu-cv-active' => request()->routeIs('cv.show'),
+                    ]) @if (request()->routeIs('cv.show')) aria-current="page" @endif>
                         {{ __('nav.cv') }}
                     </a>
                 @endif
