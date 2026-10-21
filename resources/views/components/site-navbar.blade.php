@@ -39,7 +39,7 @@
     ];
 @endphp
 
-<header class="sticky top-0 z-40 border-b border-ink-200/90 bg-canvas/90 backdrop-blur-md dark:border-ink-800 dark:bg-canvas/90">
+<header class="site-header sticky top-0 z-40 border-b border-ink-200/90 bg-canvas/90 backdrop-blur-md dark:border-ink-800 dark:bg-canvas/90" data-site-header>
     <div class="mx-auto flex h-[4.75rem] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="{{ localized_route('home') }}" class="group flex items-center gap-2.5" wire:navigate>
             <x-logo class="size-7 transition-transform duration-300 group-hover:scale-105" />

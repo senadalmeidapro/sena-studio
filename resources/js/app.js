@@ -1,3 +1,105 @@
+const initSiteHeaderMotion = () => {
+    const header = document.querySelector('[data-site-header]');
+    const menu = document.querySelector('[data-site-mobile-menu]');
+
+    if (!header) return null;
+
+    const hideDelay = 3000;
+    const topThreshold = 72;
+    let lastScrollY = window.scrollY;
+    let hideTimer;
+    let pointerInside = false;
+
+    const hasFocus = () => header.contains(document.activeElement)
+        && !document.activeElement.closest('.hidden');
+    const menuIsOpen = () => menu && !menu.classList.contains('hidden');
+    const isHeldOpen = () => hasFocus() || pointerInside || menuIsOpen();
+    const reveal = () => header.classList.remove('site-header-hidden');
+    const clearHideTimer = () => window.clearTimeout(hideTimer);
+    const hideIfIdle = () => {
+        if (window.scrollY > topThreshold && !isHeldOpen()) {
+            header.classList.add('site-header-hidden');
+        }
+    };
+    const scheduleHide = () => {
+        clearHideTimer();
+
+        if (window.scrollY <= topThreshold || isHeldOpen()) return;
+
+        hideTimer = window.setTimeout(hideIfIdle, hideDelay);
+    };
+
+    header.addEventListener('focusin', () => {
+        clearHideTimer();
+        reveal();
+    });
+
+    header.addEventListener('focusout', () => {
+        window.setTimeout(() => {
+            if (!hasFocus()) scheduleHide();
+        }, 0);
+    });
+
+    header.addEventListener('pointerenter', (event) => {
+        if (!['mouse', 'pen'].includes(event.pointerType)) return;
+
+        pointerInside = true;
+        clearHideTimer();
+        reveal();
+    });
+
+    header.addEventListener('pointerleave', (event) => {
+        if (!['mouse', 'pen'].includes(event.pointerType)) return;
+
+        pointerInside = false;
+        scheduleHide();
+    });
+
+    window.addEventListener('scroll', () => {
+        const currentScrollY = Math.max(0, window.scrollY);
+        const scrollDelta = currentScrollY - lastScrollY;
+        lastScrollY = currentScrollY;
+
+        if (currentScrollY <= topThreshold) {
+            clearHideTimer();
+            reveal();
+            return;
+        }
+
+        if (isHeldOpen()) {
+            clearHideTimer();
+            reveal();
+            return;
+        }
+
+        if (scrollDelta > 5) {
+            clearHideTimer();
+            header.classList.add('site-header-hidden');
+        } else if (scrollDelta < -5) {
+            reveal();
+            scheduleHide();
+        }
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+        lastScrollY = window.scrollY;
+        if (lastScrollY <= topThreshold) reveal();
+    }, { passive: true });
+
+    return {
+        menuChanged(isOpen) {
+            if (isOpen) {
+                clearHideTimer();
+                reveal();
+            } else {
+                scheduleHide();
+            }
+        },
+    };
+};
+
+const siteHeaderMotion = initSiteHeaderMotion();
+
 const closeMobileMenu = ({ restoreFocus = false } = {}) => {
     const menu = document.querySelector('[data-site-mobile-menu]');
     const toggle = document.querySelector('[data-site-mobile-toggle]');
@@ -7,6 +109,7 @@ const closeMobileMenu = ({ restoreFocus = false } = {}) => {
     menu.classList.add('hidden');
     menu.setAttribute('aria-hidden', 'true');
     toggle.setAttribute('aria-expanded', 'false');
+    siteHeaderMotion?.menuChanged(false);
 
     if (restoreFocus) toggle.focus();
 };
@@ -27,6 +130,7 @@ document.addEventListener('click', (event) => {
         menu.classList.toggle('hidden', isOpen);
         menu.setAttribute('aria-hidden', String(isOpen));
         toggle.setAttribute('aria-expanded', String(!isOpen));
+        siteHeaderMotion?.menuChanged(!isOpen);
         return;
     }
 

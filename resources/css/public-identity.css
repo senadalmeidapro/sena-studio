@@ -27,6 +27,8 @@
 }
 
 .engineering-shell .nav-link-active { color: var(--ds-primary); }
+.site-header { transition: transform 280ms cubic-bezier(.2, .75, .25, 1); }
+.site-header.site-header-hidden { transform: translateY(calc(-100% - 2px)); }
 .engineering-shell header.sticky {
     border-color: color-mix(in srgb, var(--line) 70%, transparent);
     background: color-mix(in srgb, var(--canvas) 90%, transparent);
@@ -475,6 +477,7 @@
     .mobile-menu-panel { position: relative; inset: auto; width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
+    .site-header { transition: none; }
     .mobile-menu-panel:not(.hidden) { animation: none; }
     .mobile-menu-toggle *, .mobile-menu-link, .mobile-menu-link::before, .mobile-menu-link svg,
     .mobile-menu-contact, .mobile-menu-contact svg, .mobile-menu-language-option { transition-duration: .01ms !important; }
