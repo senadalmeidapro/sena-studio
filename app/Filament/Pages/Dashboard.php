@@ -7,6 +7,7 @@ use App\Filament\Widgets\ContactPipelineWidget;
 use App\Filament\Widgets\NewLeadsWidget;
 use App\Filament\Widgets\ProjectsMissingMediaWidget;
 use BackedEnum;
+use Filament\Actions\Action;
 use Filament\Pages\Dashboard as BaseDashboard;
 use Filament\Support\Icons\Heroicon;
 use UnitEnum;
@@ -20,6 +21,19 @@ class Dashboard extends BaseDashboard
     protected static UnitEnum|string|null $navigationGroup = 'Leads';
 
     protected static ?int $navigationSort = 1;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Action::make('visitWebsite')
+                ->label('Voir le site')
+                ->icon(Heroicon::OutlinedArrowTopRightOnSquare)
+                ->url(fn (): string => localized_route('home'))
+                ->openUrlInNewTab()
+                ->color('gray')
+                ->button(),
+        ];
+    }
 
     public function getWidgets(): array
     {
