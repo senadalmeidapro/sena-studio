@@ -1,4 +1,18 @@
 <footer class="site-footer relative z-10">
+    <svg class="footer-art" viewBox="0 0 560 420" fill="none" aria-hidden="true" focusable="false">
+        <path d="M34 74h112v92h102v-48h82" />
+        <path d="M560 92H418v88H320v68H198v96H82" />
+        <path d="M350 0v52h-54v66M474 180v84h-92v72h-72v84" />
+        <path class="footer-art-cyan" d="M560 330h-82v-74h-96v-76H252v-78h-88" />
+        <circle cx="146" cy="74" r="3" />
+        <circle cx="248" cy="166" r="3" />
+        <circle cx="330" cy="118" r="3" />
+        <circle cx="198" cy="344" r="3" />
+        <circle cx="382" cy="252" r="3" />
+        <circle class="footer-art-node-cyan" cx="164" cy="102" r="3.5" />
+        <circle class="footer-art-node-cyan" cx="382" cy="180" r="3.5" />
+        <circle class="footer-art-node-cyan" cx="478" cy="330" r="3.5" />
+    </svg>
     @php
         $cvPrimarySlug = \App\Models\Cv::primary()->value('slug');
         $cvUrl = $cvPrimarySlug ? localized_route('cv.show', $cvPrimarySlug) : null;
