@@ -1,7 +1,7 @@
-<div class="public-page contact-page mx-auto max-w-6xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
+<div class="public-page contact-page mx-auto">
 
     @if ($sent)
-        <div class="mx-auto max-w-2xl rounded-3xl border border-emerald-200 bg-emerald-50 p-10 text-center shadow-soft motion-safe:animate-fade-up dark:border-emerald-700/40 dark:bg-emerald-950/40">
+        <div class="contact-success">
             <div class="mx-auto flex size-12 items-center justify-center rounded-full bg-emerald-500/15">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6 text-emerald-600 dark:text-emerald-300">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
@@ -17,17 +17,29 @@
         </div>
     @else
         {{-- En-tête éditorial --}}
-        <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">
-            <div class="flex items-center gap-3">
+        <header class="contact-hero">
+            <div class="contact-hero-copy">
                 <span class="eyebrow">{{ __('contact.eyebrow') }}</span>
+                <h1 class="mt-5 font-display text-4xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-5xl">
+                    {{ __('contact.title') }}
+                </h1>
+                <p class="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">
+                    {{ __('contact.subtitle') }}
+                </p>
+                <p class="contact-availability"><span aria-hidden="true"></span>{{ __('availability.'.$availability) }}</p>
             </div>
-            <h1 class="mt-5 font-display text-4xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-5xl">
-                {{ __('contact.title') }}
-            </h1>
-            <p class="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">
-                {{ __('contact.subtitle') }}
-            </p>
-            <p class="mt-4 inline-flex rounded-full border border-blue-200 bg-blue-50 px-3 py-1.5 text-sm font-medium text-blue-800 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-200">{{ __('availability.'.$availability) }}</p>
+            <figure class="contact-hero-art" aria-hidden="true">
+                <svg viewBox="0 0 420 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="contact-art-route" d="M18 226h89l37-37h64l30-30h70l32-32h62" />
+                    <path class="contact-art-route contact-art-route--fine" d="M17 250h99l32-32h73l31-31h70l30-30h79" />
+                    <rect class="contact-art-sheet" x="113" y="31" width="194" height="177" rx="3" />
+                    <path class="contact-art-fold" d="M266 31v43h41" />
+                    <path class="contact-art-line" d="M145 97h96M145 118h130M145 139h106M145 160h69" />
+                    <path class="contact-art-mark" d="m238 176 14 14 28-31" />
+                    <circle class="contact-art-node" cx="342" cy="127" r="6" />
+                    <circle class="contact-art-node" cx="145" cy="189" r="4" />
+                </svg>
+            </figure>
         </header>
 
         <div class="contact-layout mt-12 grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
@@ -40,7 +52,7 @@
                     {{ __('contact.aside_text') }}
                 </p>
 
-                <dl class="mt-10 space-y-6 border-t border-ink-300 pt-8 dark:border-ink-700">
+                <dl class="mt-10 border-t border-ink-300 pt-8 dark:border-ink-700">
                     <div class="grid grid-cols-[auto_1fr] gap-4">
                         <dt class="pt-0.5 text-blue-600 dark:text-blue-400">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-5">
@@ -75,7 +87,7 @@
                         </a>
                     @endif
                     <p class="eyebrow">{{ __('contact.process_eyebrow') }}</p>
-                    <ol class="mt-5 space-y-5">
+                    <ol class="mt-5">
                         @foreach (['discussion', 'clarification', 'next_step'] as $index => $step)
                             <li class="flex gap-4">
                                 <span class="font-mono text-xs font-semibold text-blue-600 dark:text-blue-300">0{{ $index + 1 }}</span>
@@ -96,8 +108,8 @@
                 $label = 'text-sm font-medium text-ink-700 dark:text-ink-200';
             @endphp
 
-            <form wire:submit="submit" wire:loading.attr="aria-busy" wire:target="submit" class="motion-safe:animate-fade-up [animation-delay:120ms]">
-                <div class="mb-6">
+            <form wire:submit="submit" wire:loading.attr="aria-busy" wire:target="submit" class="contact-brief">
+                <div class="contact-brief-head">
                     <span class="eyebrow">{{ __('contact.form_eyebrow') }}</span>
                 </div>
 

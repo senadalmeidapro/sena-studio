@@ -1,4 +1,4 @@
-<div class="public-page blog-index-page mx-auto max-w-7xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
+<div class="public-page blog-index-page mx-auto">
 
     {{-- En-tête éditorial --}}
     <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">

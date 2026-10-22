@@ -292,6 +292,10 @@
     "about.proof_title": "Des décisions d’ingénierie visibles dans les projets.",
     "about.proof_text": "Ces exemples montrent comment le cadrage métier se traduit en architecture, règles explicites et résultats décrits dans les études de cas.",
     "about.testimonials_eyebrow": "Ils m'ont fait confiance",
+    "about.portrait_alt": "Portrait de l’ingénieure logicielle derrière Sena Studio",
+    "about.portrait_caption": "Ingénieure logicielle indépendante · Cotonou, Bénin",
+    "about.testimonials_title": "Ce qu’en disent mes collaborateurs",
+    "services.art_caption": "Des systèmes connectés",
 
     "blog.index_eyebrow": "Journal",
     "blog.index_title": "Blog",

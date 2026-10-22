@@ -292,6 +292,10 @@
     "about.proof_title": "Engineering decisions made visible in real projects.",
     "about.proof_text": "These examples show how business discovery becomes architecture, explicit rules and outcomes documented in the case studies.",
     "about.testimonials_eyebrow": "They trusted me",
+    "about.portrait_alt": "Portrait of the software engineer behind Sena Studio",
+    "about.portrait_caption": "Independent software engineer · Cotonou, Benin",
+    "about.testimonials_title": "What collaborators say",
+    "services.art_caption": "Systems, connected",
 
     "blog.index_eyebrow": "Journal",
     "blog.index_title": "Blog",

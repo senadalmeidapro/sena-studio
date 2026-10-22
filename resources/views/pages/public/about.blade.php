@@ -1,28 +1,49 @@
-<div class="public-page about-page mx-auto max-w-6xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
-
-    {{-- En-tête --}}
-    <header class="border-b border-ink-300 pb-10 motion-safe:animate-fade-up dark:border-ink-700">
-        <div class="flex items-center gap-3">
+<div class="public-page about-page mx-auto">
+    <header class="about-hero">
+        <div class="about-hero-copy">
             <span class="eyebrow">{{ __('about.eyebrow') }}</span>
+            <h1 class="mt-5 font-display text-4xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-6xl">{{ __('about.title') }}</h1>
+            <p class="about-hero-summary text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">{{ __('about.subtitle') }}</p>
         </div>
-        <h1 class="mt-5 font-display text-4xl font-medium tracking-tight text-ink-900 dark:text-ink-50 sm:text-5xl">
-            {{ __('about.title') }}
-        </h1>
-        <p class="mt-4 max-w-2xl text-pretty text-lg leading-relaxed text-ink-600 dark:text-ink-300">
-            {{ __('about.subtitle') }}
-        </p>
+
+        <figure class="about-portrait">
+            <div class="about-portrait-art" aria-hidden="true">
+                <svg viewBox="0 0 420 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M377 12C319 79 283 126 254 195C218 281 180 334 111 399C78 431 50 464 28 508" />
+                    <path d="M413 52C352 116 317 165 288 232C250 318 209 370 139 435" />
+                    <circle cx="255" cy="194" r="5" />
+                    <circle cx="110" cy="400" r="3" />
+                </svg>
+            </div>
+            <img src="{{ asset('images/portrait1.jpeg') }}" alt="{{ __('about.portrait_alt') }}" loading="eager" fetchpriority="high">
+            <figcaption>
+                <span>{{ config('app.name') }}</span>
+                <span>{{ __('about.portrait_caption') }}</span>
+            </figcaption>
+        </figure>
     </header>
 
-    <div class="about-overview mt-14 grid gap-16 lg:grid-cols-[1.1fr_0.9fr]">
-        {{-- Récit --}}
-        <div class="about-story prose-blog motion-safe:animate-fade-up">
+    <dl class="about-statline" aria-label="{{ __('about.stats_eyebrow') }}">
+        @foreach ([
+            ['value' => $this->stats['projects'], 'label' => __('about.stats_projects')],
+            ['value' => $this->stats['skills'], 'label' => __('about.stats_skills')],
+            ['value' => $this->stats['testimonials'], 'label' => __('about.stats_reviews')],
+        ] as $stat)
+            <div>
+                <dt>{{ $stat['label'] }}</dt>
+                <dd>{{ $stat['value'] }}</dd>
+            </div>
+        @endforeach
+    </dl>
+
+    <div class="about-story-grid">
+        <article class="about-story prose-blog">
             <h2>{{ __('about.narrative_h2') }}</h2>
-            <p>
-                {{ __('about.narrative_p1') }}
-            </p>
-            <p>
-                {{ __('about.narrative_p2') }}
-            </p>
+            <p>{{ __('about.narrative_p1') }}</p>
+            <p>{{ __('about.narrative_p2') }}</p>
+        </article>
+
+        <aside class="about-work">
             <h2>{{ __('about.work_h2') }}</h2>
             <ul>
                 <li>{!! __('about.work_1') !!}</li>
@@ -30,110 +51,82 @@
                 <li>{{ __('about.work_3') }}</li>
                 <li>{{ __('about.work_4') }}</li>
             </ul>
-            <blockquote>
-                {{ __('about.quote') }}
-            </blockquote>
-        </div>
-
-        {{-- Chiffres --}}
-        <aside class="grid content-start gap-6 motion-safe:animate-fade-up [animation-delay:120ms]">
-            <div class="rounded-2xl border border-ink-300 bg-card p-8 shadow-soft dark:border-ink-700">
-                <p class="eyebrow">{{ __('about.stats_eyebrow') }}</p>
-                <dl class="mt-6 grid grid-cols-3 gap-6">
-                    @foreach ([
-                        ['value' => $this->stats['projects'], 'label' => __('about.stats_projects')],
-                        ['value' => $this->stats['skills'], 'label' => __('about.stats_skills')],
-                        ['value' => $this->stats['testimonials'], 'label' => __('about.stats_reviews')],
-                    ] as $stat)
-                        <div>
-                            <dd class="font-display text-3xl font-medium tabular-nums text-ink-900 dark:text-ink-50">{{ $stat['value'] }}</dd>
-                            <dt class="mt-1 font-mono text-[0.64rem] uppercase tracking-[0.14em] text-ink-500 dark:text-ink-400">{{ $stat['label'] }}</dt>
-                        </div>
-                    @endforeach
-                </dl>
-            </div>
-
-            <div class="rounded-2xl border border-ink-300 bg-blue-50/50 p-8 shadow-soft dark:border-ink-700 dark:bg-blue-950/20">
-                <p class="eyebrow">{{ __('about.availability_eyebrow') }}</p>
-                <p class="mt-4 text-pretty leading-relaxed text-ink-600 dark:text-ink-300">
-                    {{ __('about.availability_text') }}
-                </p>
-                <x-front.arrow-link :href="localized_route('contact')" wire:navigate class="mt-5">
-                    {{ __('common.start_project') }}
-                </x-front.arrow-link>
-            </div>
+            <blockquote>{{ __('about.quote') }}</blockquote>
         </aside>
     </div>
 
-    {{-- Principes d'ingénierie --}}
+    <aside class="about-availability">
+        <div>
+            <p class="eyebrow">{{ __('about.availability_eyebrow') }}</p>
+            <p class="about-availability-text">{{ __('about.availability_text') }}</p>
+        </div>
+        <x-front.arrow-link :href="localized_route('contact')" wire:navigate>
+            {{ __('common.start_project') }}
+        </x-front.arrow-link>
+    </aside>
+
     @if ($this->proofProjects->isNotEmpty())
-        <section class="about-proof mt-16 rounded-3xl border border-ink-300 bg-gradient-to-br from-blue-50/80 via-card to-card p-6 dark:border-ink-700 dark:from-blue-950/30 dark:via-card dark:to-card sm:p-9">
-            <div class="grid gap-7 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+        <section class="about-proof" aria-labelledby="about-proof-title">
+            <header class="about-section-heading">
                 <div>
                     <p class="eyebrow">{{ __('about.proof_eyebrow') }}</p>
-                    <h2 class="mt-3 font-display text-2xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('about.proof_title') }}</h2>
-                    <p class="mt-3 text-sm leading-relaxed text-ink-600 dark:text-ink-300">{{ __('about.proof_text') }}</p>
+                    <h2 id="about-proof-title">{{ __('about.proof_title') }}</h2>
                 </div>
-                <div class="about-proof-list grid gap-3 sm:grid-cols-2">
-                    @foreach ($this->proofProjects as $proof)
-                        <a href="{{ localized_route('projects.show', $proof->slug) }}" wire:navigate class="group rounded-2xl border border-ink-200 bg-card/80 p-5 transition-all hover:-translate-y-0.5 hover:border-blue-400/70 hover:shadow-card dark:border-ink-700 dark:bg-elevated/70">
-                            <span class="font-mono text-[0.65rem] uppercase tracking-[0.12em] text-blue-700 dark:text-blue-300">{{ $proof->role ?: $proof->type->label() }}</span>
-                            <h3 class="mt-2 font-display text-lg font-semibold text-ink-900 transition-colors group-hover:text-blue-700 dark:text-ink-50 dark:group-hover:text-blue-300">{{ $proof->name }}</h3>
-                            <p class="mt-2 line-clamp-3 text-sm leading-relaxed text-ink-600 dark:text-ink-300">{{ $proof->problem }}</p>
-                            @if ($proof->result)
-                                <p class="mt-4 border-t border-ink-200 pt-3 text-sm leading-relaxed text-ink-600 dark:border-ink-700 dark:text-ink-300">{{ $proof->result }}</p>
-                            @endif
-                        </a>
-                    @endforeach
-                </div>
+                <p>{{ __('about.proof_text') }}</p>
+            </header>
+
+            <div class="about-proof-list">
+                @foreach ($this->proofProjects as $proof)
+                    <a href="{{ localized_route('projects.show', $proof->slug) }}" wire:navigate>
+                        <span class="about-proof-role">{{ $proof->role ?: $proof->type->label() }}</span>
+                        <h3>{{ $proof->name }}</h3>
+                        <p>{{ $proof->problem }}</p>
+                        @if ($proof->result)
+                            <p class="about-proof-result">{{ $proof->result }}</p>
+                        @endif
+                    </a>
+                @endforeach
             </div>
         </section>
     @endif
 
-    <section class="about-principles mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">
-        <div class="max-w-2xl">
-            <p class="eyebrow">{{ __('about.principles_eyebrow') }}</p>
-            <h2 class="mt-4 font-display text-3xl font-bold tracking-[-0.035em] text-ink-900 dark:text-ink-50 sm:text-4xl">
-                {{ __('about.principles_title') }}
-            </h2>
-        </div>
+    <section class="about-principles" aria-labelledby="about-principles-title">
+        <header class="about-section-heading">
+            <div>
+                <p class="eyebrow">{{ __('about.principles_eyebrow') }}</p>
+                <h2 id="about-principles-title">{{ __('about.principles_title') }}</h2>
+            </div>
+        </header>
 
-        <ol class="mt-8 grid gap-px overflow-hidden rounded-xl border border-ink-300 bg-ink-300/80 sm:grid-cols-2 dark:border-ink-700 dark:bg-ink-700/60">
+        <ol class="about-principles-list">
             @foreach (range(1, 4) as $number)
-                <li class="bg-card p-6 transition-colors hover:bg-blue-50/60 dark:hover:bg-blue-950/20">
-                    <span class="block size-2 rounded-full bg-blue-500"></span>
-                    <h3 class="mt-5 font-display text-lg font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('about.principle_'.$number) }}</h3>
-                    <p class="mt-2 text-sm leading-relaxed text-ink-500 dark:text-ink-400">{{ __('about.principle_'.$number.'_text') }}</p>
+                <li>
+                    <span aria-hidden="true">{{ str_pad((string) $number, 2, '0', STR_PAD_LEFT) }}</span>
+                    <h3>{{ __('about.principle_'.$number) }}</h3>
+                    <p>{{ __('about.principle_'.$number.'_text') }}</p>
                 </li>
             @endforeach
         </ol>
     </section>
 
-    {{-- Témoignages --}}
     @if ($this->testimonials->isNotEmpty())
-        <section class="about-testimonials mt-20 border-t border-ink-300 pt-14 dark:border-ink-700">
-            <div>
-                <h2 class="eyebrow">{{ __('about.testimonials_eyebrow') }}</h2>
-            </div>
+        <section class="about-testimonials" aria-labelledby="about-testimonials-title">
+            <header class="about-section-heading">
+                <div>
+                    <p class="eyebrow">{{ __('about.testimonials_eyebrow') }}</p>
+                    <h2 id="about-testimonials-title">{{ __('about.testimonials_title') }}</h2>
+                </div>
+            </header>
 
-            <div class="mt-8 grid gap-6 md:grid-cols-3">
+            <div class="about-testimonial-grid">
                 @foreach ($this->testimonials as $testimonial)
-                    <figure class="flex flex-col rounded-2xl border border-ink-300 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-card dark:border-ink-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 text-blue-600 dark:text-blue-400">
-                            <path fill-rule="evenodd" d="M4.804 21.644A6.707 6.707 0 0 0 6 21.75a6.721 6.721 0 0 0 3.583-1.029c.774.182 1.584.279 2.417.279 5.322 0 9.75-3.97 9.75-9 0-5.03-4.428-9-9.75-9s-9.75 3.97-9.75 9c0 3.01 1.693 5.192 4.554 6.15.163 1.363.947 2.353 2.081 2.904Z" clip-rule="evenodd" />
-                        </svg>
-                        <blockquote class="mt-4 flex-1 text-sm leading-relaxed text-ink-600 dark:text-ink-300">
-                            {{ $testimonial->content }}
-                        </blockquote>
-                        <figcaption class="mt-5 flex items-center gap-3 border-t border-ink-200 pt-4 dark:border-ink-700/70">
-                            <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-blue-600 font-display text-sm font-semibold text-white dark:bg-blue-500 dark:text-blue-950">
-                                {{ mb_substr($testimonial->name, 0, 1) }}
-                            </span>
+                    <figure>
+                        <blockquote>{{ $testimonial->content }}</blockquote>
+                        <figcaption>
+                            <span class="about-testimonial-mark" aria-hidden="true">{{ mb_substr($testimonial->name, 0, 1) }}</span>
                             <span>
-                                <span class="block text-sm font-medium text-ink-900 dark:text-ink-50">{{ $testimonial->name }}</span>
-                                <span class="block font-mono text-[0.66rem] uppercase tracking-[0.1em] text-ink-500 dark:text-ink-400">
-                                    {{ collect([$testimonial->role, $testimonial->company])->filter()->implode(' · ') }}
-                                </span>
+                                <span class="about-testimonial-name">{{ $testimonial->name }}</span>
+                                <span class="about-testimonial-role">{{ collect([$testimonial->role, $testimonial->company])->filter()->implode(' · ') }}</span>
                             </span>
                         </figcaption>
                     </figure>

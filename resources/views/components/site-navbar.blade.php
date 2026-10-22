@@ -64,7 +64,7 @@
         </nav>
 
         <div class="flex items-center gap-3">
-            <a href="{{ localized_route('contact') }}" wire:navigate class="group hidden items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-white shadow-soft transition-all duration-200 hover:-translate-y-px hover:bg-blue-700 lg:inline-flex dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
+            <a href="{{ localized_route('contact') }}" wire:navigate class="group hidden items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-[0.8rem] font-semibold text-white shadow-soft transition-all duration-200 hover:-translate-y-px hover:bg-blue-700 lg:inline-flex dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
                 {{ __('nav.discuss') }}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />

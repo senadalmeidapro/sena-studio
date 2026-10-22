@@ -1,4 +1,4 @@
-<div class="public-page cv-page mx-auto max-w-6xl px-4 pb-24 pt-10 sm:px-6 lg:px-8">
+<div class="public-page cv-page mx-auto">
     <nav class="cv-actions mb-6 flex items-center justify-between gap-4" aria-label="CV actions">
         <a href="{{ localized_route('home') }}" wire:navigate class="text-sm text-ink-500 transition-colors hover:text-blue-600 dark:text-ink-400 dark:hover:text-blue-300">
             {{ __('common.back_site') }}

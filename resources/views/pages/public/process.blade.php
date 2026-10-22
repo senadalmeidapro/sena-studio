@@ -7,7 +7,7 @@
     ];
 @endphp
 
-<div class="public-page process-page mx-auto max-w-5xl px-4 pb-24 pt-14 sm:px-6 lg:px-8 lg:pt-20">
+<div class="public-page process-page mx-auto">
     <header class="process-intro">
         <div class="process-intro-heading">
             <span class="eyebrow">{{ __('process.eyebrow') }}</span>
