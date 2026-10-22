@@ -14,7 +14,7 @@ class SkillFactory extends Factory
         return [
             'name' => ucfirst($this->faker->unique()->word()),
             'description' => $this->faker->optional()->sentence(),
-            'category' => $this->faker->randomElement(['backend', 'frontend', 'database', 'devops', 'tools']),
+            'category' => $this->faker->randomElement(['language', 'runtime', 'orm', 'tools', 'frontend', 'backend', 'database', 'devops']),
             'is_active' => true,
             'icon' => $this->faker->randomElement(['🐘', '⚡', '🎨', '🗄️', '☁️', '🧪', '🛠️', '🌿', '🔷', '🚀']),
         ];

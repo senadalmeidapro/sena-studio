@@ -239,66 +239,37 @@
         </section>
     @endif
 
-    @if ($this->topSkills->isNotEmpty())
-        <section class="studio-skills-section mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <x-front.section-heading
-                :label="__('home.expertise.label')"
-                :title="__('home.expertise.title')"
-                :subtitle="__('home.expertise.subtitle')"
-                :actionHref="localized_route('skills.index')"
-                :actionLabel="__('home.expertise.action')"
-            />
-
-            <ul class="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
-                @foreach ($this->topSkills as $skill)
-                    <li class="rounded-xl border border-ink-300 bg-card transition-colors hover:border-blue-400/70 dark:border-ink-700 dark:hover:border-blue-500/50">
-                        <a href="{{ skill_url($skill->name) }}"
-                           class="group flex h-full min-h-28 flex-col justify-between gap-4 rounded-xl p-4 transition-colors hover:bg-blue-50/50 dark:hover:bg-blue-950/20">
-                            <span class="flex items-start gap-3">
-                                @if ($skill->icon)
-                                    <x-site-icon :icon="$skill->icon" class="size-5 text-ink-400 transition-colors group-hover:text-blue-600 dark:text-ink-500 dark:group-hover:text-blue-400" />
-                                @endif
-                                <span class="font-display text-base font-medium tracking-tight text-ink-900 transition-colors group-hover:text-blue-700 dark:text-ink-50 dark:group-hover:text-blue-300">{{ $skill->name }}</span>
-                            </span>
-                            <span class="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-ink-500 dark:text-ink-400">{{ $skill->category }}</span>
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-        </section>
-    @endif
-
     @if ($this->stackHighlights->isNotEmpty())
-        <section class="studio-stack-section border-y border-ink-300 bg-blue-50/60 dark:border-ink-700 dark:bg-surface">
-            <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-                <x-front.section-heading
-                    :label="__('home.stack.label')"
-                    :title="__('home.stack.title')"
-                    :subtitle="__('home.stack.subtitle')"
-                    align="center"
-                />
-            </div>
+        <section class="studio-capabilities-section mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8" aria-labelledby="home-expertise-title">
+            <div class="studio-capabilities-layout">
+                <header class="studio-capabilities-intro">
+                    <p class="studio-capabilities-label">{{ __('home.expertise.label') }}</p>
+                    <h2 id="home-expertise-title">{{ __('home.expertise.title') }}</h2>
+                    <p class="studio-capabilities-summary">{{ __('home.expertise.subtitle') }}</p>
+                    <x-front.arrow-link :href="localized_route('skills.index')" wire:navigate class="studio-capabilities-link">
+                        {{ __('home.expertise.action') }}
+                    </x-front.arrow-link>
+                </header>
 
-            <div class="mx-auto flex max-w-7xl flex-col items-center gap-3 px-4 py-6 sm:px-6 lg:flex-row lg:justify-center lg:gap-5 lg:px-8">
-                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="studio-capability-groups">
                     @foreach ($this->stackHighlights as $category => $items)
-                        <div>
-                            <h3 class="mb-4 font-mono text-[0.68rem] uppercase tracking-[0.2em] text-blue-600 dark:text-blue-300">{{ __('skills.role_'.$category) }}</h3>
-                            <div class="flex flex-wrap gap-2">
+                        <section class="studio-capability-row" aria-labelledby="capability-{{ $category }}">
+                            <h3 id="capability-{{ $category }}">{{ __('skills.role_'.$category) }}</h3>
+                            <ul>
                                 @foreach ($items->take(3) as $item)
-                                    <a href="{{ skill_url($item->name) }}" class="inline-flex items-center gap-1.5 rounded-md bg-card px-2.5 py-1 font-mono text-[0.7rem] uppercase tracking-[0.08em] text-ink-700 shadow-soft transition-colors hover:text-blue-700 dark:text-ink-200 dark:hover:text-blue-300">
-                                        @if ($item->icon) <x-site-icon :icon="$item->icon" class="size-3.5" /> @endif
-                                        {{ $item->name }}
-                                    </a>
+                                    <li>
+                                        <a href="{{ skill_url($item->name) }}">
+                                            @if ($item->icon)
+                                                <x-site-icon :icon="$item->icon" aria-hidden="true" />
+                                            @endif
+                                            <span>{{ $item->name }}</span>
+                                        </a>
+                                    </li>
                                 @endforeach
-                            </div>
-                        </div>
+                            </ul>
+                        </section>
                     @endforeach
                 </div>
-
-                <x-front.arrow-link :href="localized_route('skills.index')" wire:navigate class="shrink-0">
-                    {{ __('home.stack.explore') }}
-                </x-front.arrow-link>
             </div>
         </section>
     @endif

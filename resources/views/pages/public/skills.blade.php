@@ -41,7 +41,7 @@
 
                 <div class="skills-group-grid grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($skills as $skill)
-                        <div id="{{ skill_anchor($skill->name) }}" class="group scroll-mt-28 flex flex-col rounded-2xl border border-ink-300 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-400/60 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/40">
+                        <div id="{{ skill_anchor($skill->name) }}" class="group scroll-mt-28 flex flex-col rounded-2xl border border-ink-300 bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-blue-300/30 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-400/15">
                             <div class="flex items-start justify-between gap-3">
                                 <div class="flex items-start gap-3">
                                     @if ($skill->icon)

@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Skills\Schemas;
 
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -29,12 +28,6 @@ class SkillForm
 
                 TextInput::make('category')
                     ->maxLength(80),
-
-                Select::make('categories')
-                    ->relationship('categories', 'name')
-                    ->multiple()
-                    ->searchable()
-                    ->preload(),
 
                 Toggle::make('is_active')
                     ->default(true),

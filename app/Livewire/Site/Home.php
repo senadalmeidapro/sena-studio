@@ -65,18 +65,6 @@ class Home extends Component
     }
 
     #[Computed]
-    public function topSkills()
-    {
-        return Skill::query()
-            ->where('is_active', true)
-            ->orderBy('category')
-            ->orderBy('name')
-            ->get()
-            ->take(8)
-            ->values();
-    }
-
-    #[Computed]
     public function projectCount()
     {
         return Project::query()
@@ -100,7 +88,9 @@ class Home extends Component
     {
         return Skill::query()
             ->where('is_active', true)
-            ->whereIn('category', ['frontend', 'backend', 'database', 'devops'])
+            ->whereIn('category', ['language', 'runtime', 'frontend', 'backend', 'orm', 'database', 'devops', 'tools'])
+            ->orderByRaw("CASE category WHEN 'language' THEN 1  WHEN 'runtime' THEN 2  WHEN 'frontend' THEN 3  WHEN 'backend' THEN 4 WHEN 'orm' THEN 5  WHEN 'database' THEN 6 WHEN 'devops' THEN 7 WHEN 'tools' THEN 8 ELSE 9 END")
+            ->inRandomOrder()
             ->get()
             ->groupBy('category');
     }
