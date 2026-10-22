@@ -30,8 +30,7 @@
 .engineering-shell header.sticky > div:first-child { height: 4.85rem; }
 .site-header-brand { gap: .7rem !important; }
 .site-header-brand span { color: var(--ds-text-primary) !important; font: 400 1.3rem 'Instrument Serif', Georgia, serif !important; letter-spacing: -.02em !important; }
-.site-header-mark,.site-footer .footer-wordmark>span:first-child { border-radius:.65rem !important; background:var(--ds-primary) !important; box-shadow:none !important; }
-.site-header-mark svg,.site-footer .footer-wordmark>span:first-child svg { color:var(--ds-text-on-primary) !important; }
+.site-header-mark { border-radius:0 !important; background:transparent !important; box-shadow:none !important; }
 .site-header [class*="bg-blue-50"] { background-color:var(--ds-primary-light) !important; }
 .site-header [class*="text-blue-"] { color:var(--ds-primary) !important; }
 .site-header [class*="border-blue-"] { border-color:var(--ds-primary) !important; }
