@@ -31,15 +31,15 @@
     isolation: isolate;
     transition: transform 280ms cubic-bezier(.2, .75, .25, 1);
 }
-.site-header::before {
-    position: absolute;
-    z-index: 0;
-    inset: 0 0 auto;
-    height: 2px;
-    background: linear-gradient(90deg, transparent 2%, var(--ds-primary) 22%, var(--ds-accent) 64%, transparent 94%);
-    content: '';
-    pointer-events: none;
-}
+/*.site-header::before {*/
+/*    position: absolute;*/
+/*    z-index: 0;*/
+/*    inset: 0 0 auto;*/
+/*    height: 2px;*/
+/*    background: linear-gradient(90deg, transparent 2%, var(--ds-primary) 22%, var(--ds-accent) 64%, transparent 94%);*/
+/*    content: '';*/
+/*    pointer-events: none;*/
+/*}*/
 .site-header::after {
     position: absolute;
     z-index: 0;
