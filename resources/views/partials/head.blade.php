@@ -56,7 +56,7 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
 <link rel="preconnect" href="https://fonts.bunny.net">
-<link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&family=jetbrains-mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+<link href="https://fonts.bunny.net/css?family=dm-sans:400,500,600,700&family=instrument-serif:400,400i&family=jetbrains-mono:400,500&display=swap" rel="stylesheet" />
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])
 @fluxAppearance
