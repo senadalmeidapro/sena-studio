@@ -64,7 +64,7 @@
         </nav>
 
         <div class="flex items-center gap-3">
-            <a href="{{ localized_route('contact') }}" wire:navigate class="group hidden items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-2 text-[0.8rem] font-semibold text-white shadow-soft transition-all duration-200 hover:-translate-y-px hover:bg-blue-700 lg:inline-flex dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
+            <a href="{{ localized_route('contact') }}" wire:navigate class="public-control group hidden items-center gap-1.5 bg-blue-600 px-4 py-2 text-[0.8rem] font-semibold text-white shadow-soft transition-all duration-200 hover:-translate-y-px hover:bg-blue-700 lg:inline-flex dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
                 {{ __('nav.discuss') }}
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.2" stroke="currentColor" class="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -73,7 +73,7 @@
 
             @if ($cvUrl)
                 <a href="{{ $cvUrl }}" wire:navigate @class([
-                    'hidden rounded-lg px-3.5 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] transition-colors 2xl:inline-flex',
+                    'public-control hidden px-3.5 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.16em] transition-colors 2xl:inline-flex',
                     'border border-blue-500 bg-blue-50 text-blue-700 dark:border-blue-500 dark:bg-blue-500/15 dark:text-blue-300' => request()->routeIs('cv.show'),
                     'border border-ink-300 text-ink-700 hover:border-blue-400 hover:text-blue-700 dark:border-ink-700 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300' => ! request()->routeIs('cv.show'),
                 ])>
@@ -83,7 +83,7 @@
 
             {{-- Switcher de langue --}}
             <div x-data="{ open: false }" @click.outside="open = false" @keydown.escape.window="open = false" class="relative hidden lg:block">
-                <button type="button" @click="open = ! open" :aria-expanded="open" aria-haspopup="listbox" aria-label="{{ __('nav.language') }}" class="inline-flex h-8 items-center gap-1.5 rounded-lg border border-ink-300/80 bg-ink-100/60 px-2.5 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-ink-600 transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-ink-700/80 dark:bg-ink-800/60 dark:text-ink-300 dark:hover:border-blue-500/60 dark:hover:text-blue-300">
+                <button type="button" @click="open = ! open" :aria-expanded="open" aria-haspopup="listbox" aria-label="{{ __('nav.language') }}" class="public-control inline-flex h-8 items-center gap-1.5 border border-ink-300/80 bg-ink-100/60 px-2.5 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-ink-600 transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-ink-700/80 dark:bg-ink-800/60 dark:text-ink-300 dark:hover:border-blue-500/60 dark:hover:text-blue-300">
                     {{ strtoupper($locale) }}
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="size-3.5 transition-transform" :class="open ? 'rotate-180' : ''" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m6.75 9 5.25 5.25L17.25 9" />
@@ -140,9 +140,9 @@
                 data-site-mobile-toggle
             >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="mobile-menu-toggle-icon size-5" aria-hidden="true">
-                    <path stroke-linecap="round" d="M4 7h16" />
-                    <path stroke-linecap="round" d="M4 12h16" />
-                    <path stroke-linecap="round" d="M4 17h16" />
+                    <path class="mobile-menu-bar mobile-menu-bar-top" stroke-linecap="round" d="M4 7h16" />
+                    <path class="mobile-menu-bar mobile-menu-bar-middle" stroke-linecap="round" d="M4 12h16" />
+                    <path class="mobile-menu-bar mobile-menu-bar-bottom" stroke-linecap="round" d="M4 17h16" />
                 </svg>
             </button>
         </div>
@@ -158,7 +158,7 @@
                         'mobile-menu-link-active' => $activeKey === $key,
                     ]) @if ($activeKey === $key) aria-current="page" @endif>
                         <span>{{ $label }}</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.55" stroke="currentColor" class="mobile-menu-link-arrow" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6" />
                         </svg>
                     </a>

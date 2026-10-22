@@ -15,7 +15,7 @@
     };
 @endphp
 
-<article class="cv-engineering" aria-labelledby="cv-name">
+<article class="cv-engineering public-panel" aria-labelledby="cv-name">
     <header class="cv-profile">
         <img
             class="cv-profile-portrait"

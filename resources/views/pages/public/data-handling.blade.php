@@ -14,5 +14,5 @@
         @endforeach
     </div>
 
-    <a href="{{ localized_route('contact') }}" wire:navigate class="mt-8 inline-flex rounded-lg bg-blue-600 px-5 py-3 font-medium text-white transition-colors hover:bg-blue-700 dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">{{ __('data_handling.contact_link') }}</a>
+    <a href="{{ localized_route('contact') }}" wire:navigate class="public-control mt-8 inline-flex bg-blue-600 px-5 py-3 font-medium text-white transition-colors hover:bg-blue-700 dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">{{ __('data_handling.contact_link') }}</a>
 </div>

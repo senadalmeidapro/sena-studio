@@ -151,7 +151,7 @@
     </section>
 
     <div class="process-actions">
-        <a href="{{ localized_route('contact') }}" wire:navigate class="process-action-primary inline-flex rounded-lg bg-blue-600 px-5 py-3 font-medium text-white transition-colors hover:bg-blue-700 dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">{{ __('common.start_project') }}</a>
-        <a href="{{ localized_route('services') }}" wire:navigate class="process-action-secondary inline-flex rounded-lg border border-ink-300 px-5 py-3 font-medium text-ink-700 transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-ink-700 dark:text-ink-200 dark:hover:text-blue-300">{{ __('nav.services') }}</a>
+        <a href="{{ localized_route('contact') }}" wire:navigate class="public-control process-action-primary inline-flex bg-blue-600 px-5 py-3 font-medium text-white transition-colors hover:bg-blue-700 dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">{{ __('common.start_project') }}</a>
+        <a href="{{ localized_route('services') }}" wire:navigate class="public-control process-action-secondary inline-flex border border-ink-300 px-5 py-3 font-medium text-ink-700 transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-ink-700 dark:text-ink-200 dark:hover:text-blue-300">{{ __('nav.services') }}</a>
     </div>
 </div>

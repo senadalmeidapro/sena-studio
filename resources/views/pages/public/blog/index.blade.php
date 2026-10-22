@@ -13,7 +13,7 @@
         </p>
     </header>
 
-    <section class="mt-10 grid gap-6 rounded-xl border border-ink-300 bg-card p-6 dark:border-ink-700 sm:grid-cols-[1.5fr_1fr] sm:items-end sm:p-8">
+    <section class="public-panel mt-10 grid gap-6 border border-ink-300 bg-card p-6 dark:border-ink-700 sm:grid-cols-[1.5fr_1fr] sm:items-end sm:p-8">
         <div>
             <p class="eyebrow">{{ __('blog.signal_title') }}</p>
             <p class="mt-3 max-w-xl text-sm leading-relaxed text-ink-600 dark:text-ink-400">{{ __('blog.signal_text') }}</p>
@@ -36,7 +36,7 @@
             <button
                 type="button"
                 wire:click="filterByCategory(null)"
-                class="rounded-lg border px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.1em] transition-colors"
+                class="public-control border px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.1em] transition-colors"
                 @class([
                     'border-blue-500 bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' => blank($category),
                     'border-ink-300 bg-card text-ink-500 hover:text-ink-800 dark:border-ink-700 dark:text-ink-400 dark:hover:text-ink-100' => filled($category),
@@ -48,7 +48,7 @@
                 <button
                     type="button"
                     wire:click="filterByCategory(@js($cat->slug))"
-                    class="rounded-lg border px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.1em] transition-colors"
+                    class="public-control border px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-[0.1em] transition-colors"
                     @class([
                         'border-blue-500 bg-blue-50 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300' => $category === $cat->slug,
                         'border-ink-300 bg-card text-ink-500 hover:text-ink-800 dark:border-ink-700 dark:text-ink-400 dark:hover:text-ink-100' => $category !== $cat->slug,
@@ -65,7 +65,7 @@
     @if ($this->posts->isNotEmpty())
         <div class="blog-grid mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             @foreach ($this->posts as $post)
-                <article class="blog-entry group flex flex-col overflow-hidden rounded-xl border border-ink-300 bg-card transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/70 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/50">
+                <article class="blog-entry public-card group flex flex-col overflow-hidden border border-ink-300 bg-card transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/70 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/50">
                     <a href="{{ localized_route('posts.show', $post->slug) }}" wire:navigate class="block">
                         <x-project-media :image="$post->cover_image" :label="$post->title" />
                     </a>
@@ -107,7 +107,7 @@
             {{ $this->posts->links() }}
         </div>
     @else
-        <div class="mt-12 rounded-2xl border border-dashed border-ink-300 p-12 text-center text-ink-500 dark:border-ink-700 dark:text-ink-400">
+        <div class="public-panel mt-12 border border-dashed border-ink-300 p-12 text-center text-ink-500 dark:border-ink-700 dark:text-ink-400">
             {{ __('blog.empty') }}
         </div>
     @endif

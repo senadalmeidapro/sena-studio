@@ -12,7 +12,7 @@
         </p>
     </header>
 
-    <section class="mt-10 grid gap-7 rounded-2xl border border-ink-200 bg-card p-6 shadow-soft dark:border-ink-700 sm:p-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-center">
+    <section class="public-panel mt-10 grid gap-7 border border-ink-200 bg-card p-6 shadow-soft dark:border-ink-700 sm:p-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:items-center">
         <div>
             <p class="eyebrow">{{ __('projects.signal_title') }}</p>
             <p class="mt-2 max-w-xl text-sm leading-relaxed text-ink-600 dark:text-ink-300">{{ __('projects.signal_text') }}</p>
@@ -34,7 +34,7 @@
     </section>
 
     {{-- Filtres --}}
-    <section class="mt-6 rounded-2xl border border-ink-200 bg-surface p-5 dark:border-ink-700 sm:p-6" aria-labelledby="project-filters-title">
+    <section class="public-panel mt-6 border border-ink-200 bg-surface p-5 dark:border-ink-700 sm:p-6" aria-labelledby="project-filters-title">
         <div class="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
             <div>
                 <h2 id="project-filters-title" class="font-display text-base font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ __('projects.filters_title') }}</h2>
@@ -50,7 +50,7 @@
                             :aria-pressed="selected === @js($key) ? 'true' : 'false'"
                             wire:loading.attr="disabled"
                             wire:target="filterBy"
-                            class="inline-flex min-h-10 cursor-pointer items-center gap-2 rounded-lg border px-3.5 py-2 text-sm font-medium transition-all hover:-translate-y-px hover:shadow-soft active:scale-[0.98] disabled:cursor-wait disabled:opacity-60"
+                            class="public-control inline-flex min-h-10 cursor-pointer items-center gap-2 border px-3.5 py-2 text-sm font-medium transition-all hover:-translate-y-px hover:shadow-soft active:scale-[0.98] disabled:cursor-wait disabled:opacity-60"
                             :class="selected === @js($key) ? 'border-blue-600 bg-blue-600 font-semibold text-white shadow-soft dark:border-blue-500 dark:bg-blue-500 dark:text-blue-950' : 'border-ink-200 bg-card text-ink-600 hover:border-blue-300 hover:bg-white hover:text-ink-900 dark:border-ink-700 dark:bg-card dark:text-ink-300 dark:hover:border-blue-500/60 dark:hover:bg-ink-800 dark:hover:text-ink-50'"
                         >
                             {{ $filter['label'] }} <span class="rounded-full bg-black/5 px-1.5 py-0.5 font-mono text-[0.65rem] tabular-nums opacity-80 dark:bg-white/10">{{ $filter['count'] }}</span>
@@ -65,7 +65,7 @@
                     {{ __('projects.filter_loading') }}
                 </span>
                 @if (filled($type) || filled($category) || filled($skill))
-                    <button type="button" wire:click="clearFilters" class="inline-flex min-h-10 cursor-pointer items-center justify-center rounded-lg px-3 text-sm font-medium text-blue-700 underline decoration-blue-300 underline-offset-4 transition-colors hover:bg-blue-50 hover:text-blue-900 dark:text-blue-300 dark:decoration-blue-700 dark:hover:bg-blue-950/40 dark:hover:text-blue-100">
+                    <button type="button" wire:click="clearFilters" class="public-control inline-flex min-h-10 cursor-pointer items-center justify-center px-3 text-sm font-medium text-blue-700 underline decoration-blue-300 underline-offset-4 transition-colors hover:bg-blue-50 hover:text-blue-900 dark:text-blue-300 dark:decoration-blue-700 dark:hover:bg-blue-950/40 dark:hover:text-blue-100">
                         {{ __('projects.reset') }}
                     </button>
                 @endif
@@ -78,7 +78,7 @@
         <div class="projects-grid mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             @foreach ($this->projects as $project)
                 <a href="{{ localized_route('projects.show', $project->slug) }}" wire:navigate
-                   class="project-tile group flex flex-col overflow-hidden rounded-xl border border-ink-300 bg-card transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/70 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/50">
+                   class="project-tile public-card group flex flex-col overflow-hidden border border-ink-300 bg-card transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/70 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/50">
                     <x-project-media :image="$project->image" :label="$project->name" />
                     <div class="flex flex-1 flex-col p-6">
                         <div class="mb-4 flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.12em]">
@@ -143,7 +143,7 @@
             {{ $this->projects->links() }}
         </div>
     @else
-        <div class="mt-12 rounded-2xl border border-dashed border-ink-300 p-12 text-center text-ink-500 dark:border-ink-700 dark:text-ink-400">
+        <div class="public-panel mt-12 border border-dashed border-ink-300 p-12 text-center text-ink-500 dark:border-ink-700 dark:text-ink-400">
             {{ __('projects.empty') }}
         </div>
     @endif

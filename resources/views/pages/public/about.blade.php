@@ -43,7 +43,7 @@
             <p>{{ __('about.narrative_p2') }}</p>
         </article>
 
-        <aside class="about-work">
+        <aside class="about-work public-card">
             <h2>{{ __('about.work_h2') }}</h2>
             <ul>
                 <li>{!! __('about.work_1') !!}</li>
@@ -120,7 +120,7 @@
 
             <div class="about-testimonial-grid">
                 @foreach ($this->testimonials as $testimonial)
-                    <figure>
+                    <figure class="public-card">
                         <blockquote>{{ $testimonial->content }}</blockquote>
                         <figcaption>
                             <span class="about-testimonial-mark" aria-hidden="true">{{ mb_substr($testimonial->name, 0, 1) }}</span>

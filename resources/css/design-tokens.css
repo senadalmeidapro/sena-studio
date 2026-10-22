@@ -43,9 +43,9 @@
     --space-page-bottom: clamp(4.5rem, 8vw, 7rem);
     --space-page-gutter: clamp(1.15rem, 5vw, 4.75rem);
     --space-content: clamp(1.25rem, 2.5vw, 2.25rem);
-    --radius-control: 0.35rem;
-    --radius-card: 0.55rem;
-    --radius-panel: 0.75rem;
+    --radius-control: 0.75rem;
+    --radius-card: 1.1rem;
+    --radius-panel: 1.35rem;
     --shadow-surface: 0 10px 30px rgb(15 23 42 / 0.06);
     --shadow-surface-hover: 0 18px 42px rgb(15 23 42 / 0.12);
     --control-height: 2.9rem;

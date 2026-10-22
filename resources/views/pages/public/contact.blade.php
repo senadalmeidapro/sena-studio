@@ -1,7 +1,7 @@
 <div class="public-page contact-page mx-auto">
 
     @if ($sent)
-        <div class="contact-success">
+        <div class="contact-success public-panel" role="status" aria-live="polite">
             <div class="mx-auto flex size-12 items-center justify-center rounded-full bg-emerald-500/15">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="size-6 text-emerald-600 dark:text-emerald-300">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
@@ -81,7 +81,7 @@
 
                 <div class="mt-10 border-t border-ink-300 pt-8 dark:border-ink-700">
                     @if (filled($bookingUrl))
-                        <a href="{{ $bookingUrl }}" target="_blank" rel="noopener noreferrer" class="mb-8 inline-flex items-center gap-2 rounded-lg border border-blue-300 bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-800 transition-colors hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-200 dark:hover:bg-blue-950/60">
+                        <a href="{{ $bookingUrl }}" target="_blank" rel="noopener noreferrer" class="public-control mb-8 inline-flex items-center gap-2 border border-blue-300 bg-blue-50 px-4 py-3 text-sm font-semibold text-blue-800 transition-colors hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-200 dark:hover:bg-blue-950/60">
                             {{ __('contact.booking_label') }}
                             <span aria-hidden="true">↗</span>
                         </a>
@@ -104,11 +104,11 @@
 
             {{-- Formulaire --}}
             @php
-                $input = 'rounded-lg border border-ink-300 bg-card px-4 py-2.5 text-ink-900 placeholder-ink-400 shadow-soft outline-none transition-all duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-ink-700 dark:text-ink-100 dark:placeholder-ink-500 dark:focus:border-blue-400 dark:focus:ring-blue-400/20';
+                $input = 'public-control border border-ink-300 bg-card px-4 py-2.5 text-ink-900 placeholder-ink-400 shadow-soft outline-none transition-all duration-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-ink-700 dark:text-ink-100 dark:placeholder-ink-500 dark:focus:border-blue-400 dark:focus:ring-blue-400/20';
                 $label = 'text-sm font-medium text-ink-700 dark:text-ink-200';
             @endphp
 
-            <form wire:submit="submit" wire:loading.attr="aria-busy" wire:target="submit" class="contact-brief">
+            <form wire:submit="submit" wire:loading.attr="aria-busy" wire:target="submit" class="contact-brief public-panel">
                 <div class="contact-brief-head">
                     <span class="eyebrow">{{ __('contact.form_eyebrow') }}</span>
                 </div>

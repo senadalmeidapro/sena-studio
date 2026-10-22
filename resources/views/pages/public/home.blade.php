@@ -29,7 +29,7 @@
 
                 <div class="mt-8 flex flex-wrap items-center gap-6">
                     <a href="{{ localized_route('projects.index') }}" wire:navigate
-                       class="group inline-flex items-center gap-2.5 rounded-xl bg-blue-600 px-6 py-3.5 font-display text-base font-medium text-white shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-lifted dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
+                       class="public-control group inline-flex items-center gap-2.5 bg-blue-600 px-6 py-3.5 font-display text-base font-medium text-white shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-lifted dark:bg-blue-500 dark:text-blue-950 dark:hover:bg-blue-400">
                         {{ __('home.cta_projects') }}
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                              class="size-4 transition-transform duration-300 group-hover:translate-x-0.5">
@@ -108,7 +108,7 @@
                 [[__('home.services.apis'), __('home.services.apis_text')], 'M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99'],
                 [[__('home.services.perf'), __('home.services.perf_text')], 'M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941'],
             ] as [[$title, $text], $icon])
-                <li class="group grid gap-3 rounded-xl border border-ink-300 bg-card p-5 transition-colors hover:border-blue-400/70 hover:bg-blue-50/50 sm:grid-cols-[3rem_1fr] sm:items-start sm:gap-4 sm:p-6 dark:border-ink-700 dark:hover:border-blue-500/50 dark:hover:bg-blue-950/20">
+                <li class="studio-service-item public-card group grid gap-3 p-5 transition-colors hover:bg-blue-50/50 sm:grid-cols-[3rem_1fr] sm:items-start sm:gap-4 sm:p-6 dark:hover:bg-blue-950/20">
                     <span class="flex size-11 items-center justify-center rounded-xl bg-ink-100 text-ink-700 transition-colors group-hover:bg-blue-500 group-hover:text-white dark:bg-ink-800 dark:text-ink-200 dark:group-hover:bg-blue-500 dark:group-hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.6" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="{{ $icon }}" />
@@ -138,7 +138,7 @@
             align="center"
         />
 
-        <ol class="studio-method-grid grid gap-px overflow-hidden rounded-2xl border border-ink-300 bg-ink-300/80 sm:grid-cols-2 lg:grid-cols-4 dark:border-ink-700 dark:bg-ink-700/60">
+        <ol class="studio-method-grid public-panel grid gap-px overflow-hidden border border-ink-300 bg-ink-300/80 sm:grid-cols-2 lg:grid-cols-4 dark:border-ink-700 dark:bg-ink-700/60">
             @foreach ([
                 [__('home.method.step1'), __('home.method.step1_text')],
                 [__('home.method.step2'), __('home.method.step2_text')],
@@ -166,7 +166,7 @@
                 [__('home.engagement.audit'), __('home.engagement.audit_text')],
                 [__('home.engagement.continuous'), __('home.engagement.continuous_text')],
             ] as [$title, $text])
-                <article class="rounded-2xl border border-ink-300 bg-card p-4 transition-colors hover:border-blue-400/60 dark:border-ink-700 dark:hover:border-blue-500/50">
+                <article class="public-card p-4 transition-colors hover:border-blue-400/60 dark:hover:border-blue-500/50">
                     <h3 class="font-display text-xl font-semibold tracking-tight text-ink-900 dark:text-ink-50">{{ $title }}</h3>
                     <p class="mt-2 text-sm leading-relaxed text-ink-600 dark:text-ink-400">{{ $text }}</p>
                 </article>
@@ -187,7 +187,7 @@
             <div class="studio-home-project-grid grid gap-4 md:grid-cols-3">
                 @foreach ($this->featuredProjects as $project)
                     <a href="{{ localized_route('projects.show', $project->slug) }}" wire:navigate
-                       class="group flex flex-col overflow-hidden rounded-xl border border-ink-300 bg-card transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/70 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/50">
+                       class="public-card group flex flex-col overflow-hidden border border-ink-300 bg-card transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/70 hover:shadow-card dark:border-ink-700 dark:hover:border-blue-500/50">
                         <x-project-media :image="$project->image" :label="$project->name" />
                         <div class="flex flex-1 flex-col p-5">
                             <div class="mb-3 flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.12em]">
@@ -275,7 +275,7 @@
     @endif
 
     <section class="studio-cta-section mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="relative overflow-hidden rounded-3xl bg-blue-600 px-8 py-8 text-center shadow-lifted sm:px-14 sm:py-10">
+        <div class="public-panel relative overflow-hidden bg-blue-600 px-8 py-8 text-center shadow-lifted sm:px-14 sm:py-10">
             <div class="pointer-events-none absolute inset-0 bg-grid opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)] dark:opacity-25" aria-hidden="true"></div>
 
             <div class="relative">
@@ -288,7 +288,7 @@
                 </p>
                 <div class="mt-6 flex flex-wrap items-center justify-center gap-6">
                     <a href="{{ localized_route('contact') }}" wire:navigate
-                       class="group inline-flex items-center gap-2.5 rounded-xl bg-white px-6 py-3.5 font-display text-base font-medium text-blue-700 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-50 hover:shadow-card dark:text-blue-800 dark:hover:bg-blue-100">
+                       class="public-control group inline-flex items-center gap-2.5 bg-white px-6 py-3.5 font-display text-base font-medium text-blue-700 shadow-soft transition-all duration-300 hover:-translate-y-0.5 hover:bg-blue-50 hover:shadow-card dark:text-blue-800 dark:hover:bg-blue-100">
                         {{ __('home.cta_banner.action') }}
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                              class="size-4 transition-transform duration-300 group-hover:translate-x-0.5">

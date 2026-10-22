@@ -42,7 +42,7 @@
         </div>
     </section>
 
-    <section class="service-engagement mt-20 grid gap-8 rounded-2xl border p-7 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
+    <section class="service-engagement public-panel mt-20 grid gap-8 border p-7 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
         <div class="service-engagement-heading">
             <span class="eyebrow">{{ __('services.engagement_eyebrow') }}</span>
             <h2 class="mt-4 max-w-[15ch] font-display text-3xl font-bold tracking-tight text-ink-900 dark:text-ink-50">{{ __('services.offer_title') }}</h2>
@@ -52,11 +52,11 @@
             <p>{{ __('services.offer_duration') }}</p>
             <p>{{ __('services.offer_scoping') }}</p>
             <div class="service-actions">
-                <a href="{{ localized_route('contact') }}" wire:navigate class="service-action-primary">{{ __('common.start_project') }}</a>
-                <a href="{{ localized_route('process') }}" wire:navigate class="service-action-secondary">{{ __('process.link_label') }}</a>
-                <a href="{{ localized_route('data-handling') }}" wire:navigate class="service-action-secondary">{{ __('data_handling.title') }}</a>
+                <a href="{{ localized_route('contact') }}" wire:navigate class="public-control service-action-primary">{{ __('common.start_project') }}</a>
+                <a href="{{ localized_route('process') }}" wire:navigate class="public-control service-action-secondary">{{ __('process.link_label') }}</a>
+                <a href="{{ localized_route('data-handling') }}" wire:navigate class="public-control service-action-secondary">{{ __('data_handling.title') }}</a>
                 @if (filled($bookingUrl))
-                    <a href="{{ $bookingUrl }}" target="_blank" rel="noopener noreferrer" class="service-action-secondary">{{ __('services.book_call') }}</a>
+                    <a href="{{ $bookingUrl }}" target="_blank" rel="noopener noreferrer" class="public-control service-action-secondary">{{ __('services.book_call') }}</a>
                 @endif
             </div>
         </div>

@@ -31,7 +31,7 @@
                 <button
                     type="button"
                     @click="openGallery()"
-                    class="crop-frame group block w-full overflow-hidden rounded-3xl border border-ink-300 bg-ink-100 text-left focus:outline-none dark:border-ink-700 dark:bg-ink-900"
+                    class="project-gallery-trigger public-panel crop-frame group block w-full overflow-hidden border border-ink-300 bg-ink-100 text-left focus:outline-none dark:border-ink-700 dark:bg-ink-900"
                     aria-label="{{ __('common.fullscreen_gallery') }}"
                 >
                     <div class="relative aspect-video">
@@ -245,46 +245,38 @@
     @endif
 
     @if ($project->role || $project->client_context || $project->problem || $project->constraints || $project->architecture || $project->technical_decisions || $project->result || $project->outcome_type)
-        <section class="project-case-study mt-14 border-y border-ink-300 py-12 dark:border-ink-700" aria-labelledby="project-case-study-title">
-            <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
-                <div>
-                    <p class="eyebrow">{{ __('project.case_study_eyebrow') }}</p>
-                    <h2 id="project-case-study-title" class="mt-3 max-w-md font-display text-3xl font-bold tracking-[-0.035em] text-ink-900 dark:text-ink-50">
-                        {{ __('project.case_study_title') }}
-                    </h2>
-                </div>
+        <section class="project-case-study mt-14" aria-labelledby="project-case-study-title">
+            <header class="project-case-study-intro">
+                <p class="eyebrow">{{ __('project.case_study_eyebrow') }}</p>
+                <h2 id="project-case-study-title" class="mt-3 max-w-md font-display text-3xl font-bold tracking-[-0.035em] text-ink-900 dark:text-ink-50">
+                    {{ __('project.case_study_title') }}
+                </h2>
+            </header>
 
-                <div class="relative grid gap-x-8 gap-y-9 border-l border-ink-200 pl-6 dark:border-ink-700 sm:grid-cols-2">
-                    @foreach ([
-                        'role' => 'project.case_study_role',
-                        'problem' => 'project.case_study_context',
-                        'client_context' => 'project.case_study_client_context',
-                        'constraints' => 'project.case_study_constraints',
-                        'architecture' => 'project.case_study_architecture',
-                        'technical_decisions' => 'project.case_study_decisions',
-                        'result' => 'project.case_study_result',
-                    ] as $field => $label)
-                        @if ($project->{$field})
-                            <article class="relative">
-                                <span aria-hidden="true" class="absolute -left-[1.72rem] top-1.5 size-2 rounded-full bg-blue-500 ring-4 ring-canvas"></span>
-                                <h3 class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-blue-600 dark:text-blue-300">
-                                    {{ __($label) }}
-                                </h3>
-                                <p class="mt-3 text-sm leading-7 text-ink-600 dark:text-ink-300">
-                                    {{ $project->{$field} }}
-                                </p>
-                            </article>
-                        @endif
-                    @endforeach
-
-                    @if ($project->outcome_type)
-                        <article class="relative">
-                            <span aria-hidden="true" class="absolute -left-[1.72rem] top-1.5 size-2 rounded-full bg-blue-500 ring-4 ring-canvas"></span>
-                            <h3 class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-blue-600 dark:text-blue-300">{{ __('project.case_study_outcome_type') }}</h3>
-                            <p class="mt-3 text-sm leading-7 text-ink-600 dark:text-ink-300">{{ __('project.outcome_'.$project->outcome_type->value) }}</p>
+            <div class="project-case-study-grid">
+                @foreach ([
+                    'role' => 'project.case_study_role',
+                    'problem' => 'project.case_study_context',
+                    'client_context' => 'project.case_study_client_context',
+                    'constraints' => 'project.case_study_constraints',
+                    'architecture' => 'project.case_study_architecture',
+                    'technical_decisions' => 'project.case_study_decisions',
+                    'result' => 'project.case_study_result',
+                ] as $field => $label)
+                    @if ($project->{$field})
+                        <article class="project-case-study-fact project-case-study-fact--{{ $field }}">
+                            <h3>{{ __($label) }}</h3>
+                            <p>{{ $project->{$field} }}</p>
                         </article>
                     @endif
-                </div>
+                @endforeach
+
+                @if ($project->outcome_type)
+                    <article class="project-case-study-fact project-case-study-fact--outcome_type">
+                        <h3>{{ __('project.case_study_outcome_type') }}</h3>
+                        <p>{{ __('project.outcome_'.$project->outcome_type->value) }}</p>
+                    </article>
+                @endif
             </div>
         </section>
     @endif
@@ -296,7 +288,7 @@
             </div>
             <div class="mt-6 flex flex-wrap gap-2">
                 @foreach ($project->skills as $skill)
-                    <a href="{{ skill_url($skill->name) }}" class="inline-flex items-center gap-2 rounded-lg border border-ink-300 bg-card px-3 py-1.5 font-mono text-[0.72rem] uppercase tracking-[0.08em] text-ink-700 shadow-soft transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-ink-700 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300">
+                    <a href="{{ skill_url($skill->name) }}" class="public-control inline-flex items-center gap-2 border border-ink-300 bg-card px-3 py-1.5 font-mono text-[0.72rem] uppercase tracking-[0.08em] text-ink-700 shadow-soft transition-colors hover:border-blue-400 hover:text-blue-700 dark:border-ink-700 dark:text-ink-200 dark:hover:border-blue-500 dark:hover:text-blue-300">
                         @if ($skill->icon) <x-site-icon :icon="$skill->icon" class="size-4" /> @endif
                         {{ $skill->name }}
                     </a>
@@ -312,7 +304,7 @@
         </section>
     @endif
     {{-- CTA suivant --}}
-    <div class="mt-20 flex flex-wrap items-center justify-between gap-6 rounded-2xl border border-ink-300 bg-blue-50/50 px-8 py-7 shadow-soft dark:border-ink-700 dark:bg-blue-950/20">
+    <div class="public-panel mt-20 flex flex-wrap items-center justify-between gap-6 border border-ink-300 bg-blue-50/50 px-8 py-7 shadow-soft dark:border-ink-700 dark:bg-blue-950/20">
         <p class="font-display text-xl font-medium tracking-tight text-ink-900 dark:text-ink-50">
             {!! __('project.inspired') !!}
         </p>
